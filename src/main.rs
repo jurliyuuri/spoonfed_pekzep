@@ -5,6 +5,8 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 
+mod rerrliratixka;
+
 #[derive(Ser, De, Debug, Clone)]
 struct Row {
     english: String,
@@ -41,9 +43,27 @@ struct HelloTemplate<'a> {
     pekzep_hanzi: &'a str,
     prev_link: &'a str,
     next_link: &'a str,
+    audio_path: &'a str,
 }
 
-fn encode_pekzep(i: &str) -> String {
+fn encode_to_sound_path(i: &str) -> String {
+    i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
+        .filter(|a| !a.is_empty())
+        .map(|k| match rerrliratixka::PekZepSyllable::parse(k) {
+            Some(s) => s.to_rerrliratixka(),
+            None => {
+                if k == "xizi" {
+                    "xizi".to_string()
+                } else {
+                    panic!("Failed to parse a pekzep syllable {}", k)
+                }
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("")
+}
+
+fn encode_to_url(i: &str) -> String {
     i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
         .filter(|a| !a.is_empty())
         .collect::<Vec<_>>()
@@ -57,7 +77,7 @@ fn link_url(prev: &Option<Row>) -> String {
             if p.pekzep_latin.is_empty() {
                 "index".to_string()
             } else {
-                encode_pekzep(&p.pekzep_latin)
+                encode_to_url(&p.pekzep_latin)
             }
         }
     }
@@ -77,7 +97,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     continue;
                 }
                 let mut file =
-                    File::create(format!("docs/{}.html", encode_pekzep(&this.pekzep_latin)))?;
+                    File::create(format!("docs/{}.html", encode_to_url(&this.pekzep_latin)))?;
                 let hello = HelloTemplate {
                     english: &this.english,
                     chinese_pinyin: &this.chinese_pinyin,
@@ -86,6 +106,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     pekzep_hanzi: &this.pekzep_hanzi,
                     prev_link: &link_url(prev),
                     next_link: &link_url(next),
+                    audio_path: &encode_to_sound_path(&this.pekzep_latin),
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
@@ -103,7 +124,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         } else {
             index.push_str(&format!(
                 r#"<a href="{}.html">{}</a><br>"#,
-                encode_pekzep(&r.pekzep_latin),
+                encode_to_url(&r.pekzep_latin),
                 r.pekzep_latin
             ));
         }
