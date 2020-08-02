@@ -123,7 +123,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             index.push_str("*<br>");
         } else {
             index.push_str(&format!(
-                r#"<a href="{}.html">{}</a><br>"#,
+                "<a href=\"{}.html\">{}</a><br>\n",
                 encode_to_url(&r.pekzep_latin),
                 r.pekzep_latin
             ));
