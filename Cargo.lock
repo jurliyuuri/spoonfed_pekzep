@@ -134,6 +134,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "pekzep_syllable"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "33ba9061f2fa839e202f948d506a97bd8e9b0a1c8779846f6bfc0018a47f85a0"
+
+[[package]]
 name = "proc-macro2"
 version = "0.4.30"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -207,6 +213,7 @@ version = "0.1.0"
 dependencies = [
  "askama",
  "csv",
+ "pekzep_syllable",
  "serde",
  "serde_derive",
 ]

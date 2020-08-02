@@ -4,8 +4,7 @@ use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
-
-mod rerrliratixka;
+use pekzep_syllable::PekZepSyllable;
 
 #[derive(Ser, De, Debug, Clone)]
 struct Row {
@@ -49,7 +48,7 @@ struct HelloTemplate<'a> {
 fn encode_to_sound_path(i: &str) -> String {
     i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
         .filter(|a| !a.is_empty())
-        .map(|k| match rerrliratixka::PekZepSyllable::parse(k) {
+        .map(|k| match PekZepSyllable::parse(k) {
             Some(s) => s.to_rerrliratixka(),
             None => {
                 if k == "xizi" {
