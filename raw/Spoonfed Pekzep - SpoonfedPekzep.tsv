@@ -306,7 +306,6 @@ Today, I made a new friend.			Jīntiān wǒ rènshi le yīge xīn péngyou.	今�
 She doesn't know how to choose.			Tā bùzhī rúhé xuǎnzé. (also zhidao) (also zenme)	她不知如何选择。	
 Do I have any other options?			wǒ hái yǒu qítā xuǎnzé ma? (also qita de)	我还有其他选择吗？	
 Who is she speaking with?			Tā zài gēn shéi shuōhuà?	她在跟谁说话？	
-Who is he speaking with?			Tā zài gēn shéi shuōhuà?	他在跟谁说话？	
 We like his way of talking very much.			Wǒmen hěn xǐhuan tā shuōhuà de fāngshì.	我们很喜欢他说话的方式。	
 Give me a phone call.			Gěi wǒ dǎ diànhuà.	给我打电话。	
 Please give me a phone call.			Qǐng gěi wǒ dǎ diànhuà.	请给我打电话。	
@@ -330,7 +329,8 @@ Are you going to the restaurant?			Nǐ yào qù fàndiàn ma?	你要去饭店吗
 He is very smart.			Tā hěn cōngmíng.	他很聪明。	
 I am not as smart as he.			Wǒ méi yǒu tā cōngmíng.	我没有他聪明。	
 I'm really not smart.			Wǒ zhēn bù cōngmíng.	我真不聪明。	
-Do you have a computer? I have one at the office.			Nǐ yǒu diànnǎo ma? Wǒ zài bàngōngshì yǒu yī gè.	A家里有吗? B没有。	
+Do you have a computer? I have one at the office.			Nǐ yǒu diànnǎo ma? Wǒ zài bàngōngshì yǒu yī gè.	你有电脑吗？我在办公室有一个。	
+Is there one at home? No.			Jiā li yǒu ma? Méiyǒu.	A家里有吗? B没有。	
 He's my son.			Tā shì wǒ de érzi.	他是我的儿子。	
 My son is three years old.			Wǒ érzi sānsuì le. (also you3)	我儿子三岁了。	
 Your son is very smart.			Nín érzi hěn cōngmíng.	您儿子很聪明。	
@@ -411,7 +411,8 @@ There's nothing I want to drink.			wǒ shénme dōu bù xiǎng hē.	我什么都
 I live near the school.			Wǒ zhùzài xuéxiào fùjìn.	我住在学校附近。	
 "Why aren't you going?" "Because I don't want to."			"nǐ wèishénme bù qù?" " yīnwèi wǒ bù xiǎng qù."	"你为什么不去？""因为我不想去。"	
 I wish I lived near your house.			wǒ xīwàng zhù zài nǐ jiā fùjìn.	我希望住在你家附近。	
-Where does your little sister want to go? She wants to go to the toy store.			Nǐ mèimèi xiǎng qù nǎlǐ? Tā xiǎng qù wánjùdiàn.	A你想不想去那里? B不想。我想去市场。	
+Where does your little sister want to go? She wants to go to the toy store.			Nǐ mèimèi xiǎng qù nǎlǐ? Tā xiǎng qù wánjùdiàn.	你妹妹想去哪里？他想去玩具店。	
+Do you want to go there? No. I want to go to the market.			Nǐ xiǎng bù xiǎng qù nàlǐ? Bù xiǎng. Wǒ xiǎng qù shìchǎng.	A你想不想去那里? B不想。我想去市场。	
 We will pass by your house.			Wǒmen huì jīngguò nǐ jiā.	我们会经过你家。	
 I already asked everyone.			Wǒ yǐjīng wèn guò měi yī gè rén le.	我已经问过每一个人了。	
 Are you afraid of heights?			Nǐ pà gāo ma?	你怕高吗？	
@@ -535,7 +536,8 @@ I'm from the U.K.			Wǒ lái zì Yīngguó.	我来自英国。
 He's from England.			tā cóng Yīngguó lái.	他从英国来。	
 She's just bought a car.			Tā gāng mǎile yī liàng chē.	她刚买了一辆车。	
 Whose passport is this?			Zhè shì shéi de hùzhào?	这是谁的护照？	
-Where is your passport? At home.			Nǐ de hùzhào zài nǎlǐ? Zài jiā.	A这是你的护照吗? B不是,是他的。	
+Where is your passport? At home.			Nǐ de hùzhào zài nǎlǐ? Zài jiā.	你的护照在哪里？在家。	
+Is this your passport? No, it's his.			Zhè shì nǐ de hùzhào ma? Bùshì, shì tā de.	A这是你的护照吗? B不是,是他的。	
 This is my passport.			Zhè shì wǒ de hùzhào.	这是我的护照。	
 This is Ms. Wang's passport.			Zhè shì Wáng xiǎojiě de hùzhào.	这是王小姐的护照。	
 This is my plane ticket.			Zhè shì wǒ de jīpiào.	这是我的机票。	
@@ -589,7 +591,8 @@ Please feed the dog every day.			qǐng měi tiān wèi yīxià gǒu.	请每天�
 Oh, what is this?			ò, zhè shì shénme?	哦，这是什么？	
 I sort of understand.			wǒ dàgài dǒng le. (also ming bai)	我大概懂了。	
 She raised a lot of questions.			Tā tí le xǔduō wèntí. (also henduo)	她提了许多问题。	
-Is your father a businessperson? No, he's not. My father is a doctor.			Nǐ bà shì shāngrén ma? Bú shì. Shì yīshēng.	A你是医生吗? B不是。我是老师。	
+Is your father a businessperson? No, he's not. My father is a doctor.			Nǐ bà shì shāngrén ma? Bú shì. Shì yīshēng.	你爸是商人吗？不是。是医生。	
+Are you a doctor? No. I'm a teacher.			Nǐ shì yīshēng ma? Bùshì. Wǒ shì lǎoshī.	A你是医生吗? B不是。我是老师。	
 She is a doctor.			tā shì yīshēng. (also yi wèi/míng)	她是医生。	
 We don't have a class on Sunday.			Wǒmen xīngqītiān méi yǒu kè.	我们星期天没有课。	
 I don't have a class on Friday.			Wǒ xīngqīwǔ méi yǒu kè.	我星期五没有课。	
@@ -1025,7 +1028,8 @@ His attire is very casual.			Tā de chuānzhuó hěn suíbiàn.	他的穿着很�
 He wore a beautiful set of clothes.			Tā chuān le yī tào piàoliang de yīfu.	他穿了一套漂亮的衣服。	
 I don't like tea.			Wǒ bù xǐhuan chá.	我不喜欢茶。	
 Please give me a cup of tea.			qǐng gěi wǒ yī bēi chá.	请给我一杯茶。	
-Yes. I like flower tea. I also like flower tea.			Shì de. Wǒ hěn xǐhuan huāchá. Wǒ yě hěn xǐhuan huāchá.	A你朋友喜欢茶吗? B不太喜欢。你喜欢茶吗?	
+Yes. I like flower tea. I also like flower tea.			Shì de. Wǒ hěn xǐhuan huāchá. Wǒ yě hěn xǐhuan huāchá.	是的。我很喜欢花茶。我也很喜欢花茶。	
+Does your friend like tea? Not very much. Do you like tea?			Nǐ péngyǒu xǐhuān chá ma? Bù tài xǐhuān. Nǐ xǐhuān chá ma?	A你朋友喜欢茶吗? B不太喜欢。你喜欢茶吗?	
 Do you like tea?			Nǐ xǐhuan chá ma?	你喜欢茶吗？	
 Do you still need tea?			nǐ hái xūyào chá ma?	你还需要茶吗？	
 Can you give me a little more tea?			nǐ néng zài gěi wǒ diǎn chá ma?	你能再给我点茶吗？	
@@ -1173,7 +1177,7 @@ Let me *carefully* consider a bit.			Ràng wǒ zǐxì kǎolǜ yīxià.	让我仔
 Her legs are very slender.			Tā de tuǐ hěn xì.	她的腿很细。	
 How many boys are in this class?			zhè gè bān yǒu duōshao nánshēng?	这个班有多少男生？	
 He is as smart as the other boys in the class.			tā hé bān shàng qítā nánshēng yīyàng cōngmíng.	他和班上其他男生一样聪明。	
-What a pity!			tài kěxī le !	太可惜了！	
+What a pity!			tài kěxī le!	太可惜了！	
 Is the director coming? Regrettably, he can't come.			Zhǔrèn lái ma? Kěxī, tā bù huì lái.	A主任来吗？ B可惜,他不会来。	
 He suspects something went wrong.			Tā huáiyí shìqing chūle wèntí. (No fasheng)	他怀疑事情出了问题。	
 I am doubtful whether he'll come.			wǒ huáiyí tā shìfǒu huì lái.	我怀疑他是否会来。	
@@ -1864,7 +1868,8 @@ This story is really interesting!			Zhè gè gùshi zhēn yǒuqù ya.	这个故�
 He told us an amusing story, we all laughed.			tā gěi wǒmen jiǎng le yī gè yǒuqù de gùshi, wǒmen dōu xiào le qǐlai.	他给我们讲了一个有趣的故事，我们都笑了起来。	
 She told me an interesting story.			tā gěi wǒ jiǎng le yī gè yǒuqù de gùshi.	她给我讲了一个有趣的故事。	
 This story is very interesting.			Zhè gè gùshi hěn yǒuqù.	这个故事很有趣。	
-Then how about we go to a tea house? Alright.			Nà wǒmen qù cháguǎn ba? Hǎo de.	A你想去看电影吗? B不想。看电影没有趣。	
+Then how about we go to a tea house? Alright.			Nà wǒmen qù cháguǎn ba? Hǎo de.	那我们去茶馆吧？好的。	
+Do you want to go to the movies? No. Watching movies is not interesting.			Nǐ xiǎng qù kàn diànyǐng ma? Bù xiǎng. Kàn diànyǐng méiyǒu qù.	A你想去看电影吗? B不想。看电影没有趣。	
 Is your work fun/interesting?			Nǐ de gōngzuò yǒuqù ma?	你的工作有趣吗？	
 Is that place interesting?			Nagè dìfang yǒuqù ma?	那个地方有趣吗？	
 Watching TV is not interesting.			Kàn diànshì méi yǒuqù.	看电视没有趣。	
@@ -1892,7 +1897,7 @@ She's under a lot of pressure at work.			Tā miànlínzhe hěn dà de gōngzuò 
 He made great contributions to his nation.			Tā duì guójiā hěn yǒu gòngxiàn.	他对国家很有贡献。	
 He devoted his youth to his nation.			Tā wèi guójiā gòngxiàn le zìjǐ de qīngchūn.	他为国家贡献了自己的青春。	
 After work, he went home by car.			Xià bān le, tā dāchē huí jiā.	下班了，他搭车回家。	
-What time do you finish work? Ordinarily at five o'clock in the afternoon.			Nǐ jǐ diǎn xiàbān. Yìbān xiàwǔ wǔ diǎn.	A你几点下班? B一般下午五点。	
+What time do you finish work? Ordinarily at five o'clock in the afternoon.			Nǐ jǐ diǎn xiàbān? Yìbān xiàwǔ wǔ diǎn.	A你几点下班? B一般下午五点。	
 I don't remember when he gets off work.			Wǒ bú jìde tā shénme shíhou xiàbān.	我不记得他什么时候下班。	
 What time does your older brother finish work?			Nǐ gēge jǐdiǎn xiàbān?	你哥哥几点下班？	
 What time does Mr. Chen finish work?			Chén xiānsheng jǐdiǎn xiàbān?	陈先生几点下班？	
@@ -2301,7 +2306,8 @@ We live in our school's apartment for students.			Wǒmen zhù zài xuéxiào de 
 Her apartment is very very clean.			Tā de gōngyù fēicháng gānjìng.	她的公寓非常干净。	
 She is looking for an apartment.			Tā yào zhǎo gōngyù.	她要找公寓。	
 The apartment has been given a thorough cleaning.			Gōngyù bèi dǎsǎode hěn gānjìng.	公寓被打扫得很干净。	
-Do you like your apartment? It's alright, but there isn't enough space.			Nǐ xǐhuan nǐ de gōngyù ma? Hái xíng, dànshì méi duō dà dìfāng.	A他喜欢他的新公寓吗? B喜欢。	
+Do you like your apartment? It's alright, but there isn't enough space.			Nǐ xǐhuan nǐ de gōngyù ma? Hái xíng, dànshì méi duō dà dìfāng.	你喜欢你的公寓吗？还行，但是没多大地方。	
+Does he like his new apartment? Yes.			Tā xǐhuān tā de xīn gōngyù ma? Xǐhuān.	A他喜欢他的新公寓吗? B喜欢。	
 The news confirmed my suspicions.			zhè yī xiāoxi zhèngshí le wǒ de huáiyí.	这一消息证实了我的怀疑。	
 Many a young girl likes the singer.			xǔduō niánqīng nǚhái xǐhuān zhè gè gēshǒu.	许多年轻女孩喜欢这个歌手。	
 I like that singer's voice, too.			wǒ yě xǐhuān nà ge gēshǒu de shēngyīn.	我也喜欢那个歌手的声音。	
@@ -2406,9 +2412,10 @@ Reporters dig for news.			Jìzhě wā xīnwén.	记者挖新闻。
 Kids are curious about many things.			Xiǎo háizi duì hěn duō dōngxi dōu hěn hàoqí.	小孩子对很多东西都很好奇。	
 I'm very curious about this matter.			Wǒ duì zhèjiàn shìqing hěn hàoqí.	我对这件事情很好奇。	
 I am curious.			wǒ hěn hàoqí.	我很好奇。	
-Any student of this school must learn one more foreign language besides English.			chúle Lǐyǔ, zhè gè xuéxiào de suǒyǒu xuésheng bìxū duō xué yī ménwài yǔ.	除了哩语，这个学校的所有学生必须多学一门外语。	
-His spoken English has not shown much improvement.			Tā de Lǐyǔ kǒuyǔ méi yǒu shénme jìnbù.	他的哩语口语没有什么进步。	
-I want to sign up for a Chinese course. Really? I think it's too difficult for foreigners to learn Chinese.			Wǒ xiǎng bào yígè Páiyǔ xuéxíbān. Zhēn de ma? Wǒ juéde, xuéxí Páiyǔ duìyú wàiguórén tài nán le.	A可能，不过我觉得牌语口语不太难。 B但是认识汉字太难了。	
+Any student of this school must learn one more foreign language besides Linepāine.			chúle Lǐyǔ, zhè gè xuéxiào de suǒyǒu xuésheng bìxū duō xué yī ménwài yǔ.	除了哩语，这个学校的所有学生必须多学一门外语。	
+His spoken Linepāine has not shown much improvement.			Tā de Lǐyǔ kǒuyǔ méi yǒu shénme jìnbù.	他的哩语口语没有什么进步。	
+I want to sign up for a Pekzep course. Really? I think it's too difficult for foreigners to learn Chinese.			Wǒ xiǎng bào yígè Páiyǔ xuéxíbān. Zhēn de ma? Wǒ juéde, xuéxí Páiyǔ duìyú wàiguórén tài nán le.	我想报一个牌语学习班。真的吗？我觉得，学习牌语对于外国人太难了。	
+Maybe, but I think it’s not too difficult to speak Pekzep. But it is too difficult to recognize Chinese characters.			Kěnéng, bùguò wǒ juédé Páiyǔ kǒuyǔ bù tài nán. Dànshì rènshí hànzì tài nánle.	A可能，不过我觉得牌语口语不太难。 B但是认识汉字太难了。	
 He clearly could not have climbed over such a high wall.			Zhème gāo de qiáng, xiǎnrán tā fān bù guòqù.	这么高的墙，显然他翻不过去。	
 Up to now, I haven't been to Makati.			Dào mùqián wéizhǐ, wǒ hái méi qùguò Tiānshén.	到目前为止，我还没去过天神。	
 Our task has been effortless so far, but it will be difficult from now on.			wǒmen de rènwu dàomùqiánwéizhǐ hěn qīngsōng, dàn cóng xiànzài kāishǐ jiāng huìbiàn de hěn nán.	我们的任务到目前为止很轻松，但从现在开始将会变得很难。	
@@ -2599,11 +2606,11 @@ If I had one million yen now, I would buy a car.			rúguǒ wǒ xiànzài yǒu 10
 The plan was realized step by step.			Jìhuà zhúbù shíxiàn le.	计划逐步实现了。	
 I realized my goal step by step.			Wǒ zhúbù shíxiàn le zìjǐ de mùbiāo.	我逐步实现了自己的目标。	
 The house was built step by step.			Fángzi zhúbù jiàn qǐ lái le.	房子逐步建起来了。	
-Why does Ms. Zhu study English?			Zhū xiǎojiě wèishénme xuéxí Lǐyǔ?	朱小姐为什么学习哩语？	
+Why does Ms. Zhu study Linepāine?			Zhū xiǎojiě wèishénme xuéxí Lǐyǔ?	朱小姐为什么学习哩语？	
 Ms. Zhu doesn't have class on Tuesday.			Zhū xiǎojiě xīngqī'èr méi yǒu kè.	朱小姐星期二没有课。	
 Ms. Zhu lost her key.			Zhū xiǎojiě yàoshi diūle.	朱小姐钥匙丢了。	
 Ms. Zhu's pronunciation is extremely good.			Zhū xiǎojiě de fāyīn tài hǎo le.	朱小姐的发音太好了。	
-Ms. Zhu taught a Chinese class.			Zhū xiǎojiě jiāoguò Páiyǔ kè.	朱小姐教过牌语课。	
+Ms. Zhu taught a Pekzep class.			Zhū xiǎojiě jiāoguò Páiyǔ kè.	朱小姐教过牌语课。	
 Who is Ms. Zhu?			Shéi shì Zhū xiǎojiě?	谁是朱小姐？	
 Last weekend Ms. Zhu was very busy.			Shànggè zhōumò Zhū xiǎojiě hěn máng.	上个周末朱小姐很忙。	
 Why did Ms. Zhu do that?			Zhū xiǎojiě wèishénme nàme zuò?	朱小姐为什么那么做？	
@@ -2634,7 +2641,7 @@ Only if it stops raining, then we'll go out.			chúfēi yǔ tíng le, wǒmen cá
 Only over my dead body!			chúfēi wǒ sǐ le!	除非我死了！	
 I will definitely go to school, unless something comes up.			Wǒ yīdìng qù xuéxiào, chúfēi wǒ yǒu shìqing.	我一定去学校，除非我有事情。	
 I know the boy who is sitting closest to the door.			wǒ rènshi nà ge zuò de zuì kàojìn mén de nánhái.	我认识那个坐得最靠近门的男孩。	
-I'm living in the west part of America.			Wǒ zhù zài Huáiguó xībù.	我住在淮国西部。	
+I'm living in the west part of Vefisait Republic.			Wǒ zhù zài Huáiguó xībù.	我住在淮国西部。	
 When the must played, everyone began to dance.			Yīnyuè xiǎng le, dàjiā kāishǐ tiàowǔ.	音乐响了，大家开始跳舞。	
 She's a young artist.			Tā shì niánqīng de yìshùjiā.	她是年轻的艺术家。	
 His soccer skills are excellent.			Tā de qiúyì hěn hǎo.	他的球艺很好。	
@@ -2679,7 +2686,7 @@ Xiao Qiang is a brave child.			Xiǎo Qiáng shì ge yǒnggǎn de háizi.	小强�
 He is really brave.			Tā hěn yǒnggǎn.	他很勇敢。	
 He is a genius.			Tā shì ge tiāncái.	他是个天才。	
 He's too smart! Really, a genius.			Tā tài cōngmíng le, zhēn shì ge tiāncái.	他太聪明了,真是个天才。	
-Who taught her how to speak English?			shì shéi jiāo tā zěnme shuō Lǐyǔ de?	是谁教她怎么说哩语的？	
+Who taught her how to speak Linepāine?			shì shéi jiāo tā zěnme shuō Lǐyǔ de?	是谁教她怎么说哩语的？	
 The police are maintaining order.			Jǐngchá zài wéichí zhìxù.	警察在维持秩序。	
 When it rains, traffic is chaotic.			Xià yǔ de shíhou, jiāotōng zhìxù hěn luàn.	下雨的时候，交通秩序很乱。	
 The traffic is in good order.			Jiāotōng hěn yǒu zhìxù.	交通很有秩序。	
@@ -2711,7 +2718,7 @@ I came to Tokyo three years ago and have been living here ever since.			sān ni�
 Tokyo is a very big city.			Dōngjīng shì yī gè hěn dà de chéngshì.	东京是一个很大的城市。	
 He came to Tokyo at the age of three.			tā sān suì jiù dào Dōngjīng le.	他三岁就到东京了。	
 Tokyo is the center of Japan.			Dōngjīng shì Rìběn de zhōngxīn.	东京是日本的中心。	
-His sisters as well as he are now living in Kyoto.			tā hé tā de jiěmèi men mùqián dōu zhù zài Dōngjīng.	他和他的姐妹们目前都住在东京。	
+His sisters as well as he are now living in Tokyo.			tā hé tā de jiěmèi men mùqián dōu zhù zài Dōngjīng.	他和他的姐妹们目前都住在东京。	
 If you don't want to eat, don't force yourself.			Rúguǒ bù xiǎng chī, jiù bùyào miǎnqiǎng.	如果不想吃，就不要勉强。	
 They're watching a TV drama.			Tāmen zài kàn diànshìjù.	他们在看电视剧。	
 In the competition, he performed very well.			Tā zài bǐsài zhōng biǎoxiànde hěn chūsè.	他在比赛中表现得很出色。	
@@ -2750,11 +2757,11 @@ There are very few pedestrians in the street.			Lùshang de xíngrén hěn shǎo
 There are many pedestrians in the street.			Jiēshang de xíngrén hěn duō. (also lushang)	街上的行人很多。	
 She likes to cook for her family.			tā xǐhuān wéi tā de jiārén zuòfàn.	她喜欢为她的家人做饭。	
 I don't know what to do.			Wǒ bù xiǎodé gāi zuò shénme!	我不晓得该做什么！	
-Chinese food should be eaten hot.			Guānguó cài yào chènrè chī.	冠国菜要趁热吃。	
+The food of Ai'ren Republic should be eaten hot.			Guānguó cài yào chènrè chī.	冠国菜要趁热吃。	
 Eat your soup while it is hot.			chèn rè hē nǐ de tāng.	趁热喝你的汤。	
 This city's industry is very developed.			Zhè zuò chéngshì de gōngyè hěn fādá.	这座城市的工业很发达。	
 Now, science is highly developed.			Xiànzài kēxué hěn fādá.	现在科学很发达。	
-The legal system of the U.S. is highly developed.			Huáiguó de fǎlǜ zhìdù hěn fādá.	淮国的法律制度很发达。	
+The legal system of the Vefisait Republic is highly developed.			Huáiguó de fǎlǜ zhìdù hěn fādá.	淮国的法律制度很发达。	
 The transportation system in HK is highly developed.			Xiānggǎng de jiāotōng hěn fādá.	香港的交通很发达。	
 Tokyo's railway network is very advanced.			Dōngjīng de tiělùwǎng hěn fādá.	东京的铁路网很发达。	
 Railroads connect cities.			Tiělù bǎ chéngshì liánqǐlái.	铁路把城市连起来。	
