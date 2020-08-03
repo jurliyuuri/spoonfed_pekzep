@@ -45,6 +45,15 @@ struct HelloTemplate<'a> {
     audio_path: &'a str,
 }
 
+mod filters {
+    pub fn capitalizefirstchar(s: &str) -> ::askama::Result<String> {
+        let mut v: Vec<char> = s.chars().collect();
+        v[0] = v[0].to_uppercase().nth(0).unwrap();
+        let s2: String = v.into_iter().collect();
+        Ok(s2)
+    }
+}
+
 fn encode_to_sound_path(i: &str) -> String {
     i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
         .filter(|a| !a.is_empty())
