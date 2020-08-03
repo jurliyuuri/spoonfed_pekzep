@@ -1,10 +1,10 @@
 use csv::StringRecord;
+use pekzep_syllable::PekZepSyllable;
 use serde_derive::{Deserialize as De, Serialize as Ser};
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
-use pekzep_syllable::PekZepSyllable;
 
 #[derive(Ser, De, Debug, Clone)]
 struct Row {
