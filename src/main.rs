@@ -16,15 +16,25 @@ struct Row {
     lineparine: String,
 }
 
+use std::collections::HashSet;
+
 fn parse_spoonfed() -> Result<Vec<Row>, Box<dyn Error>> {
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
     let f = BufReader::new(f);
 
     let mut rows = vec![];
+    let mut detect_dup_in_pekzep = HashSet::new();
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let row: Row =
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
+
+        let url = encode_to_url(&row.pekzep_latin);
+        if !url.is_empty() && !detect_dup_in_pekzep.insert(url.clone()) {
+            // in HashSet::insert, if the set did have this value present, false is returned.
+            panic!("duplicate entry detected: {}", url);
+        }
+
         rows.push(row);
     }
     Ok(rows)
