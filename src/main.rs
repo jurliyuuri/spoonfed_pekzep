@@ -128,7 +128,7 @@ mod filters {
     pub fn linebreaksandtabs(s: &str) -> ::askama::Result<String> {
         let s = s.to_string();
         Ok(format!(
-            "<table border=1>\n\t<tr><td>{}</td></tr>\n<table>",
+            "<table border=1 cellpadding=5 cellspacing=0>\n\t<tr><td>{}</td></tr>\n<table>",
             s.replace("\t", "</td><td>")
                 .replace("\n", "</td></tr>\n\t<tr><td>")
         ))
