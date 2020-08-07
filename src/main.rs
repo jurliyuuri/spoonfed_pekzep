@@ -7,7 +7,17 @@ use std::io::prelude::*;
 use std::io::BufReader;
 
 #[derive(Ser, De, Debug, Clone)]
-struct Row {
+struct VocabRow {
+    key: String,
+    pekzep_latin: String,
+    pekzep_hanzi: String,
+    parts_of_speech: String,
+    parts_of_speech_supplement: String,
+    english_gloss: String,
+}
+
+#[derive(Ser, De, Debug, Clone)]
+struct MainRow {
     english: String,
     pekzep_latin: String,
     pekzep_hanzi: String,
@@ -19,7 +29,28 @@ struct Row {
 
 use std::collections::HashSet;
 
-fn parse_spoonfed() -> Result<Vec<Row>, Box<dyn Error>> {
+fn parse_vocabs() -> Result<Vec<VocabRow>, Box<dyn Error>> {
+    let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
+    let f = BufReader::new(f);
+
+    let mut rows = vec![];
+    let mut detect_dup_in_key = HashSet::new();
+    for line in f.lines() {
+        // to prevent double quotes from vanishing, I do not read with CSV parser
+        let row: VocabRow =
+            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
+
+        if !row.key.is_empty() && !detect_dup_in_key.insert(row.key.clone()) {
+            // in HashSet::insert, if the set did have this value present, false is returned.
+            panic!("duplicate key detected: {}", row.key);
+        }
+
+        rows.push(row);
+    }
+    Ok(rows)
+}
+
+fn parse_spoonfed() -> Result<Vec<MainRow>, Box<dyn Error>> {
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
     let f = BufReader::new(f);
 
@@ -27,7 +58,7 @@ fn parse_spoonfed() -> Result<Vec<Row>, Box<dyn Error>> {
     let mut detect_dup_in_pekzep = HashSet::new();
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
-        let row: Row =
+        let row: MainRow =
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
 
         let url = encode_to_url(&row.pekzep_latin);
@@ -89,7 +120,7 @@ fn encode_to_url(i: &str) -> String {
         .join("_")
 }
 
-fn link_url(prev: &Option<Row>) -> String {
+fn link_url(prev: &Option<MainRow>) -> String {
     match prev {
         None => "index".to_string(),
         Some(p) => {
@@ -103,9 +134,11 @@ fn link_url(prev: &Option<Row>) -> String {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let rows = parse_spoonfed()?;
+    let spoonfed_rows = parse_spoonfed()?;
 
-    let mut rows2: Vec<Option<Row>> = rows.clone().into_iter().map(|r| Some(r)).collect();
+    let vocab_rows = parse_vocabs()?;
+
+    let mut rows2: Vec<Option<MainRow>> = spoonfed_rows.clone().into_iter().map(|r| Some(r)).collect();
     rows2.push(None);
     rows2.insert(0, None);
 
@@ -137,7 +170,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut index =
         r#"<!doctype HTML><html><head><meta charset="UTF-8"></head><body><h1>Spoonfed Pekzep</h1>"#
             .to_string();
-    for r in rows {
+    for r in spoonfed_rows {
         if r.pekzep_latin.is_empty() {
             index.push_str("*<br>");
         } else {
