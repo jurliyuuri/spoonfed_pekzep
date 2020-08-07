@@ -13,6 +13,7 @@ struct Row {
     pekzep_hanzi: String,
     chinese_pinyin: String,
     chinese_hanzi: String,
+    decomposed: String,
     lineparine: String,
 }
 
