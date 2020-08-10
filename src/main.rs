@@ -156,36 +156,57 @@ mod filters {
     }
 }
 
-fn encode_to_wav_sound_path(i: &str) -> String {
+enum ExtSyll {
+    Syll(PekZepSyllable),
+    Xizi,
+}
+
+impl std::fmt::Display for ExtSyll {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ExtSyll::Syll(s) => write!(f, "{}", s),
+            ExtSyll::Xizi => write!(f, "xizi"),
+        }
+    }
+}
+
+impl ExtSyll {
+    fn to_rerrliratixka(&self) -> String {
+        match &self {
+            ExtSyll::Syll(s) => s.clone().to_rerrliratixka(),
+            ExtSyll::Xizi => "xizi".to_string(),
+        }
+    }
+}
+
+fn encode_to_pekzep_syllables(i: &str) -> Vec<ExtSyll> {
     i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
         .filter(|a| !a.is_empty())
         .map(|k| match PekZepSyllable::parse(k) {
-            Some(s) => s.to_rerrliratixka(),
+            Some(s) => ExtSyll::Syll(s),
             None => {
                 if k == "xizi" {
-                    "xizi".to_string()
+                    ExtSyll::Xizi
                 } else {
                     panic!("Failed to parse a pekzep syllable {}", k)
                 }
             }
         })
         .collect::<Vec<_>>()
+}
+
+fn encode_to_wav_sound_path(i: &str) -> String {
+    encode_to_pekzep_syllables(i)
+        .iter()
+        .map(|s| s.to_rerrliratixka())
+        .collect::<Vec<_>>()
         .join("")
 }
 
 fn encode_to_oga_sound_path(i: &str) -> String {
-    i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
-        .filter(|a| !a.is_empty())
-        .map(|k| match PekZepSyllable::parse(k) {
-            Some(s) => s.to_string(),
-            None => {
-                if k == "xizi" {
-                    "xizi".to_string()
-                } else {
-                    panic!("Failed to parse a pekzep syllable {}", k)
-                }
-            }
-        })
+    encode_to_pekzep_syllables(i)
+        .iter()
+        .map(|s| s.to_string())
         .collect::<Vec<_>>()
         .join("_")
 }
