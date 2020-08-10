@@ -198,7 +198,7 @@ fn link_url(prev: &Option<MainRow>) -> String {
 
 fn to_check(a: bool) -> &'static str {
     if a {
-        "&#x2713"
+        "&#x2713;"
     } else {
         ""
     }
