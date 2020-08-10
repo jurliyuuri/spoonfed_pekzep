@@ -119,6 +119,12 @@ struct HelloTemplate<'a> {
     audio_path_oga: &'a str,
 }
 
+#[derive(Template)]
+#[template(path = "ind.html")]
+struct IndTemplate<'a> {
+    index: &'a str,
+}
+
 mod filters {
     pub fn capitalizefirstchar(s: &str) -> ::askama::Result<String> {
         let mut v: Vec<char> = s.chars().collect();
@@ -190,6 +196,14 @@ fn link_url(prev: &Option<MainRow>) -> String {
     }
 }
 
+fn to_check(a: bool) -> &'static str {
+    if a {
+        "&#x2713"
+    } else {
+        ""
+    }
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     let spoonfed_rows = parse_spoonfed()?;
 
@@ -233,7 +247,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     next_link: &link_url(next),
                     audio_path: &encode_to_wav_sound_path(&this.pekzep_latin),
                     analysis: &analysis.join("\n"),
-                    audio_path_oga: &encode_to_oga_sound_path(&this.pekzep_latin)
+                    audio_path_oga: &encode_to_oga_sound_path(&this.pekzep_latin),
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
@@ -242,22 +256,23 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     let mut file = File::create("docs/index.html")?;
-    let mut index =
-        r#"<!doctype HTML><html><head><meta charset="UTF-8"></head><body><h1>Spoonfed Pekzep</h1>"#
-            .to_string();
+    let mut index = "wav\toga\tgloss\tphrase\n".to_string();
     for r in spoonfed_rows {
         if r.pekzep_latin.is_empty() {
-            index.push_str("*<br>");
+            index.push_str("*\n");
         } else {
             index.push_str(&format!(
-                "<a href=\"{}.html\">{}</a><br>\n",
+                "{}\t{}\t{}\t<a href=\"{}.html\">{}</a>\n",
+                to_check(r.filetype.contains("wav")),
+                to_check(r.filetype.contains("oga")),
+                to_check(!r.decomposed.is_empty()),
                 encode_to_url(&r.pekzep_latin),
                 r.pekzep_latin
             ));
         }
     }
-    index.push_str("</body></html>");
-    write!(file, "{}", index)?;
+
+    write!(file, "{}", IndTemplate { index: &index }.render().unwrap())?;
 
     Ok(())
 }
