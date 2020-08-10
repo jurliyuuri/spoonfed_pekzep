@@ -179,36 +179,36 @@ impl ExtSyll {
     }
 }
 
-fn encode_to_pekzep_syllables(i: &str) -> Vec<ExtSyll> {
+fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyll>, Box<dyn Error>> {
     i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
         .filter(|a| !a.is_empty())
         .map(|k| match PekZepSyllable::parse(k) {
-            Some(s) => ExtSyll::Syll(s),
+            Some(s) => Ok(ExtSyll::Syll(s)),
             None => {
                 if k == "xizi" {
-                    ExtSyll::Xizi
+                    Ok(ExtSyll::Xizi)
                 } else {
-                    panic!("Failed to parse a pekzep syllable {}", k)
+                    Err(format!("Failed to parse a pekzep syllable {}", k).into())
                 }
             }
         })
-        .collect::<Vec<_>>()
+        .collect::<Result<Vec<_>, Box<dyn Error>>>()
 }
 
-fn encode_to_wav_sound_path(i: &str) -> String {
-    encode_to_pekzep_syllables(i)
+fn encode_to_wav_sound_path(i: &str) -> Result<String, Box<dyn Error>> {
+    Ok(encode_to_pekzep_syllables(i)?
         .iter()
         .map(|s| s.to_rerrliratixka())
         .collect::<Vec<_>>()
-        .join("")
+        .join(""))
 }
 
-fn encode_to_oga_sound_path(i: &str) -> String {
-    encode_to_pekzep_syllables(i)
+fn encode_to_oga_sound_path(i: &str) -> Result<String, Box<dyn Error>> {
+    Ok(encode_to_pekzep_syllables(i)?
         .iter()
         .map(|s| s.to_string())
         .collect::<Vec<_>>()
-        .join("_")
+        .join("_"))
 }
 
 fn encode_to_url(i: &str) -> String {
@@ -280,9 +280,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                     pekzep_hanzi: &this.pekzep_hanzi,
                     prev_link: &link_url(prev),
                     next_link: &link_url(next),
-                    audio_path: &encode_to_wav_sound_path(&this.pekzep_latin),
+                    audio_path: &encode_to_wav_sound_path(&this.pekzep_latin)?,
                     analysis: &analysis.join("\n"),
-                    audio_path_oga: &encode_to_oga_sound_path(&this.pekzep_latin),
+                    audio_path_oga: &encode_to_oga_sound_path(&this.pekzep_latin)?,
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
