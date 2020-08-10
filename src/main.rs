@@ -56,6 +56,7 @@ fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
     let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
     let f = BufReader::new(f);
     let mut res = HashMap::new();
+    let mut errors = vec![];
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let row: VocabRow =
@@ -74,10 +75,15 @@ fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
                 )
                 .is_some()
         {
-            panic!("duplicate key detected: {}", row.key);
+            errors.push(format!("duplicate key detected: {}", row.key));
         }
     }
-    Ok(res)
+    if errors.is_empty() {
+        Ok(res)
+    } else {
+        let err: Box<dyn Error> = errors.join("\n").into();
+        Err(err)
+    }
 }
 
 fn parse_spoonfed() -> Result<Vec<MainRow>, Box<dyn Error>> {
@@ -86,6 +92,8 @@ fn parse_spoonfed() -> Result<Vec<MainRow>, Box<dyn Error>> {
 
     let mut rows = vec![];
     let mut detect_dup_in_pekzep = HashSet::new();
+
+    let mut errors = vec![];
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let row: MainRow =
@@ -94,12 +102,18 @@ fn parse_spoonfed() -> Result<Vec<MainRow>, Box<dyn Error>> {
         let url = encode_to_url(&row.pekzep_latin);
         if !url.is_empty() && !detect_dup_in_pekzep.insert(url.clone()) {
             // in HashSet::insert, if the set did have this value present, false is returned.
-            panic!("duplicate entry detected: {}", url);
+            errors.push(format!("duplicate phrase detected: {}", url));
         }
 
         rows.push(row);
     }
-    Ok(rows)
+
+    if errors.is_empty() {
+        Ok(rows)
+    } else {
+        let err: Box<dyn Error> = errors.join("\n").into();
+        Err(err)
+    }
 }
 
 use askama::Template;
