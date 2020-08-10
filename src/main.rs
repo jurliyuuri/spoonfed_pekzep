@@ -46,7 +46,7 @@ struct MainRow {
     chinese_pinyin: String,
     chinese_hanzi: String,
     decomposed: String,
-    lineparine: String,
+    filetype: String,
 }
 
 use std::collections::HashMap;
@@ -116,6 +116,7 @@ struct HelloTemplate<'a> {
     next_link: &'a str,
     audio_path: &'a str,
     analysis: &'a str,
+    audio_path_oga: &'a str,
 }
 
 mod filters {
@@ -135,7 +136,7 @@ mod filters {
     }
 }
 
-fn encode_to_sound_path(i: &str) -> String {
+fn encode_to_wav_sound_path(i: &str) -> String {
     i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
         .filter(|a| !a.is_empty())
         .map(|k| match PekZepSyllable::parse(k) {
@@ -150,6 +151,23 @@ fn encode_to_sound_path(i: &str) -> String {
         })
         .collect::<Vec<_>>()
         .join("")
+}
+
+fn encode_to_oga_sound_path(i: &str) -> String {
+    i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
+        .filter(|a| !a.is_empty())
+        .map(|k| match PekZepSyllable::parse(k) {
+            Some(s) => s.to_string(),
+            None => {
+                if k == "xizi" {
+                    "xizi".to_string()
+                } else {
+                    panic!("Failed to parse a pekzep syllable {}", k)
+                }
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("_")
 }
 
 fn encode_to_url(i: &str) -> String {
@@ -213,8 +231,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                     pekzep_hanzi: &this.pekzep_hanzi,
                     prev_link: &link_url(prev),
                     next_link: &link_url(next),
-                    audio_path: &encode_to_sound_path(&this.pekzep_latin),
+                    audio_path: &encode_to_wav_sound_path(&this.pekzep_latin),
                     analysis: &analysis.join("\n"),
+                    audio_path_oga: &encode_to_oga_sound_path(&this.pekzep_latin)
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
