@@ -98,11 +98,14 @@ fn parse_spoonfed() -> Result<Vec<(Vec<ExtSyll>, MainRow)>, Box<dyn Error>> {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let row: MainRow =
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
-        
+
         let sylls = encode_to_pekzep_syllables(&row.pekzep_latin)?;
         if !sylls.is_empty() && !detect_dup_in_pekzep.insert(sylls.clone()) {
             // in HashSet::insert, if the set did have this value present, false is returned.
-            errors.push(format!("duplicate phrase detected: {}", sylls_to_str_underscore(&sylls)));
+            errors.push(format!(
+                "duplicate phrase detected: {}",
+                sylls_to_str_underscore(&sylls)
+            ));
         }
 
         rows.push((sylls, row));
@@ -142,7 +145,7 @@ struct IndTemplate<'a> {
 mod filters {
     pub fn capitalizefirstchar(s: &str) -> ::askama::Result<String> {
         let mut v: Vec<char> = s.chars().collect();
-        v[0] = v[0].to_uppercase().nth(0).unwrap();
+        v[0] = v[0].to_uppercase().next().unwrap();
         let s2: String = v.into_iter().collect();
         Ok(s2)
     }
@@ -182,24 +185,29 @@ impl ExtSyll {
 
 fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyll>, Box<dyn Error>> {
     i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
-        .filter(|a| !a.is_empty())
-        .map(|k| match PekZepSyllable::parse(k) {
-            Some(s) => Ok(ExtSyll::Syll(s)),
-            None => {
-                if k == "xizi" {
-                    Ok(ExtSyll::Xizi)
-                } else {
-                    Err(format!("Failed to parse a pekzep syllable {}", k).into())
-                }
+        .filter_map(|k| {
+            if k.is_empty() {
+                None
+            } else {
+                Some(match PekZepSyllable::parse(k) {
+                    Some(s) => Ok(ExtSyll::Syll(s)),
+                    None => {
+                        if k == "xizi" {
+                            Ok(ExtSyll::Xizi)
+                        } else {
+                            Err(format!("Failed to parse a pekzep syllable {}", k).into())
+                        }
+                    }
+                })
             }
         })
         .collect::<Result<Vec<_>, Box<dyn Error>>>()
 }
 
 fn sylls_to_rerrliratixka_no_space(sylls: &[ExtSyll]) -> String {
-   sylls
+    sylls
         .iter()
-        .map(|s| s.to_rerrliratixka())
+        .map(ExtSyll::to_rerrliratixka)
         .collect::<Vec<_>>()
         .join("")
 }
@@ -207,7 +215,7 @@ fn sylls_to_rerrliratixka_no_space(sylls: &[ExtSyll]) -> String {
 fn sylls_to_str_underscore(sylls: &[ExtSyll]) -> String {
     sylls
         .iter()
-        .map(|s| s.to_string())
+        .map(std::string::ToString::to_string)
         .collect::<Vec<_>>()
         .join("_")
 }
@@ -215,7 +223,7 @@ fn sylls_to_str_underscore(sylls: &[ExtSyll]) -> String {
 fn link_url<T>(prev: &Option<(Vec<ExtSyll>, T)>) -> String {
     match prev {
         None => "index".to_string(),
-        Some((sylls ,_)) => {
+        Some((sylls, _)) => {
             if sylls.is_empty() {
                 "index".to_string()
             } else {
@@ -238,8 +246,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let vocab = parse_vocabs()?;
 
-    let mut rows2: Vec<Option<_>> =
-        spoonfed_rows.clone().into_iter().map(|r| Some(r)).collect();
+    let mut rows2: Vec<Option<_>> = spoonfed_rows.clone().into_iter().map(Some).collect();
     rows2.push(None);
     rows2.insert(0, None);
 
@@ -258,10 +265,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     .decomposed.split('.')
                     .map(|a| {
                         let key = a.to_string().replace("!", " // ").replace("#", " // ");
-                        let res = vocab.get(&key).expect(&format!(
-                            "Cannot find key {} in the vocab list, found while analyzing {} (len {})",
-                            key, this.decomposed, this.decomposed.len()
-                        ));
+                        let res = vocab.get(&key).unwrap_or_else(|| panic!("Cannot find key {} in the vocab list, found while analyzing {}", key, this.decomposed));
                         res.to_tab_separated()
                     })
                     .collect::<Vec<_>>()
