@@ -100,10 +100,9 @@ fn parse_spoonfed() -> Result<Vec<(Vec<ExtSyll>, MainRow)>, Box<dyn Error>> {
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
         
         let sylls = encode_to_pekzep_syllables(&row.pekzep_latin)?;
-        let url = encode_to_url(&row.pekzep_latin);
         if !sylls.is_empty() && !detect_dup_in_pekzep.insert(sylls.clone()) {
             // in HashSet::insert, if the set did have this value present, false is returned.
-            errors.push(format!("duplicate phrase detected: {}", url));
+            errors.push(format!("duplicate phrase detected: {}", sylls_to_str_underscore(&sylls)));
         }
 
         rows.push((sylls, row));
@@ -213,21 +212,14 @@ fn sylls_to_str_underscore(sylls: &[ExtSyll]) -> String {
         .join("_")
 }
 
-fn encode_to_url(i: &str) -> String {
-    i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
-        .filter(|a| !a.is_empty())
-        .collect::<Vec<_>>()
-        .join("_")
-}
-
-fn link_url<T>(prev: &Option<(T, MainRow)>) -> String {
+fn link_url<T>(prev: &Option<(Vec<ExtSyll>, T)>) -> String {
     match prev {
         None => "index".to_string(),
-        Some((_,p)) => {
-            if p.pekzep_latin.is_empty() {
+        Some((sylls ,_)) => {
+            if sylls.is_empty() {
                 "index".to_string()
             } else {
-                encode_to_url(&p.pekzep_latin)
+                sylls_to_str_underscore(&sylls)
             }
         }
     }
@@ -258,7 +250,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     continue;
                 }
                 let mut file =
-                    File::create(format!("docs/{}.html", encode_to_url(&this.pekzep_latin)))?;
+                    File::create(format!("docs/{}.html", sylls_to_str_underscore(&sylls)))?;
                 let analysis = if this.decomposed.is_empty() {
                     vec![]
                 } else {
