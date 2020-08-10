@@ -86,7 +86,7 @@ fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
     }
 }
 
-fn parse_spoonfed() -> Result<Vec<MainRow>, Box<dyn Error>> {
+fn parse_spoonfed() -> Result<Vec<(Vec<ExtSyll>, MainRow)>, Box<dyn Error>> {
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
     let f = BufReader::new(f);
 
@@ -98,14 +98,15 @@ fn parse_spoonfed() -> Result<Vec<MainRow>, Box<dyn Error>> {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let row: MainRow =
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
-
+        
+        let sylls = encode_to_pekzep_syllables(&row.pekzep_latin)?;
         let url = encode_to_url(&row.pekzep_latin);
-        if !url.is_empty() && !detect_dup_in_pekzep.insert(url.clone()) {
+        if !sylls.is_empty() && !detect_dup_in_pekzep.insert(sylls.clone()) {
             // in HashSet::insert, if the set did have this value present, false is returned.
             errors.push(format!("duplicate phrase detected: {}", url));
         }
 
-        rows.push(row);
+        rows.push((sylls, row));
     }
 
     if errors.is_empty() {
@@ -156,6 +157,7 @@ mod filters {
     }
 }
 
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 enum ExtSyll {
     Syll(PekZepSyllable),
     Xizi,
@@ -195,20 +197,20 @@ fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyll>, Box<dyn Error>> {
         .collect::<Result<Vec<_>, Box<dyn Error>>>()
 }
 
-fn encode_to_wav_sound_path(i: &str) -> Result<String, Box<dyn Error>> {
-    Ok(encode_to_pekzep_syllables(i)?
+fn sylls_to_rerrliratixka_no_space(sylls: &[ExtSyll]) -> String {
+   sylls
         .iter()
         .map(|s| s.to_rerrliratixka())
         .collect::<Vec<_>>()
-        .join(""))
+        .join("")
 }
 
-fn encode_to_oga_sound_path(i: &str) -> Result<String, Box<dyn Error>> {
-    Ok(encode_to_pekzep_syllables(i)?
+fn sylls_to_str_underscore(sylls: &[ExtSyll]) -> String {
+    sylls
         .iter()
         .map(|s| s.to_string())
         .collect::<Vec<_>>()
-        .join("_"))
+        .join("_")
 }
 
 fn encode_to_url(i: &str) -> String {
@@ -218,10 +220,10 @@ fn encode_to_url(i: &str) -> String {
         .join("_")
 }
 
-fn link_url(prev: &Option<MainRow>) -> String {
+fn link_url<T>(prev: &Option<(T, MainRow)>) -> String {
     match prev {
         None => "index".to_string(),
-        Some(p) => {
+        Some((_,p)) => {
             if p.pekzep_latin.is_empty() {
                 "index".to_string()
             } else {
@@ -244,14 +246,14 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let vocab = parse_vocabs()?;
 
-    let mut rows2: Vec<Option<MainRow>> =
+    let mut rows2: Vec<Option<_>> =
         spoonfed_rows.clone().into_iter().map(|r| Some(r)).collect();
     rows2.push(None);
     rows2.insert(0, None);
 
     for v in rows2.windows(3) {
         match v {
-            [prev, Some(this), next] => {
+            [prev, Some((sylls, this)), next] => {
                 if this.pekzep_latin.is_empty() {
                     continue;
                 }
@@ -280,9 +282,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                     pekzep_hanzi: &this.pekzep_hanzi,
                     prev_link: &link_url(prev),
                     next_link: &link_url(next),
-                    audio_path: &encode_to_wav_sound_path(&this.pekzep_latin)?,
+                    audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
                     analysis: &analysis.join("\n"),
-                    audio_path_oga: &encode_to_oga_sound_path(&this.pekzep_latin)?,
+                    audio_path_oga: &sylls_to_str_underscore(&sylls),
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
@@ -292,7 +294,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let mut file = File::create("docs/index.html")?;
     let mut index = "wav\toga\tgloss\tphrase\n".to_string();
-    for r in spoonfed_rows {
+    for (sylls, r) in spoonfed_rows {
         if r.pekzep_latin.is_empty() {
             index.push_str("*\n");
         } else {
@@ -301,7 +303,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 to_check(r.filetype.contains("wav")),
                 to_check(r.filetype.contains("oga")),
                 to_check(!r.decomposed.is_empty()),
-                encode_to_url(&r.pekzep_latin),
+                sylls_to_str_underscore(&sylls),
                 r.pekzep_latin
             ));
         }

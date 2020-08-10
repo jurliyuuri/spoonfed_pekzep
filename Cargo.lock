@@ -138,9 +138,9 @@ dependencies = [
 
 [[package]]
 name = "pekzep_syllable"
-version = "0.1.0"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "33ba9061f2fa839e202f948d506a97bd8e9b0a1c8779846f6bfc0018a47f85a0"
+checksum = "cce6eb2a7b5a4fc7bbeb11df2db5eae716bf24ef7d06b6f246f9f57be8f5c625"
 
 [[package]]
 name = "percent-encoding"
