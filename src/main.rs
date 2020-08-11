@@ -216,19 +216,6 @@ fn sylls_to_str_underscore(sylls: &[ExtSyll]) -> String {
         .join("_")
 }
 
-fn link_url<T>(prev: &Option<(Vec<ExtSyll>, T)>) -> String {
-    match prev {
-        None => "index".to_string(),
-        Some((sylls, _)) => {
-            if sylls.is_empty() {
-                "index".to_string()
-            } else {
-                sylls_to_str_underscore(&sylls)
-            }
-        }
-    }
-}
-
 fn to_check(a: bool) -> &'static str {
     if a {
         "&#x2713;"
@@ -237,43 +224,100 @@ fn to_check(a: bool) -> &'static str {
     }
 }
 
+// return Ok if all are Ok
+fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
+    let mut ts = Vec::new();
+    let mut es = Vec::new();
+    for q in a {
+        match q {
+            Ok(t) => ts.push(t),
+            Err(e) => es.push(e),
+        }
+    }
+    if es.is_empty() {
+        return Ok(ts);
+    } else {
+        return Err(es);
+    }
+}
+
+fn parse_decomposed(
+    vocab: &HashMap<String, Vocab>,
+    row: &MainRow,
+) -> Result<Vec<Vocab>, Vec<String>> {
+    if row.decomposed.is_empty() {
+        Ok(vec![])
+    } else {
+        error_collector(
+            row.decomposed
+                .split('.')
+                .map(|a| -> Result<Vocab, String> {
+                    let key = a.to_string().replace("!", " // ").replace("#", " // ");
+                    let res: Result<_, String> = vocab.get(&key).ok_or(format!(
+                        "Cannot find key {} in the vocab list, found while analyzing {}",
+                        key, row.decomposed
+                    ));
+                    Ok(res?.to_owned())
+                })
+                .collect::<Vec<_>>(),
+        )
+    }
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     let spoonfed_rows = parse_spoonfed()?;
 
     let vocab = parse_vocabs()?;
 
-    let mut rows2: Vec<Option<_>> = spoonfed_rows.clone().into_iter().map(Some).collect();
+    let mut rows2 = vec![];
+
+    for (sylls, row) in &spoonfed_rows {
+        let decomp =
+            parse_decomposed(&vocab, row).map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
+        rows2.push(Some((sylls.clone(), decomp, row.clone())))
+    }
+
     rows2.push(None);
     rows2.insert(0, None);
 
     for v in rows2.windows(3) {
         match v {
-            [prev, Some((sylls, this)), next] => {
+            [prev, Some((sylls, decomp, this)), next] => {
                 if this.pekzep_latin.is_empty() {
                     continue;
                 }
                 let mut file =
                     File::create(format!("docs/{}.html", sylls_to_str_underscore(&sylls)))?;
-                let analysis = if this.decomposed.is_empty() {
-                    vec![]
-                } else {
-                    this
-                    .decomposed.split('.')
-                    .map(|a| {
-                        let key = a.to_string().replace("!", " // ").replace("#", " // ");
-                        let res = vocab.get(&key).unwrap_or_else(|| panic!("Cannot find key {} in the vocab list, found while analyzing {}", key, this.decomposed));
-                        res.to_tab_separated()
-                    })
-                    .collect::<Vec<_>>()
-                };
+                let analysis = decomp
+                    .iter()
+                    .map(|v| v.to_tab_separated())
+                    .collect::<Vec<_>>();
                 let hello = HelloTemplate {
                     english: &this.english,
                     chinese_pinyin: &this.chinese_pinyin,
                     chinese_hanzi: &this.chinese_hanzi,
                     pekzep_latin: &this.pekzep_latin,
                     pekzep_hanzi: &this.pekzep_hanzi,
-                    prev_link: &link_url(prev),
-                    next_link: &link_url(next),
+                    prev_link: &match prev {
+                        None => "index".to_string(),
+                        Some((sylls, _, _)) => {
+                            if sylls.is_empty() {
+                                "index".to_string()
+                            } else {
+                                sylls_to_str_underscore(&sylls)
+                            }
+                        }
+                    },
+                    next_link: &match next {
+                        None => "index".to_string(),
+                        Some((sylls, _, _)) => {
+                            if sylls.is_empty() {
+                                "index".to_string()
+                            } else {
+                                sylls_to_str_underscore(&sylls)
+                            }
+                        }
+                    },
                     audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
                     analysis: &analysis.join("\n"),
                     audio_path_oga: &sylls_to_str_underscore(&sylls),
