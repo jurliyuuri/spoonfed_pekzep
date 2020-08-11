@@ -180,24 +180,27 @@ impl ExtSyll {
 }
 
 fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyll>, Box<dyn Error>> {
-    i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
-        .filter_map(|k| {
-            if k.is_empty() {
-                None
-            } else {
-                Some(match PekZepSyllable::parse(k) {
-                    Some(s) => Ok(ExtSyll::Syll(s)),
-                    None => {
-                        if k == "xizi" {
-                            Ok(ExtSyll::Xizi)
-                        } else {
-                            Err(format!("Failed to parse a pekzep syllable {}", k).into())
+    error_collector(
+        i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
+            .filter_map(|k| {
+                if k.is_empty() {
+                    None
+                } else {
+                    Some(match PekZepSyllable::parse(k) {
+                        Some(s) => Ok(ExtSyll::Syll(s)),
+                        None => {
+                            if k == "xizi" {
+                                Ok(ExtSyll::Xizi)
+                            } else {
+                                Err(format!("Failed to parse a pekzep syllable {}", k))
+                            }
                         }
-                    }
-                })
-            }
-        })
-        .collect::<Result<Vec<_>, Box<dyn Error>>>()
+                    })
+                }
+            })
+            .collect::<Vec<_>>(),
+    )
+    .map_err(|e| e.join("\n").into())
 }
 
 fn sylls_to_rerrliratixka_no_space(sylls: &[ExtSyll]) -> String {
@@ -300,23 +303,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                     pekzep_hanzi: &this.pekzep_hanzi,
                     prev_link: &match prev {
                         None => "index".to_string(),
-                        Some((sylls, _, _)) => {
-                            if sylls.is_empty() {
-                                "index".to_string()
-                            } else {
-                                sylls_to_str_underscore(&sylls)
-                            }
-                        }
+                        Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
                     },
                     next_link: &match next {
                         None => "index".to_string(),
-                        Some((sylls, _, _)) => {
-                            if sylls.is_empty() {
-                                "index".to_string()
-                            } else {
-                                sylls_to_str_underscore(&sylls)
-                            }
-                        }
+                        Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
                     },
                     audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
                     analysis: &analysis.join("\n"),
