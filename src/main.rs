@@ -285,23 +285,27 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     let mut file = File::create("docs/index.html")?;
-    let mut index = "wav\toga\tgloss\tphrase\n".to_string();
+    let mut index = vec!["wav\toga\tgloss\tphrase".to_string()];
     for (sylls, r) in spoonfed_rows {
-        if r.pekzep_latin.is_empty() {
-            index.push_str("*\n");
-        } else {
-            index.push_str(&format!(
-                "{}\t{}\t{}\t<a href=\"{}.html\">{}</a>\n",
-                to_check(r.filetype.contains("wav")),
-                to_check(r.filetype.contains("oga")),
-                to_check(!r.decomposed.is_empty()),
-                sylls_to_str_underscore(&sylls),
-                r.pekzep_latin
-            ));
-        }
+        index.push(format!(
+            "{}\t{}\t{}\t<a href=\"{}.html\">{}</a>",
+            to_check(r.filetype.contains("wav")),
+            to_check(r.filetype.contains("oga")),
+            to_check(!r.decomposed.is_empty()),
+            sylls_to_str_underscore(&sylls),
+            r.pekzep_latin
+        ));
     }
 
-    write!(file, "{}", IndTemplate { index: &index }.render().unwrap())?;
+    write!(
+        file,
+        "{}",
+        IndTemplate {
+            index: &index.join("\n")
+        }
+        .render()
+        .unwrap()
+    )?;
 
     Ok(())
 }
