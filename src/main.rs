@@ -254,9 +254,9 @@ fn parse_decomposed(
         error_collector(
             row.decomposed
                 .split('.')
-                .map(|a| -> Result<Vocab, String> {
+                .map(|a| {
                     let key = a.to_string().replace("!", " // ").replace("#", " // ");
-                    let res: Result<_, String> = vocab.get(&key).ok_or(format!(
+                    let res = vocab.get(&key).ok_or(format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         key, row.decomposed
                     ));
