@@ -244,6 +244,7 @@ fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
     }
 }
 
+// FIXME: want to also check that the `row.decomposed` really contains the same data as the `row.pekzep_hanzi`.
 fn parse_decomposed(
     vocab: &HashMap<String, Vocab>,
     row: &MainRow,
