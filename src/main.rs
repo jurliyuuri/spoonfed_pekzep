@@ -50,7 +50,6 @@ struct MainRow {
 }
 
 use std::collections::HashMap;
-use std::collections::HashSet;
 
 fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
     let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
@@ -86,13 +85,12 @@ fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
     }
 }
 
-fn parse_spoonfed() -> Result<Vec<(Vec<ExtSyll>, MainRow)>, Box<dyn Error>> {
+use linked_hash_map::LinkedHashMap;
+
+fn parse_spoonfed() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Error>> {
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
     let f = BufReader::new(f);
-
-    let mut rows = vec![];
-    let mut detect_dup_in_pekzep = HashSet::new();
-
+    let mut rows = LinkedHashMap::new();
     let mut errors = vec![];
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
@@ -100,15 +98,13 @@ fn parse_spoonfed() -> Result<Vec<(Vec<ExtSyll>, MainRow)>, Box<dyn Error>> {
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
 
         let sylls = encode_to_pekzep_syllables(&row.pekzep_latin)?;
-        if !sylls.is_empty() && !detect_dup_in_pekzep.insert(sylls.clone()) {
+        if !sylls.is_empty() && rows.insert(sylls.clone(), row.clone()).is_some() {
             // in HashSet::insert, if the set did have this value present, false is returned.
             errors.push(format!(
                 "duplicate phrase detected: {}",
                 sylls_to_str_underscore(&sylls)
             ));
         }
-
-        rows.push((sylls, row));
     }
 
     if errors.is_empty() {
