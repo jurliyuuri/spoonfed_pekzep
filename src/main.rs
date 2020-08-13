@@ -273,13 +273,19 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let vocab = parse_vocabs()?;
 
-    let mut rows2 = vec![];
-
-    for (sylls, row) in &spoonfed_rows {
-        let decomp =
-            parse_decomposed(&vocab, row).map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
-        rows2.push(Some((sylls.clone(), decomp, row.clone())))
-    }
+    let mut rows2 = error_collector(
+        spoonfed_rows
+            .clone()
+            .iter()
+            .map(
+                |(sylls, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
+                    Ok(decomp) => Ok(Some((sylls.clone(), decomp, row.clone()))),
+                    Err(e) => Err(e),
+                },
+            )
+            .collect::<Vec<_>>(),
+    )
+    .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
 
     rows2.push(None);
     rows2.insert(0, None);
