@@ -244,7 +244,9 @@ fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
     }
 }
 
-// FIXME: want to also check that the `row.decomposed` really contains the same data as the `row.pekzep_hanzi`.
+/// Checks if:
+/// * all the morphemes listed in `row.decomposed` are in the vocab list
+/// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
     vocab: &HashMap<String, Vocab>,
     row: &MainRow,
@@ -252,6 +254,57 @@ fn parse_decomposed(
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
+        let rejoined = row
+            .decomposed
+            .split('.')
+            .map(|a| {
+                let init_char = a.chars().next().unwrap();
+                if init_char == '∅' {
+                    return "".to_string();
+                }
+                if a.contains("#") {
+                    return a.chars().take_while(|c| *c != '#').collect::<String>();
+                }
+                if a.contains("!") {
+                    let mut iter = a.chars().skip_while(|c| *c != '!');
+                    iter.next();
+                    return iter.collect::<String>();
+                }
+
+                // handle xizi
+                if init_char.is_ascii_alphabetic() {
+                    // drop only numeric characters from the end of the string
+                    let rev = a
+                        .chars()
+                        .rev()
+                        .skip_while(|c| c.is_numeric())
+                        .collect::<String>();
+                    return rev.chars().rev().collect::<String>();
+                } else {
+                    // drop only alphanumeric characters from the end of the string
+                    let rev = a
+                        .chars()
+                        .rev()
+                        .skip_while(|c| c.is_ascii_alphanumeric())
+                        .collect::<String>();
+                    return rev.chars().rev().collect::<String>();
+                }
+            })
+            .collect::<String>();
+        let expectation = row
+            .pekzep_hanzi
+            .to_string()
+            .replace("！", "")
+            .replace("？", "")
+            .replace("。", "")
+            .replace("「", "")
+            .replace("」", "");
+        if rejoined != expectation {
+            return Err(vec![format!(
+                "mismatch: the original row gives {} but the decomposition is {}",
+                expectation, rejoined
+            )]);
+        }
         error_collector(
             row.decomposed
                 .split('.')
