@@ -238,9 +238,9 @@ fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
         }
     }
     if es.is_empty() {
-        return Ok(ts);
+        Ok(ts)
     } else {
-        return Err(es);
+        Err(es)
     }
 }
 
@@ -262,10 +262,10 @@ fn parse_decomposed(
                 if init_char == '∅' {
                     return "".to_string();
                 }
-                if a.contains("#") {
+                if a.contains('#') {
                     return a.chars().take_while(|c| *c != '#').collect::<String>();
                 }
-                if a.contains("!") {
+                if a.contains('!') {
                     let mut iter = a.chars().skip_while(|c| *c != '!');
                     iter.next();
                     return iter.collect::<String>();
@@ -279,15 +279,15 @@ fn parse_decomposed(
                         .rev()
                         .skip_while(|c| c.is_numeric())
                         .collect::<String>();
-                    return rev.chars().rev().collect::<String>();
+                    rev.chars().rev().collect::<String>()
                 } else {
                     // drop only alphanumeric characters from the end of the string
                     let rev = a
                         .chars()
                         .rev()
-                        .skip_while(|c| c.is_ascii_alphanumeric())
+                        .skip_while(char::is_ascii_alphanumeric)
                         .collect::<String>();
-                    return rev.chars().rev().collect::<String>();
+                    rev.chars().rev().collect::<String>()
                 }
             })
             .collect::<String>();
@@ -328,7 +328,6 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let mut rows2 = error_collector(
         spoonfed_rows
-            .clone()
             .iter()
             .map(
                 |(sylls, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
@@ -353,7 +352,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     File::create(format!("docs/{}.html", sylls_to_str_underscore(&sylls)))?;
                 let analysis = decomp
                     .iter()
-                    .map(|v| v.to_tab_separated())
+                    .map(Vocab::to_tab_separated)
                     .collect::<Vec<_>>();
                 let hello = HelloTemplate {
                     english: &this.english,
