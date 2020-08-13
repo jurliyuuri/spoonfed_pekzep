@@ -130,6 +130,7 @@ struct HelloTemplate<'a> {
     audio_path: &'a str,
     analysis: &'a str,
     audio_path_oga: &'a str,
+    pekzep_linzi_imgs: &'a str,
 }
 
 #[derive(Template)]
@@ -371,6 +372,12 @@ fn main() -> Result<(), Box<dyn Error>> {
                     audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
                     analysis: &analysis.join("\n"),
                     audio_path_oga: &sylls_to_str_underscore(&sylls),
+                    pekzep_linzi_imgs: &this
+                        .pekzep_hanzi
+                        .chars()
+                        .map(|c| format!(r#"<img src="./linzi/{}.png" width="30" height="30">"#, c))
+                        .collect::<Vec<_>>()
+                        .join(""),
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
