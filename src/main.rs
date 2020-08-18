@@ -350,7 +350,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     continue;
                 }
                 let mut file =
-                    File::create(format!("docs/{}.html", sylls_to_str_underscore(&sylls)))?;
+                    File::create(format!("docs/phrase/{}.html", sylls_to_str_underscore(&sylls)))?;
                 let analysis = decomp
                     .iter()
                     .map(Vocab::to_tab_separated)
@@ -362,11 +362,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                     pekzep_latin: &this.pekzep_latin,
                     pekzep_hanzi: &this.pekzep_hanzi,
                     prev_link: &match prev {
-                        None => "index".to_string(),
+                        None => "../index".to_string(),
                         Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
                     },
                     next_link: &match next {
-                        None => "index".to_string(),
+                        None => "../index".to_string(),
                         Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
                     },
                     audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
@@ -375,7 +375,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     pekzep_linzi_imgs: &this
                         .pekzep_hanzi
                         .chars()
-                        .map(|c| format!(r#"<img src="./linzi/{}.png" width="30" height="30">"#, c))
+                        .map(|c| format!(r#"<img src="../linzi/{}.png" width="30" height="30">"#, c))
                         .collect::<Vec<_>>()
                         .join(""),
                 };
@@ -389,7 +389,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut index = vec!["wav\toga\tgloss\tphrase".to_string()];
     for (sylls, r) in spoonfed_rows {
         index.push(format!(
-            "{}\t{}\t{}\t<a href=\"{}.html\">{}</a>",
+            "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check(r.filetype.contains("wav")),
             to_check(r.filetype.contains("oga")),
             to_check(!r.decomposed.is_empty()),
