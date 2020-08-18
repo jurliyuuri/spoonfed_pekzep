@@ -324,19 +324,28 @@ fn parse_decomposed(
 }
 
 fn convert_hanzi_to_linzi_images(s: &str, exclude_list: &str) -> String {
-    s.chars()
-        .map(|c| {
-            if c == '∅' {
-                r#"<img src="../linzi/blank.png" width="30" height="30">"#.to_string()
-            } else
-            if exclude_list.contains(c) {
-                c.to_string()
+    let mut ans = String::new();
+    let mut iter = s.chars();
+    while let Some(c) = iter.next() {
+        if c == '∅' {
+            ans.push_str(r#"<img src="../linzi/blank.png" width="30" height="30">"#)
+        } else if c == 'x' {
+            if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
+                ans.push_str(r#"<img src="../linzi/xi.png" width="30" height="30"><img src="../linzi/zi.png" width="30" height="30">"#)
             } else {
-                format!(r#"<img src="../linzi/{}.png" width="30" height="30">"#, c)
+                panic!("Expected `xizi` because `x` was encountered, but did not find it.")
             }
-        })
-        .collect::<Vec<_>>()
-        .join("")
+        } else if exclude_list.contains(c) {
+            ans.push(c);
+        } else {
+            ans.push_str(&format!(
+                r#"<img src="../linzi/{}.png" width="30" height="30">"#,
+                c
+            ))
+        }
+    }
+
+    ans
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -391,7 +400,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
                     analysis: &analysis.join("\n"),
                     audio_path_oga: &sylls_to_str_underscore(&sylls),
-                    pekzep_linzi_imgs: &convert_hanzi_to_linzi_images(&this.pekzep_hanzi, "()"),
+                    pekzep_linzi_imgs: &convert_hanzi_to_linzi_images(&this.pekzep_hanzi, "() "),
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
