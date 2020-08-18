@@ -28,9 +28,10 @@ struct Vocab {
 impl Vocab {
     pub fn to_tab_separated(&self) -> String {
         format!(
-            "{}\t{}\t{}\t{}\t{}",
+            "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
             self.pekzep_latin,
             self.pekzep_hanzi,
+            convert_hanzi_to_linzi_images(&self.pekzep_hanzi, "/{} N()S"),
             self.parts_of_speech,
             self.parts_of_speech_supplement,
             self.english_gloss
@@ -322,6 +323,22 @@ fn parse_decomposed(
     }
 }
 
+fn convert_hanzi_to_linzi_images(s: &str, exclude_list: &str) -> String {
+    s.chars()
+        .map(|c| {
+            if c == '∅' {
+                r#"<img src="../linzi/blank.png" width="30" height="30">"#.to_string()
+            } else
+            if exclude_list.contains(c) {
+                c.to_string()
+            } else {
+                format!(r#"<img src="../linzi/{}.png" width="30" height="30">"#, c)
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("")
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     let spoonfed_rows = parse_spoonfed()?;
 
@@ -349,8 +366,10 @@ fn main() -> Result<(), Box<dyn Error>> {
                 if this.pekzep_latin.is_empty() {
                     continue;
                 }
-                let mut file =
-                    File::create(format!("docs/phrase/{}.html", sylls_to_str_underscore(&sylls)))?;
+                let mut file = File::create(format!(
+                    "docs/phrase/{}.html",
+                    sylls_to_str_underscore(&sylls)
+                ))?;
                 let analysis = decomp
                     .iter()
                     .map(Vocab::to_tab_separated)
@@ -372,12 +391,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
                     analysis: &analysis.join("\n"),
                     audio_path_oga: &sylls_to_str_underscore(&sylls),
-                    pekzep_linzi_imgs: &this
-                        .pekzep_hanzi
-                        .chars()
-                        .map(|c| format!(r#"<img src="../linzi/{}.png" width="30" height="30">"#, c))
-                        .collect::<Vec<_>>()
-                        .join(""),
+                    pekzep_linzi_imgs: &convert_hanzi_to_linzi_images(&this.pekzep_hanzi, "()"),
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
