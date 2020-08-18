@@ -31,7 +31,7 @@ impl Vocab {
             "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
             self.pekzep_latin,
             self.pekzep_hanzi,
-            convert_hanzi_to_linzi_images(&self.pekzep_hanzi, "/{} N()S"),
+            convert_hanzi_to_images(&self.pekzep_hanzi, "/{} N()S"),
             self.parts_of_speech,
             self.parts_of_speech_supplement,
             self.english_gloss
@@ -131,7 +131,7 @@ struct HelloTemplate<'a> {
     audio_path: &'a str,
     analysis: &'a str,
     audio_path_oga: &'a str,
-    pekzep_linzi_imgs: &'a str,
+    pekzep_imgs: &'a str,
 }
 
 #[derive(Template)]
@@ -323,15 +323,15 @@ fn parse_decomposed(
     }
 }
 
-fn convert_hanzi_to_linzi_images(s: &str, exclude_list: &str) -> String {
+fn convert_hanzi_to_images(s: &str, exclude_list: &str) -> String {
     let mut ans = String::new();
     let mut iter = s.chars();
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(r#"<img src="../linzi/blank.png" width="30" height="30">"#)
+            ans.push_str(r#"<img src="../char_img/blank.png" width="30" height="30">"#)
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
-                ans.push_str(r#"<img src="../linzi/xi.png" width="30" height="30"><img src="../linzi/zi.png" width="30" height="30">"#)
+                ans.push_str(r#"<img src="../char_img/xi.png" width="30" height="30"><img src="../char_img/zi.png" width="30" height="30">"#)
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.")
             }
@@ -339,7 +339,7 @@ fn convert_hanzi_to_linzi_images(s: &str, exclude_list: &str) -> String {
             ans.push(c);
         } else {
             ans.push_str(&format!(
-                r#"<img src="../linzi/{}.png" width="30" height="30">"#,
+                r#"<img src="../char_img/{}.png" width="30" height="30">"#,
                 c
             ))
         }
@@ -400,7 +400,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
                     analysis: &analysis.join("\n"),
                     audio_path_oga: &sylls_to_str_underscore(&sylls),
-                    pekzep_linzi_imgs: &convert_hanzi_to_linzi_images(&this.pekzep_hanzi, "() "),
+                    pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() "),
                 };
                 write!(file, "{}", hello.render().unwrap())?;
             }
