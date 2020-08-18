@@ -102,7 +102,7 @@
 善3	kait	善	verb		to be adequate
 何故	nan2 xit2	何故	reason word	interrogative	why
 於一	ie et2	於一	coverb		for every ...
-一	et2	一	noun-modifier		one
+一	et2	一	noun-modifier	numeral	one
 文	tauk1	文	noun		sentence
 言4	zep1 {ie N}	言 {於N}	verb		to say {to someone}
 少	hue1	少	noun		a little thing
@@ -126,7 +126,7 @@
 須多2	ly taun1	須多	noun		obligation / task / what one is busy about / what one must do
 春	iei2	春	noun		Yay (name)
 xizi	xizi	xizi	noun suffix		Mr. ..., Ms. ...
-十	nun1	十	noun-modifier		ten
+十	nun1	十	noun-modifier	numeral	ten
 日	kia1	日	noun		day
 入力	lit1 py {ie N}	入力 {於N}	verb		to put effort {into N}
 心4	hia1	心	clause-taker		to think that
@@ -179,7 +179,7 @@ xizi噫	xizi a	xizi噫	interjection		excuse me
 風在2	pua2 aim2 {ie N}	風在 {於N}	verb		for N to be interesting
 硬	pek1 	硬	verb		to be difficult
 xizi xizi	xizi xizi	xizi xizi	interjection		excuse me
-四	ap1	四	noun-modifier		four
+四	ap1	四	noun-modifier	numeral	four
 星	pet2	星	temporal word		year
 全2	be1	全	noun-modifier		all
 識3	can2	識	clause-taker		to know that
@@ -195,12 +195,12 @@ xizi xizi	xizi xizi	xizi xizi	interjection		excuse me
 行絵	mok1 lek1	行絵	noun		movie
 来4	sak2	来	verb		to be open to public and reach us
 待2	tim1	待	verb		to wait for
-片	zuo1	片	temporal word		percent-day
+片	zuo1	片	quantity unit		percent-day
 行 // 星周	mok1 // pet2 cei2	行 // 星周	verb-object compound		to age ~ years
 同2	bap	同	noun-modifier		the same
 高	sue1	高	noun		Zwuh (name)
 少 // 星	hue1 // pet2	少 // 星	verb-object compound		to be ~ years younger 
-二2	ik2	二	noun-modifier		two
+二2	ik2	二	noun-modifier	numeral	two
 於5	ie	於	coverb		compared to
 皇	tam2	皇	noun		Tam (name)
 定	huap1	定	verb		to be ready
@@ -224,7 +224,7 @@ xizi xizi	xizi xizi	xizi xizi	interjection		excuse me
 生寝	ian1 hok1	生寝	verb		to get up
 下時	ut2 kak	下時	temporal word		late time
 口 // 水	iam1 // nua2	口 // 水	verb-object compound		to drink
-百	kit1	百	noun-modifier		a hundred
+百	kit1	百	noun-modifier	numeral	a hundred
 銭3	su1	銭	noun		zooh
 在7	aim2	在	verb		to be at {someone's} place
 少2	hue1	少	noun-modifier		a little
@@ -262,7 +262,7 @@ xizi xizi	xizi xizi	xizi xizi	interjection		excuse me
 善6	kait	善	clause-taker		to be welcome to
 識善	can2 kait	識善	verb		to be smart
 男子	ki1 kat1	男子	noun		son
-三	om2	三	noun-modifier		three
+三	om2	三	noun-modifier	numeral	three
 周2	cei2 	周	verb	takes a place	to be close to
 杯	niep1	杯	quantity unit		~ glass of ~
 水	nua2	水	noun		water
@@ -274,3 +274,6 @@ xizi xizi	xizi xizi	xizi xizi	interjection		excuse me
 善7	kait	善	verb		good
 雪季	let1 xot1	雪季	noun		Leshēl (name)
 反言	i2 zep1	反言	verb		to answer
+長2	auk2	長	noun		length
+三十	om1 nun1	三十	noun-modifier	numeral	thirty
+片2	zuo1	片	quantity unit		tswoh (5.54 cm; 2.18 inches)
