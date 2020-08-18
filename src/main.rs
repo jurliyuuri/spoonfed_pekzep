@@ -119,8 +119,8 @@ fn parse_spoonfed() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Erro
 use askama::Template;
 
 #[derive(Template)]
-#[template(path = "hello.html")]
-struct HelloTemplate<'a> {
+#[template(path = "phrase.html")]
+struct PhraseTemplate<'a> {
     english: &'a str,
     chinese_hanzi: &'a str,
     chinese_pinyin: &'a str,
@@ -138,6 +138,12 @@ struct HelloTemplate<'a> {
 #[template(path = "ind.html")]
 struct IndTemplate<'a> {
     index: &'a str,
+}
+
+#[derive(Template)]
+#[template(path = "vocab.html")]
+struct VocabTemplate<'a> {
+    analysis: &'a str,
 }
 
 mod filters {
@@ -383,7 +389,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     .iter()
                     .map(Vocab::to_tab_separated)
                     .collect::<Vec<_>>();
-                let hello = HelloTemplate {
+                let content = PhraseTemplate {
                     english: &this.english,
                     chinese_pinyin: &this.chinese_pinyin,
                     chinese_hanzi: &this.chinese_hanzi,
@@ -402,10 +408,23 @@ fn main() -> Result<(), Box<dyn Error>> {
                     audio_path_oga: &sylls_to_str_underscore(&sylls),
                     pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() "),
                 };
-                write!(file, "{}", hello.render().unwrap())?;
+                write!(file, "{}", content.render().unwrap())?;
             }
             _ => unreachable!(),
         }
+    }
+
+    for (key, v) in vocab {
+        let mut file = File::create(format!("docs/vocab/{}.html", key.replace(" // ", "_slashslash_")))?; 
+        write!(
+            file,
+            "{}",
+            VocabTemplate {
+                analysis: &v.to_tab_separated()
+            }
+            .render()
+            .unwrap()
+        )?;   
     }
 
     let mut file = File::create("docs/index.html")?;
