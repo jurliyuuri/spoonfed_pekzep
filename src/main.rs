@@ -128,7 +128,7 @@ struct PhraseTemplate<'a> {
     pekzep_hanzi: &'a str,
     prev_link: &'a str,
     next_link: &'a str,
-    audio_path: &'a str,
+    wav_tag: &'a str,
     analysis: &'a str,
     audio_path_oga: &'a str,
     pekzep_imgs: &'a str,
@@ -412,7 +412,14 @@ fn main() -> Result<(), Box<dyn Error>> {
                 None => "../index".to_string(),
                 Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
             },
-            audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
+            wav_tag: &if this.filetype.contains("wav") {
+                format!(
+                    r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
+                    sylls_to_rerrliratixka_no_space(&sylls)
+                )
+            } else {
+                "".to_owned()
+            },
             analysis: &analysis.join("\n"),
             audio_path_oga: &sylls_to_str_underscore(&sylls),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() "),
