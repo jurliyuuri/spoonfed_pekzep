@@ -48,6 +48,7 @@ struct MainRow {
     chinese_hanzi: String,
     decomposed: String,
     filetype: String,
+    recording_author: String,
 }
 
 use std::collections::HashMap;
