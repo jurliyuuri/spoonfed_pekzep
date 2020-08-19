@@ -354,68 +354,77 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str) -> String {
     ans
 }
 
+struct Foo {
+    vocab: HashMap<String, Vocab>,
+    rows3: Vec<(Vec<ExtSyll>, Vec<Vocab>, MainRow)>,
+}
+
+impl Foo {
+    pub fn new() -> Result<Foo, Box<dyn Error>> {
+        let spoonfed_rows = parse_spoonfed()?;
+
+        let vocab = parse_vocabs()?;
+
+        let rows3 = error_collector(
+            spoonfed_rows
+                .iter()
+                .map(
+                    |(sylls, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
+                        Ok(decomp) => Ok((sylls.clone(), decomp, row.clone())),
+                        Err(e) => Err(e),
+                    },
+                )
+                .collect::<Vec<_>>(),
+        )
+        .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
+
+        Ok(Foo { vocab, rows3 })
+    }
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
-    let spoonfed_rows = parse_spoonfed()?;
-
-    let vocab = parse_vocabs()?;
-
-    let mut rows2 = error_collector(
-        spoonfed_rows
-            .iter()
-            .map(
-                |(sylls, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
-                    Ok(decomp) => Ok(Some((sylls.clone(), decomp, row.clone()))),
-                    Err(e) => Err(e),
-                },
-            )
-            .collect::<Vec<_>>(),
-    )
-    .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
-
-    rows2.push(None);
-    rows2.insert(0, None);
-
-    for v in rows2.windows(3) {
-        match v {
-            [prev, Some((sylls, decomp, this)), next] => {
-                if this.pekzep_latin.is_empty() {
-                    continue;
-                }
-                let mut file = File::create(format!(
-                    "docs/phrase/{}.html",
-                    sylls_to_str_underscore(&sylls)
-                ))?;
-                let analysis = decomp
-                    .iter()
-                    .map(Vocab::to_tab_separated)
-                    .collect::<Vec<_>>();
-                let content = PhraseTemplate {
-                    english: &this.english,
-                    chinese_pinyin: &this.chinese_pinyin,
-                    chinese_hanzi: &this.chinese_hanzi,
-                    pekzep_latin: &this.pekzep_latin,
-                    pekzep_hanzi: &this.pekzep_hanzi,
-                    prev_link: &match prev {
-                        None => "../index".to_string(),
-                        Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
-                    },
-                    next_link: &match next {
-                        None => "../index".to_string(),
-                        Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
-                    },
-                    audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
-                    analysis: &analysis.join("\n"),
-                    audio_path_oga: &sylls_to_str_underscore(&sylls),
-                    pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() "),
-                };
-                write!(file, "{}", content.render().unwrap())?;
-            }
-            _ => unreachable!(),
+    let foo = Foo::new()?;
+    for (i, (sylls, decomp, this)) in foo.rows3.iter().enumerate() {
+        let prev = if i == 0 { None } else { foo.rows3.get(i - 1) };
+        let next = foo.rows3.get(i + 1);
+        if this.pekzep_latin.is_empty() {
+            continue;
         }
+        let mut file = File::create(format!(
+            "docs/phrase/{}.html",
+            sylls_to_str_underscore(&sylls)
+        ))?;
+        let analysis = decomp
+            .iter()
+            .map(Vocab::to_tab_separated)
+            .collect::<Vec<_>>();
+        let content = PhraseTemplate {
+            english: &this.english,
+            chinese_pinyin: &this.chinese_pinyin,
+            chinese_hanzi: &this.chinese_hanzi,
+            pekzep_latin: &this.pekzep_latin,
+            pekzep_hanzi: &this.pekzep_hanzi,
+            prev_link: &match prev {
+                None => "../index".to_string(),
+                Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
+            },
+            next_link: &match next {
+                None => "../index".to_string(),
+                Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
+            },
+            audio_path: &sylls_to_rerrliratixka_no_space(&sylls),
+            analysis: &analysis.join("\n"),
+            audio_path_oga: &sylls_to_str_underscore(&sylls),
+            pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() "),
+        };
+        write!(file, "{}", content.render().unwrap())?;
     }
 
-    for (key, v) in vocab {
-        let mut file = File::create(format!("docs/vocab/{}.html", key.replace(" // ", "_slashslash_")))?; 
+    for (key, v) in foo.vocab {
+        let mut file = File::create(format!(
+            "docs/vocab/{}.html",
+            key.replace(" // ", "_slashslash_")
+        ))?;
         write!(
             file,
             "{}",
@@ -424,17 +433,17 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
             .render()
             .unwrap()
-        )?;   
+        )?;
     }
 
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["wav\toga\tgloss\tphrase".to_string()];
-    for (sylls, r) in spoonfed_rows {
+    for (sylls, decomp, r) in foo.rows3 {
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check(r.filetype.contains("wav")),
             to_check(r.filetype.contains("oga")),
-            to_check(!r.decomposed.is_empty()),
+            to_check(!decomp.is_empty()),
             sylls_to_str_underscore(&sylls),
             r.pekzep_latin
         ));
