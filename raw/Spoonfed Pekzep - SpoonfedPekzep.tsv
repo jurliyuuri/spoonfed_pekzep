@@ -56,7 +56,7 @@ Are you going to come today?	ka1 kia1 mua2 sak2 yn2?	此日汝来乎？	Nǐ jīn
 What would he like to do today?	ka1 kia1 zap2 hia1 zau nan2?	此日彼心為何？	Tā jīntiān xiǎng zuò shénme?	他今天想做什么？	此日.彼.心.為.何	oga	jekto.vatimeliju
 Did you understand?	mua2 can2 sak2 yn2?	汝識来乎？	Nǐ tīng dǒng le ma?	你听懂了吗？	汝.識来.乎	oga	jekto.vatimeliju
 I understand.	pai2 can2 sak2.	我識来。	Wǒ dǒng le.	我懂了。	我.識来	oga	jekto.vatimeliju
-I heard and understood.	pai2 lua1 ua can2 sak2.	我耳而識来。	Wǒ tīng dǒng le. (verb+result grammar: ting+dong)	我听懂了。	我.耳.而.識来	oga	jekto.vatimeliju
+I heard and understood.	pai2 lua1 ua can2 sak2.	我耳而識来。	Wǒ tīng dǒng le.	我听懂了。	我.耳.而.識来	oga	jekto.vatimeliju
 He is my friend.	zap2 pai2 a hi1.	彼我之友。	Tā shì wǒ de péngyou.	他是我的朋友。	彼.∅.我.之.友		
 I like your friend very much.	pai2 kit hia1 kait mua2 hi1.	我極心善汝友。	Wǒ hěn xǐhuan nǐ de péngyou.	我很喜欢你的朋友。	我.極.心善.汝2.友	oga	jekto.vatimeliju
 My friend did not come.	pai2 hi1 mun1 sak2 ta.	我友無来終。	Wǒ de péngyou méi lái.	我的朋友没来。	我2.友.無.来2.終	oga	jekto.vatimeliju
@@ -71,7 +71,7 @@ Can you tell me what this is?	mua2 py zep1 ka1 nan2?	汝力言此何？	nǐ nén
 This is my book.	ka1 pai2 a ak1.	此我之書。	zhè shì wǒ de shū.	这是我的书。	此.∅.我.之.書		
 He likes this book.	zap2 hia1 kait ka1 ak1.	彼心善此書。	Tā xǐhuan zhè běn shū.	他喜欢这本书。	彼.心善.此2.書	oga	jekto.vatimeliju
 I don't like this book.	zap2 mun1 hia1 kait ka1 ak1.	我無心善此書。	Wǒ bù xǐhuan zhè běn shū.	我不喜欢这本书。	我.無.心善.此2.書	oga	jekto.vatimeliju
-Which book is your book?	ie ka1 nan2 ak1 mua2 a (a)?	於此何書汝之(噫)？	nǎ běn shì nǐ de shū? (also na ben shu shi ni de?)	哪本是你的书？	於2.此.何2.書.汝.之.(噫)		
+Which book is your book?	ie ka1 nan2 ak1 mua2 a (a)?	於此何書汝之(噫)？	nǎ běn shì nǐ de shū? / Nǎ běn shū shì nǐ de?	哪本是你的书？ / 哪本书是你的？	於2.此.何2.書.汝.之.(噫)		
 That book is mine.	zap2 ak1 pai2 a (a).	彼書我之(噫)。	Nà běn shū shì wǒ de.	那本书是我的。	彼3.書.我.之.(噫)		
 What do you want?	mua2 hia1 guk2 nan2?	汝心受何？	nǐ xiǎng yào shénme?	你想要什么？	汝.心受.何	oga	jekto.vatimeliju
 Give the book to whomever wants it.	tui2 ka1 ak1 ie hia1 guk2 a cuk2 a be1.	与此書於心受之人之全。	zhè běn shū, shéi xiǎng yào, jiù gěi shéi ba. (1st shei = 2nd shei, same person)	这本书谁想要就给谁吧。	与.此2.書.於1.心受.之2.人.之.全	oga	jekto.vatimeliju
@@ -111,13 +111,13 @@ Why did you do like that?	mua2 nan2 xit2 em ka1 zau?	汝何故如此為？	Nǐ w
 Each person says one sentence.	ie et2 cuk2 zep1 et2 tauk1.	於一人言一文。	Yī rén shuō yī jù.	一人说一句。	於一.人.言.一.文	oga	jekto.vatimeliju
 I'd like to say a few words to you.	pai2 hia1 zep1 hue1 ie mua2.	我心言少於汝。	Wǒ xiǎng duì nǐ shuō jǐ jù huà. (also duì -> gen3, gei3) (also shuō -> jiang3)	我想对你说几句话。	我.心.言4.少.於1.汝	oga	jekto.vatimeliju
 Is there anything I should do?	pai2 ly zau aim2 yn2?	我須為在乎？	yǒu shénme shì, shì wǒ gāi zuò de ma?	有什么事是我该做的吗？	我.須.為.在5.乎	oga	jekto.vatimeliju
-What time is it now?	ka1 kak nan2 zuo1?	此時何片？	Xiànzài jǐ diǎn le? (also Xiànzài shì jǐ diǎn?)	现在几点了？	此時.何片	oga	jekto.vatimeliju
+What time is it now?	ka1 kak nan2 zuo1?	此時何片？	Xiànzài jǐ diǎn le? / Xiànzài shì jǐ diǎn?	现在几点了？ / 现在是几点？	此時.何片	oga	jekto.vatimeliju
 She has a lot to do.	zap2 ly zau aim2 taun1.	彼須為在多。	tā yǒu hěn duō shì yào zuò. (also gai zuo de)	她有很多事要做。	彼.須.為.在多	oga	jekto.vatimeliju
 There is a lot of money here.	ka1 hue taun1 su1 aim2	此処多銭在。	Zhè yǒu hěn duō qián.	这有很多钱。	此処.多.銭.在5	oga	jekto.vatimeliju
 How's the situation now?	ka1 kak em nan2?	此時如何？	Xiànzài de qíngkuàng zěnmeyàng?	现在的情况怎么样？	此時.如.何		
 I'll tell you something.	pai2 mok1 zep1 mua2 cue1.	我行言汝或。	Wǒ gàosu nǐ yī jiàn shì.	我告诉你一件事。	我.行2.言5.汝.或	oga	jekto.vatimeliju
 I feel very good today.	pai2 ka1 kia1 kit kait.	我此日極善。	Wǒ jīntiān gǎnjué hěn hǎo.	我今天感觉很好。	我.此日.極.善	oga	jekto.vatimeliju
-How do you feel? he asked.	zap2 zep1 "mua2 em nan2?"	彼言「汝如何？」	nǐ gǎnjué zěnmeyàng? tā wèn.	“你感觉怎么样？”他问。	彼.言.汝.如.何		
+How do you feel? he asked.	zap2 zep1 "mua2 em nan2?"	彼言「汝如何？」	"Nǐ gǎnjué zěnmeyàng?" tā wèn.	「你感觉怎么样？」他问。	彼.言.汝.如.何		
 "Do you like your work?" "Yeah. It's really interesting."	"mua2 hia1 kait mua2 naip2?" "kait. kit pua2 aim2."	「汝心善汝労？」「善。極風在。」	"Nǐ xǐhuān nǐ de gōngzuò ma?" "Shì de. Hěn yǒuqù." (also "you yisi")	「你喜欢你的工作吗？」「是的。很有趣。」	汝.心善.汝2.労2.善4.極.風在	oga	jekto.vatimeliju
 What's the date today?	ka1 kia1 nan2 pui1 kia1?	此日何位日？	Jīntiān jǐ yuè jǐ rì?	今天几月几日？	此日.何2.位.日	oga	jekto.vatimeliju
 What month is next month?	ut2 xem1 nan2 xem1?	下月何月？	Xià gè yuè shì jǐ yuè?	下个月是几月？	下3.月.何2.月	oga	jekto.vatimeliju
@@ -160,11 +160,11 @@ Is your university big?	mua2 a sau2 nui2 hue ma1 yn2?	汝之上学処大乎？	N
 When will he go to university?	zap2 nan2 kak mok1 sau2 nui2 hue?	彼何時行上学処？	Tā shénme shíhòu shàng dàxué?	他什么时候上大学？	彼.何時.行.上学処		
 I spent a lot of money today.	ka1 kia1 sui1 kit su1.	此日使極銭。	Wǒ jīntiān huā le hěn duō qián.	我今天花了很多钱。	此日.使.極2.銭		
 Mom is very busy.	mam1 kit ly taun1.	母極須多。	Māma hěn máng.	妈妈很忙。	母.極.須多		
-Who is it? It's your mom.	nan2 cuk2? mua2 mam1.	何人？汝母。	shì shéi? shì nǐ māma.	“是谁？”“是你妈妈。”	何2.人.汝2.母		
+"Who is it?" "It's your mom."	nan2 cuk2? mua2 mam1.	何人？汝母。	"Shì shéi?" "Shì nǐ māma."	「是谁？」「是你妈妈。」	何2.人.汝2.母		
 I'm back.	ty sak2 ta.	再来終。	Wǒ huílai le.	我回来了。	再来.終		
 Wait for her to come back, and ask.	mua2 tim1 zap2 ty sak2 ua hia1 xit2.	汝待彼再来而心故。	děng tā huílai de shíhou wèn wèn tā.	等她回来的时候问问她。	汝.待.彼.再来.而.心故		
 Studying Pekzep is very interesting.	nui2 pek2 zep1 kit pua2 aim2.	学牌言極風在。	Xué Páiyǔ hěn yǒu yìsi.	学牌语很有意思。	学.牌言.極.風在		
-Is it interesting? No, it's not interesting.	pua2 aim2 yn2? mun1.	風在乎？無。	Yǒu yìsi ma? Méi yǒu yìsi.	A有意思吗? B没有意思。	風在.乎.無		
+"Is it interesting?" "No, it's not interesting."	pua2 aim2 yn2? mun1.	「風在乎？」「無。」	"Yǒu yìsi ma?" "Méi yǒu yìsi."	「有意思吗?」「没有意思。」	風在.乎.無		
 He came to Ai'ren Republic to learn Pekzep.	zap2 sak2 ai2 sip1 nui2 pek2 zep1.	彼来冠国学牌言。	Tā lái Guānguó xuéxí Páiyǔ.	他来冠国学习牌语。	彼.来3.冠国.学.牌言		
 I want to know what this phrase/sentence means.	pai2 hia1 can2 ka1 zep1 zep1 a xa2.	我心識此言言之意。	wǒ xiǎng zhīdào zhè jù huà de yìsi.	我想知道这句话的意思。	我.心.識.此.言言.之.意		
 How do you study Pekzep?	mua2 ie nan2 nui2 pek2 zep1?	汝於何学牌言？	Nǐ zěnme xuéxí Páiyǔ?	你怎么学习牌语？	汝.於3.何.学.牌言		
@@ -290,7 +290,7 @@ I can only wait.	pai2 tet tim1 py ka1.	我唯待力此。	wǒ zhǐ néng děng l
 I can't let myself do this kind of thing.	pai2 mun1 py pai2 zau ka1 suo2 uo1.	我無力我為此類件。	wǒ bù néng ràng zìjǐ zuò zhèyàng de shì. (also wo ziji)	我不能让自己做这样的事。	我.無.力3.我.為#件.此2.類.為!件		
 I'm as tired as can be.	pai2 hia1 mok1 huet ka1 tau2.	我心行闇此端。	wǒ lèi de bù néng zài lèi le.	我累得不能再累了。			
 When will you return to your country? Next month.	nan2 kak mua2 ty sak2 ie mua2 sip1? et2 ut2 xem1.	何時汝再来於汝国？一下月。	Nǐ shénmeshíhou huíguó? Xià gè yuè.	你什么时候回国？下个月。	何時.汝.再来.於.汝2.国.一下.月		
-Will you come to Ai'ren Republic again? Maybe.	mua2 ty sak2 ai2 sip1. taun1 po1 aim2.	汝再来冠国。多道在。	Nǐ huì zàilái Guānguó ma? Kěnéng.	A你会再来冠国吗？ B可能。	汝.再来.冠国.多.道.在5		
+"Will you come to Ai'ren Republic again?" "Maybe."	mua2 ty sak2 ai2 sip1. taun1 po1 aim2.	「汝再来冠国。」「多道在。」	"Nǐ huì zàilái Guānguó ma?" "Kěnéng."	「你会再来冠国吗？」「可能。」	汝.再来.冠国.多.道.在5		
 Something might have happened to her.	cue1 aim2 ie zap2 a po1 aim2.	或在於彼之道在。	tā kěnéng chū shénme shì le. (also fasheng)	她可能出什么事了。	或.在2.於0.彼.之2.道.在5		
 I didn't know about this matter.	pai2 mun1 aim2 can2 ka1 uo1.	我無在識此件。	Wǒ bù zhīdào zhè jiàn shì.	我不知道这件事。	我.無.在.識.此2.件		
 How can you not know? (lit. Why do you not know?)	nan2 xit2 mua2 mun1 aim2 can2.	何故汝無在識。	nǐ zěnme huì bù zhīdào?	你怎么会不知道？	何故.汝.無.在.識		
@@ -334,7 +334,7 @@ He is very smart.	zap2 kit can2 kait.	彼極識善。	Tā hěn cōngmíng.	他�
 I am not as smart as he.	pai2 mun1 can2 kait ie zap2.	我無識善於彼。	Wǒ méi yǒu tā cōngmíng.	我没有他聪明。	我.無.識善.於5.彼		
 I'm really not smart.	pai2 put mun1 can2 kait.	我真無識善。	Wǒ zhēn bù cōngmíng.	我真不聪明。	我.真2.無.識善		
 Do you have a computer? I have one at the office.	mua2 aim2 hop1 li1 yn2? pai2 li1 aim2 ie naip2 hue.	汝在手倉乎？我倉在於労処。	Nǐ yǒu diànnǎo ma? Wǒ zài bàngōngshì yǒu yī gè.	你有电脑吗？我在办公室有一个。	汝.在手.倉.乎.我2.倉.在3.於.労処		
-Is there one at home? No.	aim2 mut2 yn2? mun1.	在家乎？無。	Jiā li yǒu ma? Méiyǒu.	A家里有吗? B没有。	在6.家.乎.無2		
+"Is there one at home?" "No."	aim2 mut2 yn2? mun1.	「在家乎？」「無。」	"Jiā li yǒu ma?" "Méiyǒu."	「家里有吗?」「没有。」	在6.家.乎.無2		
 He's my son.	zap2 pai2 ki1 kat1.	彼我男子。	Tā shì wǒ de érzi.	他是我的儿子。	彼.∅.我2.男子		
 My son is three years old.	pai2 ki1 kat1 om2 pet2.	我男子三星。	Wǒ érzi sānsuì le. (also you3)	我儿子三岁了。	我2.男子.∅.三.星		
 Your son is very smart.	mua2 a ki1 kat1 kit can2 kait.	汝之男子極識善。	Nín érzi hěn cōngmíng.	您儿子很聪明。	汝.之.男子.極.識善		
@@ -355,10 +355,10 @@ What did you answer?	mua2 i2 zep1 em nan2?	汝反言如何？	nǐ huídá le sh�
 "You are so great!" Leshēl answered.	mua2 kit kait! let1 xot1 i2 zep1.	汝極善！雪季反言。	"Nǐ tài bàngle!" Xuějì huídá dào.	“你太棒了！” 雪季回答道。	汝.極.善7.雪季.反言		
 Do you like music? / Do you love music?	mua2 hia1 kait lok1 lia1 yn2?	汝心善笛琴乎？	nǐ xǐhuān yīnyuè ma?	你喜欢音乐吗？	汝.心善.笛琴.乎		
 "She likes music." "So do I."	zap2 hia1 kait lok1 lia1. pai2 bap.	彼心善笛琴。我同。	" tā xǐhuān yīnyuè."" wǒ yě shì."	“她喜欢音乐。”“我也是。”	彼.心善.笛琴.我.同		
-Let me know if there is anything I can do.	tui2 can2 pai2 py zau a uo1.	与識我力為之件。	ràng wǒ zhīdào shìfǒu yǒu shénme wǒ néng zuò de.	让我知道是否有什么我能做的。			
+Let me know if there is anything I can do.	tui2 can2 pai2 py zau a uo1.	与識我力為之件。	ràng wǒ zhīdào shìfǒu yǒu shénme wǒ néng zuò de.	让我知道是否有什么我能做的。	与.識.我.力.為.之2.件		
 Nobody believes what I say.	hia1 pai2 zep1 put a cuk2 mun1.	心我言真之人無。	méi yǒurén xiāngxìn wǒ shuō de huà.	没有人相信我说的话。			
 You can take your time.	mua2 py mok1 mua2 hia1 a po1.	汝力行汝心之道。	nǐ kěyǐ mànmàn lái.	你可以慢慢来。			
-They walk very slowly.	zap2 ge xi1 mok1 kit na1.	彼等足行極静。	Tāmen zǒu de hěn màn.	他们走得很慢。			
+They walk very slowly.	zap2 ge xi1 mok1 kit na1.	彼等足行極静。	Tāmen zǒu de hěn màn.	他们走得很慢。	彼等.足行.極.静		
 Tam speaks more slowly than Fisha.	tam2 zep1 na1 ie hui2 xa2.	皇言静於龍意。	Xiǎo Huáng shuōhuà bǐ Lóngyì màn.	小皇说话比龙意慢。			
 "Believe me", he said.	zap2 zep1 ta "hia1 pai2 zep1 put"	彼言終「心我言真」	xiāngxìn wǒ, tā shuō	“相信我。”他说。			
 Take your time.	mok1 mua2 a po1.	行汝之道。	mànmàn lái.	慢慢来。			
