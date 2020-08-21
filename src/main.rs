@@ -26,12 +26,12 @@ struct Vocab {
 }
 
 impl Vocab {
-    pub fn to_tab_separated(&self) -> String {
+    pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
         format!(
             "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
             self.pekzep_latin,
             self.pekzep_hanzi,
-            convert_hanzi_to_images(&self.pekzep_hanzi, "/{} N()S"),
+            convert_hanzi_to_images(&self.pekzep_hanzi, "/{} N()S", rel_path),
             self.parts_of_speech,
             self.parts_of_speech_supplement,
             self.english_gloss
@@ -336,15 +336,15 @@ fn parse_decomposed(
     }
 }
 
-fn convert_hanzi_to_images(s: &str, exclude_list: &str) -> String {
+fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) -> String {
     let mut ans = String::new();
     let mut iter = s.chars();
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(r#"<img src="../char_img/blank.png" width="30" height="30">"#)
+            ans.push_str(&format!(r#"<img src="{}/char_img/blank.png" width="30" height="30">"#, rel_path))
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
-                ans.push_str(r#"<img src="../char_img/xi.png" width="30" height="30"><img src="../char_img/zi.png" width="30" height="30">"#)
+                ans.push_str(&format!(r#"<img src="{}/char_img/xi.png" width="30" height="30"><img src="{}/char_img/zi.png" width="30" height="30">"#, rel_path, rel_path))
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.")
             }
@@ -352,7 +352,8 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str) -> String {
             ans.push(c);
         } else {
             ans.push_str(&format!(
-                r#"<img src="../char_img/{}.png" width="30" height="30">"#,
+                r#"<img src="{}/char_img/{}.png" width="30" height="30">"#,
+                rel_path,
                 c
             ))
         }
@@ -416,7 +417,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         ))?;
         let analysis = decomp
             .iter()
-            .map(|(_, voc)| voc.to_tab_separated())
+            .map(|(_, voc)| voc.to_tab_separated(".."))
             .collect::<Vec<_>>();
         let content = PhraseTemplate {
             english: &this.english,
@@ -442,7 +443,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             },
             analysis: &analysis.join("\n"),
             audio_path_oga: &sylls_to_str_underscore(&sylls),
-            pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() "),
+            pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
         };
         write!(file, "{}", content.render().unwrap())?;
     }
@@ -456,7 +457,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             file,
             "{}",
             VocabTemplate {
-                analysis: &v.to_tab_separated()
+                analysis: &v.to_tab_separated("..")
             }
             .render()
             .unwrap()
@@ -466,7 +467,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut vocab_file = File::create("docs/vocab_list.html")?;
     let mut vocab_html = vec![];
     for (_, vocab) in foo.vocab_ordered {
-        vocab_html.push(vocab.to_tab_separated())
+        vocab_html.push(vocab.to_tab_separated("."))
     }
     write!(
         vocab_file, "{}", VocabListTemplate { vocab_html: &vocab_html.join("\n") }.render().unwrap()
