@@ -147,6 +147,12 @@ struct VocabTemplate<'a> {
     analysis: &'a str,
 }
 
+#[derive(Template)]
+#[template(path = "vocab_list.html")]
+struct VocabListTemplate<'a> {
+    vocab_html: &'a str,
+}
+
 mod filters {
     pub fn capitalizefirstchar(s: &str) -> ::askama::Result<String> {
         let mut v: Vec<char> = s.chars().collect();
@@ -259,7 +265,7 @@ fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
 fn parse_decomposed(
     vocab: &HashMap<String, Vocab>,
     row: &MainRow,
-) -> Result<Vec<Vocab>, Vec<String>> {
+) -> Result<Vec<(String, Vocab)>, Vec<String>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
@@ -323,7 +329,7 @@ fn parse_decomposed(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         key, row.decomposed
                     ));
-                    Ok(res?.to_owned())
+                    Ok((key, res?.to_owned()))
                 })
                 .collect::<Vec<_>>(),
         )
@@ -357,7 +363,8 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str) -> String {
 
 struct Foo {
     vocab: HashMap<String, Vocab>,
-    rows3: Vec<(Vec<ExtSyll>, Vec<Vocab>, MainRow)>,
+    rows3: Vec<(Vec<ExtSyll>, Vec<(String, Vocab)>, MainRow)>,
+    vocab_ordered: LinkedHashMap<String, Vocab>,
 }
 
 impl Foo {
@@ -365,13 +372,21 @@ impl Foo {
         let spoonfed_rows = parse_spoonfed()?;
 
         let vocab = parse_vocabs()?;
+        let mut vocab_ordered = LinkedHashMap::new();
 
         let rows3 = error_collector(
             spoonfed_rows
                 .iter()
                 .map(
                     |(sylls, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
-                        Ok(decomp) => Ok((sylls.clone(), decomp, row.clone())),
+                        Ok(decomp) => {
+                            for (key, voc) in &decomp {
+                                if !vocab_ordered.contains_key(key) {
+                                    vocab_ordered.insert(key.to_string(), voc.clone());
+                                }
+                            }
+                            Ok((sylls.clone(), decomp, row.clone()))
+                        }
                         Err(e) => Err(e),
                     },
                 )
@@ -379,7 +394,11 @@ impl Foo {
         )
         .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
 
-        Ok(Foo { vocab, rows3 })
+        Ok(Foo {
+            vocab,
+            rows3,
+            vocab_ordered,
+        })
     }
 }
 
@@ -397,7 +416,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         ))?;
         let analysis = decomp
             .iter()
-            .map(Vocab::to_tab_separated)
+            .map(|(_, voc)| voc.to_tab_separated())
             .collect::<Vec<_>>();
         let content = PhraseTemplate {
             english: &this.english,
@@ -443,6 +462,15 @@ fn main() -> Result<(), Box<dyn Error>> {
             .unwrap()
         )?;
     }
+
+    let mut vocab_file = File::create("docs/vocab_list.html")?;
+    let mut vocab_html = vec![];
+    for (_, vocab) in foo.vocab_ordered {
+        vocab_html.push(vocab.to_tab_separated())
+    }
+    write!(
+        vocab_file, "{}", VocabListTemplate { vocab_html: &vocab_html.join("\n") }.render().unwrap()
+    )?;
 
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["wav\toga\tgloss\tphrase".to_string()];
