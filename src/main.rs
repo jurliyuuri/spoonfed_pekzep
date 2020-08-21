@@ -464,6 +464,15 @@ fn main() -> Result<(), Box<dyn Error>> {
         )?;
     }
 
+    let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
+    let mut vocab_html = vec![];
+    for (key, vocab) in &foo.vocab_ordered {
+        vocab_html.push(format!("{}\t{}", key, vocab.to_tab_separated(".")))
+    }
+    write!(
+        vocab_file, "{}", VocabListTemplate { vocab_html: &vocab_html.join("\n") }.render().unwrap()
+    )?;
+
     let mut vocab_file = File::create("docs/vocab_list.html")?;
     let mut vocab_html = vec![];
     for (_, vocab) in foo.vocab_ordered {
