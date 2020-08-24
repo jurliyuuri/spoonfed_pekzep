@@ -31,7 +31,7 @@ impl Vocab {
             "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
             self.pekzep_latin,
             self.pekzep_hanzi,
-            convert_hanzi_to_images(&self.pekzep_hanzi, "/{} N()S", rel_path),
+            convert_hanzi_to_images(&self.pekzep_hanzi, "/{} N()SL", rel_path),
             self.parts_of_speech,
             self.parts_of_speech_supplement,
             self.english_gloss
