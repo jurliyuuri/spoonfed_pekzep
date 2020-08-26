@@ -1,0 +1,8 @@
+<svg style="margin:6px;" class="icon" height="12" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<polygon fill="black" points="150,200 200,150  850,800 800,850" />
+<polygon fill="black" points="800,150 850,200  200,850 150,800 " />
+<circle fill="black" cx="175" cy="175" r="35.355" />
+<circle fill="black" cx="825" cy="175" r="35.355" />
+<circle fill="black" cx="825" cy="825" r="35.355" />
+<circle fill="black" cy="825" cx="175" r="35.355" />
+</svg>
