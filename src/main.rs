@@ -24,7 +24,7 @@ use std::collections::HashMap;
 
 use linked_hash_map::LinkedHashMap;
 
-impl read::Vocab {
+impl read::vocab::Vocab {
     pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
         self.to_tab_separated_with_custom_linzifier(|s| convert_hanzi_to_images(s, "/{} N()SL", rel_path))
     }
@@ -204,9 +204,9 @@ fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
-    vocab: &HashMap<String, read::Vocab>,
+    vocab: &HashMap<String, read::vocab::Vocab>,
     row: &MainRow,
-) -> Result<Vec<(String, read::Vocab)>, Vec<String>> {
+) -> Result<Vec<(String, read::vocab::Vocab)>, Vec<String>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
@@ -304,16 +304,16 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 }
 
 struct Foo {
-    vocab: HashMap<String, read::Vocab>,
-    rows3: Vec<(Vec<ExtSyll>, Vec<(String, read::Vocab)>, MainRow)>,
-    vocab_ordered: LinkedHashMap<String, read::Vocab>,
+    vocab: HashMap<String, read::vocab::Vocab>,
+    rows3: Vec<(Vec<ExtSyll>, Vec<(String, read::vocab::Vocab)>, MainRow)>,
+    vocab_ordered: LinkedHashMap<String, read::vocab::Vocab>,
 }
 
 impl Foo {
     pub fn new() -> Result<Foo, Box<dyn Error>> {
         let spoonfed_rows = parse_spoonfed()?;
 
-        let vocab = read::parse_vocabs()?;
+        let vocab = read::vocab::parse_vocabs()?;
         let mut vocab_ordered = LinkedHashMap::new();
 
         let rows3 = error_collector(

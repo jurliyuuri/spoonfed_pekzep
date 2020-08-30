@@ -1,3 +1,4 @@
+pub mod vocab {
 use std::collections::HashMap;
 use csv::StringRecord;
 use serde_derive::{Deserialize as De, Serialize as Ser};
@@ -71,4 +72,5 @@ pub fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
         let err: Box<dyn Error> = errors.join("\n").into();
         Err(err)
     }
+}
 }
