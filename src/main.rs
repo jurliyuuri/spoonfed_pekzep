@@ -1,24 +1,8 @@
-use csv::StringRecord;
-use pekzep_syllable::PekZepSyllable;
-use serde_derive::{Deserialize as De, Serialize as Ser};
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-use std::io::BufReader;
 
 mod read;
-
-#[derive(Ser, De, Debug, Clone)]
-struct MainRow {
-    english: String,
-    pekzep_latin: String,
-    pekzep_hanzi: String,
-    chinese_pinyin: String,
-    chinese_hanzi: String,
-    decomposed: String,
-    filetype: String,
-    recording_author: String,
-}
 
 use std::collections::HashMap;
 
@@ -29,34 +13,6 @@ impl read::vocab::Vocab {
         self.to_tab_separated_with_custom_linzifier(|s| {
             convert_hanzi_to_images(s, "/{} N()SL", rel_path)
         })
-    }
-}
-
-fn parse_spoonfed() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Error>> {
-    let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
-    let f = BufReader::new(f);
-    let mut rows = LinkedHashMap::new();
-    let mut errors = vec![];
-    for line in f.lines() {
-        // to prevent double quotes from vanishing, I do not read with CSV parser
-        let row: MainRow =
-            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
-
-        let sylls = encode_to_pekzep_syllables(&row.pekzep_latin)?;
-        if !sylls.is_empty() && rows.insert(sylls.clone(), row.clone()).is_some() {
-            // in HashSet::insert, if the set did have this value present, false is returned.
-            errors.push(format!(
-                "duplicate phrase detected: {}",
-                sylls_to_str_underscore(&sylls)
-            ));
-        }
-    }
-
-    if errors.is_empty() {
-        Ok(rows)
-    } else {
-        let err: Box<dyn Error> = errors.join("\n").into();
-        Err(err)
     }
 }
 
@@ -113,70 +69,6 @@ mod filters {
     }
 }
 
-#[derive(Debug, Clone, Eq, PartialEq, Hash)]
-enum ExtSyll {
-    Syll(PekZepSyllable),
-    Xizi,
-}
-
-impl std::fmt::Display for ExtSyll {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ExtSyll::Syll(s) => write!(f, "{}", s),
-            ExtSyll::Xizi => write!(f, "xizi"),
-        }
-    }
-}
-
-impl ExtSyll {
-    fn to_rerrliratixka(&self) -> String {
-        match &self {
-            ExtSyll::Syll(s) => s.clone().to_rerrliratixka(),
-            ExtSyll::Xizi => "xizi".to_string(),
-        }
-    }
-}
-
-fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyll>, Box<dyn Error>> {
-    error_collector(
-        i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
-            .filter_map(|k| {
-                if k.is_empty() {
-                    None
-                } else {
-                    Some(match PekZepSyllable::parse(k) {
-                        Some(s) => Ok(ExtSyll::Syll(s)),
-                        None => {
-                            if k == "xizi" {
-                                Ok(ExtSyll::Xizi)
-                            } else {
-                                Err(format!("Failed to parse a pekzep syllable {}", k))
-                            }
-                        }
-                    })
-                }
-            })
-            .collect::<Vec<_>>(),
-    )
-    .map_err(|e| e.join("\n").into())
-}
-
-fn sylls_to_rerrliratixka_no_space(sylls: &[ExtSyll]) -> String {
-    sylls
-        .iter()
-        .map(ExtSyll::to_rerrliratixka)
-        .collect::<Vec<_>>()
-        .join("")
-}
-
-fn sylls_to_str_underscore(sylls: &[ExtSyll]) -> String {
-    sylls
-        .iter()
-        .map(std::string::ToString::to_string)
-        .collect::<Vec<_>>()
-        .join("_")
-}
-
 fn to_check(a: bool) -> &'static str {
     if a {
         "&#x2713;"
@@ -207,7 +99,7 @@ fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
     vocab: &HashMap<String, read::vocab::Vocab>,
-    row: &MainRow,
+    row: &read::main_row::MainRow,
 ) -> Result<Vec<(String, read::vocab::Vocab)>, Vec<String>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
@@ -309,13 +201,17 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 
 struct Foo {
     vocab: HashMap<String, read::vocab::Vocab>,
-    rows3: Vec<(Vec<ExtSyll>, Vec<(String, read::vocab::Vocab)>, MainRow)>,
+    rows3: Vec<(
+        Vec<read::main_row::ExtSyll>,
+        Vec<(String, read::vocab::Vocab)>,
+        read::main_row::MainRow,
+    )>,
     vocab_ordered: LinkedHashMap<String, read::vocab::Vocab>,
 }
 
 impl Foo {
     pub fn new() -> Result<Foo, Box<dyn Error>> {
-        let spoonfed_rows = parse_spoonfed()?;
+        let spoonfed_rows = read::main_row::parse_spoonfed()?;
 
         let vocab = read::vocab::parse_vocabs()?;
         let mut vocab_ordered = LinkedHashMap::new();
@@ -358,7 +254,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
         let mut file = File::create(format!(
             "docs/phrase/{}.html",
-            sylls_to_str_underscore(&sylls)
+            read::main_row::sylls_to_str_underscore(&sylls)
         ))?;
         let analysis = decomp
             .iter()
@@ -372,22 +268,22 @@ fn main() -> Result<(), Box<dyn Error>> {
             pekzep_hanzi: &this.pekzep_hanzi,
             prev_link: &match prev {
                 None => "../index".to_string(),
-                Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
+                Some((sylls, _, _)) => read::main_row::sylls_to_str_underscore(&sylls),
             },
             next_link: &match next {
                 None => "../index".to_string(),
-                Some((sylls, _, _)) => sylls_to_str_underscore(&sylls),
+                Some((sylls, _, _)) => read::main_row::sylls_to_str_underscore(&sylls),
             },
             wav_tag: &if this.filetype.contains("wav") {
                 format!(
                     r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
-                    sylls_to_rerrliratixka_no_space(&sylls)
+                    read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
                 )
             } else {
                 "".to_owned()
             },
             analysis: &analysis.join("\n"),
-            audio_path_oga: &sylls_to_str_underscore(&sylls),
+            audio_path_oga: &read::main_row::sylls_to_str_underscore(&sylls),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
         };
         write!(file, "{}", content.render().unwrap())?;
@@ -447,7 +343,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             to_check(r.filetype.contains("wav") || r.filetype.contains("oga")),
             to_check(r.filetype.contains("wav")),
             to_check(!decomp.is_empty()),
-            sylls_to_str_underscore(&sylls),
+            read::main_row::sylls_to_str_underscore(&sylls),
             r.pekzep_latin
         ));
     }

@@ -143,6 +143,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "partition_eithers"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "29ccb15db252ac40ea2eff27097fcfaec5d093873ee3cac7e2f321f12bbd2787"
+
+[[package]]
 name = "pekzep_syllable"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -214,6 +220,7 @@ dependencies = [
  "askama",
  "csv",
  "linked-hash-map",
+ "partition_eithers",
  "pekzep_syllable",
  "serde",
  "serde_derive",
