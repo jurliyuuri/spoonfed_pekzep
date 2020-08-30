@@ -6,38 +6,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 
-#[derive(Ser, De, Debug, Clone)]
-struct VocabRow {
-    key: String,
-    pekzep_latin: String,
-    pekzep_hanzi: String,
-    parts_of_speech: String,
-    parts_of_speech_supplement: String,
-    english_gloss: String,
-}
-
-#[derive(Debug, Clone)]
-struct Vocab {
-    pekzep_latin: String,
-    pekzep_hanzi: String,
-    parts_of_speech: String,
-    parts_of_speech_supplement: String,
-    english_gloss: String,
-}
-
-impl Vocab {
-    pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
-        format!(
-            "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
-            self.pekzep_latin,
-            self.pekzep_hanzi,
-            convert_hanzi_to_images(&self.pekzep_hanzi, "/{} N()SL", rel_path),
-            self.parts_of_speech,
-            self.parts_of_speech_supplement,
-            self.english_gloss
-        )
-    }
-}
+mod read;
 
 #[derive(Ser, De, Debug, Clone)]
 struct MainRow {
@@ -53,41 +22,13 @@ struct MainRow {
 
 use std::collections::HashMap;
 
-fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
-    let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
-    let f = BufReader::new(f);
-    let mut res = HashMap::new();
-    let mut errors = vec![];
-    for line in f.lines() {
-        // to prevent double quotes from vanishing, I do not read with CSV parser
-        let row: VocabRow =
-            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
-        if !row.key.is_empty()
-            && res
-                .insert(
-                    row.key.clone(),
-                    Vocab {
-                        pekzep_latin: row.pekzep_latin,
-                        pekzep_hanzi: row.pekzep_hanzi,
-                        parts_of_speech: row.parts_of_speech,
-                        parts_of_speech_supplement: row.parts_of_speech_supplement,
-                        english_gloss: row.english_gloss,
-                    },
-                )
-                .is_some()
-        {
-            errors.push(format!("duplicate key detected: {}", row.key));
-        }
-    }
-    if errors.is_empty() {
-        Ok(res)
-    } else {
-        let err: Box<dyn Error> = errors.join("\n").into();
-        Err(err)
+use linked_hash_map::LinkedHashMap;
+
+impl read::Vocab {
+    pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
+        self.to_tab_separated_with_custom_linzifier(|s| convert_hanzi_to_images(s, "/{} N()SL", rel_path))
     }
 }
-
-use linked_hash_map::LinkedHashMap;
 
 fn parse_spoonfed() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Error>> {
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
@@ -263,9 +204,9 @@ fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
-    vocab: &HashMap<String, Vocab>,
+    vocab: &HashMap<String, read::Vocab>,
     row: &MainRow,
-) -> Result<Vec<(String, Vocab)>, Vec<String>> {
+) -> Result<Vec<(String, read::Vocab)>, Vec<String>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
@@ -363,16 +304,16 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 }
 
 struct Foo {
-    vocab: HashMap<String, Vocab>,
-    rows3: Vec<(Vec<ExtSyll>, Vec<(String, Vocab)>, MainRow)>,
-    vocab_ordered: LinkedHashMap<String, Vocab>,
+    vocab: HashMap<String, read::Vocab>,
+    rows3: Vec<(Vec<ExtSyll>, Vec<(String, read::Vocab)>, MainRow)>,
+    vocab_ordered: LinkedHashMap<String, read::Vocab>,
 }
 
 impl Foo {
     pub fn new() -> Result<Foo, Box<dyn Error>> {
         let spoonfed_rows = parse_spoonfed()?;
 
-        let vocab = parse_vocabs()?;
+        let vocab = read::parse_vocabs()?;
         let mut vocab_ordered = LinkedHashMap::new();
 
         let rows3 = error_collector(
