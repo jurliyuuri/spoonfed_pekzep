@@ -1,7 +1,7 @@
+use partition_eithers::collect_any_errors;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-
 mod read;
 
 use std::collections::HashMap;
@@ -77,23 +77,6 @@ fn to_check(a: bool) -> &'static str {
     }
 }
 
-// return Ok if all are Ok
-fn error_collector<T, E>(a: Vec<Result<T, E>>) -> Result<Vec<T>, Vec<E>> {
-    let mut ts = Vec::new();
-    let mut es = Vec::new();
-    for q in a {
-        match q {
-            Ok(t) => ts.push(t),
-            Err(e) => es.push(e),
-        }
-    }
-    if es.is_empty() {
-        Ok(ts)
-    } else {
-        Err(es)
-    }
-}
-
 /// Checks if:
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
@@ -155,7 +138,7 @@ fn parse_decomposed(
                 expectation, rejoined
             )]);
         }
-        error_collector(
+        collect_any_errors(
             row.decomposed
                 .split('.')
                 .map(|a| {
@@ -216,7 +199,7 @@ impl Foo {
         let vocab = read::vocab::parse_vocabs()?;
         let mut vocab_ordered = LinkedHashMap::new();
 
-        let rows3 = error_collector(
+        let rows3 = collect_any_errors(
             spoonfed_rows
                 .iter()
                 .map(
