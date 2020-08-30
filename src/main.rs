@@ -26,7 +26,9 @@ use linked_hash_map::LinkedHashMap;
 
 impl read::vocab::Vocab {
     pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
-        self.to_tab_separated_with_custom_linzifier(|s| convert_hanzi_to_images(s, "/{} N()SL", rel_path))
+        self.to_tab_separated_with_custom_linzifier(|s| {
+            convert_hanzi_to_images(s, "/{} N()SL", rel_path)
+        })
     }
 }
 
@@ -282,7 +284,10 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
     let mut iter = s.chars();
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(&format!(r#"<img src="{}/char_img/blank.png" width="30" height="30">"#, rel_path))
+            ans.push_str(&format!(
+                r#"<img src="{}/char_img/blank.png" width="30" height="30">"#,
+                rel_path
+            ))
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
                 ans.push_str(&format!(r#"<img src="{}/char_img/xi.png" width="30" height="30"><img src="{}/char_img/zi.png" width="30" height="30">"#, rel_path, rel_path))
@@ -294,8 +299,7 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
         } else {
             ans.push_str(&format!(
                 r#"<img src="{}/char_img/{}.png" width="30" height="30">"#,
-                rel_path,
-                c
+                rel_path, c
             ))
         }
     }
@@ -411,7 +415,13 @@ fn main() -> Result<(), Box<dyn Error>> {
         vocab_html.push(format!("{}\t{}", key, vocab.to_tab_separated(".")))
     }
     write!(
-        vocab_file, "{}", VocabListTemplate { vocab_html: &vocab_html.join("\n") }.render().unwrap()
+        vocab_file,
+        "{}",
+        VocabListTemplate {
+            vocab_html: &vocab_html.join("\n")
+        }
+        .render()
+        .unwrap()
     )?;
 
     let mut vocab_file = File::create("docs/vocab_list.html")?;
@@ -420,7 +430,13 @@ fn main() -> Result<(), Box<dyn Error>> {
         vocab_html.push(vocab.to_tab_separated("."))
     }
     write!(
-        vocab_file, "{}", VocabListTemplate { vocab_html: &vocab_html.join("\n") }.render().unwrap()
+        vocab_file,
+        "{}",
+        VocabListTemplate {
+            vocab_html: &vocab_html.join("\n")
+        }
+        .render()
+        .unwrap()
     )?;
 
     let mut file = File::create("docs/index.html")?;
