@@ -179,6 +179,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "readonly"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "54c0fb387dcbe19412ee9e7ddcca2aa31bedcc62e7f9faef6db431da5fadb883"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "regex-automata"
 version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -222,6 +233,7 @@ dependencies = [
  "linked-hash-map",
  "partition_eithers",
  "pekzep_syllable",
+ "readonly",
  "serde",
  "serde_derive",
 ]

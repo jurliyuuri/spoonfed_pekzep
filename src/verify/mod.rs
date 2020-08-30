@@ -4,6 +4,7 @@ use partition_eithers::collect_any_errors;
 use std::collections::HashMap;
 use std::error::Error;
 
+#[readonly::make]
 pub struct Foo {
     pub vocab: HashMap<String, read::vocab::Vocab>,
     pub rows3: Vec<(

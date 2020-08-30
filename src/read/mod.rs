@@ -129,6 +129,7 @@ pub mod main_row {
             .join("_")
     }
 
+    #[readonly::make]
     #[derive(Ser, De, Debug, Clone)]
     pub struct MainRow {
         pub english: String,

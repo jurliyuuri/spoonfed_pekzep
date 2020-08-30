@@ -146,7 +146,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         write!(file, "{}", content.render().unwrap())?;
     }
 
-    for (key, v) in foo.vocab {
+    for (key, v) in &foo.vocab {
         let mut file = File::create(format!(
             "docs/vocab/{}.html",
             key.replace(" // ", "_slashslash_")
@@ -179,7 +179,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let mut vocab_file = File::create("docs/vocab_list.html")?;
     let mut vocab_html = vec![];
-    for (_, vocab) in foo.vocab_ordered {
+    for (_, vocab) in &foo.vocab_ordered {
         vocab_html.push(vocab.to_tab_separated("."))
     }
     write!(
@@ -194,7 +194,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tgloss\tphrase".to_string()];
-    for (sylls, decomp, r) in foo.rows3 {
+    for (sylls, decomp, r) in &foo.rows3 {
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check(r.filetype.contains("wav") || r.filetype.contains("oga")),
