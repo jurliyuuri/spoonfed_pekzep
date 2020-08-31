@@ -18,65 +18,65 @@ pub struct Foo {
 
 impl Foo {
     pub fn new() -> Result<Foo, Box<dyn Error>> {
+        use log::info;
         let char_pronunciation = read::char_pronunciation::parse_char_pronunciation()?;
 
         let spoonfed_rows = read::main_row::parse_spoonfed()?;
 
-        // check if the pronunciations of the sentences are correct
-        let mut pronunciation_errors_in_spoonfed = vec![];
+        eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         for (k, v) in spoonfed_rows.iter() {
             let mut iter = v.pekzep_hanzi.chars();
             let mut key_iter = k.iter();
             while let Some(c) = iter.next() {
                 if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
-                    // println!("Skipped: {}", c)
+                    info!("Skipped: {}", c)
                 } else if c == 'x' {
                     if Some('i') == iter.next()
                         && Some('z') == iter.next()
                         && Some('i') == iter.next()
                     {
                         if let Some(read::main_row::ExtSyll::Xizi) = key_iter.next() {
-                            // println!("matched `xizi`.")
+                            info!("matched `xizi`.")
                         } else {
-                            pronunciation_errors_in_spoonfed.push(format!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi))
+                            panic!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi)
                         }
                     } else {
-                        pronunciation_errors_in_spoonfed.push(format!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi))
+                        panic!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi)
                     }
                 } else {
                     let expected_syll = match key_iter.next() {
                         Some(s) => *s,
                         None => {
-                            pronunciation_errors_in_spoonfed.push(format!(
+                            panic!(
                                 "While trying to match {:?} with {}, end of key encountered",
                                 k, v.pekzep_hanzi
-                            ));
-                            continue;
+                            );
+                            // continue;
                         }
                     };
                     if let Some(_a) = char_pronunciation.iter().find(|(h, syll)| {
                         *h == c.to_string() && read::main_row::ExtSyll::Syll(*syll) == expected_syll
                     }) {
-                        // println!("matched {} with {}", _a.0, _a.1)
+                        info!("matched {} with {}", _a.0, _a.1)
                     } else {
-                        pronunciation_errors_in_spoonfed.push(format!(
+                        panic!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
                             expected_syll, c
-                        ))
+                        )
                     }
                 }
             }
         }
-        if !pronunciation_errors_in_spoonfed.is_empty() {
-            return Err(pronunciation_errors_in_spoonfed.join("\n").into());
-        }
+        //if !pronunciation_errors_in_spoonfed.is_empty() {
+        //    return Err(pronunciation_errors_in_spoonfed.join("\n").into());
+        //}
         
         let vocab = read::vocab::parse_vocabs()?;
-        // check if the pronunciations of the glosses are correct
+        eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         // let mut pronunciation_errors_in_vocab = vec![];
         for (_, v) in vocab.iter() {
             if v.pekzep_hanzi == "∅" && v.pekzep_latin == "" {
-                println!("matched `∅` with an empty string")
+                info!("matched `∅` with an empty string")
             }
             let mut latin_iter = v.pekzep_latin.split(|c: char| c.is_whitespace());
             let mut hanzi_iter = v.pekzep_hanzi.chars();
@@ -86,7 +86,7 @@ impl Foo {
                     && hanzi_iter.next() == Some('i')
                     && hanzi_iter.next() == Some('z')
                     && hanzi_iter.next() == Some('i') {
-                        println!("matched `xizi` with `xizi`")
+                        info!("matched `xizi` with `xizi`")
                     }
                 }
 
@@ -101,7 +101,7 @@ impl Foo {
                     if let Some(_a) = char_pronunciation.iter().find(|(h, sy)| {
                         *h == c.to_string() && *sy == syll
                     }) {
-                        println!("matched {} with {}", _a.0, _a.1)
+                        info!("matched {} with {}", _a.0, _a.1)
                     } else {
                         panic!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
@@ -113,13 +113,13 @@ impl Foo {
                     && hanzi_iter.next() == Some('/') 
                     && hanzi_iter.next() == Some('/')
                     && hanzi_iter.next() == Some(' ') {
-                        println!("matched `//` with `//`")
+                        info!("matched `//` with `//`")
                     }
 
                 } else if s == "S" {
                     if hanzi_iter.next() == Some('S')
                     && hanzi_iter.next() == Some(' ') {
-                        println!("matched `S` with `S`")
+                        info!("matched `S` with `S`")
                     }
                 } else {
                     match s.chars().next() {

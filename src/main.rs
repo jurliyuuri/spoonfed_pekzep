@@ -1,6 +1,7 @@
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
+use env_logger;
 mod read;
 mod verify;
 
@@ -102,6 +103,7 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+    env_logger::init();
     let foo = verify::Foo::new()?;
     for (i, (sylls, decomp, this)) in foo.rows3.iter().enumerate() {
         let prev = if i == 0 { None } else { foo.rows3.get(i - 1) };
