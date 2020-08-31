@@ -17,13 +17,14 @@ pub mod vocab {
         english_gloss: String,
     }
 
+    #[readonly::make]
     #[derive(Debug, Clone)]
     pub struct Vocab {
-        pekzep_latin: String,
-        pekzep_hanzi: String,
-        parts_of_speech: String,
-        parts_of_speech_supplement: String,
-        english_gloss: String,
+        pub pekzep_latin: String,
+        pub pekzep_hanzi: String,
+        pub parts_of_speech: String,
+        pub parts_of_speech_supplement: String,
+        pub english_gloss: String,
     }
 
     impl Vocab {

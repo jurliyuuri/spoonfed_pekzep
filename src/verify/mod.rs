@@ -3,6 +3,7 @@ use linked_hash_map::LinkedHashMap;
 use partition_eithers::collect_any_errors;
 use std::collections::HashMap;
 use std::error::Error;
+use pekzep_syllable::PekZepSyllable;
 
 #[readonly::make]
 pub struct Foo {
@@ -71,6 +72,91 @@ impl Foo {
         }
         
         let vocab = read::vocab::parse_vocabs()?;
+        // check if the pronunciations of the glosses are correct
+        // let mut pronunciation_errors_in_vocab = vec![];
+        for (_, v) in vocab.iter() {
+            if v.pekzep_hanzi == "∅" && v.pekzep_latin == "" {
+                println!("matched `∅` with an empty string")
+            }
+            let mut latin_iter = v.pekzep_latin.split(|c: char| c.is_whitespace());
+            let mut hanzi_iter = v.pekzep_hanzi.chars();
+            'a: while let Some(s) = latin_iter.next() {
+                if s == "xizi" {
+                    if hanzi_iter.next() == Some('x')
+                    && hanzi_iter.next() == Some('i')
+                    && hanzi_iter.next() == Some('z')
+                    && hanzi_iter.next() == Some('i') {
+                        println!("matched `xizi` with `xizi`")
+                    }
+                }
+
+                if let Some(syll) = PekZepSyllable::parse(s) {
+                    let mut c = hanzi_iter.next().expect("Unmatched syllable");
+                    loop {
+                        if !c.is_whitespace() {
+                            break;
+                        }
+                        c = hanzi_iter.next().expect("Unmatched syllable");
+                    }
+                    if let Some(_a) = char_pronunciation.iter().find(|(h, sy)| {
+                        *h == c.to_string() && *sy == syll
+                    }) {
+                        println!("matched {} with {}", _a.0, _a.1)
+                    } else {
+                        panic!(
+                            "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
+                            syll, c
+                        )
+                    }
+                } else if s == "//" {
+                    if hanzi_iter.next() == Some(' ') 
+                    && hanzi_iter.next() == Some('/') 
+                    && hanzi_iter.next() == Some('/')
+                    && hanzi_iter.next() == Some(' ') {
+                        println!("matched `//` with `//`")
+                    }
+
+                } else if s == "S" {
+                    if hanzi_iter.next() == Some('S')
+                    && hanzi_iter.next() == Some(' ') {
+                        println!("matched `S` with `S`")
+                    }
+                } else {
+                    match s.chars().next() {
+                        Some('{') => {
+                            // for the latin side, start ignoring everything else until the matching '}'
+                            let mut u = s;
+                            loop {
+                                if u.chars().last() == Some('}') {
+                                    break;
+                                }
+                                u = latin_iter.next().expect("Unmatched }");
+                            }
+
+                            // for the hanzi side, skip
+                            loop {
+                                match hanzi_iter.next() {
+                                    Some(' ') => continue,
+                                    Some('{') => break,
+                                    None => continue 'a,
+                                    s => panic!("Trying to match {} with {}: Unexpected char {:?} found while dealing with braces", 
+                                    v.pekzep_hanzi, v.pekzep_latin, s)
+                                }
+                            }
+                            loop {
+                                match hanzi_iter.next() {
+                                    Some('}') => break,
+                                    None => panic!("Unexpected end of the input"),
+                                    _ => continue,
+                                }
+                            }
+                        }
+                        Some(_) => continue,
+                        None => break
+                    }
+                }
+            }
+        }
 
         let mut vocab_ordered = LinkedHashMap::new();
 
