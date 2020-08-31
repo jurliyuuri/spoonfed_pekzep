@@ -22,6 +22,7 @@ impl Foo {
         let spoonfed_rows = read::main_row::parse_spoonfed()?;
 
         // check if the pronunciations of the sentences are correct
+        let mut pronunciation_errors_in_spoonfed = vec![];
         for (k, v) in spoonfed_rows.iter() {
             let mut iter = v.pekzep_hanzi.chars();
             let mut key_iter = k.iter();
@@ -36,32 +37,39 @@ impl Foo {
                         if let Some(read::main_row::ExtSyll::Xizi) = key_iter.next() {
                             // println!("matched `xizi`.")
                         } else {
-                            panic!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi)
+                            pronunciation_errors_in_spoonfed.push(format!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi))
                         }
                     } else {
-                        panic!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi)
+                        pronunciation_errors_in_spoonfed.push(format!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi))
                     }
                 } else {
                     let expected_syll = match key_iter.next() {
                         Some(s) => *s,
-                        None => panic!(
-                            "While trying to match {:?} with {}, end of key encountered",
-                            k, v.pekzep_hanzi
-                        ),
+                        None => {
+                            pronunciation_errors_in_spoonfed.push(format!(
+                                "While trying to match {:?} with {}, end of key encountered",
+                                k, v.pekzep_hanzi
+                            ));
+                            continue;
+                        }
                     };
                     if let Some(_a) = char_pronunciation.iter().find(|(h, syll)| {
                         *h == c.to_string() && read::main_row::ExtSyll::Syll(*syll) == expected_syll
                     }) {
                         // println!("matched {} with {}", _a.0, _a.1)
                     } else {
-                        panic!(
+                        pronunciation_errors_in_spoonfed.push(format!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
                             expected_syll, c
-                        )
+                        ))
                     }
                 }
             }
         }
+        if !pronunciation_errors_in_spoonfed.is_empty() {
+            return Err(pronunciation_errors_in_spoonfed.join("\n").into());
+        }
+        
         let vocab = read::vocab::parse_vocabs()?;
 
         let mut vocab_ordered = LinkedHashMap::new();
