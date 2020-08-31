@@ -89,7 +89,7 @@ pub mod main_row {
     use std::io::prelude::*;
     use std::io::BufReader;
 
-    #[derive(Debug, Clone, Eq, PartialEq, Hash)]
+    #[derive(Debug, Clone, Eq, PartialEq, Hash, Copy)]
     pub enum ExtSyll {
         Syll(PekZepSyllable),
         Xizi,
@@ -192,5 +192,39 @@ pub mod main_row {
             let err: Box<dyn Error> = errors.join("\n").into();
             Err(err)
         }
+    }
+}
+
+pub mod char_pronunciation {
+    use partition_eithers::collect_any_errors;
+    use pekzep_syllable::PekZepSyllable;
+    use serde_derive::Deserialize as De;
+    use std::error::Error;
+    use std::fs::File;
+
+    #[derive(Debug, De)]
+    struct Record {
+        character: String,
+        sound: String,
+    }
+
+    pub fn parse_char_pronunciation() -> Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> {
+        let f = File::open("raw/字音.tsv")?;
+        let mut rdr = csv::ReaderBuilder::new().delimiter(b'\t').from_reader(f);
+        let mut ans = vec![];
+        for result in rdr.deserialize() {
+            let record: Record = result?;
+            ans.push(record)
+        }
+
+        fn convert(record: Record) -> Result<(String, PekZepSyllable), String> {
+            match PekZepSyllable::parse(&record.sound) {
+                None => Err(format!("Invalid sound {}", record.sound)),
+                Some(a) => Ok((record.character, a)),
+            }
+        }
+
+        collect_any_errors(ans.into_iter().map(convert).collect::<Vec<_>>())
+            .map_err(|e| e.join("\n").into())
     }
 }

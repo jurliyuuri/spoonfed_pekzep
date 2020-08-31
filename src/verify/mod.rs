@@ -17,9 +17,50 @@ pub struct Foo {
 
 impl Foo {
     pub fn new() -> Result<Foo, Box<dyn Error>> {
+        let char_pronunciation = read::char_pronunciation::parse_char_pronunciation()?;
+
         let spoonfed_rows = read::main_row::parse_spoonfed()?;
 
+        // check if the pronunciations of the sentences are correct
+        for (k, v) in spoonfed_rows.iter() {
+            let mut iter = v.pekzep_hanzi.chars();
+            let mut key_iter = k.iter();
+            while let Some(c) = iter.next() {
+                if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
+                    println!("Skipped: {}", c)
+                } else if c == 'x' {
+                    if Some('i') == iter.next()
+                        && Some('z') == iter.next()
+                        && Some('i') == iter.next()
+                    {
+                        if let Some(read::main_row::ExtSyll::Xizi) = key_iter.next() {
+                            println!("matched `xizi`.")
+                        } else {
+                            panic!("mismatch found: pekzep_hanzi gave `xizi` but the key was something else")
+                        }
+                    } else {
+                        panic!("Expected `xizi` because `x` was encountered, but did not find it.")
+                    }
+                } else {
+                    let expected_syll = match key_iter.next() {
+                        Some(s) => *s,
+                        None => panic!("End of key encountered"),
+                    };
+                    if let Some(a) = char_pronunciation.iter().find(|(h, syll)| {
+                        *h == c.to_string() && read::main_row::ExtSyll::Syll(*syll) == expected_syll
+                    }) {
+                        println!("matched {} with {}", a.0, a.1)
+                    } else {
+                        panic!(
+                            "Cannot find the pronunciation `{}` for character `{}`",
+                            expected_syll, c
+                        )
+                    }
+                }
+            }
+        }
         let vocab = read::vocab::parse_vocabs()?;
+
         let mut vocab_ordered = LinkedHashMap::new();
 
         let rows3 = collect_any_errors(
