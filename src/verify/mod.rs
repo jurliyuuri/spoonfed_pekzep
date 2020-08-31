@@ -27,32 +27,35 @@ impl Foo {
             let mut key_iter = k.iter();
             while let Some(c) = iter.next() {
                 if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
-                    println!("Skipped: {}", c)
+                    // println!("Skipped: {}", c)
                 } else if c == 'x' {
                     if Some('i') == iter.next()
                         && Some('z') == iter.next()
                         && Some('i') == iter.next()
                     {
                         if let Some(read::main_row::ExtSyll::Xizi) = key_iter.next() {
-                            println!("matched `xizi`.")
+                            // println!("matched `xizi`.")
                         } else {
-                            panic!("mismatch found: pekzep_hanzi gave `xizi` but the key was something else")
+                            panic!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi)
                         }
                     } else {
-                        panic!("Expected `xizi` because `x` was encountered, but did not find it.")
+                        panic!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi)
                     }
                 } else {
                     let expected_syll = match key_iter.next() {
                         Some(s) => *s,
-                        None => panic!("End of key encountered"),
+                        None => panic!(
+                            "While trying to match {:?} with {}, end of key encountered",
+                            k, v.pekzep_hanzi
+                        ),
                     };
-                    if let Some(a) = char_pronunciation.iter().find(|(h, syll)| {
+                    if let Some(_a) = char_pronunciation.iter().find(|(h, syll)| {
                         *h == c.to_string() && read::main_row::ExtSyll::Syll(*syll) == expected_syll
                     }) {
-                        println!("matched {} with {}", a.0, a.1)
+                        // println!("matched {} with {}", _a.0, _a.1)
                     } else {
                         panic!(
-                            "Cannot find the pronunciation `{}` for character `{}`",
+                            "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
                             expected_syll, c
                         )
                     }
