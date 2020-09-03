@@ -105,6 +105,8 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 fn main() -> Result<(), Box<dyn Error>> {
     env_logger::init();
     let foo = verify::Foo::new()?;
+
+    eprintln!("Generating phrase/");
     for (i, (sylls, decomp, this)) in foo.rows3.iter().enumerate() {
         let prev = if i == 0 { None } else { foo.rows3.get(i - 1) };
         let next = foo.rows3.get(i + 1);
@@ -148,6 +150,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         write!(file, "{}", content.render().unwrap())?;
     }
 
+    eprintln!("Generating vocab/");
     for (key, v) in &foo.vocab {
         let mut file = File::create(format!(
             "docs/vocab/{}.html",
@@ -164,6 +167,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         )?;
     }
 
+    eprintln!("Generating vocab_list_internal.html");
     let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
     let mut vocab_html = vec![];
     for (key, vocab) in &foo.vocab_ordered {
@@ -179,6 +183,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .unwrap()
     )?;
 
+    eprintln!("Generating vocab_list.html");
     let mut vocab_file = File::create("docs/vocab_list.html")?;
     let mut vocab_html = vec![];
     for (_, vocab) in &foo.vocab_ordered {
@@ -194,6 +199,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .unwrap()
     )?;
 
+    eprintln!("Generating index.html");
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tgloss\tphrase".to_string()];
     for (sylls, decomp, r) in &foo.rows3 {
