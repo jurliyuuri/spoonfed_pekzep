@@ -80,12 +80,12 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
     while let Some(c) = iter.next() {
         if c == '∅' {
             ans.push_str(&format!(
-                r#"<img src="{}/char_img/blank.png" width="30" height="30">"#,
+                r#"<img src="{}/char_img/blank.png" height="30">"#,
                 rel_path
             ))
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
-                ans.push_str(&format!(r#"<img src="{}/char_img/xi.png" width="30" height="30"><img src="{}/char_img/zi.png" width="30" height="30">"#, rel_path, rel_path))
+                ans.push_str(&format!(r#"<img src="{}/char_img/xi.png" height="30"><img src="{}/char_img/zi.png" height="30">"#, rel_path, rel_path))
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.")
             }
@@ -93,7 +93,7 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
             ans.push(c);
         } else {
             ans.push_str(&format!(
-                r#"<img src="{}/char_img/{}.png" width="30" height="30">"#,
+                r#"<img src="{}/char_img/{}.png" height="30">"#,
                 rel_path, c
             ))
         }
