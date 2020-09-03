@@ -103,6 +103,10 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+    use std::env;
+    if env::var("RUST_LOG").is_err() {
+        env::set_var("RUST_LOG", "warn");
+    }
     env_logger::init();
     let foo = verify::Foo::new()?;
 
@@ -151,7 +155,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     eprintln!("Generating vocab/");
-    for (key, v) in &foo.vocab {
+    for (key, v) in &foo.vocab_ordered {
         let mut file = File::create(format!(
             "docs/vocab/{}.html",
             key.replace(" // ", "_slashslash_")

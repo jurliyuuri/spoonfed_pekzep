@@ -7,7 +7,6 @@ use pekzep_syllable::PekZepSyllable;
 
 #[readonly::make]
 pub struct Foo {
-    pub vocab: HashMap<String, read::vocab::Vocab>,
     pub rows3: Vec<(
         Vec<read::main_row::ExtSyll>,
         Vec<(String, read::vocab::Vocab)>,
@@ -18,7 +17,7 @@ pub struct Foo {
 
 impl Foo {
     pub fn new() -> Result<Foo, Box<dyn Error>> {
-        use log::info;
+        use log::{info, warn};
         let char_pronunciation = read::char_pronunciation::parse_char_pronunciation()?;
 
         let spoonfed_rows = read::main_row::parse_spoonfed()?;
@@ -180,8 +179,13 @@ impl Foo {
         )
         .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
 
+        for (key, _) in &vocab {
+            if !vocab_ordered.contains_key(key) {
+                warn!("Vocab with internal key `{}` is never used", key);
+            }
+        }
+
         Ok(Foo {
-            vocab,
             rows3,
             vocab_ordered,
         })
