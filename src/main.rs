@@ -115,7 +115,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     eprintln!("Generating phrase/");
     for (i, (sylls, decomp, this)) in data_bundle.rows3.iter().enumerate() {
-        let prev = if i == 0 { None } else { data_bundle.rows3.get(i - 1) };
+        let prev = if i == 0 {
+            None
+        } else {
+            data_bundle.rows3.get(i - 1)
+        };
         let next = data_bundle.rows3.get(i + 1);
         if this.pekzep_latin.is_empty() {
             continue;

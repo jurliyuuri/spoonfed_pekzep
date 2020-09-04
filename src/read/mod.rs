@@ -44,7 +44,7 @@ pub mod vocab {
         }
     }
 
-    pub fn parse_vocabs() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
+    pub fn parse() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
         let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
         let f = BufReader::new(f);
         let mut res = HashMap::new();
@@ -167,7 +167,7 @@ pub mod main_row {
         .map_err(|e| e.join("\n").into())
     }
 
-    pub fn parse_spoonfed() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Error>> {
+    pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Error>> {
         let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
         let f = BufReader::new(f);
         let mut rows = LinkedHashMap::new();
@@ -209,20 +209,20 @@ pub mod char_pronunciation {
         sound: String,
     }
 
-    pub fn parse_char_pronunciation() -> Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> {
+    pub fn parse() -> Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> {
+        fn convert(record: Record) -> Result<(String, PekZepSyllable), String> {
+            match PekZepSyllable::parse(&record.sound) {
+                None => Err(format!("Invalid sound {}", record.sound)),
+                Some(a) => Ok((record.character, a)),
+            }
+        }
+
         let f = File::open("raw/字音.tsv")?;
         let mut rdr = csv::ReaderBuilder::new().delimiter(b'\t').from_reader(f);
         let mut ans = vec![];
         for result in rdr.deserialize() {
             let record: Record = result?;
             ans.push(record)
-        }
-
-        fn convert(record: Record) -> Result<(String, PekZepSyllable), String> {
-            match PekZepSyllable::parse(&record.sound) {
-                None => Err(format!("Invalid sound {}", record.sound)),
-                Some(a) => Ok((record.character, a)),
-            }
         }
 
         collect_any_errors(ans.into_iter().map(convert).collect::<Vec<_>>())
