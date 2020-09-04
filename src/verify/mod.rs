@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::error::Error;
 
 #[readonly::make]
-pub struct Foo {
+pub struct DataBundle {
     pub rows3: Vec<(
         Vec<read::main_row::ExtSyll>,
         Vec<(String, read::vocab::Vocab)>,
@@ -15,8 +15,8 @@ pub struct Foo {
     pub vocab_ordered: LinkedHashMap<String, read::vocab::Vocab>,
 }
 
-impl Foo {
-    pub fn new() -> Result<Foo, Box<dyn Error>> {
+impl DataBundle {
+    pub fn new() -> Result<DataBundle, Box<dyn Error>> {
         use log::{info, warn};
         let char_pronunciation = read::char_pronunciation::parse_char_pronunciation()?;
 
@@ -202,7 +202,7 @@ impl Foo {
             }
         }
 
-        Ok(Foo {
+        Ok(DataBundle {
             rows3,
             vocab_ordered,
         })
