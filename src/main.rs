@@ -29,6 +29,8 @@ struct PhraseTemplate<'a> {
     analysis: &'a str,
     audio_path_oga: &'a str,
     pekzep_imgs: &'a str,
+    author_color: &'a str,
+    author_name: &'a str,
 }
 
 #[derive(Template)]
@@ -104,6 +106,7 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 
 fn main() -> Result<(), Box<dyn Error>> {
     use std::env;
+    use log::warn;
     if env::var("RUST_LOG").is_err() {
         env::set_var("RUST_LOG", "warn");
     }
@@ -150,6 +153,17 @@ fn main() -> Result<(), Box<dyn Error>> {
             analysis: &analysis.join("\n"),
             audio_path_oga: &read::main_row::sylls_to_str_underscore(&sylls),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
+            author_color: &if this.recording_author == "jekto.vatimeliju" {
+                "#754eab"
+            } else if this.recording_author == "falira.lyjotafis" {
+                "#e33102"
+            } else {
+                if !this.recording_author.is_empty() {
+                    warn!("Unrecognized author `{}`", this.recording_author);
+                }
+                "#000000"
+            },
+            author_name: &this.recording_author
         };
         write!(file, "{}", content.render().unwrap())?;
     }
