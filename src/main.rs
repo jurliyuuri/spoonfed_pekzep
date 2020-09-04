@@ -1,3 +1,6 @@
+#![warn(clippy::pedantic)]
+#![allow(clippy::non_ascii_literal)]
+
 use env_logger;
 use std::error::Error;
 use std::fs::File;

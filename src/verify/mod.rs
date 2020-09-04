@@ -16,12 +16,11 @@ pub struct DataBundle {
 }
 
 impl DataBundle {
-    pub fn new() -> Result<DataBundle, Box<dyn Error>> {
-        use log::{info, warn};
-        let char_pronunciation = read::char_pronunciation::parse()?;
-
-        let spoonfed_rows = read::main_row::parse()?;
-
+    fn check_sentence_pronunciation(
+        spoonfed_rows: &LinkedHashMap<Vec<read::main_row::ExtSyll>, read::main_row::MainRow>,
+        char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+    ) -> Result<(), Box<dyn Error>> {
+        use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         for (k, v) in spoonfed_rows.iter() {
             let mut iter = v.pekzep_hanzi.chars();
@@ -64,11 +63,14 @@ impl DataBundle {
                 }
             }
         }
-        //if !pronunciation_errors_in_spoonfed.is_empty() {
-        //    return Err(pronunciation_errors_in_spoonfed.join("\n").into());
-        //}
+        Ok(())
+    }
 
-        let vocab = read::vocab::parse()?;
+    fn check_vocab_pronunciation(
+        vocab: &HashMap<String, read::vocab::Vocab>,
+        char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+    ) -> Result<(), Box<dyn Error>> {
+        use log::info;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         // let mut pronunciation_errors_in_vocab = vec![];
         for (_, v) in vocab.iter() {
@@ -171,6 +173,17 @@ impl DataBundle {
                 }
             }
         }
+        Ok(())
+    }
+    pub fn new() -> Result<DataBundle, Box<dyn Error>> {
+        use log::warn;
+        let char_pronunciation = read::char_pronunciation::parse()?;
+
+        let spoonfed_rows = read::main_row::parse()?;
+        DataBundle::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation)?;
+
+        let vocab = read::vocab::parse()?;
+        DataBundle::check_vocab_pronunciation(&vocab, &char_pronunciation)?;
 
         let mut vocab_ordered = LinkedHashMap::new();
 
