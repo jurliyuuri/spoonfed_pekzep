@@ -1,9 +1,9 @@
 use crate::read;
 use linked_hash_map::LinkedHashMap;
 use partition_eithers::collect_any_errors;
+use pekzep_syllable::PekZepSyllable;
 use std::collections::HashMap;
 use std::error::Error;
-use pekzep_syllable::PekZepSyllable;
 
 #[readonly::make]
 pub struct Foo {
@@ -69,7 +69,7 @@ impl Foo {
         //if !pronunciation_errors_in_spoonfed.is_empty() {
         //    return Err(pronunciation_errors_in_spoonfed.join("\n").into());
         //}
-        
+
         let vocab = read::vocab::parse_vocabs()?;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         // let mut pronunciation_errors_in_vocab = vec![];
@@ -81,11 +81,28 @@ impl Foo {
             let mut hanzi_iter = v.pekzep_hanzi.chars();
             'a: while let Some(s) = latin_iter.next() {
                 if s == "xizi" {
-                    if hanzi_iter.next() == Some('x')
-                    && hanzi_iter.next() == Some('i')
-                    && hanzi_iter.next() == Some('z')
-                    && hanzi_iter.next() == Some('i') {
-                        info!("matched `xizi` with `xizi`")
+                    match hanzi_iter.next() {
+                        Some('x') => {
+                            if hanzi_iter.next() == Some('i')
+                                && hanzi_iter.next() == Some('z')
+                                && hanzi_iter.next() == Some('i')
+                            {
+                                info!("matched `xizi` with `xizi`")
+                            }
+                        }
+                        Some(' ') => {
+                            if hanzi_iter.next() == Some('x')
+                                && hanzi_iter.next() == Some('i')
+                                && hanzi_iter.next() == Some('z')
+                                && hanzi_iter.next() == Some('i')
+                            {
+                                info!("matched `xizi` with `xizi`")
+                            }
+                        }
+                        _ => panic!(
+                            "While trying to match {:?} with {}, cannot find matching xizi.",
+                            v.pekzep_hanzi, v.pekzep_latin
+                        ),
                     }
                 }
 
@@ -97,9 +114,10 @@ impl Foo {
                         }
                         c = hanzi_iter.next().expect("Unmatched syllable");
                     }
-                    if let Some(_a) = char_pronunciation.iter().find(|(h, sy)| {
-                        *h == c.to_string() && *sy == syll
-                    }) {
+                    if let Some(_a) = char_pronunciation
+                        .iter()
+                        .find(|(h, sy)| *h == c.to_string() && *sy == syll)
+                    {
                         info!("matched {} with {}", _a.0, _a.1)
                     } else {
                         panic!(
@@ -108,16 +126,15 @@ impl Foo {
                         )
                     }
                 } else if s == "//" {
-                    if hanzi_iter.next() == Some(' ') 
-                    && hanzi_iter.next() == Some('/') 
-                    && hanzi_iter.next() == Some('/')
-                    && hanzi_iter.next() == Some(' ') {
+                    if hanzi_iter.next() == Some(' ')
+                        && hanzi_iter.next() == Some('/')
+                        && hanzi_iter.next() == Some('/')
+                        && hanzi_iter.next() == Some(' ')
+                    {
                         info!("matched `//` with `//`")
                     }
-
                 } else if s == "S" {
-                    if hanzi_iter.next() == Some('S')
-                    && hanzi_iter.next() == Some(' ') {
+                    if hanzi_iter.next() == Some('S') && hanzi_iter.next() == Some(' ') {
                         info!("matched `S` with `S`")
                     }
                 } else {
@@ -126,7 +143,7 @@ impl Foo {
                             // for the latin side, start ignoring everything else until the matching '}'
                             let mut u = s;
                             loop {
-                                if u.chars().last() == Some('}') {
+                                if u.ends_with('}') {
                                     break;
                                 }
                                 u = latin_iter.next().expect("Unmatched }");
@@ -151,7 +168,7 @@ impl Foo {
                             }
                         }
                         Some(_) => continue,
-                        None => break
+                        None => break,
                     }
                 }
             }
@@ -179,7 +196,7 @@ impl Foo {
         )
         .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
 
-        for (key, _) in &vocab {
+        for key in vocab.keys() {
             if !vocab_ordered.contains_key(key) {
                 warn!("Vocab with internal key `{}` is never used", key);
             }

@@ -1,7 +1,7 @@
+use env_logger;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-use env_logger;
 mod read;
 mod verify;
 
@@ -105,8 +105,8 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    use std::env;
     use log::warn;
+    use std::env;
     if env::var("RUST_LOG").is_err() {
         env::set_var("RUST_LOG", "warn");
     }
@@ -163,7 +163,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
                 "#000000"
             },
-            author_name: &this.recording_author
+            author_name: &this.recording_author,
         };
         write!(file, "{}", content.render().unwrap())?;
     }

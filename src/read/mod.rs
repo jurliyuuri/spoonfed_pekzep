@@ -106,7 +106,7 @@ pub mod main_row {
     }
 
     impl ExtSyll {
-        fn to_rerrliratixka(&self) -> String {
+        fn to_rerrliratixka(self) -> String {
             match &self {
                 ExtSyll::Syll(s) => s.clone().to_rerrliratixka(),
                 ExtSyll::Xizi => "xizi".to_string(),
@@ -117,7 +117,7 @@ pub mod main_row {
     pub fn sylls_to_rerrliratixka_no_space(sylls: &[ExtSyll]) -> String {
         sylls
             .iter()
-            .map(ExtSyll::to_rerrliratixka)
+            .map(|a| a.to_rerrliratixka())
             .collect::<Vec<_>>()
             .join("")
     }
