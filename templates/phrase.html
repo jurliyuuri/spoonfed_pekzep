@@ -24,7 +24,7 @@
                 <polygon fill="white" points="0,0 4,0 4,20 20,20 20,0 24,0 24,24 0,24" />
             </g>
         </svg>: <audio style="vertical-align: middle;" controls="">{{ wav_tag|safe }}
-            <source src="../spoonfed_pekzep_sounds/{{ audio_path_oga }}.oga" type="audio/ogg">
+            {{ oga_tag|safe }}
             Your browser does not support the audio element.
             </audio><br>
         {% endif %}Analysis: {{ analysis|linebreaksandtabs|safe }}

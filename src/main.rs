@@ -30,7 +30,7 @@ struct PhraseTemplate<'a> {
     next_link: &'a str,
     wav_tag: &'a str,
     analysis: &'a str,
-    audio_path_oga: &'a str,
+    oga_tag: &'a str,
     pekzep_imgs: &'a str,
     author_color: &'a str,
     author_name: &'a str,
@@ -150,7 +150,9 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
                     read::main_row::sylls_to_str_underscore(&sylls)
                 };
 
-                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
+                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename))
+                    .exists()
+                {
                     warn!("wav file not found: {}.wav", filename)
                 }
                 format!(
@@ -160,8 +162,11 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             } else {
                 "".to_owned()
             },
+            oga_tag: &format!(
+                r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
+                read::main_row::sylls_to_str_underscore(&sylls)
+            ),
             analysis: &analysis.join("\n"),
-            audio_path_oga: &read::main_row::sylls_to_str_underscore(&sylls),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
             author_color: &if this.recording_author == "jekto.vatimeliju" {
                 "#754eab"
@@ -174,7 +179,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
                 "#000000"
             },
             author_name: &this.recording_author,
-            has_audio: !this.recording_author.is_empty()
+            has_audio: !this.recording_author.is_empty(),
         };
         write!(file, "{}", content.render().unwrap())?;
     }
