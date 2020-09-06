@@ -162,10 +162,20 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             } else {
                 "".to_owned()
             },
-            oga_tag: &format!(
-                r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
-                read::main_row::sylls_to_str_underscore(&sylls)
-            ),
+            oga_tag: &if this.filetype.contains("oga") {
+                let filename = read::main_row::sylls_to_str_underscore(&sylls);
+                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
+                    .exists()
+                {
+                    warn!("oga file not found: {}.oga", filename)
+                }
+                format!(
+                    r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
+                    filename
+                )
+            } else {
+                "".to_owned()
+            },
             analysis: &analysis.join("\n"),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
             author_color: &if this.recording_author == "jekto.vatimeliju" {
