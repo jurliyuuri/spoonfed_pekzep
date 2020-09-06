@@ -132,7 +132,7 @@ pub mod main_row {
 
     #[readonly::make]
     #[derive(Ser, De, Debug, Clone)]
-    pub struct MainRow {
+    pub struct Record {
         pub english: String,
         pub pekzep_latin: String,
         pub pekzep_hanzi: String,
@@ -141,6 +141,36 @@ pub mod main_row {
         pub decomposed: String,
         pub filetype: String,
         pub recording_author: String,
+    }
+
+    #[readonly::make]
+    #[derive(Debug, Clone)]
+    pub struct MainRow {
+        pub english: String,
+        pub pekzep_latin: String,
+        pub pekzep_hanzi: String,
+        pub chinese_pinyin: String,
+        pub chinese_hanzi: String,
+        pub decomposed: String,
+        pub filetype: String,
+        pub recording_author: Option<Author>,
+    }
+
+    #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+    pub enum Author {
+        JektoVatimeliju,
+        FaliraLyjotafis,
+        Other(String),
+    }
+
+    impl std::fmt::Display for Author {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Author::JektoVatimeliju => write!(f, "jekto.vatimeliju"),
+                Author::FaliraLyjotafis => write!(f, "falira.lyjotafis"),
+                Author::Other(a) => write!(f, "{}", a),
+            }
+        }
     }
 
     fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyll>, Box<dyn Error>> {
@@ -174,8 +204,27 @@ pub mod main_row {
         let mut errors = vec![];
         for line in f.lines() {
             // to prevent double quotes from vanishing, I do not read with CSV parser
-            let row: MainRow = StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>())
+            let rec: Record = StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>())
                 .deserialize(None)?;
+
+            let row = MainRow {
+                pekzep_latin: rec.pekzep_latin,
+                pekzep_hanzi: rec.pekzep_hanzi,
+                chinese_hanzi: rec.chinese_hanzi,
+                chinese_pinyin: rec.chinese_pinyin,
+                english: rec.english,
+                filetype: rec.filetype,
+                recording_author: if rec.recording_author == "jekto.vatimeliju" {
+                    Some(Author::JektoVatimeliju)
+                } else if rec.recording_author == "falira.lyjotafis" {
+                    Some(Author::FaliraLyjotafis)
+                } else if rec.recording_author.is_empty() {
+                    None
+                } else {
+                    Some(Author::Other(rec.recording_author))
+                },
+                decomposed: rec.decomposed,
+            };
 
             let sylls = encode_to_pekzep_syllables(&row.pekzep_latin)?;
             if !sylls.is_empty() && rows.insert(sylls.clone(), row.clone()).is_some() {

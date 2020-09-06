@@ -178,18 +178,22 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             },
             analysis: &analysis.join("\n"),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
-            author_color: &if this.recording_author == "jekto.vatimeliju" {
+            author_color: &if this.recording_author == Some(read::main_row::Author::JektoVatimeliju)
+            {
                 "#754eab"
-            } else if this.recording_author == "falira.lyjotafis" {
+            } else if this.recording_author == Some(read::main_row::Author::FaliraLyjotafis) {
                 "#e33102"
             } else {
-                if !this.recording_author.is_empty() {
-                    warn!("Unrecognized author `{}`", this.recording_author);
+                if this.recording_author.is_some() {
+                    warn!("Unrecognized author `{:?}`", this.recording_author);
                 }
                 "#000000"
             },
-            author_name: &this.recording_author,
-            has_audio: !this.recording_author.is_empty(),
+            author_name: &match &this.recording_author {
+                Some(author) => format!("{}", author),
+                None => "".to_string(),
+            },
+            has_audio: this.recording_author.is_some(),
         };
         write!(file, "{}", content.render().unwrap())?;
     }
