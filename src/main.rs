@@ -152,7 +152,11 @@ fn main() -> Result<(), Box<dyn Error>> {
             wav_tag: &if this.filetype.contains("wav") {
                 format!(
                     r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
-                    read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
+                    if this.filetype.contains("wav_r") { 
+                        read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
+                    } else {
+                        read::main_row::sylls_to_str_underscore(&sylls)
+                    }
                 )
             } else {
                 "".to_owned()
