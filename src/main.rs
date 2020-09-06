@@ -34,6 +34,7 @@ struct PhraseTemplate<'a> {
     pekzep_imgs: &'a str,
     author_color: &'a str,
     author_name: &'a str,
+    has_audio: bool,
 }
 
 #[derive(Template)]
@@ -168,6 +169,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
                 "#000000"
             },
             author_name: &this.recording_author,
+            has_audio: !this.recording_author.is_empty()
         };
         write!(file, "{}", content.render().unwrap())?;
     }
