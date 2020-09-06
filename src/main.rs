@@ -30,10 +30,11 @@ struct PhraseTemplate<'a> {
     next_link: &'a str,
     wav_tag: &'a str,
     analysis: &'a str,
-    audio_path_oga: &'a str,
+    oga_tag: &'a str,
     pekzep_imgs: &'a str,
     author_color: &'a str,
     author_name: &'a str,
+    has_audio: bool,
 }
 
 #[derive(Template)]
@@ -107,15 +108,8 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
     ans
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
-    use std::env;
-    if env::var("RUST_LOG").is_err() {
-        env::set_var("RUST_LOG", "warn");
-    }
-    env_logger::init();
-    let data_bundle = verify::DataBundle::new()?;
-
     eprintln!("Generating phrase/");
     for (i, (sylls, decomp, this)) in data_bundle.rows3.iter().enumerate() {
         let prev = if i == 0 {
@@ -149,31 +143,74 @@ fn main() -> Result<(), Box<dyn Error>> {
                 None => "../index".to_string(),
                 Some((sylls, _, _)) => read::main_row::sylls_to_str_underscore(&sylls),
             },
-            wav_tag: &if this.filetype.contains("wav") {
+            wav_tag: &if this.filetype.contains(&read::main_row::FilePathType::Wav)
+                || this.filetype.contains(&read::main_row::FilePathType::WavR)
+            {
+                let filename = if this.filetype.contains(&read::main_row::FilePathType::WavR) {
+                    read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
+                } else {
+                    read::main_row::sylls_to_str_underscore(&sylls)
+                };
+
+                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename))
+                    .exists()
+                {
+                    warn!("wav file not found: {}.wav", filename)
+                }
                 format!(
                     r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
-                    read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
+                    filename
+                )
+            } else {
+                "".to_owned()
+            },
+            oga_tag: &if this.filetype.contains(&read::main_row::FilePathType::Oga) {
+                let filename = read::main_row::sylls_to_str_underscore(&sylls);
+                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
+                    .exists()
+                {
+                    warn!("oga file not found: {}.oga", filename)
+                }
+                format!(
+                    r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
+                    filename
                 )
             } else {
                 "".to_owned()
             },
             analysis: &analysis.join("\n"),
-            audio_path_oga: &read::main_row::sylls_to_str_underscore(&sylls),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
-            author_color: &if this.recording_author == "jekto.vatimeliju" {
+            author_color: &if this.recording_author == Some(read::main_row::Author::JektoVatimeliju)
+            {
                 "#754eab"
-            } else if this.recording_author == "falira.lyjotafis" {
+            } else if this.recording_author == Some(read::main_row::Author::FaliraLyjotafis) {
                 "#e33102"
             } else {
-                if !this.recording_author.is_empty() {
-                    warn!("Unrecognized author `{}`", this.recording_author);
+                if this.recording_author.is_some() {
+                    warn!("Unrecognized author `{:?}`", this.recording_author);
                 }
                 "#000000"
             },
-            author_name: &this.recording_author,
+            author_name: &match &this.recording_author {
+                Some(author) => format!("{}", author),
+                None => "".to_string(),
+            },
+            has_audio: this.recording_author.is_some(),
         };
         write!(file, "{}", content.render().unwrap())?;
     }
+    Ok(())
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
+    use std::env;
+    if env::var("RUST_LOG").is_err() {
+        env::set_var("RUST_LOG", "warn");
+    }
+    env_logger::init();
+    let data_bundle = verify::DataBundle::new()?;
+
+    generate_phrases(&data_bundle)?;
 
     eprintln!("Generating vocab/");
     for (key, v) in &data_bundle.vocab_ordered {
@@ -230,8 +267,15 @@ fn main() -> Result<(), Box<dyn Error>> {
     for (sylls, decomp, r) in &data_bundle.rows3 {
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
-            to_check(r.filetype.contains("wav") || r.filetype.contains("oga")),
-            to_check(r.filetype.contains("wav")),
+            to_check(
+                r.filetype.contains(&read::main_row::FilePathType::Wav)
+                    || r.filetype.contains(&read::main_row::FilePathType::WavR)
+                    || r.filetype.contains(&read::main_row::FilePathType::Oga)
+            ),
+            to_check(
+                r.filetype.contains(&read::main_row::FilePathType::Wav)
+                    || r.filetype.contains(&read::main_row::FilePathType::WavR)
+            ),
             to_check(!decomp.is_empty()),
             read::main_row::sylls_to_str_underscore(&sylls),
             r.pekzep_latin
