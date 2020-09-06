@@ -85,6 +85,7 @@ pub mod main_row {
     use partition_eithers::collect_any_errors;
     use pekzep_syllable::PekZepSyllable;
     use serde_derive::{Deserialize as De, Serialize as Ser};
+    use std::collections::HashSet;
     use std::error::Error;
     use std::fs::File;
     use std::io::prelude::*;
@@ -152,8 +153,15 @@ pub mod main_row {
         pub chinese_pinyin: String,
         pub chinese_hanzi: String,
         pub decomposed: String,
-        pub filetype: String,
+        pub filetype: HashSet<FilePathType>,
         pub recording_author: Option<Author>,
+    }
+
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+    pub enum FilePathType {
+        Wav,
+        WavR,
+        Oga,
     }
 
     #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -198,6 +206,7 @@ pub mod main_row {
     }
 
     pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Error>> {
+        use log::info;
         let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
         let f = BufReader::new(f);
         let mut rows = LinkedHashMap::new();
@@ -207,13 +216,26 @@ pub mod main_row {
             let rec: Record = StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>())
                 .deserialize(None)?;
 
+            info!("Parsing `{}`, `{}`:", rec.english, rec.pekzep_latin);
             let row = MainRow {
                 pekzep_latin: rec.pekzep_latin,
                 pekzep_hanzi: rec.pekzep_hanzi,
                 chinese_hanzi: rec.chinese_hanzi,
                 chinese_pinyin: rec.chinese_pinyin,
                 english: rec.english,
-                filetype: rec.filetype,
+                filetype: if rec.filetype.is_empty() {
+                    HashSet::new()
+                } else {
+                    rec.filetype
+                        .split(',')
+                        .map(|x| match x.trim() {
+                            "wav_r" => FilePathType::WavR,
+                            "wav" => FilePathType::Wav,
+                            "oga" => FilePathType::Oga,
+                            a => panic!("Invalid file type `{}`. Run with RUST_LOG environment variable set to `info` to see the details.", a),
+                        })
+                        .collect()
+                },
                 recording_author: if rec.recording_author == "jekto.vatimeliju" {
                     Some(Author::JektoVatimeliju)
                 } else if rec.recording_author == "falira.lyjotafis" {

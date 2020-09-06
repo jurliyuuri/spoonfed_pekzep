@@ -143,8 +143,10 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
                 None => "../index".to_string(),
                 Some((sylls, _, _)) => read::main_row::sylls_to_str_underscore(&sylls),
             },
-            wav_tag: &if this.filetype.contains("wav") {
-                let filename = if this.filetype.contains("wav_r") {
+            wav_tag: &if this.filetype.contains(&read::main_row::FilePathType::Wav)
+                || this.filetype.contains(&read::main_row::FilePathType::WavR)
+            {
+                let filename = if this.filetype.contains(&read::main_row::FilePathType::WavR) {
                     read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
                 } else {
                     read::main_row::sylls_to_str_underscore(&sylls)
@@ -162,7 +164,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             } else {
                 "".to_owned()
             },
-            oga_tag: &if this.filetype.contains("oga") {
+            oga_tag: &if this.filetype.contains(&read::main_row::FilePathType::Oga) {
                 let filename = read::main_row::sylls_to_str_underscore(&sylls);
                 if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
                     .exists()
@@ -265,8 +267,15 @@ fn main() -> Result<(), Box<dyn Error>> {
     for (sylls, decomp, r) in &data_bundle.rows3 {
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
-            to_check(r.filetype.contains("wav") || r.filetype.contains("oga")),
-            to_check(r.filetype.contains("wav")),
+            to_check(
+                r.filetype.contains(&read::main_row::FilePathType::Wav)
+                    || r.filetype.contains(&read::main_row::FilePathType::WavR)
+                    || r.filetype.contains(&read::main_row::FilePathType::Oga)
+            ),
+            to_check(
+                r.filetype.contains(&read::main_row::FilePathType::Wav)
+                    || r.filetype.contains(&read::main_row::FilePathType::WavR)
+            ),
             to_check(!decomp.is_empty()),
             read::main_row::sylls_to_str_underscore(&sylls),
             r.pekzep_latin
