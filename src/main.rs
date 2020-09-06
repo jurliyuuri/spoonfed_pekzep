@@ -107,15 +107,8 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
     ans
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
-    use std::env;
-    if env::var("RUST_LOG").is_err() {
-        env::set_var("RUST_LOG", "warn");
-    }
-    env_logger::init();
-    let data_bundle = verify::DataBundle::new()?;
-
     eprintln!("Generating phrase/");
     for (i, (sylls, decomp, this)) in data_bundle.rows3.iter().enumerate() {
         let prev = if i == 0 {
@@ -152,7 +145,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             wav_tag: &if this.filetype.contains("wav") {
                 format!(
                     r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
-                    if this.filetype.contains("wav_r") { 
+                    if this.filetype.contains("wav_r") {
                         read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
                     } else {
                         read::main_row::sylls_to_str_underscore(&sylls)
@@ -178,6 +171,18 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
         write!(file, "{}", content.render().unwrap())?;
     }
+    Ok(())
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
+    use std::env;
+    if env::var("RUST_LOG").is_err() {
+        env::set_var("RUST_LOG", "warn");
+    }
+    env_logger::init();
+    let data_bundle = verify::DataBundle::new()?;
+
+    generate_phrases(&data_bundle)?;
 
     eprintln!("Generating vocab/");
     for (key, v) in &data_bundle.vocab_ordered {
