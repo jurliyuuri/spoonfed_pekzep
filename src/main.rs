@@ -144,13 +144,18 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
                 Some((sylls, _, _)) => read::main_row::sylls_to_str_underscore(&sylls),
             },
             wav_tag: &if this.filetype.contains("wav") {
+                let filename = if this.filetype.contains("wav_r") {
+                    read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
+                } else {
+                    read::main_row::sylls_to_str_underscore(&sylls)
+                };
+
+                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
+                    warn!("wav file not found: {}.wav", filename)
+                }
                 format!(
                     r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
-                    if this.filetype.contains("wav_r") {
-                        read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
-                    } else {
-                        read::main_row::sylls_to_str_underscore(&sylls)
-                    }
+                    filename
                 )
             } else {
                 "".to_owned()
