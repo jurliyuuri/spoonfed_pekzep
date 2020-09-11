@@ -108,6 +108,60 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
     ans
 }
 
+fn generate_oga_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -> String {
+    use log::warn;
+    if row.filetype.contains(&read::phrase::FilePathType::Oga) {
+        let filename = read::phrase::sylls_to_str_underscore(&sylls);
+        if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists()
+        {
+            warn!("oga file not found: {}.oga", filename)
+        }
+        format!(
+            r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
+            filename
+        )
+    } else {
+        let filename = read::phrase::sylls_to_str_underscore(&sylls);
+        if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
+            warn!("oga file IS found, but is not linked: {}.oga", filename)
+        }
+        "".to_owned()
+    }
+}
+
+fn generate_wav_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -> String {
+    use log::warn;
+    if row.filetype.contains(&read::phrase::FilePathType::Wav)
+        || row.filetype.contains(&read::phrase::FilePathType::WavR)
+    {
+        let filename = if row.filetype.contains(&read::phrase::FilePathType::WavR) {
+            read::phrase::sylls_to_rerrliratixka_no_space(&sylls)
+        } else {
+            read::phrase::sylls_to_str_underscore(&sylls)
+        };
+
+        if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists()
+        {
+            warn!("wav file not found: {}.wav", filename)
+        }
+        format!(
+            r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
+            filename
+        )
+    } else {
+        let filename = read::phrase::sylls_to_rerrliratixka_no_space(&sylls);
+        if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
+            warn!("wav file IS found, but is not linked: {}.wav", filename)
+        }
+
+        let filename = read::phrase::sylls_to_str_underscore(&sylls);
+        if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
+            warn!("wav file IS found, but is not linked: {}.wav", filename)
+        }
+        "".to_owned()
+    }
+}
+
 fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
     eprintln!("Generating phrase/");
@@ -147,41 +201,8 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
                     read::phrase::sylls_to_str_underscore(&sylls)
                 }
             },
-            wav_tag: &if row.filetype.contains(&read::phrase::FilePathType::Wav)
-                || row.filetype.contains(&read::phrase::FilePathType::WavR)
-            {
-                let filename = if row.filetype.contains(&read::phrase::FilePathType::WavR) {
-                    read::phrase::sylls_to_rerrliratixka_no_space(&sylls)
-                } else {
-                    read::phrase::sylls_to_str_underscore(&sylls)
-                };
-
-                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename))
-                    .exists()
-                {
-                    warn!("wav file not found: {}.wav", filename)
-                }
-                format!(
-                    r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
-                    filename
-                )
-            } else {
-                "".to_owned()
-            },
-            oga_tag: &if row.filetype.contains(&read::phrase::FilePathType::Oga) {
-                let filename = read::phrase::sylls_to_str_underscore(&sylls);
-                if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
-                    .exists()
-                {
-                    warn!("oga file not found: {}.oga", filename)
-                }
-                format!(
-                    r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
-                    filename
-                )
-            } else {
-                "".to_owned()
-            },
+            wav_tag: &generate_wav_tag(&row, &sylls),
+            oga_tag: &generate_oga_tag(&row, &sylls),
             analysis: &analysis.join("\n"),
             pekzep_imgs: &convert_hanzi_to_images(&row.pekzep_hanzi, "() ", ".."),
             author_color: &if row.recording_author == Some(read::phrase::Author::JektoVatimeliju) {
