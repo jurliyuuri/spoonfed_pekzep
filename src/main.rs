@@ -111,14 +111,14 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
     eprintln!("Generating phrase/");
-    for (i, (sylls, decomp, this)) in data_bundle.rows3.iter().enumerate() {
+    for (i, verify::Rows3Item { sylls, decomp, row }) in data_bundle.rows3.iter().enumerate() {
         let prev = if i == 0 {
             None
         } else {
             data_bundle.rows3.get(i - 1)
         };
         let next = data_bundle.rows3.get(i + 1);
-        if this.pekzep_latin.is_empty() {
+        if row.pekzep_latin.is_empty() {
             continue;
         }
         let mut file = File::create(format!(
@@ -130,23 +130,27 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             .map(|(_, voc)| voc.to_tab_separated(".."))
             .collect::<Vec<_>>();
         let content = PhraseTemplate {
-            english: &this.english,
-            chinese_pinyin: &this.chinese_pinyin,
-            chinese_hanzi: &this.chinese_hanzi,
-            pekzep_latin: &this.pekzep_latin,
-            pekzep_hanzi: &this.pekzep_hanzi,
+            english: &row.english,
+            chinese_pinyin: &row.chinese_pinyin,
+            chinese_hanzi: &row.chinese_hanzi,
+            pekzep_latin: &row.pekzep_latin,
+            pekzep_hanzi: &row.pekzep_hanzi,
             prev_link: &match prev {
                 None => "../index".to_string(),
-                Some((sylls, _, _)) => read::phrase::sylls_to_str_underscore(&sylls),
+                Some(verify::Rows3Item { sylls, .. }) => {
+                    read::phrase::sylls_to_str_underscore(&sylls)
+                }
             },
             next_link: &match next {
                 None => "../index".to_string(),
-                Some((sylls, _, _)) => read::phrase::sylls_to_str_underscore(&sylls),
+                Some(verify::Rows3Item { sylls, .. }) => {
+                    read::phrase::sylls_to_str_underscore(&sylls)
+                }
             },
-            wav_tag: &if this.filetype.contains(&read::phrase::FilePathType::Wav)
-                || this.filetype.contains(&read::phrase::FilePathType::WavR)
+            wav_tag: &if row.filetype.contains(&read::phrase::FilePathType::Wav)
+                || row.filetype.contains(&read::phrase::FilePathType::WavR)
             {
-                let filename = if this.filetype.contains(&read::phrase::FilePathType::WavR) {
+                let filename = if row.filetype.contains(&read::phrase::FilePathType::WavR) {
                     read::phrase::sylls_to_rerrliratixka_no_space(&sylls)
                 } else {
                     read::phrase::sylls_to_str_underscore(&sylls)
@@ -164,7 +168,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             } else {
                 "".to_owned()
             },
-            oga_tag: &if this.filetype.contains(&read::phrase::FilePathType::Oga) {
+            oga_tag: &if row.filetype.contains(&read::phrase::FilePathType::Oga) {
                 let filename = read::phrase::sylls_to_str_underscore(&sylls);
                 if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
                     .exists()
@@ -179,23 +183,22 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
                 "".to_owned()
             },
             analysis: &analysis.join("\n"),
-            pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
-            author_color: &if this.recording_author == Some(read::phrase::Author::JektoVatimeliju)
-            {
+            pekzep_imgs: &convert_hanzi_to_images(&row.pekzep_hanzi, "() ", ".."),
+            author_color: &if row.recording_author == Some(read::phrase::Author::JektoVatimeliju) {
                 "#754eab"
-            } else if this.recording_author == Some(read::phrase::Author::FaliraLyjotafis) {
+            } else if row.recording_author == Some(read::phrase::Author::FaliraLyjotafis) {
                 "#e33102"
             } else {
-                if this.recording_author.is_some() {
-                    warn!("Unrecognized author `{:?}`", this.recording_author);
+                if row.recording_author.is_some() {
+                    warn!("Unrecognized author `{:?}`", row.recording_author);
                 }
                 "#000000"
             },
-            author_name: &match &this.recording_author {
+            author_name: &match &row.recording_author {
                 Some(author) => format!("{}", author),
                 None => "".to_string(),
             },
-            has_audio: this.recording_author.is_some(),
+            has_audio: row.recording_author.is_some(),
         };
         write!(file, "{}", content.render().unwrap())?;
     }
@@ -264,21 +267,21 @@ fn main() -> Result<(), Box<dyn Error>> {
     eprintln!("Generating index.html");
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tgloss\tphrase".to_string()];
-    for (sylls, decomp, r) in &data_bundle.rows3 {
+    for verify::Rows3Item { sylls, decomp, row } in &data_bundle.rows3 {
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check(
-                r.filetype.contains(&read::phrase::FilePathType::Wav)
-                    || r.filetype.contains(&read::phrase::FilePathType::WavR)
-                    || r.filetype.contains(&read::phrase::FilePathType::Oga)
+                row.filetype.contains(&read::phrase::FilePathType::Wav)
+                    || row.filetype.contains(&read::phrase::FilePathType::WavR)
+                    || row.filetype.contains(&read::phrase::FilePathType::Oga)
             ),
             to_check(
-                r.filetype.contains(&read::phrase::FilePathType::Wav)
-                    || r.filetype.contains(&read::phrase::FilePathType::WavR)
+                row.filetype.contains(&read::phrase::FilePathType::Wav)
+                    || row.filetype.contains(&read::phrase::FilePathType::WavR)
             ),
             to_check(!decomp.is_empty()),
             read::phrase::sylls_to_str_underscore(&sylls),
-            r.pekzep_latin
+            row.pekzep_latin
         ));
     }
 

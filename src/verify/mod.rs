@@ -5,13 +5,15 @@ use pekzep_syllable::PekZepSyllable;
 use std::collections::HashMap;
 use std::error::Error;
 
+pub struct Rows3Item {
+    pub sylls: Vec<read::phrase::ExtSyll>,
+    pub decomp: Vec<(String, read::vocab::Item)>,
+    pub row: read::phrase::Item,
+}
+
 #[readonly::make]
 pub struct DataBundle {
-    pub rows3: Vec<(
-        Vec<read::phrase::ExtSyll>,
-        Vec<(String, read::vocab::Item)>,
-        read::phrase::Item,
-    )>,
+    pub rows3: Vec<Rows3Item>,
     pub vocab_ordered: LinkedHashMap<String, read::vocab::Item>,
 }
 
@@ -198,7 +200,11 @@ impl DataBundle {
                                     vocab_ordered.insert(key.to_string(), voc.clone());
                                 }
                             }
-                            Ok((sylls.clone(), decomp, row.clone()))
+                            Ok(Rows3Item {
+                                sylls: sylls.clone(),
+                                decomp: decomp,
+                                row: row.clone(),
+                            })
                         }
                         Err(e) => Err(e),
                     },
