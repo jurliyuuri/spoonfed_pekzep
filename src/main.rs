@@ -205,15 +205,14 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             oga_tag: &generate_oga_tag(&row, &sylls),
             analysis: &analysis.join("\n"),
             pekzep_imgs: &convert_hanzi_to_images(&row.pekzep_hanzi, "() ", ".."),
-            author_color: &if row.recording_author == Some(read::phrase::Author::JektoVatimeliju) {
-                "#754eab"
-            } else if row.recording_author == Some(read::phrase::Author::FaliraLyjotafis) {
-                "#e33102"
-            } else {
-                if row.recording_author.is_some() {
-                    warn!("Unrecognized author `{:?}`", row.recording_author);
+            author_color: &match &row.recording_author {
+                Some(read::phrase::Author::JektoVatimeliju) => "#754eab",
+                Some(read::phrase::Author::FaliraLyjotafis) => "#e33102",
+                Some(s) => {
+                    warn!("Unrecognized author `{:?}`", s);
+                    "#000000"
                 }
-                "#000000"
+                None => "#000000"
             },
             author_name: &match &row.recording_author {
                 Some(author) => format!("{}", author),
