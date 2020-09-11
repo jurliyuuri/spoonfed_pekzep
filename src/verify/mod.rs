@@ -8,16 +8,16 @@ use std::error::Error;
 #[readonly::make]
 pub struct DataBundle {
     pub rows3: Vec<(
-        Vec<read::main_row::ExtSyll>,
-        Vec<(String, read::vocab::Vocab)>,
-        read::main_row::MainRow,
+        Vec<read::phrase::ExtSyll>,
+        Vec<(String, read::vocab::Item)>,
+        read::phrase::Item,
     )>,
-    pub vocab_ordered: LinkedHashMap<String, read::vocab::Vocab>,
+    pub vocab_ordered: LinkedHashMap<String, read::vocab::Item>,
 }
 
 impl DataBundle {
     fn check_sentence_pronunciation(
-        spoonfed_rows: &LinkedHashMap<Vec<read::main_row::ExtSyll>, read::main_row::MainRow>,
+        spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyll>, read::phrase::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> Result<(), Box<dyn Error>> {
         use log::info;
@@ -33,7 +33,7 @@ impl DataBundle {
                         && Some('z') == iter.next()
                         && Some('i') == iter.next()
                     {
-                        if let Some(read::main_row::ExtSyll::Xizi) = key_iter.next() {
+                        if let Some(read::phrase::ExtSyll::Xizi) = key_iter.next() {
                             info!("matched `xizi`.")
                         } else {
                             panic!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi)
@@ -51,7 +51,7 @@ impl DataBundle {
                         )
                     };
                     if let Some(a) = char_pronunciation.iter().find(|(h, syll)| {
-                        *h == c.to_string() && read::main_row::ExtSyll::Syll(*syll) == expected_syll
+                        *h == c.to_string() && read::phrase::ExtSyll::Syll(*syll) == expected_syll
                     }) {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
@@ -67,7 +67,7 @@ impl DataBundle {
     }
 
     fn check_vocab_pronunciation(
-        vocab: &HashMap<String, read::vocab::Vocab>,
+        vocab: &HashMap<String, read::vocab::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> Result<(), Box<dyn Error>> {
         use log::info;
@@ -179,7 +179,7 @@ impl DataBundle {
         use log::warn;
         let char_pronunciation = read::char_pronunciation::parse()?;
 
-        let spoonfed_rows = read::main_row::parse()?;
+        let spoonfed_rows = read::phrase::parse()?;
         DataBundle::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation)?;
 
         let vocab = read::vocab::parse()?;
@@ -209,7 +209,7 @@ impl DataBundle {
 
         for key in vocab.keys() {
             if !vocab_ordered.contains_key(key) {
-                warn!("Vocab with internal key `{}` is never used", key);
+                warn!("Item with internal key `{}` is never used", key);
             }
         }
 
@@ -224,9 +224,9 @@ impl DataBundle {
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
-    vocab: &HashMap<String, read::vocab::Vocab>,
-    row: &read::main_row::MainRow,
-) -> Result<Vec<(String, read::vocab::Vocab)>, Vec<String>> {
+    vocab: &HashMap<String, read::vocab::Item>,
+    row: &read::phrase::Item,
+) -> Result<Vec<(String, read::vocab::Item)>, Vec<String>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {

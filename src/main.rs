@@ -8,7 +8,7 @@ use std::io::prelude::*;
 mod read;
 mod verify;
 
-impl read::vocab::Vocab {
+impl read::vocab::Item {
     pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
         self.to_tab_separated_with_custom_linzifier(|s| {
             convert_hanzi_to_images(s, "/{} N()SL", rel_path)
@@ -123,7 +123,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
         }
         let mut file = File::create(format!(
             "docs/phrase/{}.html",
-            read::main_row::sylls_to_str_underscore(&sylls)
+            read::phrase::sylls_to_str_underscore(&sylls)
         ))?;
         let analysis = decomp
             .iter()
@@ -137,19 +137,19 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             pekzep_hanzi: &this.pekzep_hanzi,
             prev_link: &match prev {
                 None => "../index".to_string(),
-                Some((sylls, _, _)) => read::main_row::sylls_to_str_underscore(&sylls),
+                Some((sylls, _, _)) => read::phrase::sylls_to_str_underscore(&sylls),
             },
             next_link: &match next {
                 None => "../index".to_string(),
-                Some((sylls, _, _)) => read::main_row::sylls_to_str_underscore(&sylls),
+                Some((sylls, _, _)) => read::phrase::sylls_to_str_underscore(&sylls),
             },
-            wav_tag: &if this.filetype.contains(&read::main_row::FilePathType::Wav)
-                || this.filetype.contains(&read::main_row::FilePathType::WavR)
+            wav_tag: &if this.filetype.contains(&read::phrase::FilePathType::Wav)
+                || this.filetype.contains(&read::phrase::FilePathType::WavR)
             {
-                let filename = if this.filetype.contains(&read::main_row::FilePathType::WavR) {
-                    read::main_row::sylls_to_rerrliratixka_no_space(&sylls)
+                let filename = if this.filetype.contains(&read::phrase::FilePathType::WavR) {
+                    read::phrase::sylls_to_rerrliratixka_no_space(&sylls)
                 } else {
-                    read::main_row::sylls_to_str_underscore(&sylls)
+                    read::phrase::sylls_to_str_underscore(&sylls)
                 };
 
                 if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename))
@@ -164,8 +164,8 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             } else {
                 "".to_owned()
             },
-            oga_tag: &if this.filetype.contains(&read::main_row::FilePathType::Oga) {
-                let filename = read::main_row::sylls_to_str_underscore(&sylls);
+            oga_tag: &if this.filetype.contains(&read::phrase::FilePathType::Oga) {
+                let filename = read::phrase::sylls_to_str_underscore(&sylls);
                 if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
                     .exists()
                 {
@@ -180,10 +180,10 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             },
             analysis: &analysis.join("\n"),
             pekzep_imgs: &convert_hanzi_to_images(&this.pekzep_hanzi, "() ", ".."),
-            author_color: &if this.recording_author == Some(read::main_row::Author::JektoVatimeliju)
+            author_color: &if this.recording_author == Some(read::phrase::Author::JektoVatimeliju)
             {
                 "#754eab"
-            } else if this.recording_author == Some(read::main_row::Author::FaliraLyjotafis) {
+            } else if this.recording_author == Some(read::phrase::Author::FaliraLyjotafis) {
                 "#e33102"
             } else {
                 if this.recording_author.is_some() {
@@ -268,16 +268,16 @@ fn main() -> Result<(), Box<dyn Error>> {
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check(
-                r.filetype.contains(&read::main_row::FilePathType::Wav)
-                    || r.filetype.contains(&read::main_row::FilePathType::WavR)
-                    || r.filetype.contains(&read::main_row::FilePathType::Oga)
+                r.filetype.contains(&read::phrase::FilePathType::Wav)
+                    || r.filetype.contains(&read::phrase::FilePathType::WavR)
+                    || r.filetype.contains(&read::phrase::FilePathType::Oga)
             ),
             to_check(
-                r.filetype.contains(&read::main_row::FilePathType::Wav)
-                    || r.filetype.contains(&read::main_row::FilePathType::WavR)
+                r.filetype.contains(&read::phrase::FilePathType::Wav)
+                    || r.filetype.contains(&read::phrase::FilePathType::WavR)
             ),
             to_check(!decomp.is_empty()),
-            read::main_row::sylls_to_str_underscore(&sylls),
+            read::phrase::sylls_to_str_underscore(&sylls),
             r.pekzep_latin
         ));
     }

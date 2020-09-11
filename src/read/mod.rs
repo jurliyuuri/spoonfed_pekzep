@@ -8,7 +8,7 @@ pub mod vocab {
     use std::io::BufReader;
 
     #[derive(Ser, De, Debug, Clone)]
-    pub struct VocabRow {
+    struct Record {
         key: String,
         pekzep_latin: String,
         pekzep_hanzi: String,
@@ -19,7 +19,7 @@ pub mod vocab {
 
     #[readonly::make]
     #[derive(Debug, Clone)]
-    pub struct Vocab {
+    pub struct Item {
         pub pekzep_latin: String,
         pub pekzep_hanzi: String,
         pub parts_of_speech: String,
@@ -27,7 +27,7 @@ pub mod vocab {
         pub english_gloss: String,
     }
 
-    impl Vocab {
+    impl Item {
         pub fn to_tab_separated_with_custom_linzifier<F>(&self, f: F) -> String
         where
             F: FnOnce(&str) -> String,
@@ -44,20 +44,20 @@ pub mod vocab {
         }
     }
 
-    pub fn parse() -> Result<HashMap<String, Vocab>, Box<dyn Error>> {
+    pub fn parse() -> Result<HashMap<String, Item>, Box<dyn Error>> {
         let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
         let f = BufReader::new(f);
         let mut res = HashMap::new();
         let mut errors = vec![];
         for line in f.lines() {
             // to prevent double quotes from vanishing, I do not read with CSV parser
-            let row: VocabRow = StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>())
+            let row: Record = StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>())
                 .deserialize(None)?;
             if !row.key.is_empty()
                 && res
                     .insert(
                         row.key.clone(),
-                        Vocab {
+                        Item {
                             pekzep_latin: row.pekzep_latin,
                             pekzep_hanzi: row.pekzep_hanzi,
                             parts_of_speech: row.parts_of_speech,
@@ -79,7 +79,7 @@ pub mod vocab {
     }
 }
 
-pub mod main_row {
+pub mod phrase {
     use csv::StringRecord;
     use linked_hash_map::LinkedHashMap;
     use partition_eithers::collect_any_errors;
@@ -146,7 +146,7 @@ pub mod main_row {
 
     #[readonly::make]
     #[derive(Debug, Clone)]
-    pub struct MainRow {
+    pub struct Item {
         pub english: String,
         pub pekzep_latin: String,
         pub pekzep_hanzi: String,
@@ -205,7 +205,7 @@ pub mod main_row {
         .map_err(|e| e.join("\n").into())
     }
 
-    pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyll>, MainRow>, Box<dyn Error>> {
+    pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyll>, Item>, Box<dyn Error>> {
         use log::info;
         let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
         let f = BufReader::new(f);
@@ -217,7 +217,7 @@ pub mod main_row {
                 .deserialize(None)?;
 
             info!("Parsing `{}`, `{}`:", rec.english, rec.pekzep_latin);
-            let row = MainRow {
+            let row = Item {
                 pekzep_latin: rec.pekzep_latin,
                 pekzep_hanzi: rec.pekzep_hanzi,
                 chinese_hanzi: rec.chinese_hanzi,
