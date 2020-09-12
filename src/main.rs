@@ -31,7 +31,7 @@ struct PhraseTemplate<'a> {
     wav_tag: &'a str,
     analysis: &'a str,
     oga_tag: &'a str,
-    pekzep_imgs: &'a str,
+    pekzep_images: &'a str,
     author_color: &'a str,
     author_name: &'a str,
     has_audio: bool,
@@ -56,13 +56,13 @@ struct VocabListTemplate<'a> {
 }
 
 mod filters {
-    pub fn capitalizefirstchar(s: &str) -> ::askama::Result<String> {
+    pub fn capitalize_first_char(s: &str) -> ::askama::Result<String> {
         let mut v: Vec<char> = s.chars().collect();
         v[0] = v[0].to_uppercase().next().unwrap();
         let s2: String = v.into_iter().collect();
         Ok(s2)
     }
-    pub fn linebreaksandtabs(s: &str) -> ::askama::Result<String> {
+    pub fn line_breaks_and_tabs(s: &str) -> ::askama::Result<String> {
         let s = s.to_string();
         Ok(format!(
             "<table border=1 cellpadding=5 cellspacing=0>\n\t<tr><td>{}</td></tr>\n</table>",
@@ -108,10 +108,10 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
     ans
 }
 
-fn generate_oga_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -> String {
+fn generate_oga_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyllable]) -> String {
     use log::warn;
     if row.filetype.contains(&read::phrase::FilePathType::Oga) {
-        let filename = read::phrase::sylls_to_str_underscore(&sylls);
+        let filename = read::phrase::syllables_to_str_underscore(&sylls);
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists()
         {
             warn!("oga file not found: {}.oga", filename)
@@ -121,7 +121,7 @@ fn generate_oga_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -
             filename
         )
     } else {
-        let filename = read::phrase::sylls_to_str_underscore(&sylls);
+        let filename = read::phrase::syllables_to_str_underscore(&sylls);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
             warn!("oga file IS found, but is not linked: {}.oga", filename)
         }
@@ -129,15 +129,15 @@ fn generate_oga_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -
     }
 }
 
-fn generate_wav_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -> String {
+fn generate_wav_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyllable]) -> String {
     use log::warn;
     if row.filetype.contains(&read::phrase::FilePathType::Wav)
         || row.filetype.contains(&read::phrase::FilePathType::WavR)
     {
         let filename = if row.filetype.contains(&read::phrase::FilePathType::WavR) {
-            read::phrase::sylls_to_rerrliratixka_no_space(&sylls)
+            read::phrase::syllables_to_rerrliratixka_no_space(&sylls)
         } else {
-            read::phrase::sylls_to_str_underscore(&sylls)
+            read::phrase::syllables_to_str_underscore(&sylls)
         };
 
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists()
@@ -149,12 +149,12 @@ fn generate_wav_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -
             filename
         )
     } else {
-        let filename = read::phrase::sylls_to_rerrliratixka_no_space(&sylls);
+        let filename = read::phrase::syllables_to_rerrliratixka_no_space(&sylls);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
             warn!("wav file IS found, but is not linked: {}.wav", filename)
         }
 
-        let filename = read::phrase::sylls_to_str_underscore(&sylls);
+        let filename = read::phrase::syllables_to_str_underscore(&sylls);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
             warn!("wav file IS found, but is not linked: {}.wav", filename)
         }
@@ -165,7 +165,7 @@ fn generate_wav_tag(row: &read::phrase::Item, sylls: &[read::phrase::ExtSyll]) -
 fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
     eprintln!("Generating phrase/");
-    for (i, verify::Rows3Item { sylls, decomp, row }) in data_bundle.rows3.iter().enumerate() {
+    for (i, verify::Rows3Item { syllables: sylls, decomposition: decomp, row }) in data_bundle.rows3.iter().enumerate() {
         let prev = if i == 0 {
             None
         } else {
@@ -177,7 +177,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
         }
         let mut file = File::create(format!(
             "docs/phrase/{}.html",
-            read::phrase::sylls_to_str_underscore(&sylls)
+            read::phrase::syllables_to_str_underscore(&sylls)
         ))?;
         let analysis = decomp
             .iter()
@@ -191,20 +191,20 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             pekzep_hanzi: &row.pekzep_hanzi,
             prev_link: &match prev {
                 None => "../index".to_string(),
-                Some(verify::Rows3Item { sylls, .. }) => {
-                    read::phrase::sylls_to_str_underscore(&sylls)
+                Some(verify::Rows3Item { syllables: sylls, .. }) => {
+                    read::phrase::syllables_to_str_underscore(&sylls)
                 }
             },
             next_link: &match next {
                 None => "../index".to_string(),
-                Some(verify::Rows3Item { sylls, .. }) => {
-                    read::phrase::sylls_to_str_underscore(&sylls)
+                Some(verify::Rows3Item { syllables: sylls, .. }) => {
+                    read::phrase::syllables_to_str_underscore(&sylls)
                 }
             },
             wav_tag: &generate_wav_tag(&row, &sylls),
             oga_tag: &generate_oga_tag(&row, &sylls),
             analysis: &analysis.join("\n"),
-            pekzep_imgs: &convert_hanzi_to_images(&row.pekzep_hanzi, "() ", ".."),
+            pekzep_images: &convert_hanzi_to_images(&row.pekzep_hanzi, "() ", ".."),
             author_color: &match &row.recording_author {
                 Some(read::phrase::Author::JektoVatimeliju) => "#754eab",
                 Some(read::phrase::Author::FaliraLyjotafis) => "#e33102",
@@ -287,7 +287,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     eprintln!("Generating index.html");
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tgloss\tphrase".to_string()];
-    for verify::Rows3Item { sylls, decomp, row } in &data_bundle.rows3 {
+    for verify::Rows3Item { syllables: sylls, decomposition: decomp, row } in &data_bundle.rows3 {
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check(
@@ -300,7 +300,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     || row.filetype.contains(&read::phrase::FilePathType::WavR)
             ),
             to_check(!decomp.is_empty()),
-            read::phrase::sylls_to_str_underscore(&sylls),
+            read::phrase::syllables_to_str_underscore(&sylls),
             row.pekzep_latin
         ));
     }

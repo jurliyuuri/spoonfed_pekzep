@@ -92,39 +92,39 @@ pub mod phrase {
     use std::io::BufReader;
 
     #[derive(Debug, Clone, Eq, PartialEq, Hash, Copy)]
-    pub enum ExtSyll {
-        Syll(PekZepSyllable),
+    pub enum ExtSyllable {
+        Syllable(PekZepSyllable),
         Xizi,
     }
 
-    impl std::fmt::Display for ExtSyll {
+    impl std::fmt::Display for ExtSyllable {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             match self {
-                ExtSyll::Syll(s) => write!(f, "{}", s),
-                ExtSyll::Xizi => write!(f, "xizi"),
+                ExtSyllable::Syllable(s) => write!(f, "{}", s),
+                ExtSyllable::Xizi => write!(f, "xizi"),
             }
         }
     }
 
-    impl ExtSyll {
+    impl ExtSyllable {
         fn to_rerrliratixka(self) -> String {
             match &self {
-                ExtSyll::Syll(s) => s.clone().to_rerrliratixka(),
-                ExtSyll::Xizi => "xizi".to_string(),
+                ExtSyllable::Syllable(s) => s.clone().to_rerrliratixka(),
+                ExtSyllable::Xizi => "xizi".to_string(),
             }
         }
     }
 
-    pub fn sylls_to_rerrliratixka_no_space(sylls: &[ExtSyll]) -> String {
-        sylls
+    pub fn syllables_to_rerrliratixka_no_space(syllables: &[ExtSyllable]) -> String {
+        syllables
             .iter()
             .map(|a| a.to_rerrliratixka())
             .collect::<Vec<_>>()
             .join("")
     }
 
-    pub fn sylls_to_str_underscore(sylls: &[ExtSyll]) -> String {
-        sylls
+    pub fn syllables_to_str_underscore(syllables: &[ExtSyllable]) -> String {
+        syllables
             .iter()
             .map(std::string::ToString::to_string)
             .collect::<Vec<_>>()
@@ -181,7 +181,7 @@ pub mod phrase {
         }
     }
 
-    fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyll>, Box<dyn Error>> {
+    fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyllable>, Box<dyn Error>> {
         collect_any_errors(
             i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
                 .filter_map(|k| {
@@ -189,10 +189,10 @@ pub mod phrase {
                         None
                     } else {
                         Some(match PekZepSyllable::parse(k) {
-                            Some(s) => Ok(ExtSyll::Syll(s)),
+                            Some(s) => Ok(ExtSyllable::Syllable(s)),
                             None => {
                                 if k == "xizi" {
-                                    Ok(ExtSyll::Xizi)
+                                    Ok(ExtSyllable::Xizi)
                                 } else {
                                     Err(format!("Failed to parse a pekzep syllable {}", k))
                                 }
@@ -205,7 +205,7 @@ pub mod phrase {
         .map_err(|e| e.join("\n").into())
     }
 
-    pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyll>, Item>, Box<dyn Error>> {
+    pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyllable>, Item>, Box<dyn Error>> {
         use log::info;
         let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
         let f = BufReader::new(f);
@@ -248,12 +248,12 @@ pub mod phrase {
                 decomposed: rec.decomposed,
             };
 
-            let sylls = encode_to_pekzep_syllables(&row.pekzep_latin)?;
-            if !sylls.is_empty() && rows.insert(sylls.clone(), row.clone()).is_some() {
+            let syllables = encode_to_pekzep_syllables(&row.pekzep_latin)?;
+            if !syllables.is_empty() && rows.insert(syllables.clone(), row.clone()).is_some() {
                 // in HashSet::insert, if the set did have this value present, false is returned.
                 errors.push(format!(
                     "duplicate phrase detected: {}",
-                    sylls_to_str_underscore(&sylls)
+                    syllables_to_str_underscore(&syllables)
                 ));
             }
         }

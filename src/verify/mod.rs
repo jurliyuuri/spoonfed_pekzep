@@ -6,8 +6,8 @@ use std::collections::HashMap;
 use std::error::Error;
 
 pub struct Rows3Item {
-    pub sylls: Vec<read::phrase::ExtSyll>,
-    pub decomp: Vec<(String, read::vocab::Item)>,
+    pub syllables: Vec<read::phrase::ExtSyllable>,
+    pub decomposition: Vec<(String, read::vocab::Item)>,
     pub row: read::phrase::Item,
 }
 
@@ -19,7 +19,7 @@ pub struct DataBundle {
 
 impl DataBundle {
     fn check_sentence_pronunciation(
-        spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyll>, read::phrase::Item>,
+        spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> Result<(), Box<dyn Error>> {
         use log::info;
@@ -35,7 +35,7 @@ impl DataBundle {
                         && Some('z') == iter.next()
                         && Some('i') == iter.next()
                     {
-                        if let Some(read::phrase::ExtSyll::Xizi) = key_iter.next() {
+                        if let Some(read::phrase::ExtSyllable::Xizi) = key_iter.next() {
                             info!("matched `xizi`.")
                         } else {
                             panic!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi)
@@ -44,7 +44,7 @@ impl DataBundle {
                         panic!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi)
                     }
                 } else {
-                    let expected_syll = if let Some(s) = key_iter.next() {
+                    let expected_syllable = if let Some(s) = key_iter.next() {
                         *s
                     } else {
                         panic!(
@@ -52,14 +52,14 @@ impl DataBundle {
                             k, v.pekzep_hanzi
                         )
                     };
-                    if let Some(a) = char_pronunciation.iter().find(|(h, syll)| {
-                        *h == c.to_string() && read::phrase::ExtSyll::Syll(*syll) == expected_syll
+                    if let Some(a) = char_pronunciation.iter().find(|(h, syllable)| {
+                        *h == c.to_string() && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
                         panic!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
-                            expected_syll, c
+                            expected_syllable, c
                         )
                     }
                 }
@@ -108,7 +108,7 @@ impl DataBundle {
                     }
                 }
 
-                if let Some(syll) = PekZepSyllable::parse(s) {
+                if let Some(syllable) = PekZepSyllable::parse(s) {
                     let mut c = hanzi_iter.next().expect("Unmatched syllable");
                     loop {
                         if !c.is_whitespace() {
@@ -118,13 +118,13 @@ impl DataBundle {
                     }
                     if let Some(a) = char_pronunciation
                         .iter()
-                        .find(|(h, sy)| *h == c.to_string() && *sy == syll)
+                        .find(|(h, sy)| *h == c.to_string() && *sy == syllable)
                     {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
                         panic!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
-                            syll, c
+                            syllable, c
                         )
                     }
                 } else if s == "//" {
@@ -193,16 +193,16 @@ impl DataBundle {
             spoonfed_rows
                 .iter()
                 .map(
-                    |(sylls, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
-                        Ok(decomp) => {
-                            for (key, voc) in &decomp {
+                    |(syllables, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
+                        Ok(decomposition) => {
+                            for (key, voc) in &decomposition {
                                 if !vocab_ordered.contains_key(key) {
                                     vocab_ordered.insert(key.to_string(), voc.clone());
                                 }
                             }
                             Ok(Rows3Item {
-                                sylls: sylls.clone(),
-                                decomp: decomp,
+                                syllables: syllables.clone(),
+                                decomposition,
                                 row: row.clone(),
                             })
                         }

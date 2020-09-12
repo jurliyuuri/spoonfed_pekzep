@@ -11,11 +11,11 @@
         <hr>
         English: {{ english }}<br>
         Chinese: <span lang="zh">{{ chinese_hanzi }}</span><br>
-        Chinese (pinyin): {{ chinese_pinyin|capitalizefirstchar }}<br>
+        Chinese (pinyin): {{ chinese_pinyin|capitalize_first_char }}<br>
         <hr>
         Pekzep (latin transcription): {{ pekzep_latin }}<br>
         Pekzep (hanzi transcription): <span lang="ja">{{ pekzep_hanzi }}</span><br>
-        Pekzep (linzklā): <span style="filter:brightness(65%)contrast(500%);">{{ pekzep_imgs|safe }}</span><br>
+        Pekzep (linzklā): <span style="filter:brightness(65%)contrast(500%);">{{ pekzep_images|safe }}</span><br>
         {% if has_audio %}<span style="vertical-align: middle;">Sound</span><svg style="width:24px;height:24px; vertical-align: middle" viewBox="0 0 24 24">
             <g>
                 <title>Recording by {{ author_name }} / 这是{{ author_name }}的录音。</title>
@@ -27,6 +27,6 @@
             {{ oga_tag|safe }}
             Your browser does not support the audio element.
             </audio><br>
-        {% endif %}Analysis: {{ analysis|linebreaksandtabs|safe }}
+        {% endif %}Analysis: {{ analysis|line_breaks_and_tabs|safe }}
     </body>
 </html>
