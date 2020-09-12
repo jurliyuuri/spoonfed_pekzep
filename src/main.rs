@@ -71,7 +71,7 @@ mod filters {
     }
     pub fn normalize_chinese_punctuation(s: &str) -> ::askama::Result<String> {
         let s = s.to_string();
-        Ok(s.replace(',', "，").replace('?', "？"))
+        Ok(s.replace(',', "，").replace('?', "？").replace('!', "！"))
     }
 }
 
