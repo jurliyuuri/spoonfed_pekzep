@@ -10,7 +10,7 @@
         <a href="{{ next_link }}.html">Next →</a><br>
         <hr>
         English: {{ english }}<br>
-        Chinese: <span lang="zh">{{ chinese_hanzi|normalize_chinese_punctuation }}</span><br>
+        Chinese: <span lang="zh">{{ chinese_hanzi|normalize_chinese_punctuation|normalize_a_b_dialogue }}</span><br>
         Chinese (pinyin): {{ chinese_pinyin|capitalize_first_char }}<br>
         <hr>
         Pekzep (latin transcription): {{ pekzep_latin }}<br>

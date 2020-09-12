@@ -73,6 +73,13 @@ mod filters {
         let s = s.to_string();
         Ok(s.replace(',', "，").replace('?', "？").replace('!', "！"))
     }
+    pub fn normalize_a_b_dialogue(s: &str) -> ::askama::Result<String> {
+        if s.starts_with('A') && s.contains('B') {
+            Ok(format!("「{}」", &s[1..].replace('B', "」「")))
+        } else {
+            Ok(s.to_string())
+        }
+    }
 }
 
 fn to_check(a: bool) -> &'static str {
