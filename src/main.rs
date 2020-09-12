@@ -69,6 +69,10 @@ mod filters {
                 .replace("\n", "</td></tr>\n\t<tr><td>")
         ))
     }
+    pub fn normalize_chinese_punctuation(s: &str) -> ::askama::Result<String> {
+        let s = s.to_string();
+        Ok(s.replace(',', "，"))
+    }
 }
 
 fn to_check(a: bool) -> &'static str {
