@@ -75,7 +75,14 @@ mod filters {
     }
     pub fn normalize_a_b_dialogue(s: &str) -> ::askama::Result<String> {
         if s.starts_with('A') && s.contains('B') {
-            Ok(format!("「{}」", &s[1..].replace('B', "」「")))
+            Ok(format!(
+                "「{}」",
+                &s[1..]
+                    .replace(" B", "」「")
+                    .replace('B', "」「")
+                    .replace(" A", "」「")
+                    .replace('A', "」「")
+            ))
         } else {
             Ok(s.to_string())
         }
