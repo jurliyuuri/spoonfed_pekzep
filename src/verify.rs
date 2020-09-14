@@ -157,7 +157,7 @@ impl DataBundle {
                                     Some(' ') => continue,
                                     Some('{') => break,
                                     None => continue 'a,
-                                    s => panic!("Trying to match {} with {}: Unexpected char {:?} found while dealing with braces", 
+                                    Some(_) => panic!("Trying to match {} with {}: Unexpected char {:?} found while dealing with braces", 
                                     v.pekzep_hanzi, v.pekzep_latin, s)
                                 }
                             }
@@ -165,7 +165,7 @@ impl DataBundle {
                                 match hanzi_iter.next() {
                                     Some('}') => break,
                                     None => panic!("Unexpected end of the input"),
-                                    _ => continue,
+                                    Some(_) => continue,
                                 }
                             }
                         }
