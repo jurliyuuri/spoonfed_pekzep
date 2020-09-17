@@ -177,15 +177,35 @@ impl DataBundle {
         }
         Ok(())
     }
+    fn check_nonrecommended_character(s: &str,
+        variants: &[(String, String)],
+    ) -> Result<(), Box<dyn Error>> {
+        use log::warn;
+        for (key, value) in variants {
+            if s.contains(key) {
+                warn!("{} contains {}, which should be replaced with {}", s, key, value);
+            }
+        }
+
+        Ok(())
+    }
     pub fn new() -> Result<DataBundle, Box<dyn Error>> {
         use log::warn;
-        let char_pronunciation = read::char_pronunciation::parse()?;
+        let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
 
         let spoonfed_rows = read::phrase::parse()?;
         DataBundle::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation)?;
 
+        for (_, item) in &spoonfed_rows {
+            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants)?;
+        }
+
         let vocab = read::vocab::parse()?;
         DataBundle::check_vocab_pronunciation(&vocab, &char_pronunciation)?;
+
+        for (_, item) in &vocab {
+            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants)?;
+        }
 
         let mut vocab_ordered = LinkedHashMap::new();
 

@@ -278,13 +278,14 @@ pub mod char_pronunciation {
     struct Record {
         character: String,
         sound: String,
+        variant_of: String
     }
 
-    pub fn parse() -> Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> {
-        fn convert(record: Record) -> Result<(String, PekZepSyllable), String> {
+    pub fn parse() -> Result<(Vec<(String, PekZepSyllable)>, Vec<(String, String)>), Box<dyn Error>> {
+        fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
             match PekZepSyllable::parse(&record.sound) {
                 None => Err(format!("Invalid sound {}", record.sound)),
-                Some(a) => Ok((record.character, a)),
+                Some(a) => Ok((record.character.clone(), a)),
             }
         }
 
@@ -296,7 +297,17 @@ pub mod char_pronunciation {
             ans.push(record)
         }
 
-        collect_any_errors(ans.into_iter().map(convert).collect::<Vec<_>>())
-            .map_err(|e| e.join("\n").into())
+        let a: Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> = collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
+            .map_err(|e| e.join("\n").into());
+        
+        let b = ans.iter().filter_map(|r| {
+            if r.variant_of.is_empty() {
+                None
+            } else {
+                Some((r.character.clone(), r.variant_of.clone()))
+            }
+        }).collect::<Vec<_>>();
+        
+        Ok((a?, b))
     }
 }
