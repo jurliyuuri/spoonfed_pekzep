@@ -1,6 +1,7 @@
 #![warn(clippy::pedantic)]
 #![allow(clippy::non_ascii_literal)]
-
+#[macro_use]
+extern crate lazy_static;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;

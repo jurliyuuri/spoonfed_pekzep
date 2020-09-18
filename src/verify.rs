@@ -53,7 +53,8 @@ impl DataBundle {
                         )
                     };
                     if let Some(a) = char_pronunciation.iter().find(|(h, syllable)| {
-                        *h == c.to_string() && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
+                        *h == c.to_string()
+                            && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
@@ -177,17 +178,40 @@ impl DataBundle {
         }
         Ok(())
     }
-    fn check_nonrecommended_character(s: &str,
-        variants: &[(String, String)],
-    ) -> Result<(), Box<dyn Error>> {
+    fn check_nonrecommended_character(s: &str, variants: &[(String, String)]) {
         use log::warn;
         for (key, value) in variants {
             if s.contains(key) {
-                warn!("{} contains {}, which should be replaced with {}", s, key, value);
+                warn!(
+                    "{} contains {}, which should be replaced with {}",
+                    s, key, value
+                );
             }
         }
+    }
+    fn check_a(s: &str) {
+        use log::warn;
+        use regex::Regex;
 
-        Ok(())
+        // 【之】の後に句読点あるなら警告
+        if s.contains("之。") || s.contains("之！") || s.contains("之？") || s.contains("之」")
+        {
+            warn!(
+                "punctuation after `之` is detected in `{}`. Maybe replace it with `噫`?",
+                s
+            )
+        }
+
+        // 【噫】の後に句読点も)もないなら警告
+        lazy_static! {
+            static ref RE: Regex = Regex::new("噫[^)。！？」]").unwrap();
+        }
+        if RE.is_match(s) {
+            warn!(
+                "no punctuation found after `噫` in `{}`. Maybe replace it with `之`.",
+                s
+            )
+        }
     }
     pub fn new() -> Result<DataBundle, Box<dyn Error>> {
         use log::warn;
@@ -197,14 +221,15 @@ impl DataBundle {
         DataBundle::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation)?;
 
         for (_, item) in &spoonfed_rows {
-            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants)?;
+            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
+            DataBundle::check_a(&item.pekzep_hanzi);
         }
 
         let vocab = read::vocab::parse()?;
         DataBundle::check_vocab_pronunciation(&vocab, &char_pronunciation)?;
 
-        for (_, item) in &vocab {
-            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants)?;
+        for item in vocab.values() {
+            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
         }
 
         let mut vocab_ordered = LinkedHashMap::new();
@@ -212,8 +237,8 @@ impl DataBundle {
         let rows3 = collect_any_errors(
             spoonfed_rows
                 .iter()
-                .map(
-                    |(syllables, row)| match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
+                .map(|(syllables, row)| {
+                    match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
                         Ok(decomposition) => {
                             for (key, voc) in &decomposition {
                                 if !vocab_ordered.contains_key(key) {
@@ -227,8 +252,8 @@ impl DataBundle {
                             })
                         }
                         Err(e) => Err(e),
-                    },
-                )
+                    }
+                })
                 .collect::<Vec<_>>(),
         )
         .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;

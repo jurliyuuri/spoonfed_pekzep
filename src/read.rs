@@ -278,10 +278,11 @@ pub mod char_pronunciation {
     struct Record {
         character: String,
         sound: String,
-        variant_of: String
+        variant_of: String,
     }
 
-    pub fn parse() -> Result<(Vec<(String, PekZepSyllable)>, Vec<(String, String)>), Box<dyn Error>> {
+    pub fn parse() -> Result<(Vec<(String, PekZepSyllable)>, Vec<(String, String)>), Box<dyn Error>>
+    {
         fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
             match PekZepSyllable::parse(&record.sound) {
                 None => Err(format!("Invalid sound {}", record.sound)),
@@ -297,17 +298,21 @@ pub mod char_pronunciation {
             ans.push(record)
         }
 
-        let a: Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> = collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
-            .map_err(|e| e.join("\n").into());
-        
-        let b = ans.iter().filter_map(|r| {
-            if r.variant_of.is_empty() {
-                None
-            } else {
-                Some((r.character.clone(), r.variant_of.clone()))
-            }
-        }).collect::<Vec<_>>();
-        
+        let a: Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> =
+            collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
+                .map_err(|e| e.join("\n").into());
+
+        let b = ans
+            .iter()
+            .filter_map(|r| {
+                if r.variant_of.is_empty() {
+                    None
+                } else {
+                    Some((r.character.clone(), r.variant_of.clone()))
+                }
+            })
+            .collect::<Vec<_>>();
+
         Ok((a?, b))
     }
 }

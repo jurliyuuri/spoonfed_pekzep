@@ -327,11 +327,13 @@ dependencies = [
  "askama",
  "csv",
  "env_logger",
+ "lazy_static",
  "linked-hash-map",
  "log",
  "partition_eithers",
  "pekzep_syllable",
  "readonly",
+ "regex",
  "serde",
  "serde_derive",
 ]
