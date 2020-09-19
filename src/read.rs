@@ -273,6 +273,7 @@ pub mod char_pronunciation {
     use serde_derive::Deserialize as De;
     use std::error::Error;
     use std::fs::File;
+    use std::collections::HashMap;
 
     #[derive(Debug, De)]
     struct Record {
@@ -281,7 +282,10 @@ pub mod char_pronunciation {
         variant_of: String,
     }
 
-    pub fn parse() -> Result<(Vec<(String, PekZepSyllable)>, Vec<(String, String)>), Box<dyn Error>>
+    pub type CharSoundTable = HashMap<String, PekZepSyllable>;
+    pub type NonRecommendedCharTable = HashMap<String, String>;
+
+    pub fn parse() -> Result<(CharSoundTable, NonRecommendedCharTable), Box<dyn Error>>
     {
         fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
             match PekZepSyllable::parse(&record.sound) {
@@ -301,6 +305,8 @@ pub mod char_pronunciation {
         let a: Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> =
             collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
                 .map_err(|e| e.join("\n").into());
+        
+        let a: HashMap<String, PekZepSyllable> = a?.into_iter().collect::<HashMap<_, _>>();
 
         let b = ans
             .iter()
@@ -311,8 +317,8 @@ pub mod char_pronunciation {
                     Some((r.character.clone(), r.variant_of.clone()))
                 }
             })
-            .collect::<Vec<_>>();
+            .collect::<HashMap<_, _>>();
 
-        Ok((a?, b))
+        Ok((a, b))
     }
 }
