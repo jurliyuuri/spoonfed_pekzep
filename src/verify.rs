@@ -20,7 +20,7 @@ pub struct DataBundle {
 impl DataBundle {
     fn check_sentence_pronunciation(
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
-        char_pronunciation: &HashMap<String, pekzep_syllable::PekZepSyllable>
+        char_pronunciation: &HashMap<String, pekzep_syllable::PekZepSyllable>,
     ) -> Result<(), Box<dyn Error>> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
