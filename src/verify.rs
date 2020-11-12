@@ -20,7 +20,7 @@ pub struct DataBundle {
 impl DataBundle {
     fn check_sentence_pronunciation(
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
-        char_pronunciation: &HashMap<String, pekzep_syllable::PekZepSyllable>,
+        char_pronunciation: &Vec<(String, pekzep_syllable::PekZepSyllable)>,
     ) -> Result<(), Box<dyn Error>> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
@@ -54,7 +54,7 @@ impl DataBundle {
                     };
                     if let Some(a) = char_pronunciation.iter().find(|(h, syllable)| {
                         **h == c.to_string()
-                            && read::phrase::ExtSyllable::Syllable(**syllable) == expected_syllable
+                            && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
@@ -71,7 +71,7 @@ impl DataBundle {
 
     fn check_vocab_pronunciation(
         vocab: &HashMap<String, read::vocab::Item>,
-        char_pronunciation: &HashMap<String, pekzep_syllable::PekZepSyllable>,
+        char_pronunciation: &Vec<(String, pekzep_syllable::PekZepSyllable)>,
     ) -> Result<(), Box<dyn Error>> {
         use log::info;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
@@ -119,7 +119,7 @@ impl DataBundle {
                     }
                     if let Some(a) = char_pronunciation
                         .iter()
-                        .find(|(h, sy)| **h == c.to_string() && **sy == syllable)
+                        .find(|(h, sy)| **h == c.to_string() && *sy == syllable)
                     {
                         info!("matched {} with {}", a.0, a.1)
                     } else {

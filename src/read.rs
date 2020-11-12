@@ -282,7 +282,7 @@ pub mod char_pronunciation {
         variant_of: String,
     }
 
-    pub type CharSoundTable = HashMap<String, PekZepSyllable>;
+    pub type CharSoundTable = Vec<(String, PekZepSyllable)>;
     pub type NonRecommendedCharTable = HashMap<String, String>;
 
     pub fn parse() -> Result<(CharSoundTable, NonRecommendedCharTable), Box<dyn Error>> {
@@ -305,7 +305,7 @@ pub mod char_pronunciation {
             collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
                 .map_err(|e| e.join("\n").into());
 
-        let a: HashMap<String, PekZepSyllable> = a?.into_iter().collect::<HashMap<_, _>>();
+        let a: Vec<(String, PekZepSyllable)> = a?;
 
         let b = ans
             .iter()
