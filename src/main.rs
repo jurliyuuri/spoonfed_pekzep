@@ -98,28 +98,47 @@ fn to_check(a: bool) -> &'static str {
     }
 }
 
+fn char_img(name: &str, rel_path: &'static str) -> String {
+    use log::info;
+    if std::path::Path::new(&format!("raw/char_img/{}.png", name)).exists() {
+        // only copy the files that are actually used
+        match std::fs::copy(
+            format!("raw/char_img/{}.png", name),
+            format!("docs/char_img/{}.png", name),
+        ) {
+            Ok(_) => {}
+            Err(e) => {
+                println!("{}", e);
+            }
+        }
+    } else {
+        info!("char_img not found: {}.png", name);
+        File::create(&format!("docs/char_img/dummy_{}.txt", name)).unwrap();
+    }
+
+    format!(
+        r#"<img src="{}/char_img/{}.png" height="30">"#,
+        rel_path, name
+    )
+}
+
 fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) -> String {
     let mut ans = String::new();
     let mut iter = s.chars();
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(&format!(
-                r#"<img src="{}/char_img/blank.png" height="30">"#,
-                rel_path
-            ))
+            ans.push_str(&char_img("blank", rel_path))
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
-                ans.push_str(&format!(r#"<img src="{}/char_img/xi.png" height="30"><img src="{}/char_img/zi.png" height="30">"#, rel_path, rel_path))
+                ans.push_str(&char_img("xi", rel_path));
+                ans.push_str(&char_img("zi", rel_path))
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.")
             }
         } else if exclude_list.contains(c) {
             ans.push(c);
         } else {
-            ans.push_str(&format!(
-                r#"<img src="{}/char_img/{}.png" height="30">"#,
-                rel_path, c
-            ))
+            ans.push_str(&char_img(&c.to_string(), rel_path))
         }
     }
 
