@@ -1,4 +1,4 @@
-#![warn(clippy::pedantic)]
+#![warn(clippy::pedantic, clippy::nursery)]
 #![allow(clippy::non_ascii_literal)]
 #[macro_use]
 extern crate lazy_static;
@@ -90,7 +90,7 @@ mod filters {
     }
 }
 
-fn to_check(a: bool) -> &'static str {
+const fn to_check(a: bool) -> &'static str {
     if a {
         "&#x2713;"
     } else {
@@ -148,7 +148,7 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyllable]) -> String {
     use log::warn;
     if row.filetype.contains(&read::phrase::FilePathType::Oga) {
-        let filename = read::phrase::syllables_to_str_underscore(&syllables);
+        let filename = read::phrase::syllables_to_str_underscore(syllables);
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists()
         {
             warn!("oga file not found: {}.oga", filename)
@@ -158,7 +158,7 @@ fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
             filename
         )
     } else {
-        let filename = read::phrase::syllables_to_str_underscore(&syllables);
+        let filename = read::phrase::syllables_to_str_underscore(syllables);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
             warn!("oga file IS found, but is not linked: {}.oga", filename)
         }
@@ -172,9 +172,9 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
         || row.filetype.contains(&read::phrase::FilePathType::WavR)
     {
         let filename = if row.filetype.contains(&read::phrase::FilePathType::WavR) {
-            read::phrase::syllables_to_rerrliratixka_no_space(&syllables)
+            read::phrase::syllables_to_rerrliratixka_no_space(syllables)
         } else {
-            read::phrase::syllables_to_str_underscore(&syllables)
+            read::phrase::syllables_to_str_underscore(syllables)
         };
 
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists()
@@ -186,12 +186,12 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
             filename
         )
     } else {
-        let filename = read::phrase::syllables_to_rerrliratixka_no_space(&syllables);
+        let filename = read::phrase::syllables_to_rerrliratixka_no_space(syllables);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
             warn!("wav file IS found, but is not linked: {}.wav", filename)
         }
 
-        let filename = read::phrase::syllables_to_str_underscore(&syllables);
+        let filename = read::phrase::syllables_to_str_underscore(syllables);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
             warn!("wav file IS found, but is not linked: {}.wav", filename)
         }
@@ -222,7 +222,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
         }
         let mut file = File::create(format!(
             "docs/phrase/{}.html",
-            read::phrase::syllables_to_str_underscore(&syllables)
+            read::phrase::syllables_to_str_underscore(syllables)
         ))?;
         let analysis = decomposition
             .iter()
@@ -237,20 +237,20 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             prev_link: &match prev {
                 None => "../index".to_string(),
                 Some(verify::Rows3Item { syllables, .. }) => {
-                    read::phrase::syllables_to_str_underscore(&syllables)
+                    read::phrase::syllables_to_str_underscore(syllables)
                 }
             },
             next_link: &match next {
                 None => "../index".to_string(),
                 Some(verify::Rows3Item { syllables, .. }) => {
-                    read::phrase::syllables_to_str_underscore(&syllables)
+                    read::phrase::syllables_to_str_underscore(syllables)
                 }
             },
-            wav_tag: &generate_wav_tag(&row, &syllables),
-            oga_tag: &generate_oga_tag(&row, &syllables),
+            wav_tag: &generate_wav_tag(row, syllables),
+            oga_tag: &generate_oga_tag(row, syllables),
             analysis: &analysis.join("\n"),
             pekzep_images: &convert_hanzi_to_images(&row.pekzep_hanzi, "() ", ".."),
-            author_color: &match &row.recording_author {
+            author_color: match &row.recording_author {
                 Some(read::phrase::Author::JektoVatimeliju) => "#754eab",
                 Some(read::phrase::Author::FaliraLyjotafis) => "#e33102",
                 Some(s) => {
@@ -354,7 +354,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     || row.filetype.contains(&read::phrase::FilePathType::WavR)
             ),
             to_check(!decomposition.is_empty()),
-            read::phrase::syllables_to_str_underscore(&syllables),
+            read::phrase::syllables_to_str_underscore(syllables),
             row.pekzep_latin
         ));
     }

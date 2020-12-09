@@ -100,8 +100,8 @@ pub mod phrase {
     impl std::fmt::Display for ExtSyllable {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             match self {
-                ExtSyllable::Syllable(s) => write!(f, "{}", s),
-                ExtSyllable::Xizi => write!(f, "xizi"),
+                Self::Syllable(s) => write!(f, "{}", s),
+                Self::Xizi => write!(f, "xizi"),
             }
         }
     }
@@ -109,8 +109,8 @@ pub mod phrase {
     impl ExtSyllable {
         fn to_rerrliratixka(self) -> String {
             match &self {
-                ExtSyllable::Syllable(s) => s.clone().to_rerrliratixka(),
-                ExtSyllable::Xizi => "xizi".to_string(),
+                Self::Syllable(s) => s.clone().to_rerrliratixka(),
+                Self::Xizi => "xizi".to_string(),
             }
         }
     }
@@ -174,9 +174,9 @@ pub mod phrase {
     impl std::fmt::Display for Author {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             match self {
-                Author::JektoVatimeliju => write!(f, "jekto.vatimeliju"),
-                Author::FaliraLyjotafis => write!(f, "falira.lyjotafis"),
-                Author::Other(a) => write!(f, "{}", a),
+                Self::JektoVatimeliju => write!(f, "jekto.vatimeliju"),
+                Self::FaliraLyjotafis => write!(f, "falira.lyjotafis"),
+                Self::Other(a) => write!(f, "{}", a),
             }
         }
     }

@@ -213,23 +213,23 @@ impl DataBundle {
             )
         }
     }
-    pub fn new() -> Result<DataBundle, Box<dyn Error>> {
+    pub fn new() -> Result<Self, Box<dyn Error>> {
         use log::warn;
         let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
 
         let spoonfed_rows = read::phrase::parse()?;
-        DataBundle::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation)?;
+        Self::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation)?;
 
         for (_, item) in &spoonfed_rows {
-            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
-            DataBundle::check_a(&item.pekzep_hanzi);
+            Self::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
+            Self::check_a(&item.pekzep_hanzi);
         }
 
         let vocab = read::vocab::parse()?;
-        DataBundle::check_vocab_pronunciation(&vocab, &char_pronunciation)?;
+        Self::check_vocab_pronunciation(&vocab, &char_pronunciation)?;
 
         for item in vocab.values() {
-            DataBundle::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
+            Self::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
         }
 
         let mut vocab_ordered = LinkedHashMap::new();
@@ -264,7 +264,7 @@ impl DataBundle {
             }
         }
 
-        Ok(DataBundle {
+        Ok(Self {
             rows3,
             vocab_ordered,
         })
