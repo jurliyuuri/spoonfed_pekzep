@@ -20,8 +20,8 @@ pub struct DataBundle {
 impl DataBundle {
     fn check_sentence_pronunciation(
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
-        char_pronunciation: &Vec<(String, pekzep_syllable::PekZepSyllable)>,
-    ) -> Result<(), Box<dyn Error>> {
+        char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+    ) -> Result<(), String> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         for (k, v) in spoonfed_rows.iter() {
@@ -38,19 +38,19 @@ impl DataBundle {
                         if let Some(read::phrase::ExtSyllable::Xizi) = key_iter.next() {
                             info!("matched `xizi`.")
                         } else {
-                            panic!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi)
+                           return Err(format!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi))
                         }
                     } else {
-                        panic!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi)
+                        return Err(format!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi))
                     }
                 } else {
                     let expected_syllable = if let Some(s) = key_iter.next() {
                         *s
                     } else {
-                        panic!(
+                        return Err(format!(
                             "While trying to match {:?} with {}, end of key encountered",
                             k, v.pekzep_hanzi
-                        )
+                        ))
                     };
                     if let Some(a) = char_pronunciation.iter().find(|(h, syllable)| {
                         **h == c.to_string()
@@ -58,10 +58,10 @@ impl DataBundle {
                     }) {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
-                        panic!(
+                       return Err(format!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
                             expected_syllable, c
-                        )
+                        ))
                     }
                 }
             }
@@ -71,13 +71,13 @@ impl DataBundle {
 
     fn check_vocab_pronunciation(
         vocab: &HashMap<String, read::vocab::Item>,
-        char_pronunciation: &Vec<(String, pekzep_syllable::PekZepSyllable)>,
-    ) -> Result<(), Box<dyn Error>> {
+        char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+    ) -> Result<(), String> {
         use log::info;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         // let mut pronunciation_errors_in_vocab = vec![];
         for (_, v) in vocab.iter() {
-            if v.pekzep_hanzi == "∅" && v.pekzep_latin == "" {
+            if v.pekzep_hanzi == "∅" && v.pekzep_latin.is_empty() {
                 info!("matched `∅` with an empty string")
             }
             let mut latin_iter = v.pekzep_latin.split(char::is_whitespace);
@@ -102,10 +102,10 @@ impl DataBundle {
                                 info!("matched `xizi` with `xizi`")
                             }
                         }
-                        _ => panic!(
+                        _ => return Err(format!(
                             "While trying to match {:?} with {}, cannot find matching xizi.",
                             v.pekzep_hanzi, v.pekzep_latin
-                        ),
+                        )),
                     }
                 }
 
@@ -123,10 +123,10 @@ impl DataBundle {
                     {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
-                        panic!(
+                        return Err(format!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
                             syllable, c
-                        )
+                        ))
                     }
                 } else if s == "//" {
                     if hanzi_iter.next() == Some(' ')
