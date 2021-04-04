@@ -228,12 +228,15 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             .iter()
             .map(|(_, voc)| voc.to_tab_separated(".."))
             .collect::<Vec<_>>();
+
+        let pekzep_hanzi_guillemet_removed = row.pekzep_hanzi.replace("«", "").replace("»", "");
+        
         let content = PhraseTemplate {
             english: &row.english,
             chinese_pinyin: &row.chinese_pinyin,
             chinese_hanzi: &row.chinese_hanzi,
             pekzep_latin: &row.pekzep_latin,
-            pekzep_hanzi: &row.pekzep_hanzi,
+            pekzep_hanzi: &pekzep_hanzi_guillemet_removed,
             prev_link: &match prev {
                 None => "../index".to_string(),
                 Some(verify::Rows3Item { syllables, .. }) => {
@@ -249,7 +252,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             wav_tag: &generate_wav_tag(row, syllables),
             oga_tag: &generate_oga_tag(row, syllables),
             analysis: &analysis.join("\n"),
-            pekzep_images: &convert_hanzi_to_images(&row.pekzep_hanzi, "() ", ".."),
+            pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", ".."),
             author_color: match &row.recording_author {
                 Some(read::phrase::Author::JektoVatimeliju) => "#754eab",
                 Some(read::phrase::Author::FaliraLyjotafis) => "#e33102",

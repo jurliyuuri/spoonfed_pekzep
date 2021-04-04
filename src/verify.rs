@@ -21,6 +21,7 @@ impl DataBundle {
     fn check_sentence_pronunciation(
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+        contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)]
     ) -> Result<(), String> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
@@ -30,6 +31,40 @@ impl DataBundle {
             while let Some(c) = iter.next() {
                 if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
                     info!("Skipped: {}", c)
+                } else if c == '«' {
+                    // Handle exceptional contractions such as «足手» xiop1
+                    let mut contraction = String::new();
+                    {
+                        let mut c = iter.next().expect("Unmatched guillemet");
+                        loop {
+                            if c == '»' {
+                                break;
+                            }
+                            contraction.push(c);
+                            c = iter.next().expect("Unmatched guillemet");
+                        }
+                    }
+
+                    let expected_syllable = if let Some(s) = key_iter.next() {
+                        *s
+                    } else {
+                        return Err(format!(
+                            "While trying to match {:?} with {}, end of key encountered",
+                            k, v.pekzep_hanzi
+                        ));
+                    };
+
+                    if let Some(a) = contraction_pronunciation.iter().find(|(h, syllable)| {
+                        **h == contraction.to_string()
+                            && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
+                    }) {
+                        info!("matched {} with {}", a.0, a.1)
+                    } else {
+                        return Err(format!(
+                            "While trying to match {:?} with {}, cannot find the contracted pronunciation `{}` for the character sequence `{}`", k, v.pekzep_hanzi,
+                            expected_syllable, contraction
+                        )) 
+                    }
                 } else if c == 'x' {
                     if Some('i') == iter.next()
                         && Some('z') == iter.next()
@@ -216,9 +251,10 @@ impl DataBundle {
     pub fn new() -> Result<Self, Box<dyn Error>> {
         use log::warn;
         let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
+        let contraction_pronunciation = read::contraction::parse()?;
 
         let spoonfed_rows = read::phrase::parse()?;
-        Self::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation)?;
+        Self::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation, &contraction_pronunciation)?;
 
         for (_, item) in &spoonfed_rows {
             Self::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
