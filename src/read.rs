@@ -280,9 +280,9 @@ pub mod contraction {
         sound: String,
     }
 
-    pub type ContractionSoundTable = Vec<(String, PekZepSyllable)>;
+    pub type SoundTable = Vec<(String, PekZepSyllable)>;
 
-    pub fn parse() -> Result<ContractionSoundTable, Box<dyn Error>> {
+    pub fn parse() -> Result<SoundTable, Box<dyn Error>> {
         fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
             match PekZepSyllable::parse(&record.sound) {
                 None => Err(format!("Invalid sound {}", record.sound)),

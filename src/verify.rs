@@ -21,7 +21,7 @@ impl DataBundle {
     fn check_sentence_pronunciation(
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
-        contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)]
+        contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> Result<(), String> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
@@ -55,7 +55,7 @@ impl DataBundle {
                     };
 
                     if let Some(a) = contraction_pronunciation.iter().find(|(h, syllable)| {
-                        **h == contraction.to_string()
+                        **h == contraction
                             && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
                         info!("matched {} with {}", a.0, a.1)
@@ -63,7 +63,7 @@ impl DataBundle {
                         return Err(format!(
                             "While trying to match {:?} with {}, cannot find the contracted pronunciation `{}` for the character sequence `{}`", k, v.pekzep_hanzi,
                             expected_syllable, contraction
-                        )) 
+                        ));
                     }
                 } else if c == 'x' {
                     if Some('i') == iter.next()
@@ -73,10 +73,10 @@ impl DataBundle {
                         if let Some(read::phrase::ExtSyllable::Xizi) = key_iter.next() {
                             info!("matched `xizi`.")
                         } else {
-                           return Err(format!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi))
+                            return Err(format!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi));
                         }
                     } else {
-                        return Err(format!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi))
+                        return Err(format!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi));
                     }
                 } else {
                     let expected_syllable = if let Some(s) = key_iter.next() {
@@ -85,7 +85,7 @@ impl DataBundle {
                         return Err(format!(
                             "While trying to match {:?} with {}, end of key encountered",
                             k, v.pekzep_hanzi
-                        ))
+                        ));
                     };
                     if let Some(a) = char_pronunciation.iter().find(|(h, syllable)| {
                         **h == c.to_string()
@@ -93,12 +93,42 @@ impl DataBundle {
                     }) {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
-                       return Err(format!(
+                        return Err(format!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
                             expected_syllable, c
-                        ))
+                        ));
                     }
                 }
+            }
+        }
+        Ok(())
+    }
+
+    fn match_xizi(hanzi_iter: &mut std::str::Chars, v: &read::vocab::Item) -> Result<(), String> {
+        use log::info;
+        match hanzi_iter.next() {
+            Some('x') => {
+                if hanzi_iter.next() == Some('i')
+                    && hanzi_iter.next() == Some('z')
+                    && hanzi_iter.next() == Some('i')
+                {
+                    info!("matched `xizi` with `xizi`")
+                }
+            }
+            Some(' ') => {
+                if hanzi_iter.next() == Some('x')
+                    && hanzi_iter.next() == Some('i')
+                    && hanzi_iter.next() == Some('z')
+                    && hanzi_iter.next() == Some('i')
+                {
+                    info!("matched `xizi` with `xizi`")
+                }
+            }
+            _ => {
+                return Err(format!(
+                    "While trying to match {:?} with {}, cannot find matching xizi.",
+                    v.pekzep_hanzi, v.pekzep_latin
+                ))
             }
         }
         Ok(())
@@ -119,29 +149,7 @@ impl DataBundle {
             let mut hanzi_iter = v.pekzep_hanzi.chars();
             'a: while let Some(s) = latin_iter.next() {
                 if s == "xizi" {
-                    match hanzi_iter.next() {
-                        Some('x') => {
-                            if hanzi_iter.next() == Some('i')
-                                && hanzi_iter.next() == Some('z')
-                                && hanzi_iter.next() == Some('i')
-                            {
-                                info!("matched `xizi` with `xizi`")
-                            }
-                        }
-                        Some(' ') => {
-                            if hanzi_iter.next() == Some('x')
-                                && hanzi_iter.next() == Some('i')
-                                && hanzi_iter.next() == Some('z')
-                                && hanzi_iter.next() == Some('i')
-                            {
-                                info!("matched `xizi` with `xizi`")
-                            }
-                        }
-                        _ => return Err(format!(
-                            "While trying to match {:?} with {}, cannot find matching xizi.",
-                            v.pekzep_hanzi, v.pekzep_latin
-                        )),
-                    }
+                    Self::match_xizi(&mut hanzi_iter, v)?;
                 }
 
                 if let Some(syllable) = PekZepSyllable::parse(s) {
@@ -161,7 +169,7 @@ impl DataBundle {
                         return Err(format!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
                             syllable, c
-                        ))
+                        ));
                     }
                 } else if s == "//" {
                     if hanzi_iter.next() == Some(' ')
@@ -254,7 +262,11 @@ impl DataBundle {
         let contraction_pronunciation = read::contraction::parse()?;
 
         let spoonfed_rows = read::phrase::parse()?;
-        Self::check_sentence_pronunciation(&spoonfed_rows, &char_pronunciation, &contraction_pronunciation)?;
+        Self::check_sentence_pronunciation(
+            &spoonfed_rows,
+            &char_pronunciation,
+            &contraction_pronunciation,
+        )?;
 
         for (_, item) in &spoonfed_rows {
             Self::check_nonrecommended_character(&item.pekzep_hanzi, &variants);

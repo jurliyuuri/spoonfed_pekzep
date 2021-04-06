@@ -230,7 +230,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
             .collect::<Vec<_>>();
 
         let pekzep_hanzi_guillemet_removed = row.pekzep_hanzi.replace("«", "").replace("»", "");
-        
+
         let content = PhraseTemplate {
             english: &row.english,
             chinese_pinyin: &row.chinese_pinyin,
