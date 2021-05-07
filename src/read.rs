@@ -248,6 +248,12 @@ pub mod phrase {
                 decomposed: rec.decomposed,
             };
 
+            // 未査読の行は飛ばす
+            if row.pekzep_hanzi.contains('@') {
+                info!("`{}` is not yet peer-reviewed. Skipping.", row.pekzep_latin);
+                continue;
+            }
+
             let syllables = encode_to_pekzep_syllables(&row.pekzep_latin)?;
             if !syllables.is_empty() && rows.insert(syllables.clone(), row.clone()).is_some() {
                 // in HashSet::insert, if the set did have this value present, false is returned.
