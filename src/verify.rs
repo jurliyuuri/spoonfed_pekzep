@@ -232,6 +232,20 @@ impl DataBundle {
             }
         }
     }
+
+    fn check_kan(pekzep_hanzi: &str, english: &str) {
+        use log::warn;
+        if pekzep_hanzi.contains('躍') {
+            if english.contains("jump") {
+                return;
+            }
+            warn!(
+                "{} contains 躍, but the English translation did not contain the word 'jump'. Please check if the sentence `{}` should contains the notion of 'jump'.", 
+                pekzep_hanzi,
+                english
+            );
+        }
+    }
     fn check_a(s: &str) {
         use log::warn;
         use regex::Regex;
@@ -271,6 +285,7 @@ impl DataBundle {
         for (_, item) in &spoonfed_rows {
             Self::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
             Self::check_a(&item.pekzep_hanzi);
+            Self::check_kan(&item.pekzep_hanzi, &item.english);
         }
 
         let vocab = read::vocab::parse()?;
