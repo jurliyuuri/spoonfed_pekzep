@@ -41,6 +41,7 @@ struct PhraseTemplate<'a> {
 #[template(path = "ind.html")]
 struct IndTemplate<'a> {
     index: &'a str,
+    length: usize,
 }
 
 #[derive(Template)]
@@ -366,7 +367,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         file,
         "{}",
         IndTemplate {
-            index: &index.join("\n")
+            index: &index.join("\n"),
+            length: index.len() - 1, /* subtract off the title row */
         }
         .render()
         .unwrap()
