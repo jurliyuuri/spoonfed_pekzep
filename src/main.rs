@@ -374,5 +374,43 @@ fn main() -> Result<(), Box<dyn Error>> {
         .unwrap()
     )?;
 
+    write_condensed_csv()?;
+
+    Ok(())
+}
+
+fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
+    use csv::StringRecord;
+    use read::phrase::Record;
+    use std::io::BufReader;
+    let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
+    let f = BufReader::new(f);
+    let mut condensed_csv = String::new();
+    for line in f.lines() {
+        // to prevent double quotes from vanishing, I do not read with CSV parser
+        let rec: Record =
+            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
+        // 未査読の行は飛ばす
+        if rec.pekzep_hanzi.contains('@') {
+            continue;
+        }
+        if rec.pekzep_latin.is_empty() {
+            continue;
+        }
+
+        condensed_csv += &format!(
+            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n",
+            rec.english,
+            rec.pekzep_latin,
+            rec.pekzep_hanzi,
+            rec.chinese_pinyin,
+            rec.chinese_hanzi,
+            rec.decomposed,
+            rec.filetype,
+            rec.recording_author,
+        )
+    }
+
+    std::fs::write("docs/raw.tsv", condensed_csv)?;
     Ok(())
 }
