@@ -390,6 +390,7 @@ fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let rec: Record =
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
+        
         // 未査読の行は飛ばす
         if rec.pekzep_hanzi.contains('@') {
             continue;
@@ -398,17 +399,19 @@ fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
             continue;
         }
 
-        condensed_csv += &format!(
-            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n",
-            rec.english,
-            rec.pekzep_latin,
-            rec.pekzep_hanzi,
-            rec.chinese_pinyin,
-            rec.chinese_hanzi,
-            rec.decomposed,
-            rec.filetype,
-            rec.recording_author,
-        )
+        if rec.requires_substitution.is_empty() {
+            condensed_csv += &format!(
+                "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n",
+                rec.english,
+                rec.pekzep_latin,
+                rec.pekzep_hanzi,
+                rec.chinese_pinyin,
+                rec.chinese_hanzi,
+                rec.decomposed,
+                rec.filetype,
+                rec.recording_author,
+            )
+        }
     }
 
     std::fs::write("docs/raw.tsv", condensed_csv)?;

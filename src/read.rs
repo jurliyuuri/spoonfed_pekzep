@@ -142,6 +142,7 @@ pub mod phrase {
         pub decomposed: String,
         pub filetype: String,
         pub recording_author: String,
+        pub requires_substitution: String,
     }
 
     #[readonly::make]
