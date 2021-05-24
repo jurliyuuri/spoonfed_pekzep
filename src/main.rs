@@ -56,38 +56,53 @@ struct VocabListTemplate<'a> {
     vocab_html: &'a str,
 }
 
-mod filters {
-    pub fn capitalize_first_char(s: &str) -> ::askama::Result<String> {
+mod normalizer {
+    pub fn capitalize_first_char(s: &str) -> String {
         let mut v: Vec<char> = s.chars().collect();
         v[0] = v[0].to_uppercase().next().unwrap();
         let s2: String = v.into_iter().collect();
-        Ok(s2)
+        s2
     }
-    pub fn line_breaks_and_tabs(s: &str) -> ::askama::Result<String> {
+    pub fn line_breaks_and_tabs(s: &str) -> String {
         let s = s.to_string();
-        Ok(format!(
+        format!(
             "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\">\n\t<tr><td>{}</td></tr>\n</table>",
             s.replace("\t", "</td><td>")
                 .replace("\n", "</td></tr>\n\t<tr><td>")
-        ))
+        )
     }
-    pub fn normalize_chinese_punctuation(s: &str) -> ::askama::Result<String> {
+    pub fn normalize_chinese_punctuation(s: &str) -> String {
         let s = s.to_string();
-        Ok(s.replace(',', "，").replace('?', "？").replace('!', "！"))
+        s.replace(',', "，").replace('?', "？").replace('!', "！")
     }
-    pub fn normalize_a_b_dialogue(s: &str) -> ::askama::Result<String> {
+    pub fn normalize_a_b_dialogue(s: &str) -> String {
         if s.starts_with('A') && s.contains('B') {
-            Ok(format!(
+            format!(
                 "「{}」",
                 &s[1..]
                     .replace(" B", "」「")
                     .replace('B', "」「")
                     .replace(" A", "」「")
                     .replace('A', "」「")
-            ))
+            )
         } else {
-            Ok(s.to_string())
+            s.to_string()
         }
+    }
+}
+
+mod filters {
+    pub fn capitalize_first_char(s: &str) -> ::askama::Result<String> {
+        Ok(crate::normalizer::capitalize_first_char(s))
+    }
+    pub fn line_breaks_and_tabs(s: &str) -> ::askama::Result<String> {
+        Ok(crate::normalizer::line_breaks_and_tabs(s))
+    }
+    pub fn normalize_chinese_punctuation(s: &str) -> ::askama::Result<String> {
+        Ok(crate::normalizer::normalize_chinese_punctuation(s))
+    }
+    pub fn normalize_a_b_dialogue(s: &str) -> ::askama::Result<String> {
+        Ok(crate::normalizer::normalize_a_b_dialogue(s))
     }
 }
 
@@ -381,6 +396,9 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
+    use normalizer::{
+        capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
+    };
     use read::phrase::Record;
     use std::io::BufReader;
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
@@ -390,7 +408,7 @@ fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let rec: Record =
             StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
-        
+
         // 未査読の行は飛ばす
         if rec.pekzep_hanzi.contains('@') {
             continue;
@@ -405,8 +423,8 @@ fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
                 rec.english,
                 rec.pekzep_latin,
                 rec.pekzep_hanzi,
-                rec.chinese_pinyin,
-                rec.chinese_hanzi,
+                capitalize_first_char(&rec.chinese_pinyin),
+                normalize_a_b_dialogue(&normalize_chinese_punctuation(&rec.chinese_hanzi)),
                 rec.decomposed,
                 rec.filetype,
                 rec.recording_author,
