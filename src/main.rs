@@ -141,18 +141,22 @@ fn char_img(name: &str, rel_path: &'static str) -> String {
 fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) -> String {
     let mut ans = String::new();
     let mut iter = s.chars();
+    let mut remove_following_space = false;
     while let Some(c) = iter.next() {
         if c == '∅' {
             ans.push_str(&char_img("blank", rel_path))
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
                 ans.push_str(&char_img("xi", rel_path));
-                ans.push_str(&char_img("zi", rel_path))
+                ans.push_str(&char_img("zi", rel_path));
+                remove_following_space = true; // this deletes the redundant space after "xizi"
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.")
             }
         } else if exclude_list.contains(c) {
-            ans.push(c);
+            if !(remove_following_space && c == ' ') {
+                ans.push(c);
+            }
         } else {
             ans.push_str(&char_img(&c.to_string(), rel_path))
         }
