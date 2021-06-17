@@ -283,6 +283,23 @@ impl DataBundle {
             )
         }
     }
+
+    fn check_space_before_punctuation(s: &str) {
+        use log::warn;
+        if s.contains(" .") {
+            warn!(
+                "a space before a period is detected in `{}`. Remove the space.",
+                s
+            )
+        }
+
+        if s.contains(" ,") {
+            warn!(
+                "a space before a comma is detected in `{}`. Remove the space.",
+                s
+            )
+        }
+    }
     pub fn new() -> Result<Self, Box<dyn Error>> {
         use log::warn;
         let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
@@ -300,6 +317,10 @@ impl DataBundle {
             Self::check_a(&item.pekzep_hanzi);
             Self::check_kan1(&item.pekzep_hanzi, &item.english);
             Self::check_co1(&item.pekzep_hanzi, &item.english);
+
+            Self::check_space_before_punctuation(&item.pekzep_latin);
+            Self::check_space_before_punctuation(&item.english);
+            Self::check_space_before_punctuation(&item.chinese_pinyin);
         }
 
         let vocab = read::vocab::parse()?;
