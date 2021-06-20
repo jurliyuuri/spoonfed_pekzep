@@ -109,7 +109,7 @@ pub mod phrase {
     impl ExtSyllable {
         fn to_rerrliratixka(self) -> String {
             match &self {
-                Self::Syllable(s) => s.clone().to_rerrliratixka(),
+                Self::Syllable(s) => (*s).to_rerrliratixka(),
                 Self::Xizi => "xizi".to_string(),
             }
         }

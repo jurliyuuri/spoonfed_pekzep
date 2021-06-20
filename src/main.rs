@@ -42,7 +42,7 @@ struct PhraseTemplate<'a> {
 struct IndTemplate<'a> {
     index: &'a str,
     length: usize,
-    how_many_glosses: usize
+    how_many_glosses: usize,
 }
 
 #[derive(Template)]
@@ -168,8 +168,8 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
 
 fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyllable]) -> String {
     use log::warn;
+    let filename = read::phrase::syllables_to_str_underscore(syllables);
     if row.filetype.contains(&read::phrase::FilePathType::Oga) {
-        let filename = read::phrase::syllables_to_str_underscore(syllables);
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists()
         {
             warn!("oga file not found: {}.oga", filename)
@@ -179,7 +179,6 @@ fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
             filename
         )
     } else {
-        let filename = read::phrase::syllables_to_str_underscore(syllables);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
             warn!("oga file IS found, but is not linked: {}.oga", filename)
         }

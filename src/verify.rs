@@ -439,7 +439,7 @@ fn parse_decomposed(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         key, row.decomposed
                     ));
-                    Ok((key, res?.to_owned()))
+                    Ok((key, res?.clone()))
                 })
                 .collect::<Vec<_>>(),
         )
