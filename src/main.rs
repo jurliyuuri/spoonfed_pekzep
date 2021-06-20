@@ -42,6 +42,7 @@ struct PhraseTemplate<'a> {
 struct IndTemplate<'a> {
     index: &'a str,
     length: usize,
+    how_many_glosses: usize
 }
 
 #[derive(Template)]
@@ -358,13 +359,18 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     eprintln!("Generating index.html");
     let mut file = File::create("docs/index.html")?;
-    let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tgloss\tphrase".to_string()];
+    let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tanalysis\tphrase".to_string()];
+    let mut how_many_glosses = 0;
     for verify::Rows3Item {
         syllables,
         decomposition,
         row,
     } in &data_bundle.rows3
     {
+        if !decomposition.is_empty() {
+            how_many_glosses += 1;
+        }
+
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check(
@@ -388,6 +394,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         IndTemplate {
             index: &index.join("\n"),
             length: index.len() - 1, /* subtract off the title row */
+            how_many_glosses
         }
         .render()
         .unwrap()
