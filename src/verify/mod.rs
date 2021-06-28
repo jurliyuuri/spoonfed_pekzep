@@ -5,6 +5,8 @@ use pekzep_syllable::PekZepSyllable;
 use std::collections::HashMap;
 use std::error::Error;
 
+mod pinyin;
+
 pub struct Rows3Item {
     pub syllables: Vec<read::phrase::ExtSyllable>,
     pub decomposition: Vec<(String, read::vocab::Item)>,
@@ -321,6 +323,8 @@ impl DataBundle {
             Self::check_space_before_punctuation(&item.pekzep_latin);
             Self::check_space_before_punctuation(&item.english);
             Self::check_space_before_punctuation(&item.chinese_pinyin);
+
+            pinyin::check(&item.chinese_hanzi, &item.chinese_pinyin);
         }
 
         let vocab = read::vocab::parse()?;
