@@ -231,6 +231,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "match-pinyin-with-hanzi"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3578f326330d08ea7aaa1cc7b385628b5eef5ebfb3583cbd53b9861af8d74061"
+dependencies = [
+ "pinyin",
+ "pinyin-parser",
+]
+
+[[package]]
 name = "memchr"
 version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -389,10 +399,9 @@ dependencies = [
  "lazy_static",
  "linked-hash-map",
  "log",
+ "match-pinyin-with-hanzi",
  "partition_eithers",
  "pekzep_syllable",
- "pinyin",
- "pinyin-parser",
  "readonly",
  "regex",
  "serde",
