@@ -125,7 +125,7 @@ fn char_img(name: &str, rel_path: &'static str) -> String {
         ) {
             Ok(_) => {}
             Err(e) => {
-                println!("{}", e);
+                eprintln!("Copying raw/char_img/{}.png failed: {}", name, e);
             }
         }
     } else {
