@@ -33,21 +33,16 @@ impl read::vocab::Item {
         if let Some(splittable) = splittable_compound_info {
             let (latin_former, latin_latter) = split_at_slashslash(&self.pekzep_latin);
             let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.pekzep_hanzi);
-            let (image_former, image_latter) = split_at_slashslash(&convert_hanzi_to_images(
-                &self.pekzep_hanzi,
-                "/{} N()SL",
-                rel_path,
-            ));
             match splittable {
                 verify::SplittableCompoundInfo::FormerHalfHash => {
                     format!(
-                        "{}//{}\t{}//{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}//{}</span>\t{}\t{}\t{}",
+                        "{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>//<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>\t{}\t{}\t{}",
                         latin_former, 
                         latin_latter,
                         hanzi_former, 
                         hanzi_latter,
-                        image_former, 
-                        image_latter,
+                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 30), 
+                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 22), 
                         self.parts_of_speech,
                         self.parts_of_speech_supplement,
                         self.english_gloss
@@ -55,13 +50,13 @@ impl read::vocab::Item {
                 }
                 verify::SplittableCompoundInfo::LatterHalfExclamation => {
                     format!(
-                        "{}//{}\t{}//{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}//{}</span>\t{}\t{}\t{}",
+                        "<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>//<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
                         latin_former, 
                         latin_latter,
                         hanzi_former, 
                         hanzi_latter,
-                        image_former, 
-                        image_latter,
+                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 22), 
+                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 30), 
                         self.parts_of_speech,
                         self.parts_of_speech_supplement,
                         self.english_gloss
@@ -121,7 +116,7 @@ const fn to_check(a: bool) -> &'static str {
     }
 }
 
-fn char_img(name: &str, rel_path: &'static str) -> String {
+fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String {
     use log::info;
     if std::path::Path::new(&format!("raw/char_img/{}.png", name)).exists() {
         // only copy the files that are actually used
@@ -140,22 +135,26 @@ fn char_img(name: &str, rel_path: &'static str) -> String {
     }
 
     format!(
-        r#"<img src="{}/char_img/{}.png" height="30">"#,
-        rel_path, name
+        r#"<img src="{}/char_img/{}.png" height="{}">"#,
+        rel_path, name, size
     )
 }
 
 fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) -> String {
+    convert_hanzi_to_images_with_size(s, exclude_list, rel_path, 30)
+}
+
+fn convert_hanzi_to_images_with_size(s: &str, exclude_list: &str, rel_path: &'static str, size: usize) -> String {
     let mut ans = String::new();
     let mut iter = s.chars();
     let mut remove_following_space = false;
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(&char_img("blank", rel_path))
+            ans.push_str(&char_img_with_size("blank", rel_path, size))
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
-                ans.push_str(&char_img("xi", rel_path));
-                ans.push_str(&char_img("zi", rel_path));
+                ans.push_str(&char_img_with_size("xi", rel_path, size));
+                ans.push_str(&char_img_with_size("zi", rel_path, size));
                 remove_following_space = true; // this deletes the redundant space after "xizi"
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.")
@@ -165,7 +164,7 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
                 ans.push(c);
             }
         } else {
-            ans.push_str(&char_img(&c.to_string(), rel_path))
+            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size))
         }
     }
 
