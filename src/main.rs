@@ -11,11 +11,66 @@ mod normalizer;
 mod read;
 mod verify;
 
+fn split_at_slashslash(in_string: &str) -> (String, String) {
+    let mut splitter = in_string.splitn(2, "//");
+    let first = splitter.next().unwrap();
+    let second = splitter.next().unwrap();
+    (first.to_owned(), second.to_owned())
+}
+
 impl read::vocab::Item {
     pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
         self.to_tab_separated_with_custom_linzifier(|s| {
             convert_hanzi_to_images(s, "/{} N()SL", rel_path)
         })
+    }
+
+    pub fn to_tab_separated_with_splittable_compound_info(
+        &self,
+        rel_path: &'static str,
+        splittable_compound_info: Option<verify::SplittableCompoundInfo>,
+    ) -> String {
+        if let Some(splittable) = splittable_compound_info {
+            let (latin_former, latin_latter) = split_at_slashslash(&self.pekzep_latin);
+            let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.pekzep_hanzi);
+            let (image_former, image_latter) = split_at_slashslash(&convert_hanzi_to_images(
+                &self.pekzep_hanzi,
+                "/{} N()SL",
+                rel_path,
+            ));
+            match splittable {
+                verify::SplittableCompoundInfo::FormerHalfHash => {
+                    format!(
+                        "{}//{}\t{}//{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}//{}</span>\t{}\t{}\t{}",
+                        latin_former, 
+                        latin_latter,
+                        hanzi_former, 
+                        hanzi_latter,
+                        image_former, 
+                        image_latter,
+                        self.parts_of_speech,
+                        self.parts_of_speech_supplement,
+                        self.english_gloss
+                    )
+                }
+                verify::SplittableCompoundInfo::LatterHalfExclamation => {
+                    format!(
+                        "{}//{}\t{}//{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}//{}</span>\t{}\t{}\t{}",
+                        latin_former, 
+                        latin_latter,
+                        hanzi_former, 
+                        hanzi_latter,
+                        image_former, 
+                        image_latter,
+                        self.parts_of_speech,
+                        self.parts_of_speech_supplement,
+                        self.english_gloss
+                    )
+                }
+            }
+        } else {
+            self.to_tab_separated(rel_path)
+        }
     }
 }
 
@@ -197,7 +252,9 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
         ))?;
         let analysis = decomposition
             .iter()
-            .map(|(_, voc)| voc.to_tab_separated(".."))
+            .map(|(_, voc, splittable_compound_info)| {
+                voc.to_tab_separated_with_splittable_compound_info("..", *splittable_compound_info)
+            })
             .collect::<Vec<_>>();
 
         let pekzep_hanzi_guillemet_removed = row.pekzep_hanzi.replace("«", "").replace("»", "");

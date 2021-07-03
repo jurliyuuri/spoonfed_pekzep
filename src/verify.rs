@@ -7,7 +7,7 @@ use std::error::Error;
 
 pub struct Rows3Item {
     pub syllables: Vec<read::phrase::ExtSyllable>,
-    pub decomposition: Vec<(String, read::vocab::Item)>,
+    pub decomposition: Vec<(String, read::vocab::Item, Option<SplittableCompoundInfo>)>,
     pub row: read::phrase::Item,
 }
 
@@ -344,7 +344,7 @@ impl DataBundle {
                 .map(|(syllables, row)| {
                     match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
                         Ok(decomposition) => {
-                            for (key, voc) in &decomposition {
+                            for (key, voc, _splittable_compound_info) in &decomposition {
                                 if !vocab_ordered.contains_key(key) {
                                     vocab_ordered.insert(key.to_string(), voc.clone());
                                 }
@@ -375,13 +375,20 @@ impl DataBundle {
     }
 }
 
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+
+pub enum SplittableCompoundInfo {
+    FormerHalfHash,
+    LatterHalfExclamation,
+}
+
 /// Checks if:
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
     vocab: &HashMap<String, read::vocab::Item>,
     row: &read::phrase::Item,
-) -> Result<Vec<(String, read::vocab::Item)>, Vec<String>> {
+) -> Result<Vec<(String, read::vocab::Item, Option<SplittableCompoundInfo>)>, Vec<String>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
@@ -445,7 +452,14 @@ fn parse_decomposed(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         key, row.decomposed
                     ));
-                    Ok((key, res?.clone()))
+                    let splittable_compound_info = if a.contains('!') {
+                        Some(SplittableCompoundInfo::LatterHalfExclamation)
+                    } else if a.contains('#') {
+                        Some(SplittableCompoundInfo::FormerHalfHash)
+                    } else {
+                        None
+                    };
+                    Ok((key, res?.clone(), splittable_compound_info))
                 })
                 .collect::<Vec<_>>(),
         )
