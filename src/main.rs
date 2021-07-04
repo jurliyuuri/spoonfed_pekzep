@@ -7,7 +7,6 @@ use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 mod filters;
-mod normalizer;
 mod read;
 mod verify;
 
@@ -413,7 +412,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
-    use normalizer::{
+    use filters::normalizer::{
         capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
     };
     use read::phrase::Record;
