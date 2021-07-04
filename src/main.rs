@@ -10,6 +10,18 @@ mod filters;
 mod read;
 mod verify;
 
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_split_at_slashslash() {
+        use crate::split_at_slashslash;
+        assert_eq!(split_at_slashslash("行 // 道"), (String::from("行 "), String::from(" 道")))
+    }
+}
+
+/// Splits the string at the first occurrence of `//`.
+/// # Panic
+/// Panics if the string does not have a `//`.
 fn split_at_slashslash(in_string: &str) -> (String, String) {
     let mut splitter = in_string.splitn(2, "//");
     let first = splitter.next().unwrap();
