@@ -251,7 +251,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
         ))?;
         let analysis = decomposition
             .iter()
-            .map(|(_, voc, splittable_compound_info)| {
+            .map(|verify::DecompositionItem{key: _, voc, splittable_compound_info}| {
                 voc.to_tab_separated_with_splittable_compound_info("..", *splittable_compound_info)
             })
             .collect::<Vec<_>>();

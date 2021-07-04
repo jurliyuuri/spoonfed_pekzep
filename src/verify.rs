@@ -7,7 +7,7 @@ use std::error::Error;
 
 pub struct Rows3Item {
     pub syllables: Vec<read::phrase::ExtSyllable>,
-    pub decomposition: Vec<(String, read::vocab::Item, Option<SplittableCompoundInfo>)>,
+    pub decomposition: Vec<DecompositionItem>,
     pub row: read::phrase::Item,
 }
 
@@ -344,7 +344,12 @@ impl DataBundle {
                 .map(|(syllables, row)| {
                     match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
                         Ok(decomposition) => {
-                            for (key, voc, _splittable_compound_info) in &decomposition {
+                            for DecompositionItem {
+                                key,
+                                voc,
+                                splittable_compound_info: _,
+                            } in &decomposition
+                            {
                                 if !vocab_ordered.contains_key(key) {
                                     vocab_ordered.insert(key.to_string(), voc.clone());
                                 }
@@ -382,13 +387,19 @@ pub enum SplittableCompoundInfo {
     LatterHalfExclamation,
 }
 
+pub struct DecompositionItem {
+    pub key: String,
+    pub voc: read::vocab::Item,
+    pub splittable_compound_info: Option<SplittableCompoundInfo>,
+}
+
 /// Checks if:
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
     vocab: &HashMap<String, read::vocab::Item>,
     row: &read::phrase::Item,
-) -> Result<Vec<(String, read::vocab::Item, Option<SplittableCompoundInfo>)>, Vec<String>> {
+) -> Result<Vec<DecompositionItem>, Vec<String>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
@@ -459,7 +470,11 @@ fn parse_decomposed(
                     } else {
                         None
                     };
-                    Ok((key, res?.clone(), splittable_compound_info))
+                    Ok(DecompositionItem {
+                        key,
+                        voc: res?.clone(),
+                        splittable_compound_info,
+                    })
                 })
                 .collect::<Vec<_>>(),
         )
