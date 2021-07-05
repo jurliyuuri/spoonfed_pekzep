@@ -327,8 +327,7 @@ pub fn generate_vocab(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             VocabTemplate {
                 analysis: &v.to_tab_separated("..")
             }
-            .render()
-            .unwrap()
+            .render()?
         )?;
     }
     Ok(())
@@ -346,8 +345,7 @@ pub fn generate_vocab_list_internal(data_bundle: &verify::DataBundle) -> Result<
         VocabListTemplate {
             vocab_html: &vocab_html.join("\n")
         }
-        .render()
-        .unwrap()
+        .render()?
     )?;
     Ok(())
 }
@@ -364,8 +362,7 @@ pub fn generate_vocab_list(data_bundle: &verify::DataBundle) -> Result<(), Box<d
         VocabListTemplate {
             vocab_html: &vocab_html.join("\n")
         }
-        .render()
-        .unwrap()
+        .render()?
     )?;
     Ok(())
 }
@@ -409,8 +406,7 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             length: index.len() - 1, /* subtract off the title row */
             how_many_glosses
         }
-        .render()
-        .unwrap()
+        .render()?
     )?;
 
     Ok(())
