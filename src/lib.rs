@@ -235,9 +235,10 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     }
 }
 
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
-    eprintln!("Generating phrase/");
     for (
         i,
         verify::Rows3Item {
@@ -306,7 +307,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             },
             has_audio: row.recording_author.is_some(),
         };
-        write!(file, "{}", content.render().unwrap())?;
+        write!(file, "{}", content.render()?)?;
 
         if row.chinese_hanzi.starts_with('A') && row.chinese_hanzi.contains('B') {
             warn!("A-B style dialogue detected: {}, matched with {}. Replace this with 「」-style while also making sure the Hanzi and the Pinyin matches.", row.chinese_hanzi, row.chinese_pinyin)
@@ -315,6 +316,8 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
     Ok(())
 }
 
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_vocab(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     for (key, v) in &data_bundle.vocab_ordered {
         let mut file = File::create(format!(
@@ -333,6 +336,8 @@ pub fn generate_vocab(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
     Ok(())
 }
 
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_vocab_list_internal(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
     let mut vocab_html = vec![];
@@ -350,6 +355,8 @@ pub fn generate_vocab_list_internal(data_bundle: &verify::DataBundle) -> Result<
     Ok(())
 }
 
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_vocab_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let mut vocab_file = File::create("docs/vocab_list.html")?;
     let mut vocab_html = vec![];
@@ -367,6 +374,8 @@ pub fn generate_vocab_list(data_bundle: &verify::DataBundle) -> Result<(), Box<d
     Ok(())
 }
 
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tanalysis\tphrase".to_string()];
@@ -412,6 +421,8 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
     Ok(())
 }
 
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
 pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
     use filters::normalizer::{
@@ -425,7 +436,7 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let rec: Record =
-            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
+            StringRecord::from(line?.split('\t').collect::<Vec<_>>()).deserialize(None)?;
 
         // 未査読の行は飛ばす
         if rec.pekzep_hanzi.contains('@') {

@@ -9,6 +9,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let data_bundle = verify::DataBundle::new()?;
 
+    eprintln!("Generating phrase/");
     generate_phrases(&data_bundle)?;
 
     eprintln!("Generating vocab/");
