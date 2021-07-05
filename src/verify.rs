@@ -300,6 +300,9 @@ impl DataBundle {
             )
         }
     }
+
+    /// # Errors
+    /// Returns `Err` if the validation fails.
     pub fn new() -> Result<Self, Box<dyn Error>> {
         use log::{info, warn};
         use match_pinyin_with_hanzi::match_pinyin_with_hanzi;
