@@ -8,7 +8,7 @@ use std::fs::File;
 use std::io::prelude::*;
 mod filters;
 mod read;
-mod verify;
+pub mod verify;
 
 #[cfg(test)]
 mod tests {
@@ -235,7 +235,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     }
 }
 
-fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
     eprintln!("Generating phrase/");
     for (
@@ -315,17 +315,7 @@ fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Erro
     Ok(())
 }
 
-pub fn run() -> Result<(), Box<dyn Error>> {
-    use std::env;
-    if env::var("RUST_LOG").is_err() {
-        env::set_var("RUST_LOG", "warn");
-    }
-    env_logger::init();
-    let data_bundle = verify::DataBundle::new()?;
-
-    generate_phrases(&data_bundle)?;
-
-    eprintln!("Generating vocab/");
+pub fn generate_vocab(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     for (key, v) in &data_bundle.vocab_ordered {
         let mut file = File::create(format!(
             "docs/vocab/{}.html",
@@ -341,8 +331,10 @@ pub fn run() -> Result<(), Box<dyn Error>> {
             .unwrap()
         )?;
     }
+    Ok(())
+}
 
-    eprintln!("Generating vocab_list_internal.html");
+pub fn generate_vocab_list_internal(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
     let mut vocab_html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
@@ -357,8 +349,10 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         .render()
         .unwrap()
     )?;
+    Ok(())
+}
 
-    eprintln!("Generating vocab_list.html");
+pub fn generate_vocab_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let mut vocab_file = File::create("docs/vocab_list.html")?;
     let mut vocab_html = vec![];
     for (_, vocab) in &data_bundle.vocab_ordered {
@@ -373,8 +367,10 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         .render()
         .unwrap()
     )?;
+    Ok(())
+}
 
-    eprintln!("Generating index.html");
+pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let mut file = File::create("docs/index.html")?;
     let mut index = vec!["<abbr title=\"Audio available in Edge, Firefox, Chrome and Opera. / 在Edge、Firefox、Chrome和Opera中都可以听到录音。\">🔊<i class=\"fab fa-chrome\"></i><i class=\"fab fa-firefox-browser\"></i><i class=\"fab fa-edge\"></i><i class=\"fab fa-edge-legacy\"></i><i class=\"fab fa-opera\"></i></abbr>\t<abbr title=\"Audio available in Safari. / 在Safari中都可以听到录音。\">🔊<i class=\"fab fa-safari\"></i></abbr>\tanalysis\tphrase".to_string()];
     let mut how_many_glosses = 0;
@@ -417,12 +413,10 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         .unwrap()
     )?;
 
-    write_condensed_csv()?;
-
     Ok(())
 }
 
-fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
+pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
     use filters::normalizer::{
         capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
