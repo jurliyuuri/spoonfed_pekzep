@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>search / 搜索引擎</title>
+    <script src="./raw.js"></script>
+</head>
+<script>
+    function search_by(key, value) {
+        const filtered = RAW_DATA.filter(u => u[key].toLowerCase().includes(value.toLowerCase()));
+        render_table(filtered);
+    }
+
+    function render_table(dat) {
+        document.getElementById("res").innerHTML = "<table>" +
+            dat.map(u => `<tr><td>${u.english}</td><td><a href="phrase/${u.pekzep_latin.replace(/[.!?"()]/g, "").split(" ").join("_")}.html">${u.pekzep_latin}</a></td><td>${u.pekzep_hanzi}</td><td>${u.chinese_pinyin}</td><td>${u.chinese_hanzi}</td></tr>`).join("\n") + "</" + "table>"
+
+    }
+</script>
+
+<body>
+    Search from English: <input type="text" onkeyup="search_by('english', this.value)">
+    <div id="res">
+
+    </div>
+</body>
