@@ -27,5 +27,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     eprintln!("Writing raw.tsv");
     write_condensed_csv()?;
 
+    eprintln!("Writing raw.js");
+    write_condensed_js()?;
+
     Ok(())
 }

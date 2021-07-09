@@ -470,3 +470,54 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     std::fs::write("docs/raw.tsv", condensed_csv)?;
     Ok(())
 }
+
+
+
+/// Generates `raw.js`
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
+pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
+    use csv::StringRecord;
+    use filters::normalizer::{
+        capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
+    };
+    use read::phrase::Record;
+    use std::io::BufReader;
+    let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
+    let f = BufReader::new(f);
+    let mut js = String::from("const RAW_DATA = [\n");
+    for line in f.lines() {
+        // to prevent double quotes from vanishing, I do not read with CSV parser
+        let rec: Record =
+            StringRecord::from(line?.split('\t').collect::<Vec<_>>()).deserialize(None)?;
+
+        // 未査読の行は飛ばす
+        if rec.pekzep_hanzi.contains('@') {
+            continue;
+        }
+        if rec.pekzep_latin.is_empty() {
+            continue;
+        }
+
+        if rec.requires_substitution.is_empty() {
+
+            // This is inherently insecure, but who cares?
+            js += &format!(
+                "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`}},\n",
+                rec.english,
+                rec.pekzep_latin,
+                rec.pekzep_hanzi,
+                capitalize_first_char(&rec.chinese_pinyin),
+                normalize_a_b_dialogue(&normalize_chinese_punctuation(&rec.chinese_hanzi)),
+                rec.decomposed,
+                rec.filetype,
+                rec.recording_author,
+            )
+        }
+    }
+
+    js += "]\n";
+
+    std::fs::write("docs/raw.js", js)?;
+    Ok(())
+}
