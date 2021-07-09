@@ -6,20 +6,40 @@
     <script src="./raw.js"></script>
 </head>
 <script>
+    function search() {
+        search_by(document.getElementById('col-select').value, document.getElementById("q").value);
+    }
+
     function search_by(key, value) {
+        console.log(key, value);
         const filtered = RAW_DATA.filter(u => u[key].toLowerCase().includes(value.toLowerCase()));
         render_table(filtered);
     }
 
     function render_table(dat) {
         document.getElementById("res").innerHTML = "<table>" +
-            dat.map(u => `<tr><td>${u.english}</td><td><a href="phrase/${u.pekzep_latin.replace(/[.!?"()]/g, "").split(" ").join("_")}.html">${u.pekzep_latin}</a></td><td>${u.pekzep_hanzi}</td><td>${u.chinese_pinyin}</td><td>${u.chinese_hanzi}</td></tr>`).join("\n") + "</" + "table>"
+            dat.map(u => `
+            <tr>
+                <td><span lang="en">${u.english}</span></td>
+                <td><a href="phrase/${u.pekzep_latin.replace(/[.!?"()]/g, "").split(" ").join("_")}.html">${u.pekzep_latin}</a></td>
+                <td><span lang="ja">${u.pekzep_hanzi}</span></td>
+                <td>${u.chinese_pinyin}</td>
+                <td><span lang="zh-CN">${u.chinese_hanzi}</span></td>
+            </tr>`).join("\n") + "</" + "table>"
 
     }
 </script>
 
-<body>
-    Search from English: <input type="text" onkeyup="search_by('english', this.value)">
+<body onload="search_by('english', '')">
+    <a href="index.html">Back to top</a>
+    <h2><span lang="en">Search</span> / <span lang="zh-CN">搜索引擎</span></h2>
+    <select name="cols" id="col-select" onchange="search()">
+        <option value="english">Search from English:</option>
+        <option value="pekzep_latin">Search from Pekzep (latin):</option>
+        <option value="pekzep_hanzi">Search from Pekzep (hanzi):</option>
+        <option value="chinese_hanzi">Search from Chinese:</option>
+    </select> <input type="text" id="q" onkeyup="search();" autofocus><br>
+    <hr>
     <div id="res">
 
     </div>
