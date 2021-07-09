@@ -7,13 +7,29 @@
 </head>
 <script>
     function search() {
-        search_by(document.getElementById('col-select').value, document.getElementById("q").value);
+        search_by(
+            document.getElementById('col-select').value,
+            document.getElementById("q").value,
+            document.getElementById("regexp").checked
+        );
     }
 
-    function search_by(key, value) {
-        console.log(key, value);
-        const filtered = RAW_DATA.filter(u => u[key].toLowerCase().includes(value.toLowerCase()));
-        render_table(filtered);
+    function search_by(key, value, regexp) {
+        if (regexp) {
+            try {
+                const reg = new RegExp(value, "iu");
+                const filtered = RAW_DATA.filter(u => u[key].toLowerCase().match(reg));
+                document.getElementById("errmsg").innerHTML = "&nbsp;";
+                render_table(filtered);
+            } catch (e) {
+                document.getElementById("errmsg").innerHTML = `<span style="background-color: #ffaaaa; padding: 3px;"><span lang="en">Invalid Regexp</span> / 无效的正则表达式</span>`
+                document.getElementById("res").innerHTML = "";
+            }
+        } else {
+            const filtered = RAW_DATA.filter(u => u[key].toLowerCase().includes(value.toLowerCase()));
+            document.getElementById("errmsg").innerHTML = "&nbsp;";
+            render_table(filtered);
+        }
     }
 
     function render_table(dat) {
@@ -36,10 +52,16 @@
     <h2><span lang="en">Search</span> / <span lang="zh-CN">搜索引擎</span></h2>
     <select name="cols" id="col-select" onchange="search()">
         <option value="english"><span lang="en">Search from English:</span> / <span lang="zh-CN">从英文搜索：</span></option>
-        <option value="pekzep_latin"><span lang="en">Search from Pekzep (alphabet):</span> / <span lang="zh-CN">从英字牌文搜索：</span></option>
-        <option value="pekzep_hanzi"><span lang="en">Search from Pekzep (Chinese characters):</span> / <span lang="zh-CN">从汉字牌文搜索：</span></option>
-        <option value="chinese_hanzi"><span lang="en">Search from Chinese:</span> / <span lang="zh-CN">从中文搜索：</span> </option>
-    </select> <input type="text" id="q" onkeyup="search();" autofocus><br>
+        <option value="pekzep_latin"><span lang="en">Search from Pekzep (alphabet):</span> / <span
+                lang="zh-CN">从英字牌文搜索：</span></option>
+        <option value="pekzep_hanzi"><span lang="en">Search from Pekzep (Chinese characters):</span> / <span
+                lang="zh-CN">从汉字牌文搜索：</span></option>
+        <option value="chinese_hanzi"><span lang="en">Search from Chinese:</span> / <span lang="zh-CN">从中文搜索：</span>
+        </option>
+    </select> <input type="text" id="q" onkeyup="search();" autofocus><input type="checkbox" id="regexp" onchange="search();"><label
+        for="regexp" style="font-size: 80%"><span lang="en">Search with regular expressions</span> / <span
+            lang="zh-CN">用正则表达式搜索</span></label><br>
+    <div id="errmsg" style="margin: 5px 0;">&nbsp;</div>
     <hr>
     <div id="res">
 
