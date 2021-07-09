@@ -31,13 +31,14 @@
 </script>
 
 <body onload="search_by('english', '')">
-    <a href="index.html">Back to top</a>
+    <h1><span lang="en">Spoonfed Pekzep</span> / <span lang="zh-CN">填鸭式牌语</span></h1>
+    <a href="index.html"><span lang="en">Back to the main page</span> / <span lang="zh-CN">回到主页面</span></a>
     <h2><span lang="en">Search</span> / <span lang="zh-CN">搜索引擎</span></h2>
     <select name="cols" id="col-select" onchange="search()">
-        <option value="english">Search from English:</option>
-        <option value="pekzep_latin">Search from Pekzep (latin):</option>
-        <option value="pekzep_hanzi">Search from Pekzep (hanzi):</option>
-        <option value="chinese_hanzi">Search from Chinese:</option>
+        <option value="english"><span lang="en">Search from English:</span> / <span lang="zh-CN">从英文搜索：</span></option>
+        <option value="pekzep_latin"><span lang="en">Search from Pekzep (alphabet):</span> / <span lang="zh-CN">从英字牌文搜索：</span></option>
+        <option value="pekzep_hanzi"><span lang="en">Search from Pekzep (Chinese characters):</span> / <span lang="zh-CN">从汉字牌文搜索：</span></option>
+        <option value="chinese_hanzi"><span lang="en">Search from Chinese:</span> / <span lang="zh-CN">从中文搜索：</span> </option>
     </select> <input type="text" id="q" onkeyup="search();" autofocus><br>
     <hr>
     <div id="res">
