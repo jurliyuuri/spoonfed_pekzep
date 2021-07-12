@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     generate_phrases(&data_bundle)?;
 
     eprintln!("Generating vocab/");
-    generate_vocab(&data_bundle)?;
+    generate_vocabs(&data_bundle)?;
 
     eprintln!("Generating vocab_list_internal.html");
     generate_vocab_list_internal(&data_bundle)?;
