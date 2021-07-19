@@ -1243,7 +1243,7 @@ I wanted tea, but rather, he nevertheless gave me a cup of coffee.			wǒ yào de
 Would you like tea or coffee?			nín xiǎng yào chá háishì kāfēi?	您想要茶还是咖啡？				
 I like coffee more.			wǒ gèng xǐhuān kāfēi.	我更喜欢咖啡。				
 He always drinks black coffee.			tā zǒng hē tā de hēi kāfēi. 	他总喝他的黑咖啡。				
-I want a cup of coffee.	pai2 hia1 guk2 et2 niep1 det tia2.	我心受一杯種茶。	Wǒ yào yī bēi kāfēi.	我要一杯咖啡。				
+I want a cup of coffee.	pai2 hia1 guk2 et2 niep1 det tia2.	我心受一杯種茶。	Wǒ yào yī bēi kāfēi.	我要一杯咖啡。	我.心受.一.杯.種茶			
 She likes to drink coffee.	zap2 hia1 kait iam1 det tia2.	彼心善口種茶。	Tā xǐhuan hē kāfēi.	她喜欢喝咖啡。				
 I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終一杯種茶。	Wǒ mǎile yī bēi kāfēi.	我买了一杯咖啡。				
 The coffee is a little bitter.			Kāfēi yǒudiǎn kǔ.	咖啡有点苦。				
@@ -2452,6 +2452,7 @@ I have gained one kilogram.			Wǒ zhòng le yī gōngjīn.	我重了一公斤。
 I promise I won't get drunk tonight.			Wǒ bǎozhèng jīnwǎn bú huì hēzuì.	我保证今晚不会喝醉。				
 It's convenient for me to see you at ten tonight.			Wǒ jīn wǎn shí diǎn jiàn nǐ bǐjiào fāngbiàn.	我今晚十点见你比较方便。				1
 Oh, that is indeed convenient for her.			Ò, zhè duì tā lái shuō quèshí hěn fāngbiàn.	哦，这对她来说确实很方便。				
+Oh, that is a very good idea!	o, ka1 kit kit kait a can2 uo1 a!	@	Ó, zhè shì gè fēicháng hǎo de zhǔyì!	哦，这是个非常好的主意！				
 What do you say to dining out tonight?			wǒmen jīnwǎn chūqù chīfàn, nǐ shuō zěnmeyàng?	我们今晚出去吃饭，你说怎么样？				
 This house does not have a dining room.	ka1 mut2 iam1 uo1 a pia2 mun1.	此家口件之囲無。	Zhè suǒ fángzi méiyǒu cāntīng.	这所房子没有餐厅。				
 We take great pleasure in meeting all of you this evening.			wǒmen hěn gāoxìng jīnwǎn néng jiàn dào dàjiā.	我们很高兴今晚能见到大家。				
@@ -2547,6 +2548,7 @@ The boss believes he is very stupid.			Lǎobǎn rènwéi tā hěn bèn.	老板�
 The boss is really stupid.	uai1 kit can2 hei2.	将極識貧。	Lǎobǎn zhēn bèn.	老板真笨。				
 Her boyfriend is really stupid.			Tā nánpéngyou zhēn shì bèn.	她男朋友真是笨。				
 She is very stupid.	zap2 kit can2 hei2.	彼極識貧。	Tā hěn bèn.	她很笨。				
+This is a stupid rule.	ka1 can2 hei2 a io1.	@	Zhè shì yīgè yúchǔn de guīzé.	这是一个愚蠢的规则。				
 I've heard that manager Lin is really stupid.			Tīngshuō Lín jīnglǐ hěn bèn.	听说林经理很笨。				1
 It's really good to (initiate this task) ourselves.			zìjǐ dòngshǒu zhēn hǎo.	自己动手真好。				
 My new apartment is on the 13th floor.			Wǒ de xīn gōngyù zài shísān lóu.	我的新公寓在十三楼。				
@@ -2773,7 +2775,7 @@ The soldiers died for their country.			Jūnrén wèi guó xīshēng.	军人为�
 Soldiers protect their nations.	kauk2 num1 sip1.	兵守国。	Jūnrén bǎohù guójiā.	军人保护国家。	兵.守.国			
 He was once a soldier.			Tā céngjīng shì jūnrén.	他曾经是军人。				
 His work for this day is over.			Tā jiéshù le zhè tiān de gōngzuò.	他结束了这天的工作。				
-The capital of the Ai'ren Republic is Makati.	ai2 sip1 a sip1 la1 ka1 syt2 tun2.	冠国之国軸此天神。	Guānguó de shǒudū shì Tiānshén.	冠国的首都是天神。				
+The capital of the Ai'ren Republic is Makati.	ai2 sip1 a sip1 la1 ka1 syt2 tun2.	冠国之国軸此天神。	Guānguó de shǒudū shì Tiānshén.	冠国的首都是天神。	冠国.之.国軸.此3.天神			
 Capital of Japan is Tokyo. The capital of Japan is Tokyo.			rìběn de shǒudū shì Dōngjīng.	日本的首都是东京。				1
 I came to Tokyo three years ago and have been living here ever since.			sān nián qián wǒ láidào Dōngjīng bìng yīzhí zhù zài zhèr.	三年前我来到东京并一直住在这儿。				1
 Tokyo is a very big city.			Dōngjīng shì yī gè hěn dà de chéngshì.	东京是一个很大的城市。				1
@@ -2931,11 +2933,11 @@ Her dance movements are quite correct.			Tā de wǔdǎo dòngzuò hěn biāozhǔ
 I shouldn't have logged off.			wǒ bù gāi tuìchū de.	我不该退出的。				
 A beautiful love is worth treasuring.			Měihǎo de àiqíng shì lìngrén zhēnxī de.	美好的爱情是令人珍惜的。				
 Money has the power to seduce people.			Jīnqián néng yòuhuò rén.	金钱能诱惑人。				
-He had another glass of alcohol.	zap2 at ta et2 niep1 no1.	彼加終一杯酒。	Tā yòu tiānle yī bēi jiǔ.	他又添了一杯酒。				
+He had another glass of alcohol.	zap2 at ta et2 niep1 no1.	彼加終一杯酒。	Tā yòu tiānle yī bēi jiǔ.	他又添了一杯酒。	彼.加3.終.一.杯.酒			
 She feels very wronged.			Tā juéde hěn wěiqu.	她觉得很委屈。				
 Strong is the opposite of weak.			Yǔ qiáng xiāngduì de shì ruò.	与强相对的是弱。				
 His whole family took a walk in the park.			Tāmen quánjiā qù gōngyuán sànbù.	他们全家去公园散步。				
-They've cut down a tree.	zap2 ge gau2 ta hup1.	彼等刀終木。	Tāmen kǎnle yī kē shù.	他们砍了一棵树。				
+They've cut down a tree.	zap2 ge gau2 ta hup1.	彼等刀終木。	Tāmen kǎnle yī kē shù.	他们砍了一棵树。	彼等.刀.終.木			
 The doctor is studying the human brain.			Yīshēng zài yánjiū rén de dànǎo.	医生在研究人的大脑。				
 You only need to write your name and address here.			nǐ zhǐ yào zài zhèlǐ xiěxià nǐ de xìng míng hé dìzhǐ jiù xíng le.	你只要在这里写下你的姓名和地址就行了。				
 Everything is ok. (literally, all of everything has no problem)			Yīqiè dōu méi yǒu wèntí.	一切都没有问题。				
@@ -2984,7 +2986,7 @@ When will you go to Keettwa?	nan2 kak mua2 mok1 mok1 kit1 tua1?	何時汝�
 He's not going back to Keettwa today.			Tā jīntiān bù huí Bǎiguǒ.	他今天不回百果。				
 I consider Keettwa as a very clean city.			Wǒ rènwéi Bǎiguǒ shì gè gānjìng de chéngshì.	我认为百果是个很干净的城市。				
 I haven't been to Keettwa.	pai2 mun1 hop1 mok1 kit1 tua1.	我無手行百果。	Wǒ méi qùguò Bǎiguǒ.	我没去过百果。	我.無手2.行.百果			
-Ms. Wang will live in Keettwa.			Wáng xiǎojiě yào zhùzài Bǎiguǒ.	王小姐要住在百果。				
+Ms. Wang will live in Keettwa.			Wáng xiǎojiě yào zhùzài Bǎiguǒ.	王小姐要住在百果。				1
 How's Keettwa?	kit1 tua1 em nan2?	百果如何？	Bǎiguǒ zěnmeyàng?	百果怎么样？				
 Ms. Zhu went to Keettwa yesterday.			Zhū xiǎojiě zuótiān qù Bǎiguǒ le.	朱小姐昨天去百果了。				1
 This car is very luxurious.			Zhè liàng jiàochē hěn háohuá.	这辆轿车很豪华。				
@@ -3233,13 +3235,13 @@ The one resource more precious than any other was land.			wéiyī bǐ wúlúnsh�
 This piece of old jade is very valuable.			Zhè kuài gǔ yù hěn zhēnguì.	这块古玉很珍贵。				
 Studying hard is his strength.			Xuéxí rènzhēn shì tā de yōudiǎn.	学习认真是他的优点。				
 He's out of breath.			Tā juéde chuǎnbuguò qì.	他觉得喘不过气。				
-She is sick.			Tā shēngbìng le.	她生病了。				
+She is sick.	zap2 tat2 non1.	@	Tā shēngbìng le.	她生病了。				
 She is ill but no one looks after her. What a pity!			Tā shēngbìng le, méi rén zhàogù, zhēn kělián.	她生病了，没人照顾，真可怜。				
 Take this medicine perchance you get sick.			wànyī nǐ shēngbìng le, chī zhè gè yào.	万一你生病了，吃这个药。				
 The medicine worked marvels.			zhè yào chuàngzào le qíjì.	这药创造了奇迹。				
 I feel indebted to you for looking after me during my illness.			wǒ hěn gǎnjī nǐ zài wǒ shēngbìng de shíhou zhàogu wǒ.	我很感激你在我生病的时候照顾我。				
 This car costs very little.			Zhè bù chē huāfèi hěn shǎo.	这部车花费很少。				
-It will cost you $100 to fly to the island.			Chéng fēijī qù gāi dǎo, jiāng huāfèi nǐ yībǎi měiyuán.	乘飞机去该岛，将花费你一百美元。				
+It will cost you $100 to fly to the island.			Chéng fēijī qù gāi dǎo, jiāng huāfèi nǐ yībǎi měiyuán.	乘飞机去该岛，将花费你一百美元。				1
 That gray building?			nà dòng huīsè de dàlóu ma?	那栋灰色的大楼吗？				
 They're gambling.	zap2 ge aim2 su1 tu2.	彼等在銭遊。	Tāmen zài dǔbó.	他们在赌博。	彼等.在.銭遊			
 He is gambling on cards.	zap2 ge sui1 nin1 cet2 kaik aim2 su1 tu2.	彼等使紙机戦在銭遊。	Tā zhèngzài dǔ pái.	他正在赌牌。				
@@ -3251,7 +3253,7 @@ After resting a week, he regained his vitality.			Xiūxi le yīzhōu, tā yòu h
 We're going to travel in the desert.			Wǒmen qù shāmò lǚxíng.	我们去沙漠旅行。				
 The problem of desertification is getting worse.			Shāmò huà de wèntí yuè lái yuè yánzhòng.	沙漠化的问题越来越严重。				
 The scope of desertification is expanding.			Shāmòhuà fànwéi yuè lái yuè dà.	沙漠化范围越来越大。				
-I go by foot to school every day.			Wǒ měi tiān bùxíng qù xuéxiào.	我每天步行去学校。				
+I go by foot to school every day.	pai2 kia1 kia1 xi1 mok1 ie nui2 hue.	@	Wǒ měi tiān bùxíng qù xuéxiào.	我每天步行去学校。				
 There's a car ahead.	kaun1 aim2 ie son1.	車在於前。	Qiánfāng yǒu chē.	前方有车。				
 Be careful of the construction ahead.			Qiánfāng shīgōng, qǐng zhùyì!	前方施工，请注意！				
 My classmate doesn't have a textbook.	pai2 a nui2 hi1 mun1 hop1 tui2 nui2 ak1.	我之学友無手与学書。	Wǒ de tóngxué méi yǒu kèběn.	我的同学没有课本。	我.之.学友.無手.与学書			
@@ -3313,11 +3315,11 @@ We have no chance against those top players.			wǒmen méi jīhuì yíng nàxiē
 She would like to come to the Ai'ren Republic.			Tā xiǎng lái Guānguó.	她想来冠国。				
 She would like to come to Makati.			Tā xiǎng lái Tiānshén.	她想来天神。				
 When we're not allowed to come, we just want to come even more.			ràng wǒmen bié lái, wǒmen jiù gèng xiǎng lái le.	让我们别来，我们就更想来了。				
-There is writing on the wall.	man1 aim2 ie co1.	字在於壁。	Qiángbì shàng yǒu zì.	墙壁上有字。				
+There is writing on the wall.	man1 aim2 ie co1.	字在於壁。	Qiángbì shàng yǒu zì.	墙壁上有字。	字.在3.於1.壁			
 The map of the Ai'ren Republic is hanging on the wall.			Qiángbì shàng guà zhe Guānguó dìtú.	墙壁上挂着冠国地图。				
 There are two pictures hanging on the wall.			Qiáng shàng guàzhe liǎng fú huà.	墙上挂着两幅画。				
 This mirror is hanging crookedly.			Zhèmiàn jìngzi guà wāi le.	这面镜子挂歪了。				
-There is a white rabbit here.	liok1 hup1 saup1 aim2 ie ka1 hue.	白木獣在於此処。	Zhèli yǒu yī zhǐ bái tù.	这里有一只白兔。				
+There is a white rabbit here.	liok1 hup1 saup1 aim2 ie ka1 hue.	白木獣在於此処。	Zhèli yǒu yī zhǐ bái tù.	这里有一只白兔。	白2.木獣.在3.於1.此処			
 There is a grey rabbit here.			Zhèr yǒu yī zhī huīsè de tùzi.	这儿有一只灰色的兔子。				
 To tell the truth, he lost the document.			Shuō shíhuà, tā diūle wénjiàn.	说实话,他丢了文件。				
 To tell the truth, he is a disgusting person.			Shuō shíhuà, tā shì gè lìngréntǎoyànde rén.	说实话,他是个令人讨厌的人。				
@@ -3349,7 +3351,7 @@ They're lying on the grass, resting.			Tāmen tǎng zài cǎodì shang xiūxi.	�
 I'm lying on the grass.			Wǒ tǎng zài cǎodì shàng.	我躺在草地上。				
 The children are playing on the grass.	kat1 ge aim2 tu2 ie kot hue.	子等在遊於草処。	Háizimen zài cǎodì shàng wánr.	孩子们在草地上玩儿。				
 The sheep are grazing in the meadow.			Yáng zài cǎodì shàng chī cǎo.	羊在草地上吃草。				
-There are two horses in the meadow.	ik2 maun1 aim2 kot hue.	二馬在草処。	Cǎodì shàng yǒu liǎng pǐ mǎ.	草地上有两匹马。				
+There are two horses in the meadow.	ik2 maun1 aim2 kot hue.	二馬在草処。	Cǎodì shàng yǒu liǎng pǐ mǎ.	草地上有两匹马。	二2.馬.在6.草処			
 Exercise is good for your health.			zuò yùndòng yǒulìyú jiànkāng.	做运动有利于健康。				
 He is our board chairman.			Tā shì wǒmen de dǒngshìzhǎng.	他是我们的董事长。				
 He is the chairman of the board in the company.			Tā shì gōngsī de dǒngshìzhǎng.	他是公司的董事长。				
@@ -3385,7 +3387,8 @@ Through thinking deeply, I solved this tough problem.			Jīngguò sīkǎo, wǒ j
 Our teacher will raise difficult questions to us.			wǒmen de lǎoshī huì gěi wǒmen chū nántí.	我们的老师会给我们出难题。				
 Listening to the explanation, I finally understood this difficult problem.			Tīng le jiǎngjiě, zhè dào nántí wǒ dǒng le.	听了讲解，这道难题我懂了。				
 They're heading for the forest.			Tāmen xiàng shùlín zǒuqù.	他们向树林走去。				
-There is a forest here.			zhèlǐ yǒu yī piàn shùlín.	这里有一片树林。				
+Where is the forest?	hup1 hue nan2 hue?	@	Shùlín zài nǎlǐ?	树林在哪里？				
+There is a forest here.	hup1 hue aim2 ka1 hue.	@	zhèlǐ yǒu yī piàn shùlín.	这里有一片树林。				
 The majority of people won't support him.			Juédà duōshù de rén dōu bù huì zhīchí tā.	绝大多数的人都不会支持他。				
 The majority agrees to this plan of action.			Tóngyì zhè gè fāng'àn de rén háishi zhànle dàduōshù.	同意这个方案的人还是占了大多数。				
 The majority of students went to the movie.			Juédà duōshù xuésheng dōu qù kàn diànyǐng le.	绝大多数学生都去看电影了。				
@@ -3408,7 +3411,7 @@ My stomach hurts.			wǒ wèitòng.	我胃痛。
 I often have crepe-wraps for lunch.			Wǒ wǔcān chángcháng chī juǎnbǐng.	我午餐常常吃卷饼。				
 He's set a new record.			Tā chuàngzàole xīn jìlù.	他创造了新纪录。				
 He broke the record.			Tā dǎpò le jìlù.	他打破了纪录。				
-The bird stopped on a branch.			Yī zhī niǎo tíng zài shùyā shàng.	一只鸟停在树丫上。				
+The bird stopped on a branch.	lup1 cy2 ta ie hup1 hop1.	@	Yī zhī niǎo tíng zài shùyā shàng.	一只鸟停在树丫上。				
 I do my homework in pencil.			Wǒ yòng qiānbǐ xiě zuòyè.	我用铅笔写作业。				
 Could I use your pencil/chalk?	pai2 py sui1 mua2 a sy2 kua2?	我力使汝之石筆？	Wǒ néng yòng yīxià nǐ de qiānbǐ/fěnbǐ ma?	我能用一下你的铅笔/粉笔吗？				
 This is the most beautiful sight that I have ever seen.			zhè shì wǒ jiànguo zuì měi de jǐngsè le.	这是我见过最美的景色了。				
@@ -3447,9 +3450,9 @@ The students have gotten out of class.			Xuéshengmen xiàkè le.	学生们下�
 After the end of class, he went directly home.			Xiàkè hòu, tā zhíjiē jiù huí jiā le.	下课后，他直接就回家了。				
 What time does the lesson end? A quarter to one.			Jǐ diǎn xiàkè? Chā yī kè yī diǎn.	A几点下课? B差一刻一点。				
 The Pekzep class finishes late in the evening.			Páiyǔ kè wǎnshang hěn wǎn cái xiàkè.	牌语课晚上很晚才下课。				
-She's been laid off.	zap2 zip1 naip2.	彼失労。	Tā shīyè le.	她失业了。				
+She's been laid off.	zap2 zip1 naip2.	彼失労。	Tā shīyè le.	她失业了。	彼.失.労2			
 We have to turn in our reports by the end of this month.			zhè gè yuè dǐ qián, wǒmen bìxū jiāo bàogào.	这个月底前，我们必须交报告。				
-He only has one flower.	zap2 aim2 hop1 tet et2 xuo1.	彼在手唯一花。	Tā jǐn yǒu yī duǒ huā.	他仅有一朵花。				
+He only has one flower.	zap2 aim2 hop1 tet et2 xuo1.	彼在手唯一花。	Tā jǐn yǒu yī duǒ huā.	他仅有一朵花。	彼.在手.唯.一.花			
 I gave the boy what little money I had.			wǒ bǎ wǒ jǐn yǒu de qián gěi le nà ge nánhái.	我把我仅有的钱给了那个男孩。				
 This village has many poor people.			Zhè gè cūnzi lǐmiàn yǒu xǔduō qióngrén.	这个村子里面有许多穷人。				
 The government is willing to help poor people.			Zhèngfǔ yuànyì duì qióngrén yǔ yǐ bāngzhù.	政府愿意对穷人予以帮助。				
@@ -3694,7 +3697,6 @@ He studies the hardest in his class.			tā zài tā bān lǐ xuéxí zuì nǔlì
 This bomb can kill a lot of people.			zhège zhàdàn kěyǐ zhásǐ hěn duō rén.	这个炸弹可以炸死很多人。				
 The bomb exploded.			Zhàdàn bàozhà le.	炸弹爆炸了。				
 He wants to intercept the ball.			Tā xiǎng lán qiú.	他想拦球。				
-Everyone should follow the law.			Dàjiā dōu yīnggāi zūnshǒu fǎlǜ tiáokuǎn.	大家都应该遵守法律条款。				
 I bought a luxury car.			Wǒ mǎile yī liàng gāodàng qìchē.	我买了一辆高档汽车。				
 Using milk to do facials is very effective.			Yòng niúnǎi lái měiróng xiàoguǒ hěn hǎo.	用牛奶来美容效果很好。				
 There are many trees here.	taun1 hup1 aim2 ie ka1 hue.	多木在於此処。	zhèlǐ de shùmù hěn duō.	这里的树木很多。	多.木.在3.於.此処			
@@ -3729,17 +3731,19 @@ There is a bird's nest in the tree.	lup1 mut2 aim2 ie hup1.	鳥家在於木。	S
 Be it ever so humble, there's no place like home.			jīn wō yín wō bùrú zìjǐ de gǒuwō.	金窝银窝不如自己的狗窝。				
 The milk spilled out.			Niúnǎi sǎ chūlái le.	牛奶洒出来了。				
 They are saying a prayer before dinner.			Tāmen zài zuò cānqián qídǎo.	他们在做餐前祈祷。				
-They left there the day before yesterday.			qiántiān, tāmen líkāi le nàr.	前天，他们离开了那儿。				
+I didn't say anything.	pai2 zep1 ta mun1 uo1.	@	Wǒ shénme yě méi shuō.	我什么也没说。				
+They left there the day before yesterday.	ik2 sau2 kia1 zap2 ge mok1 pau1 ta ie ze1 hue.	@	qiántiān, tāmen líkāi le nàr.	前天，他们离开了那儿。				
 They are gathering things on the beach.			Tāmen zài shātān shàng jiǎn dōngxi.	她们在沙滩上捡东西。				
 Her shadow stretched out across the beach.			Tā de yǐngzi yìn zài shātān shàng.	她的影子印在沙滩上。				
 We have entered the 21st century.			Yǐjīng jìnrù èrshíyī shìjì le.	已经进入二十一世纪了。				1
 This is my résumé.			Zhè shì wǒ de jiǎnlì.	这是我的简历。				
 He is wearing white gaiters.	zap2 kun2 liok1 xi1 tak1.	彼付白足衣。	Tā chuānzhuó báisè de bǎngtuǐ.	他穿着白色的绑腿。				
 She's wearing white socks.			Tā chuānzhe báisè de wàzi.	她穿着白色的袜子。				
-Please turn off the printer.			Qǐng guān dǎyìnjī.	请关打印机。				
-The printer is always broken.			Dǎyìnjī zǒngshì huài.	打印机总是坏。				
+Please turn off the printer.	hia1 in2 ut2 bet2 man1 kik1.	@	Qǐng guān dǎyìnjī.	请关打印机。				
+The printer is always broken.	bet2 man1 kik1 ket mun1 mok1.	@	Dǎyìnjī zǒngshì huài.	打印机总是坏。				
 The printer may be broken.			Dǎyìnjī kěnéng huài le.	打印机可能坏了。				
-The printer broke the day before yesterday.			Dǎyìnjī qiántiān huài le.	打印机前天坏了。				
+The printer broke the day before yesterday.	ik2 sau2 kia1 bet2 man1 kik1 muo1 mok1 ta.	@	Dǎyìnjī qiántiān huài le.	打印机前天坏了。				
+The day before yesterday, I saw you.	ik2 sau2 kia1 pai2 ta1 ta mua2.	@	Qiántiān, wǒ kàn dàole nǐ.	前天，我看到了你。				
 This shop is open from 9 to 6.			Zhè jiā diàn cóng jiǔ diǎn kāi dào shíbā diǎn.	这家店从九点开到十八点。				1
 She's practically on the brink of collapse.			Tā jīhū bēngkuì le.	她几乎崩溃了。				
 His regime is bound to collapse.			tā de zhèngquán bìdìng huì bēngkuì.	他的政权必定会崩溃。				
@@ -3766,7 +3770,7 @@ Handling matters using a plan can save time.			Yǒu jìhuà de zuòshì, kěyǐ 
 People are waiting for the bus.	cuk2 ge tim1 tei1 kaun1.	人等待叮車。	Dàjiā zài děng gōngchē.	大家在等公车。				
 A stranger spoke to me in the bus. A stranger spoke to me on the bus.			zài gōng chē shàng, yī ge mòshēngrén hé wǒ shuō le huà.	在公车上，一个陌生人和我说了话。				
 Recently, he's been going on business trips frequently.			Tā zuìjìn pínfán de chūchāi.	他最近频繁地出差。				
-He carries a copy of the Bible in his hand.			Tā shǒuli názhe yī běn Shèngjīng.	他手里拿着一本圣经。				
+He carries a copy of the Bible in his hand.			Tā shǒuli názhe yī běn Shèngjīng.	他手里拿着一本圣经。				1
 He's been put under arrest.			Tā bèi dàibǔ le.	他被逮捕了。				
 He committed a crime. The police arrested him.			Tā fànzuì le, jǐngchá dàibǔ le tā.	他犯罪了，警察逮捕了他。				
 The police have arrested a thief.			Jǐngchá dàibǔle xiǎotōu.	警察逮捕了小偷。				
@@ -3774,6 +3778,7 @@ The police arrested the thief.			Jǐngchá dàibǔ le zhèmíng xiǎotōu.	警�
 As soon as he reported the incident to the police, the police came rapidly.			Tā yī bàojǐng, jǐngchá jiù xùnsù lái le.	他一报警，警察就迅速来了。				
 That's a playground over there.			Nàli shì értóng lèyuán.	那里是儿童乐园。				
 I like mashed potatoes.			Wǒ ài chī tǔdòuní.	我爱吃土豆泥。				
+We went to the river bank and saw the sunrise.	pai2 ge mok1 ta nut2 tau2 ua ta1 ta kia1 sau2 mok1.	@	Wǒmen qùle hébiān kàn rìchū.	我们去了河边看日出。				
 We went to the beach to see the sunrise.			Wǒmen qù hǎibiān kàn rìchū.	我们去海边看日出。				
 I'm wearing a suit today.			Wǒ jīntiān chuān xīzhuāng.	我今天穿西装。				
 His girlfriend bought him a suit.			Nǚ péngyou gěi tā mǎi le yītào xīzhuāng.	女朋友给他买了一套西装。				
@@ -3870,9 +3875,9 @@ In the afternoon, let's go to the tea house and drink tea.			Xiàwǔ, wǒmen yī
 I like drinking tea.	pai2 hia1 kait iam1 tia2.	我心善口茶。	Wǒ xǐhuan hē chá.	我喜欢喝茶。				
 Would you like to drink tea?	mua2 hia1 iam1 tia2 yn2?	汝心口茶乎？	Nǐ xiǎng hē chá ma?	你想喝茶吗？				
 She wants to drink tea.	zap2 hia1 iam1 tia2.	彼心口茶。	Tā xiǎng hē chá.	她想喝茶。				
-He's a truck driver.			Tā shì kǎchē sījī.	他是卡车司机。				
+He's a truck driver.	zap2 buo1 kaun1 a cuk2.	@	Tā shì kǎchē sījī.	他是卡车司机。				
 Trucks are common transportation tools.			Kǎchē shì chángjiàn de yùnshū gōngjù.	卡车是常见的运输工具。				
-It's easy to make friends in the Ai'ren Republic.			Zài Guānguó jiāoyǒu hěn róngyì.	在冠国交友很容易。				
+It's easy to make friends in the Ai'ren Republic.	ie ai2 sip1 zau lu2 hi1 ka1 ho.	@	Zài Guānguó jiāoyǒu hěn róngyì.	在冠国交友很容易。				
 I believe, it's not easy to make friends in a foreign country.			Běnrén rènwéi, zài wàiguó jiāoyǒu bù róngyì.	本人认为,在外国交友不容易。				
 He doesn't have many opportunities to make friends.			Tā méi yǒu hěn duō jīhuì jiāoyǒu.	他没有很多机会交友。				
 The judge gave his verdict.			Fǎguān zuòle pànjué.	法官作了判决。				
@@ -3981,7 +3986,7 @@ Games can help childrens' intelligence develop.			Yóuxì néng bāngzhù háizi
 When will you move? March 15th.			Nǐ shénmeshíhou bānjiā? Sān yuè shíwǔ hào.	A你什么时候搬家？ B三月十五号。				1
 The Asian financial storm has passed.			Yàzhōu jīnróng fēngbào guòqù le.	亚洲金融风暴过去了。				1
 Our nation has gotten rid of the financial storm.			Wǒ guó yǐjīng bǎituō le jīnróng fēngbào.	我国已经摆脱了金融风暴。				
-She has a little cough.			Tā yǒudiǎn késou.	她有点咳嗽。				
+She has a little cough.	zap2 aim2 kuak1 kuak1 hue1.	@	Tā yǒudiǎn késou.	她有点咳嗽。				
 She's having an affair with this guy.			Tā yǔ zhè gè nánren yǒu jiānqíng.	她与这个男人有奸情。				
 They look serious.			Tāmen de biǎoqíng hěn yánsù.	他们的表情很严肃。				
 Our eyes need time to adjust to darkness.			wǒmen de yǎnjīng xūyào shíjiān lái shìyìng hēiàn.	我们的眼睛需要时间来适应黑暗。				
@@ -4015,7 +4020,7 @@ They've been to many places in their lifetime.			Tāmen zhèbèizi qùguò hěn 
 I'm going to visit my teacher.			Wǒ qù bàifǎng lǎoshī.	我去拜访老师。				
 I'd like to visit your country some day.			wǒ xiǎng mǒu yī tiān bàifǎng nǐ de guójiā.	我想某一天拜访你的国家。				
 I didn't call on him because I had a cold.			wǒ méi yǒu bàifǎng tā, yīnwèi wǒ gǎnmào le.	我没有拜访他，因为我感冒了。				
-He holds a passport of the Ai'ren Republic.	zap2 aim2 hop1 ai2 sip1 a lit1 sip1 ak1.	彼在手冠国之入国書。	Tā chíyǒu Guānguó hùzhào.	他持有冠国护照。				
+He holds a passport of the Ai'ren Republic.	zap2 aim2 hop1 ai2 sip1 a lit1 sip1 ak1.	彼在手冠国之入国書。	Tā chíyǒu Guānguó hùzhào.	他持有冠国护照。	彼.在手.冠国.之.入国書			
 I have a large amount of foreign exchange.			Wǒ chíyǒu dàliàng de wàihuì.	我持有大量的外汇。				
 He's steaming rice.			Tā zhèngzài zhēngfàn.	他正在蒸饭。				
 Drawing can promote brain development.			Huìhuà cùjìn dànǎo fāyù.	绘画促进大脑发育。				
@@ -5350,7 +5355,9 @@ I love going to hot spring baths.			Wǒ hěn xǐhuan pào wēnquán.	我很喜�
 The salesperson asked me to enter my pin number.			Shòuhuòyuán qǐng wǒ shūrù kǎhào mìmǎ.	售货员请我输入卡号密码。				
 Diamonds are very very hard.			Zuànshí fēicháng jiānyìng.	钻石非常坚硬。				
 She looks very refined.			Tā kànqǐlái hěn sīwén.	她看起来很斯文。				
+Mix the rice flour with water and salt.	ten1 ten1 mo1 hua1 ie nua2 at kuo1.	@	Jiāng mǐfěn yǔ shuǐ hé yán hùnhé.	将米粉与水和盐混合。				
 Eggs and flour are mixed together.			Jīdàn hé miànfěn hùn zài yīqǐ.	鸡蛋和面粉混在一起。				
+Don't stop mixing. 	nau muo1 ten1 ten1.	@	Bùyào tíngzhǐ hùnhé.	不要停止混合。				
 Bread is made of flour.			Miànbāo shì yòng miànfěn zuò de.	面包是用面粉做的。				
 Flour is the raw material for bread.			Miànfěn shì miànbāo de yuánliào.	面粉是面包的原料。				
 The company imports raw materials from abroad.			Gōngsī cóng guówài jìnkǒu yuánliào.	公司从国外进口原料。				
@@ -5400,7 +5407,7 @@ I was about to leave, when the doorbell rang.			ménlíng xiǎng de shíhou, wǒ
 She rang the doorbell with her left hand.			Tā yòng zuǒshǒu àn ménlíng.	她用左手按门铃。				
 He hurt his left hand with a knife.	zap2 sui1 gau2 guk2 ta tyn1 hop1 a gui2.	彼使刀受終左手之傷。	tā de zuǒshǒu bèi dāo gēshāng le.	他的左手被刀割伤了。				
 They can overcome their fear.			tāmen kěyǐ kèfú kǒngjù.	他们可以克服恐惧。				
-How to overcome the high value of the yen is a big problem.			rúhé kèfú rìyuán shēnggāo shì ge dà wèntí.	如何克服日元升高是个大问题。				
+How to overcome the high value of the yen is a big problem.			rúhé kèfú rìyuán shēnggāo shì ge dà wèntí.	如何克服日元升高是个大问题。				1
 What's the relationship between you?			Nǐmen liǎ shì shénme guānxi?	你们俩是什么关系?				
 Luckily, nobody got hurt.	kait tun2 aim2 ua mun1 cuk2 guk2 gui2.	善神在而無人受傷。	Hěn jiǎoxìng méi yǒu rén shòushāng.	很侥幸没有人受伤。				
 He was kind enough to take me to the hospital.			tā hǎoxīn dì bǎ wǒ sòng dào yīyuàn.	他好心地把我送到医院。				
@@ -5504,6 +5511,7 @@ The media hypes up that topic.			Méitǐ chǎozuò nàge huàtí.	媒体炒作�
 Some media prefer to stir up trouble.			Yǒuxiē méitǐ bǐjiào xǐhuān chǎozuò.	有些媒体比较喜欢炒作。				
 I'm stir-frying a dish.			Wǒ zhèngzài chǎocài.	我正在炒菜。				
 The machine is digging.			Jīqì zài chǎn tǔ.	机器在铲土。				
+I need to punch holes into this wooden board.	pai2 ly uep ie ka1 hup1 o1.	@	Wǒ xūyào zài zhège mùbǎn shàng dǎ kǒng.	我需要在这个木板上打孔。				
 Don't walk that fast! I can't keep up with you guys.			bùyào zǒu de nàme kuài! wǒ gēn bù shàng nǐmen le.	不要走得那么快！我跟不上你们了。				
 He's lost his way.			Tā míshīle fāngxiàng.	他迷失了方向。				
 The weather is cloudy.			Tiānqì yīnchén.	天气阴沉。				
@@ -5895,7 +5903,7 @@ The Journey to the West is not famous in the West.			Xīyóujì zài Xīfāng b�
 He gave me precise instructions to do the job.			tā gěi wǒ de gōngzuò zuòchū le míngquè zhǐshì.	他给我的工作作出了明确指示。				
 I really don't like arrogant people.			Wǒ quèshí bù xǐhuan àomàn de rén.	我确实不喜欢傲慢的人。				
 The weather has become suddenly cold.			Tiānqì zhòurán biànlěng le.	天气骤然变冷了。				
-The grasslands are vast.	kot hue kit ma1.	草処極大。	Zhè piàn cǎoyuán hěn liáokuò.	这片草原很辽阔。				
+The grasslands are vast.	kot hue kit ma1.	草処極大。	Zhè piàn cǎoyuán hěn liáokuò.	这片草原很辽阔。	草処.極.大			
 Our nation's economy declined.			Wǒ guó jīngjì shuāituì le.	我国经济衰退了。				
 Political problems will lead to a decline in the economy.			Zhèngzhì wèntí huì dǎozhì jīngjì shuāituì.	政治问题会导致经济衰退。				
 Drug use leads to moral degeneration.			Xīdú huì dǎozhì duòluò.	吸毒会导致堕落。				
@@ -6005,8 +6013,8 @@ I bet it won't rain today.			Wǒ dǎdǔ jīntiān bù huì xiàyǔ.	我打赌今
 She is drawing a circle on the beach.			Tā zài shātān shàng huà yuánquān.	她在沙滩上画圆圈。				
 She has a simple and honest personality.			Tā xìnggé chúnpǔ.	她性格淳朴。				
 Generally speaking, the students have made quick progress in their studies.			Yībānláishuō, xuéshengmen zài xuéxí shàng jìnbù hěn kuài.	一般来说,学生们在学习上进步很快。				
-Ancient Chinese people used writing brushes to write.			Gǔdài Guānguó rén yòng máobǐ xiě zì.	古代冠国人用毛笔写字。				
-Chinese use writing brushes to write calligraphy and draw pictures.			Guānguó rén yòng máobǐ xiě shūfǎ, yě yòng máobǐ huà huà.	冠国人用毛笔写书法，也用毛笔画画。				
+Ancient Ai'ren people used writing brushes to write.			Gǔdài Guānguó rén yòng máobǐ xiě zì.	古代冠国人用毛笔写字。				
+Ai'ren people use writing brushes to write calligraphy and draw pictures.			Guānguó rén yòng máobǐ xiě shūfǎ, yě yòng máobǐ huà huà.	冠国人用毛笔写书法，也用毛笔画画。				
 He works in a transnational company.			Tā zài yīge kuàguó gōngsī gōngzuò.	他在一个跨国公司工作。				
 Xiao Li works in a transnational company.			Xiǎo Lǐ zài yījiā kuàguó gōngsī shàngbān.	小李在一家跨国公司上班。				1
 It's the busy season for tourism now.			Xiànzài shì lǚyóu wàngjì.	现在是旅游旺季。				
@@ -6031,14 +6039,14 @@ He is a good salesman.			Tā shì yīmíng hěn hǎo de tuīxiāoyuán.	他是�
 Salesmen sell goods.			Tuīxiāoyuán tuīxiāo dōngxi.	推销员推销东西。				
 She's convulsed with sobs.			Tā zài chōuqì.	她在抽泣。				
 I'm going to the library to borrow some books.			Wǒ qù túshūguǎn jiè shū.	我去图书馆借书。				
-Thousands of foreigners visit Japan every year.			měinián yǒu chéngqiānshàngwàn de wàiguórén fǎngwèn rìběn.	每年有成千上万的外国人访问日本。				
+Thousands of foreigners visit Japan every year.			měinián yǒu chéngqiānshàngwàn de wàiguórén fǎngwèn rìběn.	每年有成千上万的外国人访问日本。				1
 Some expressways have toll stations, while some do not.			Yǒu de gāosù gōnglù yǒu shōufèi zhàn, yǒu de méi yǒu.	有的高速公路有收费站，有的没有。				
 He's illiterate - he can't read characters.			Tā bù rènshi zì, shì ge wénmáng.	他不认识字，是个文盲。				
 There are a lot of illiterate people in that nation.			Gāi guó de wénmáng hěn duō.	该国的文盲很多。				
 Traffic on the highway is proceeding in an fine fashion.			Gōnglù shàng de jiāotōng cìxù liánghǎo.	公路上的交通次序良好。				
 Roses belong to the Rosaceae family.			Méigui shǔyú qiángwēikē zhíwù.	玫瑰属于蔷薇科植物。				
 She feels terrified.			Tā gǎndào hěn huángkǒng.	她感到很惶恐。				
-In Shenyang what bar is particularly quiet?			Shěnyáng nǎ jiā jiǔbā bǐjiào ānjìng?	沈阳哪家酒吧比较安静？				
+In Shenyang what bar is particularly quiet?			Shěnyáng nǎ jiā jiǔbā bǐjiào ānjìng?	沈阳哪家酒吧比较安静？				1
 His hands are covered with chocolate.			Tā de shǒu zhānmǎnle qiǎokèlì.	他的手沾满了巧克力。				
 His lips and face are covered with chocolate.			Tā de zuǐshàng hé liǎnshàng dōu zhānmǎn le qiǎokèlì.	他的嘴上和脸上都沾满了巧克力。				
 Terrorists like to kill.			Kǒngbùfènzǐ xǐhuan shārén.	恐怖份子喜欢杀人。				
@@ -6157,7 +6165,7 @@ The church is at the foot of a mountain. The church stands at the foot of the hi
 We will (set off on our journey) in a moment.			Wǒmen mǎshang jiù yào qǐchéng le.	我们马上就要启程了。				
 Lincoln was a great statesman.			Línkěn shì wěidà de zhèngzhìjiā.	林肯是伟大的政治家。				1
 The Vefisaitē people mourned President Lincoln.			Huáiguó rénmín dàoniàn Línkěn zǒngtǒng.	淮国人民悼念林肯总统。				1
-She's painting.			Tā zài zuòhuà.	她在作画。				
+She's drawing a painting.	zap2 aim2 ian1 lek1.	@	Tā zài zuòhuà.	她在作画。				
 The guide is in front of us leading the way.			Dǎoyóu zài qiánmiàn dàilù.	导游在前面带路。				
 My studies have hit a wall.			Xuéxí yùdào le píngjǐng.	学习遇到了瓶颈。				
 I'm trying my best to save room for dessert.			wǒ jǐnliàng liú zhe wèi chī tiándiǎn.	我尽量留着胃吃甜点。				
@@ -6172,7 +6180,6 @@ The wheat has ripened.			Xiǎomài chéngshú le.	小麦成熟了。
 Did ball go in? (hit the basketball shot)			Qiú tóuzhòng le ma?	球投中了吗？				
 The new legislators made their first public appearance.			Xīn yìyuán shǒucì gōngkāi lòumiàn.	新议员首次公开露面。				
 He turned to the next page.			Tā bǎ shū fān dào xià yī yè.	他把书翻到下一页。				
-She turned to the next page of the book.			Tā bǎ shū fān dào xià yī yè.	她把书翻到下一页。				
 He doesn't get along with his coworkers, because he is very arrogant.			Tā hé tóngshì xiāngchǔ de bù hǎo, yīnwèi tā jiāo'ào zìdà.	他和同事相处的不好,因为他骄傲自大。				
 This is a very thorny problem.			Zhè gè wèntí hěn jíshǒu.	这个问题很棘手。				
 During class, the teacher mentioned the homework from last time.			Kè shàng lǎoshī tíjí le shàngcì de zuòyè.	课上老师提及了上次的作业。				
@@ -7764,7 +7771,7 @@ The father and his son are resting on the river bank.			Fù-zǐ liǎ zài hédī
 He felt totally at a loss.			Tā gǎndào yī piàn wǎngrán!	他感到一片惘然！				
 The tree trunk has broken.			Shùgàn zhéduàn le.	树干折断了。				
 He is very sleepy and keeps yawning.			Tā hěn kùn le, yīzhí zài dǎ hāqian.	他很困了，一直在打哈欠。				
-I hate to eat fried green beans.			Tā tǎoyàn chī gānbiān sìjìdòu.	他讨厌吃干煸四季豆。				
+He hates to eat fried green beans.			Tā tǎoyàn chī gānbiān sìjìdòu.	他讨厌吃干煸四季豆。				
 According to the weather forecast, it will be partially cloudy today.			Gēnjù tiānqì yùbào xiǎnshì, jīntiān qíngjiànduōyún.	根据天气预报显示，今天晴间多云。				
 She won't allow her husband to go out.			Tā bù yǔnxǔ zhàngfu chūmén.	她不允许丈夫出门。				
 The government didn't permit him to go abroad.			Zhèngfǔ bù yǔnxǔ tā chūguó.	政府不允许他出国。				
@@ -7801,12 +7808,12 @@ He counterfeited this piece of porcelain.			Tā fǎngmào le zhèjiàn cíqì.	�
 Countries should not interfere in each other's domestic affairs.			Guójiā zhī jiān yīnggāi hù bù gānshè nèizhèng.	国家之间应该互不干涉内政。				
 Our country will not interfere with the domestic affairs of other nations.			Wǒ guó bùhuì jièrù biéguó de nèizhèng.	我国不会介入别国的内政。				
 The sponge absorbs water.			Hǎimián xīshōu shuǐfèn.	海绵吸收水分。				
-The quality of porcelain from Jingde, Jiangxi is very high.			Jiāngxī Jǐngdézhèn de cíqì pǐnzhì hěn hǎo.	江西景德镇的瓷器品质很好。				
+The quality of porcelain from Jingde, Jiangxi is very high.			Jiāngxī Jǐngdézhèn de cíqì pǐnzhì hěn hǎo.	江西景德镇的瓷器品质很好。				1
 Husbands and wives should stand together in difficult times.			Fūqī shuāngfāng yīnggāi tóngzhōu-gòngjì.	夫妻双方应该同舟共济。				
 Many words are pronounced according to the spelling but some are not.			xǔduō cí shì gēnjù pīnxiě lái fāyīn de, búguò yǒuxiē bù shì.	许多词是根据拼写来发音的，不过有些不是。				
 There's a parrot in the birdcage.			Niǎolóng lǐ yǒu yī zhī yīngwǔ.	鸟笼里有一只鹦鹉。				
 They're digging in the yard.			Tāmen zài yuànzi lǐ wātǔ.	他们在院子里挖土。				
-America advocated the use of military force to solve the Iraq problem.			Huáiguó zhǔzhāng yòng wǔlì jiějué Yīlākè de wèntí.	淮国主张用武力解决伊拉克的问题。				
+America advocated the use of military force to solve the Iraq problem.			Huáiguó zhǔzhāng yòng wǔlì jiějué Yīlākè de wèntí.	淮国主张用武力解决伊拉克的问题。				1
 You really don't have the right priorities!			nǐ zhēnde méi yǒu yōuxiānquán !	你真的没有优先权！				
 There's a toothpick in the wineglass.			Jiǔbēi lǐ yǒu yī gēn yáqiān.	酒杯里有一根牙签。				
 She grinds the beans into powder.	zap2 hua1 kuot1.	彼挽豆。	Tā bǎ dòuzi mó chéng fěn.	她把豆子磨成粉。	彼.挽.豆			
@@ -7908,7 +7915,7 @@ The lion killed the zebra.			Shīzi shāsǐle bānmǎ.	狮子杀死了斑马。
 The body of a zebra is covered with alternating stripes of black and white.			Bānmǎ de quánshēn dōu shì hēi-bái xiāngjiàn de.	斑马的全身都是黑白相间的。				
 Dong Fangzhuo is not famous in America.			Dǒng Fāngzhuó zài Huáiguó bù chūmíng.	董方卓在淮国不出名。				1
 How long is your annual vacation?			Nǐ niánjià yǒu duōshǎo tiān?	你年假有多少天？				
-She won't take an airplane for fear of a crash.			tā bùhuì chéngfēijī yīnwèi hàipà zhuìjī.	她不会乘飞机因为害怕坠机。				
+She won't take an airplane for fear of a crash.	zap2 pa2 ut2 mot2 hem zap2 mun1 mok1 sui1 lup1 kik1.	@	tā bùhuì chéngfēijī yīnwèi hàipà zhuìjī.	她不会乘飞机因为害怕坠机。				
 He's half naked.			Tā bànshēn chìluǒ.	他半身赤裸。				
 Pregnant women should often take walks outside.			Yùnfù yào cháng dào hùwài zǒuzou.	孕妇要常到户外走走。				
 Each tried to shift the blame onto the other.			Tāmen xiānghù tuīwěi zérèn.	他们相互推诿责任。				
@@ -8073,6 +8080,7 @@ This crack has been formed by the movement of the earth's crust.			Zhè tiáo li
 She is giving a performance on stage this evening.			Tā jīnwǎn dēngtái xiànyì.	她今晚登台献艺。				
 In Olympic competitions, a gold medal is for first place, a silver medal for second, and a bronze medal is for third place.			zài àoyùnhuì de jìngsài zhōng, jīnpái dàibiǎo dì yī míng, yínpái dàibiǎo dì èr míng, tóng pái shì dì sān míng.	在奥运会的竞赛中，金牌代表第一名，银牌代表第二名，铜牌是第三名。				1
 The Mongols defeated the Song dynasty and established the Yuan dynasty.			Měnggǔ rén dǎbàile Sòngcháo, jiànlìle Yuáncháo.	蒙古人打败了宋朝，建立了元朝。				1
+We caught a fish with a net.	pai2 ge sui1 tuk2 sep ta et2 mui1.	@	Wǒmen yòng wǎng bǔle yītiáo yú.	我们用网捕了一条鱼。				
 A big fish was caught (in a net).			Yī tiáo dà yú bèi lāo shànglái le.	一条大鱼被捞上来了。				
 The range of the pendulum swings is the same.			Zhōngbǎi zuǒyòu bǎidòng de fúdù shì yīyàng de.	钟摆左右摆动的幅度是一样的。				
 The lord held absolute power over his subjects.			lǐngzhǔ duì tā de chén mínyǒu juéduìquán lì.	领主对他的臣民有绝对权力。				
@@ -8088,6 +8096,7 @@ She always boasts of being a good swimmer.			tā lǎoshi chuīshī zìjǐ shì g
 What does "man-made satellite" mean?			Héwèi rénzào wèixīng?	何谓人造卫星？				
 Gingko is also called Paikuo.			Yínxìng yě jiàozuò báiguǒ.	银杏也叫做白果。				
 Place the deck of cards on the oaken table.			bǎ pūkè pái fàng zài xiàngmù zhuō shàng.	把扑克牌放在橡木桌上。				
+You need to water the flowers.	mua2 ly tui2 nua2 ie xuo1.	@	Nǐ xūyào gěi huā jiāo shuǐ.	你需要给花浇水。				
 The gardener is watering the flowers.			Yuándīng zhèngzài jiāohuā.	园丁正在浇花。				
 He saluted his companion who died in the line of duty.			Tā xiàng xùnzhí de tóngbàn jìnglǐ.	他向殉职的同伴敬礼。				
 They drove the cattle up the mountain.			Tāmen bǎ niúqún qūgǎn shàngshān.	他们把牛群驱赶上山。				
