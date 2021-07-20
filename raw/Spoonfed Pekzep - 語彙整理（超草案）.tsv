@@ -20,7 +20,7 @@
 心	hia1	心	clause-taker		to want to
 何処2	nan2 hue	何処	noun-modifier	interrogative	of what place
 人	cuk2	人	noun		person/people
-之	a	之	subordinating particle		~'s ~
+之	a	之	noun-conjunction		~'s ~
 口	iam1	口	verb		to eat
 口物	iam1 ku	口物	verb-object compound		to eat something
 在2	aim2	在	verb		to have happened to
@@ -78,8 +78,8 @@
 心受	hia1 guk2	心受	verb		to want
 与	tui2 {ie N}	与 {於N}	verb		to give {to someone}
 於1	ie	於	coverb		(indirect object of a verb)
-之2	a	之	subordinating particle		relativizer
-之3	a	之	subordinating particle		(apposition)
+之2	a	之	relativizer		relativizer
+之3	a	之	noun-conjunction		(apposition)
 全	be1	全	noun		anything
 言3	S {N} zep1	S {N} 言	verb		for S to say {to N}
 加	at	加	coverb		with
@@ -571,6 +571,7 @@ xizi xizi	xizi xizi	xizi xizi	interjection		excuse me
 享 // 獣	sep // saup1	享 // 獣	verb-object compound		to hunt animals
 挽	hua1	挽	verb		to grind
 豆	kuot1	豆	noun		bean with a pod
+種	det	種	noun		bean without a pod
 西	yk2	西	place word		west
 全地	be1 huep2	全地	noun		world
 字集	man1 dat2	字集	noun		words
@@ -583,3 +584,22 @@ xizi xizi	xizi xizi	xizi xizi	interjection		excuse me
 白2	liok1	白	noun-modifier		white
 種茶	det tia2	種茶	noun		coffee
 草処	kot hue	草処	place word		grassland, meadow
+硫俐	kue cue	硫俐	noun		sulfur
+散入	co1 lit1	散入	verb		to dissolve
+火2	kan1	火	noun		fire
+生happen	ian1	生	verb		to happen, to occur
+壊broken	mot2	壊	noun-modifier		broken
+片箱	zuo1 bu1	片箱	quantity unit		cubic tswoh (170 ml; 5.75 fl. oz.)
+牛蜜	io2 sik2	牛蜜	noun		milk
+行心道	mok1 hia1 po1	行心道	noun-modifier		adequate
+甘蜜	tum1 sik2	甘蜜	noun		honey, sweet syrup
+混火	ten1 kan1	混火	verb		to mix and heat
+戦集	kaik dat2	戦集	noun		army
+穴	uep	穴	noun		hole
+古2	sia1	古	noun-modifier		old
+穴2	uep	穴	verb		to create a hole, to drill a hole, to punch a hole
+貧銭	hei2 su1	貧銭	verb		to be poor
+闇2	huet	闇	noun-modifier		dark
+水筒	nua2 bon2	水筒	noun		water pipe
+生post	ian1	生	post-verbial particle		movement-marker of going out
+包船	buo1 muak1	包船	noun		cargo ship
