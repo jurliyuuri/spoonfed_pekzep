@@ -35,15 +35,17 @@ impl read::vocab::Item {
             convert_hanzi_to_images(s, "/{} N()SL", rel_path)
         })
     }
+}
+impl verify::DecompositionItem {
 
-    pub fn to_tab_separated_with_splittable_compound_info(
+    #[must_use]
+    pub fn to_tab_separated_with_splittable_compound_info_and_also_with_a_link(
         &self,
         rel_path: &'static str,
-        splittable_compound_info: Option<verify::SplittableCompoundInfo>,
     ) -> String {
-        if let Some(splittable) = splittable_compound_info {
-            let (latin_former, latin_latter) = split_at_slashslash(&self.pekzep_latin);
-            let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.pekzep_hanzi);
+        if let Some(splittable) = self.splittable_compound_info {
+            let (latin_former, latin_latter) = split_at_slashslash(&self.voc.pekzep_latin);
+            let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.voc.pekzep_hanzi);
             match splittable {
                 verify::SplittableCompoundInfo::FormerHalfHash => {
                     format!(
@@ -54,9 +56,9 @@ impl read::vocab::Item {
                         hanzi_latter,
                         &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 30), 
                         &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 22), 
-                        self.parts_of_speech,
-                        self.parts_of_speech_supplement,
-                        self.english_gloss
+                        self.voc.parts_of_speech,
+                        self.voc.parts_of_speech_supplement,
+                        self.voc.english_gloss
                     )
                 }
                 verify::SplittableCompoundInfo::LatterHalfExclamation => {
@@ -68,14 +70,22 @@ impl read::vocab::Item {
                         hanzi_latter,
                         &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 22), 
                         &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 30), 
-                        self.parts_of_speech,
-                        self.parts_of_speech_supplement,
-                        self.english_gloss
+                        self.voc.parts_of_speech,
+                        self.voc.parts_of_speech_supplement,
+                        self.voc.english_gloss
                     )
                 }
             }
         } else {
-            self.to_tab_separated(rel_path)
+            format!(
+                "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                self.voc.pekzep_latin,
+                self.voc.pekzep_hanzi,
+                convert_hanzi_to_images(&self.voc.pekzep_hanzi,  "/{} N()SL", rel_path),
+                self.voc.parts_of_speech,
+                self.voc.parts_of_speech_supplement,
+                self.voc.english_gloss
+            )
         }
     }
 }
@@ -265,8 +275,8 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
         ))?;
         let analysis = decomposition
             .iter()
-            .map(|verify::DecompositionItem{key: _, voc, splittable_compound_info}| {
-                voc.to_tab_separated_with_splittable_compound_info("..", *splittable_compound_info)
+            .map(|decomposition_item| {
+                decomposition_item.to_tab_separated_with_splittable_compound_info_and_also_with_a_link("..")
             })
             .collect::<Vec<_>>();
 
