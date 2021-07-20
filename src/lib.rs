@@ -15,7 +15,10 @@ mod tests {
     #[test]
     fn test_split_at_slashslash() {
         use crate::split_at_slashslash;
-        assert_eq!(split_at_slashslash("行 // 道"), (String::from("行 "), String::from(" 道")))
+        assert_eq!(
+            split_at_slashslash("行 // 道"),
+            (String::from("行 "), String::from(" 道"))
+        )
     }
 }
 
@@ -42,7 +45,11 @@ impl verify::DecompositionItem {
         &self,
         rel_path: &'static str,
     ) -> String {
-        let link_path = format!("{}/vocab/{}.html", rel_path, self.key.replace(" // ", "_slashslash_"));
+        let link_path = format!(
+            "{}/vocab/{}.html",
+            rel_path,
+            self.key.replace(" // ", "_slashslash_")
+        );
         if let Some(splittable) = self.splittable_compound_info {
             let (latin_former, latin_latter) = split_at_slashslash(&self.voc.pekzep_latin);
             let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.voc.pekzep_hanzi);
@@ -51,12 +58,12 @@ impl verify::DecompositionItem {
                     format!(
                         "<a href=\"{}\">{}<span style=\"font-size: 75%; color: #444\">//{}</span></a>\t{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>//<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>\t{}\t{}\t{}",
                         link_path,
-                        latin_former, 
+                        latin_former,
                         latin_latter,
-                        hanzi_former, 
+                        hanzi_former,
                         hanzi_latter,
-                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 30), 
-                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 22), 
+                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 30),
+                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 22),
                         self.voc.parts_of_speech,
                         self.voc.parts_of_speech_supplement,
                         self.voc.english_gloss
@@ -66,12 +73,12 @@ impl verify::DecompositionItem {
                     format!(
                         "<a href=\"{}\"><span style=\"font-size: 75%; color: #444\">{}//</span>{}</a>\t<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>//<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
                         link_path,
-                        latin_former, 
+                        latin_former,
                         latin_latter,
-                        hanzi_former, 
+                        hanzi_former,
                         hanzi_latter,
-                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 22), 
-                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 30), 
+                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 22),
+                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 30),
                         self.voc.parts_of_speech,
                         self.voc.parts_of_speech_supplement,
                         self.voc.english_gloss
@@ -169,7 +176,12 @@ fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) 
     convert_hanzi_to_images_with_size(s, exclude_list, rel_path, 30)
 }
 
-fn convert_hanzi_to_images_with_size(s: &str, exclude_list: &str, rel_path: &'static str, size: usize) -> String {
+fn convert_hanzi_to_images_with_size(
+    s: &str,
+    exclude_list: &str,
+    rel_path: &'static str,
+    size: usize,
+) -> String {
     let mut ans = String::new();
     let mut iter = s.chars();
     let mut remove_following_space = false;
@@ -279,7 +291,8 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
         let analysis = decomposition
             .iter()
             .map(|decomposition_item| {
-                decomposition_item.to_tab_separated_with_splittable_compound_info_and_also_with_a_link("..")
+                decomposition_item
+                    .to_tab_separated_with_splittable_compound_info_and_also_with_a_link("..")
             })
             .collect::<Vec<_>>();
 
@@ -343,21 +356,28 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
 
         let mut usages = String::from("");
 
-        for verify::Rows3Item {syllables, decomposition,  row} in &data_bundle.rows3 {
+        for verify::Rows3Item {
+            syllables,
+            decomposition,
+            row,
+        } in &data_bundle.rows3
+        {
             if decomposition.iter().any(|item| &item.key == key) {
-                usages += &format!(r#"
+                usages += &format!(
+                    r#"
             <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
                 <p><span lang="ja">{}</span></p>
                 <p><a href="../phrase/{}.html">{}</a></p>
                 <p><span lang="en">{}</span> / <span lang="zh-CN">{}</span></p>
-            </div>"#, 
-            row.pekzep_hanzi,
-            read::phrase::syllables_to_str_underscore(syllables), row.pekzep_latin,
-            
-            row.english,  row.chinese_hanzi)
+            </div>"#,
+                    row.pekzep_hanzi,
+                    read::phrase::syllables_to_str_underscore(syllables),
+                    row.pekzep_latin,
+                    row.english,
+                    row.chinese_hanzi
+                )
             }
         }
-
 
         write!(
             file,
@@ -375,7 +395,9 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
 /// Generates `vocab_list_internal.html`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
-pub fn generate_vocab_list_internal(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+pub fn generate_vocab_list_internal(
+    data_bundle: &verify::DataBundle,
+) -> Result<(), Box<dyn Error>> {
     let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
     let mut vocab_html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
@@ -505,8 +527,6 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-
-
 /// Generates `raw.js`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
@@ -534,7 +554,6 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
         }
 
         if rec.requires_substitution.is_empty() {
-
             // This is inherently insecure, but who cares?
             js += &format!(
                 "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`}},\n",

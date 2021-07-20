@@ -132,8 +132,8 @@ pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyllable>, Item>, Box<dyn Error>> 
     let mut errors = vec![];
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
-        let rec: Record = StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>())
-            .deserialize(None)?;
+        let rec: Record =
+            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
 
         info!("Parsing `{}`, `{}`:", rec.english, rec.pekzep_latin);
         let row = Item {

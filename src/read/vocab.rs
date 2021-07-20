@@ -32,14 +32,14 @@ impl Item {
         F: FnOnce(&str) -> String,
     {
         format!(
-        "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
-        self.pekzep_latin,
-        self.pekzep_hanzi,
-        f(&self.pekzep_hanzi),
-        self.parts_of_speech,
-        self.parts_of_speech_supplement,
-        self.english_gloss
-    )
+            "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+            self.pekzep_latin,
+            self.pekzep_hanzi,
+            f(&self.pekzep_hanzi),
+            self.parts_of_speech,
+            self.parts_of_speech_supplement,
+            self.english_gloss
+        )
     }
 }
 
@@ -50,8 +50,8 @@ pub fn parse() -> Result<HashMap<String, Item>, Box<dyn Error>> {
     let mut errors = vec![];
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
-        let row: Record = StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>())
-            .deserialize(None)?;
+        let row: Record =
+            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
         if !row.key.is_empty()
             && res
                 .insert(
