@@ -261,7 +261,9 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     }
 }
 
-fn decomposition_to_analysis_merging_unsplitted_compounds(decomposition: &[verify::DecompositionItem]) -> Vec<String> {
+fn decomposition_to_analysis_merging_unsplitted_compounds(
+    decomposition: &[verify::DecompositionItem],
+) -> Vec<String> {
     // When splittable compounds appear unsplitted, it is better to display them merged.
     /*
         我
@@ -302,6 +304,10 @@ fn decomposition_to_analysis_merging_unsplitted_compounds(decomposition: &[verif
     ans
 }
 
+fn remove_guillemets(a: &str) -> String {
+    a.replace("«", "").replace("»", "")
+}
+
 /// Generates `phrase/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
@@ -331,7 +337,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
         ))?;
 
         let analysis = decomposition_to_analysis_merging_unsplitted_compounds(decomposition);
-        let pekzep_hanzi_guillemet_removed = row.pekzep_hanzi.replace("«", "").replace("»", "");
+        let pekzep_hanzi_guillemet_removed = remove_guillemets(&row.pekzep_hanzi);
         let content = PhraseTemplate {
             english: &row.english,
             chinese_pinyin: &row.chinese_pinyin,
@@ -521,10 +527,10 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
-    use log::warn;
     use filters::normalizer::{
         capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
     };
+    use log::warn;
     use read::phrase::Record;
     use std::io::BufReader;
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
@@ -593,18 +599,21 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
             continue;
         }
 
+        // pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", "..")
+
         if rec.requires_substitution.is_empty() {
             // This is inherently insecure, but who cares?
             js += &format!(
-                "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`}},\n",
+                "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`, pekzep_images: `{}`}},\n",
                 rec.english,
                 rec.pekzep_latin,
-                rec.pekzep_hanzi,
+                remove_guillemets(&rec.pekzep_hanzi),
                 capitalize_first_char(&rec.chinese_pinyin),
                 normalize_a_b_dialogue(&normalize_chinese_punctuation(&rec.chinese_hanzi)),
                 rec.decomposed,
                 rec.filetype,
                 rec.recording_author,
+                convert_hanzi_to_images(&remove_guillemets(&rec.pekzep_hanzi), "() ", ".")
             )
         }
     }
