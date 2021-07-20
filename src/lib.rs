@@ -261,7 +261,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     }
 }
 
-fn decomposition_to_analysis(decomposition: &[verify::DecompositionItem]) -> Vec<String> {
+fn decomposition_to_analysis_merging_unsplitted_compounds(decomposition: &[verify::DecompositionItem]) -> Vec<String> {
     // When splittable compounds appear unsplitted, it is better to display them merged.
     /*
         我
@@ -330,7 +330,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             read::phrase::syllables_to_str_underscore(syllables)
         ))?;
 
-        let analysis = decomposition_to_analysis(decomposition);
+        let analysis = decomposition_to_analysis_merging_unsplitted_compounds(decomposition);
         let pekzep_hanzi_guillemet_removed = row.pekzep_hanzi.replace("«", "").replace("»", "");
         let content = PhraseTemplate {
             english: &row.english,
