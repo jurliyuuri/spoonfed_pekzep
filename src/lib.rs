@@ -201,6 +201,9 @@ fn convert_hanzi_to_images_with_size(
                 ans.push(c);
             }
         } else {
+            if c.is_ascii() {
+                log::warn!("Unexpected ASCII character `{}` in {}", c, s);
+            }
             ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size))
         }
     }
