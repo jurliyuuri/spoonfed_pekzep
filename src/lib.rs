@@ -37,19 +37,20 @@ impl read::vocab::Item {
     }
 }
 impl verify::DecompositionItem {
-
     #[must_use]
     pub fn to_tab_separated_with_splittable_compound_info_and_also_with_a_link(
         &self,
         rel_path: &'static str,
     ) -> String {
+        let link_path = format!("{}/vocab/{}.html", rel_path, self.key.replace(" // ", "_slashslash_"));
         if let Some(splittable) = self.splittable_compound_info {
             let (latin_former, latin_latter) = split_at_slashslash(&self.voc.pekzep_latin);
             let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.voc.pekzep_hanzi);
             match splittable {
                 verify::SplittableCompoundInfo::FormerHalfHash => {
                     format!(
-                        "{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>//<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>\t{}\t{}\t{}",
+                        "<a href=\"{}\">{}<span style=\"font-size: 75%; color: #444\">//{}</span></a>\t{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>//<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>\t{}\t{}\t{}",
+                        link_path,
                         latin_former, 
                         latin_latter,
                         hanzi_former, 
@@ -63,7 +64,8 @@ impl verify::DecompositionItem {
                 }
                 verify::SplittableCompoundInfo::LatterHalfExclamation => {
                     format!(
-                        "<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>//<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                        "<a href=\"{}\"><span style=\"font-size: 75%; color: #444\">{}//</span>{}</a>\t<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>//<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                        link_path,
                         latin_former, 
                         latin_latter,
                         hanzi_former, 
@@ -78,7 +80,8 @@ impl verify::DecompositionItem {
             }
         } else {
             format!(
-                "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                "<a href=\"{}\">{}</a>\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                link_path,
                 self.voc.pekzep_latin,
                 self.voc.pekzep_hanzi,
                 convert_hanzi_to_images(&self.voc.pekzep_hanzi,  "/{} N()SL", rel_path),
