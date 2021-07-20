@@ -261,6 +261,17 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     }
 }
 
+fn decomposition_to_analysis(decomposition: &[verify::DecompositionItem]) -> Vec<String> {
+    let mut ans = vec![];
+    for decomposition_item in decomposition {
+        ans.push(
+            decomposition_item
+                .to_tab_separated_with_splittable_compound_info_and_also_with_a_link(".."),
+        )
+    }
+    ans
+}
+
 /// Generates `phrase/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
@@ -288,16 +299,9 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             "docs/phrase/{}.html",
             read::phrase::syllables_to_str_underscore(syllables)
         ))?;
-        let analysis = decomposition
-            .iter()
-            .map(|decomposition_item| {
-                decomposition_item
-                    .to_tab_separated_with_splittable_compound_info_and_also_with_a_link("..")
-            })
-            .collect::<Vec<_>>();
 
+        let analysis = decomposition_to_analysis(decomposition);
         let pekzep_hanzi_guillemet_removed = row.pekzep_hanzi.replace("«", "").replace("»", "");
-
         let content = PhraseTemplate {
             english: &row.english,
             chinese_pinyin: &row.chinese_pinyin,
