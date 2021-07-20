@@ -390,6 +390,7 @@ pub enum SplittableCompoundInfo {
     LatterHalfExclamation,
 }
 
+#[derive(Debug, Clone)]
 pub struct DecompositionItem {
     pub key: String,
     pub voc: read::vocab::Item,

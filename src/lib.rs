@@ -262,12 +262,42 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
 }
 
 fn decomposition_to_analysis(decomposition: &[verify::DecompositionItem]) -> Vec<String> {
+    // When splittable compounds appear unsplitted, it is better to display them merged.
+    /*
+        我
+        ∅
+        与#学
+        与!学
+        之
+        人
+    */
     let mut ans = vec![];
-    for decomposition_item in decomposition {
-        ans.push(
-            decomposition_item
+
+    let mut skip_flag = false;
+    for (i, decomposition_item) in decomposition.iter().enumerate() {
+        if Some(verify::SplittableCompoundInfo::FormerHalfHash)
+            == decomposition_item.splittable_compound_info
+            && Some(verify::SplittableCompoundInfo::LatterHalfExclamation)
+                == decomposition[i + 1].splittable_compound_info
+        {
+            // Splittable compounds appear unsplitted; it is better to display them merged.
+            ans.push(
+                verify::DecompositionItem {
+                    splittable_compound_info: None,
+                    ..(*decomposition_item).clone()
+                }
                 .to_tab_separated_with_splittable_compound_info_and_also_with_a_link(".."),
-        )
+            );
+            skip_flag = true;
+        } else if skip_flag {
+            skip_flag = false;
+            continue;
+        } else {
+            ans.push(
+                decomposition_item
+                    .to_tab_separated_with_splittable_compound_info_and_also_with_a_link(".."),
+            )
+        }
     }
     ans
 }
