@@ -521,6 +521,7 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
+    use log::warn;
     use filters::normalizer::{
         capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
     };
@@ -540,6 +541,11 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
         }
         if rec.pekzep_latin.is_empty() {
             continue;
+        }
+
+        // 未査読でもないのに転写が埋まってないやつは警告
+        if rec.pekzep_hanzi.is_empty() {
+            warn!("The transcription for `{}` is empty.", rec.pekzep_latin)
         }
 
         if rec.requires_substitution.is_empty() {
