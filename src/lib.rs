@@ -35,7 +35,7 @@ fn split_at_slashslash(in_string: &str) -> (String, String) {
 impl read::vocab::Item {
     pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
         self.to_tab_separated_with_custom_linzifier(|s| {
-            convert_hanzi_to_images(s, "/{} N()SL", rel_path)
+            convert_hanzi_to_images(s, "/{} N()SL«»", rel_path)
         })
     }
 }
@@ -62,8 +62,8 @@ impl verify::DecompositionItem {
                         latin_latter,
                         hanzi_former,
                         hanzi_latter,
-                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 30),
-                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 22),
+                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL«»", rel_path, 30),
+                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL«»", rel_path, 22),
                         self.voc.parts_of_speech,
                         self.voc.parts_of_speech_supplement,
                         self.voc.english_gloss
@@ -77,8 +77,8 @@ impl verify::DecompositionItem {
                         latin_latter,
                         hanzi_former,
                         hanzi_latter,
-                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL", rel_path, 22),
-                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL", rel_path, 30),
+                        &convert_hanzi_to_images_with_size(&hanzi_former, "/{} N()SL«»", rel_path, 22),
+                        &convert_hanzi_to_images_with_size(&hanzi_latter, "/{} N()SL«»", rel_path, 30),
                         self.voc.parts_of_speech,
                         self.voc.parts_of_speech_supplement,
                         self.voc.english_gloss
@@ -91,7 +91,7 @@ impl verify::DecompositionItem {
                 link_path,
                 self.voc.pekzep_latin,
                 self.voc.pekzep_hanzi,
-                convert_hanzi_to_images(&self.voc.pekzep_hanzi,  "/{} N()SL", rel_path),
+                convert_hanzi_to_images(&self.voc.pekzep_hanzi,  "/{} N()SL«»", rel_path),
                 self.voc.parts_of_speech,
                 self.voc.parts_of_speech_supplement,
                 self.voc.english_gloss

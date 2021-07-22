@@ -137,6 +137,7 @@ impl DataBundle {
     fn check_vocab_pronunciation(
         vocab: &HashMap<String, read::vocab::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+        contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> Result<(), String> {
         use log::info;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
@@ -160,14 +161,38 @@ impl DataBundle {
                         }
                         c = hanzi_iter.next().expect("Unmatched syllable");
                     }
-                    if let Some(a) = char_pronunciation
+                    if c == '«' {
+                        // Handle exceptional contractions such as «足手» xiop1
+                        let mut contraction = String::new();
+                        {
+                            let mut c = hanzi_iter.next().expect("Unmatched guillemet");
+                            loop {
+                                if c == '»' {
+                                    break;
+                                }
+                                contraction.push(c);
+                                c = hanzi_iter.next().expect("Unmatched guillemet");
+                            }
+                        }
+                        if let Some(a) = contraction_pronunciation
+                            .iter()
+                            .find(|(h, sy)| *h == contraction && *sy == syllable)
+                        {
+                            info!("matched {} with {}", a.0, a.1)
+                        } else {
+                            return Err(format!(
+                            "While trying to match {} with {}, cannot find the contracted pronunciation `{}` for `«{}»`", syllable, contraction,
+                            syllable, c
+                        ));
+                        }
+                    } else if let Some(a) = char_pronunciation
                         .iter()
                         .find(|(h, sy)| **h == c.to_string() && *sy == syllable)
                     {
                         info!("matched {} with {}", a.0, a.1)
                     } else {
                         return Err(format!(
-                            "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
+                            "While trying to match {} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
                             syllable, c
                         ));
                     }
@@ -333,7 +358,7 @@ impl DataBundle {
         }
 
         let vocab = read::vocab::parse()?;
-        Self::check_vocab_pronunciation(&vocab, &char_pronunciation)?;
+        Self::check_vocab_pronunciation(&vocab, &char_pronunciation, &contraction_pronunciation)?;
 
         for item in vocab.values() {
             Self::check_nonrecommended_character(&item.pekzep_hanzi, &variants);
