@@ -444,7 +444,13 @@ pub fn generate_vocab_list_internal(
     let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
     let mut vocab_html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
-        vocab_html.push(format!("{}\t{}", key, vocab.to_tab_separated(".")))
+        let rel_path =".";
+        let link_path = format!(
+            "{}/vocab/{}.html",
+            rel_path,
+            key.replace(" // ", "_slashslash_")
+        );
+        vocab_html.push(format!("<a href=\"{}\">{}</a>\t{}", link_path, key, vocab.to_tab_separated(rel_path)));
     }
     write!(
         vocab_file,
