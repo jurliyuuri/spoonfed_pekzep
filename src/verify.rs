@@ -30,7 +30,7 @@ impl DataBundle {
             let mut key_iter = k.iter();
             while let Some(c) = iter.next() {
                 if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
-                    info!("Skipped: {}", c)
+                    info!("Skipped: {}", c);
                 } else if c == '«' {
                     // Handle exceptional contractions such as «足手» xiop1
                     let mut contraction = String::new();
@@ -58,7 +58,7 @@ impl DataBundle {
                         **h == contraction
                             && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
-                        info!("matched {} with {}", a.0, a.1)
+                        info!("matched {} with {}", a.0, a.1);
                     } else {
                         return Err(format!(
                             "While trying to match {:?} with {}, cannot find the contracted pronunciation `{}` for the character sequence `{}`", k, v.pekzep_hanzi,
@@ -71,7 +71,7 @@ impl DataBundle {
                         && Some('i') == iter.next()
                     {
                         if let Some(read::phrase::ExtSyllable::Xizi) = key_iter.next() {
-                            info!("matched `xizi`.")
+                            info!("matched `xizi`.");
                         } else {
                             return Err(format!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi));
                         }
@@ -91,7 +91,7 @@ impl DataBundle {
                         **h == c.to_string()
                             && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
-                        info!("matched {} with {}", a.0, a.1)
+                        info!("matched {} with {}", a.0, a.1);
                     } else {
                         return Err(format!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
@@ -112,7 +112,7 @@ impl DataBundle {
                     && hanzi_iter.next() == Some('z')
                     && hanzi_iter.next() == Some('i')
                 {
-                    info!("matched `xizi` with `xizi`")
+                    info!("matched `xizi` with `xizi`");
                 }
             }
             Some(' ') => {
@@ -121,7 +121,7 @@ impl DataBundle {
                     && hanzi_iter.next() == Some('z')
                     && hanzi_iter.next() == Some('i')
                 {
-                    info!("matched `xizi` with `xizi`")
+                    info!("matched `xizi` with `xizi`");
                 }
             }
             _ => {
@@ -144,7 +144,7 @@ impl DataBundle {
         // let mut pronunciation_errors_in_vocab = vec![];
         for (_, v) in vocab.iter() {
             if v.pekzep_hanzi == "∅" && v.pekzep_latin.is_empty() {
-                info!("matched `∅` with an empty string")
+                info!("matched `∅` with an empty string");
             }
             let mut latin_iter = v.pekzep_latin.split(char::is_whitespace);
             let mut hanzi_iter = v.pekzep_hanzi.chars();
@@ -178,7 +178,7 @@ impl DataBundle {
                             .iter()
                             .find(|(h, sy)| *h == contraction && *sy == syllable)
                         {
-                            info!("matched {} with {}", a.0, a.1)
+                            info!("matched {} with {}", a.0, a.1);
                         } else {
                             return Err(format!(
                             "While trying to match {} with {}, cannot find the contracted pronunciation `{}` for `«{}»`", syllable, contraction,
@@ -189,7 +189,7 @@ impl DataBundle {
                         .iter()
                         .find(|(h, sy)| **h == c.to_string() && *sy == syllable)
                     {
-                        info!("matched {} with {}", a.0, a.1)
+                        info!("matched {} with {}", a.0, a.1);
                     } else {
                         return Err(format!(
                             "While trying to match {} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
@@ -202,11 +202,11 @@ impl DataBundle {
                         && hanzi_iter.next() == Some('/')
                         && hanzi_iter.next() == Some(' ')
                     {
-                        info!("matched `//` with `//`")
+                        info!("matched `//` with `//`");
                     }
                 } else if s == "S" {
                     if hanzi_iter.next() == Some('S') && hanzi_iter.next() == Some(' ') {
-                        info!("matched `S` with `S`")
+                        info!("matched `S` with `S`");
                     }
                 } else {
                     match s.chars().next() {
@@ -294,7 +294,7 @@ impl DataBundle {
             warn!(
                 "punctuation after `之` is detected in `{}`. Maybe replace it with `噫`?",
                 s
-            )
+            );
         }
 
         // 【噫】の後に句読点も)もないなら警告
@@ -305,7 +305,7 @@ impl DataBundle {
             warn!(
                 "no punctuation found after `噫` in `{}`. Maybe replace it with `之`.",
                 s
-            )
+            );
         }
     }
 
@@ -315,14 +315,14 @@ impl DataBundle {
             warn!(
                 "a space before a period is detected in `{}`. Remove the space.",
                 s
-            )
+            );
         }
 
         if s.contains(" ,") {
             warn!(
                 "a space before a comma is detected in `{}`. Remove the space.",
                 s
-            )
+            );
         }
     }
 

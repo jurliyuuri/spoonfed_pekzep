@@ -18,7 +18,7 @@ mod tests {
         assert_eq!(
             split_at_slashslash("行 // 道"),
             (String::from("行 "), String::from(" 道"))
-        )
+        );
     }
 }
 
@@ -187,14 +187,14 @@ fn convert_hanzi_to_images_with_size(
     let mut remove_following_space = false;
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(&char_img_with_size("blank", rel_path, size))
+            ans.push_str(&char_img_with_size("blank", rel_path, size));
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
                 ans.push_str(&char_img_with_size("xi", rel_path, size));
                 ans.push_str(&char_img_with_size("zi", rel_path, size));
                 remove_following_space = true; // this deletes the redundant space after "xizi"
             } else {
-                panic!("Expected `xizi` because `x` was encountered, but did not find it.")
+                panic!("Expected `xizi` because `x` was encountered, but did not find it.");
             }
         } else if exclude_list.contains(c) {
             if !(remove_following_space && c == ' ') {
@@ -204,7 +204,7 @@ fn convert_hanzi_to_images_with_size(
             if c.is_ascii() {
                 log::warn!("Unexpected ASCII character `{}` in {}", c, s);
             }
-            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size))
+            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size));
         }
     }
 
@@ -217,7 +217,7 @@ fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     if row.filetype.contains(&read::phrase::FilePathType::Oga) {
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists()
         {
-            warn!("oga file not found: {}.oga", filename)
+            warn!("oga file not found: {}.oga", filename);
         }
         format!(
             r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
@@ -225,7 +225,7 @@ fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
         )
     } else {
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
-            warn!("oga file IS found, but is not linked: {}.oga", filename)
+            warn!("oga file IS found, but is not linked: {}.oga", filename);
         }
         "".to_owned()
     }
@@ -244,7 +244,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
 
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists()
         {
-            warn!("wav file not found: {}.wav", filename)
+            warn!("wav file not found: {}.wav", filename);
         }
         format!(
             r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
@@ -253,12 +253,12 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     } else {
         let filename = read::phrase::syllables_to_rerrliratixka_no_space(syllables);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
-            warn!("wav file IS found, but is not linked: {}.wav", filename)
+            warn!("wav file IS found, but is not linked: {}.wav", filename);
         }
 
         let filename = read::phrase::syllables_to_str_underscore(syllables);
         if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
-            warn!("wav file IS found, but is not linked: {}.wav", filename)
+            warn!("wav file IS found, but is not linked: {}.wav", filename);
         }
         "".to_owned()
     }
@@ -301,7 +301,7 @@ fn decomposition_to_analysis_merging_unsplitted_compounds(
             ans.push(
                 decomposition_item
                     .to_tab_separated_with_splittable_compound_info_and_also_with_a_link(".."),
-            )
+            );
         }
     }
     ans
@@ -381,7 +381,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
         write!(file, "{}", content.render()?)?;
 
         if row.chinese_hanzi.starts_with('A') && row.chinese_hanzi.contains('B') {
-            warn!("A-B style dialogue detected: {}, matched with {}. Replace this with 「」-style while also making sure the Hanzi and the Pinyin matches.", row.chinese_hanzi, row.chinese_pinyin)
+            warn!("A-B style dialogue detected: {}, matched with {}. Replace this with 「」-style while also making sure the Hanzi and the Pinyin matches.", row.chinese_hanzi, row.chinese_pinyin);
         }
     }
     Ok(())
@@ -418,7 +418,7 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
                     row.pekzep_latin,
                     row.english,
                     row.chinese_hanzi
-                )
+                );
             }
         }
 
@@ -444,13 +444,18 @@ pub fn generate_vocab_list_internal(
     let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
     let mut vocab_html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
-        let rel_path =".";
+        let rel_path = ".";
         let link_path = format!(
             "{}/vocab/{}.html",
             rel_path,
             key.replace(" // ", "_slashslash_")
         );
-        vocab_html.push(format!("<a href=\"{}\">{}</a>\t{}", link_path, key, vocab.to_tab_separated(rel_path)));
+        vocab_html.push(format!(
+            "<a href=\"{}\">{}</a>\t{}",
+            link_path,
+            key,
+            vocab.to_tab_separated(rel_path)
+        ));
     }
     write!(
         vocab_file,
@@ -470,7 +475,7 @@ pub fn generate_vocab_list(data_bundle: &verify::DataBundle) -> Result<(), Box<d
     let mut vocab_file = File::create("docs/vocab_list.html")?;
     let mut vocab_html = vec![];
     for (_, vocab) in &data_bundle.vocab_ordered {
-        vocab_html.push(vocab.to_tab_separated("."))
+        vocab_html.push(vocab.to_tab_separated("."));
     }
     write!(
         vocab_file,
@@ -560,7 +565,7 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
 
         // 未査読でもないのに転写が埋まってないやつは警告
         if rec.pekzep_hanzi.is_empty() {
-            warn!("The transcription for `{}` is empty.", rec.pekzep_latin)
+            warn!("The transcription for `{}` is empty.", rec.pekzep_latin);
         }
 
         if rec.requires_substitution.is_empty() {
@@ -574,7 +579,7 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
                 rec.decomposed,
                 rec.filetype,
                 rec.recording_author,
-            )
+            );
         }
     }
 
@@ -623,7 +628,7 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
                 rec.filetype,
                 rec.recording_author,
                 convert_hanzi_to_images(&remove_guillemets(&rec.pekzep_hanzi), "() ", ".")
-            )
+            );
         }
     }
 
