@@ -1,4 +1,4 @@
-# Spoonfed Pekzep / <span lang="zh-CN">填鸭式牌语</span>
+# Spoonfed Pekzep / <span lang="zh-CN">轻松牌语</span>
 
 [Learn Pekzep in English and Chinese! / <span lang="zh-CN">用英语和汉语学习牌语!</span>](https://jurliyuuri.github.io/spoonfed_pekzep/index.html)
 
