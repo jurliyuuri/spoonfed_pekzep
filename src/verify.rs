@@ -100,6 +100,13 @@ impl DataBundle {
                     }
                 }
             }
+
+            if let Some(a) = key_iter.next() {
+                return Err(format!(
+                    "Encountered {} but `{}` ended earlier.\n\nThis occurred while trying to match {:?} with {}, ",
+                    a, v.pekzep_hanzi, k, v.pekzep_hanzi,
+                ));
+            }
         }
         Ok(())
     }
