@@ -28,7 +28,7 @@ pub fn parse() -> Result<(CharSoundTable, NonRecommendedCharTable), Box<dyn Erro
     let mut ans = vec![];
     for result in rdr.deserialize() {
         let record: Record = result?;
-        ans.push(record)
+        ans.push(record);
     }
 
     let a: Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> =

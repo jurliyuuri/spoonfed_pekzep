@@ -25,7 +25,7 @@ pub fn parse() -> Result<SoundTable, Box<dyn Error>> {
     let mut ans = vec![];
     for result in rdr.deserialize() {
         let record: Record = result?;
-        ans.push(record)
+        ans.push(record);
     }
 
     let a: Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> =
