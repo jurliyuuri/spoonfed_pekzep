@@ -15,8 +15,8 @@ Where is she from?	zap2 nan2 hue a cuk2?	彼何処之人？	Tā shì nǎli de r�
 Where would you like to go to eat?	mua2 hia1 mok1 nan2 hue iam1?	汝心行何処口？	Nǐ xiǎng qù nǎli chī?	你想去哪里吃？	汝.心.行.何処.口	wav_r	falira.lyjotafis	
 I would like to eat food.	pai2 hia1 iam1 ku.	我心口物。	Wǒ xiǎng chī fàn.	我想吃饭。	我.心.口物	wav_r	falira.lyjotafis	
 Does she want to eat?	zap2 hia1 iam1 ku yn2?	彼心口物乎？	Tā xiǎng chī fàn ma?	她想吃饭吗？	彼.心.口物.乎	wav_r	falira.lyjotafis	
-What happened?	nan2 aim2?	何在？	zěnme le?	怎么了？	何.在2	wav_r	falira.lyjotafis	
-What has happened to her?	nan2 aim2 zap2?	何在彼？	Tā zěnmele?	她怎么了？	何.在2.彼	wav_r, oga	falira.lyjotafis	
+What happened?	nan2 aim2?	何在？	zěnme le?	怎么了？	何.在5	wav_r	falira.lyjotafis	
+What has happened to her?	nan2 aim2 zap2?	何在彼？	Tā zěnmele?	她怎么了？	何.在7.彼	wav_r, oga	falira.lyjotafis	
 Listen to him.	lua1 can2 zap2.	耳識彼。	Tīng tā shuō.	听他说。	耳識.彼	wav_r	falira.lyjotafis	
 Are you listening to me?	mua2 aim2 lua1 can2 pai2 yn2?	汝在耳識我乎？	nǐ zài tīng wǒ shuō ma?	你在听我说吗？	汝.在.耳識.我.乎	wav_r	falira.lyjotafis	
 How are you lately?	cei2 ka1 kia1 em nan2?	周此日如何？	Zuìjìn zěnmeyàng a?	最近怎么样啊？	周.此日.如.何	wav_r	falira.lyjotafis	
@@ -37,7 +37,7 @@ I am a Vefisaitē.	pai2 uep1 cuk2.	我淮人。	Wǒ shì Huáiguórén.	我是�
 He likes the Vefisait Republic.	zap2 hia1 kait uep1 sip1.	彼心善淮国。	Tā hěn xǐhuan Huáiguó.	他很喜欢淮国。	彼.心善.淮国	wav_r, oga	falira.lyjotafis	
 Is the Vefisait Republic big?	uep1 sip1 ma1 yn2?	淮国大乎？	Huáiguó dà ma?	淮国大吗？	淮国.大.乎	wav_r, oga	falira.lyjotafis	
 Who is he?	zap2 nan2 cuk2?	彼何人？	Tā shì shéi?	他是谁？	彼.何2.人	wav_r, oga	falira.lyjotafis	
-Who is your student?	nan2 mua2 a nui2 cuk2?	何汝之学人？	Shéi shì nǐ de xuésheng?	谁是你的学生？	何2.∅2.汝.之.学人	wav_r, oga	falira.lyjotafis	
+Who is your student?	nan2 mua2 a nui2 cuk2?	何汝之学人？	Shéi shì nǐ de xuésheng?	谁是你的学生？	何3.∅.汝.之.学人	wav_r, oga	falira.lyjotafis	
 How do I get to Makati?	pai2 em nan2 mok1 syt2 tun2?	我如何行天神？	Wǒ zěnme qù Tiānshén?	我怎么去天神？	我.如2.何.行.天神	wav_r, oga	falira.lyjotafis	
 She will go to Makati.	zap2 mok1 mok1 syt2 tun2.	彼行行天神。	Tā yào qù Tiānshén.	她要去天神。	彼.行2.行.天神	wav_r, oga	falira.lyjotafis	
 Are you of the Ai'ren Republic?	mua2 ai2 cuk2 yn2?	汝冠人乎？	Nín shì Guānguórén ma?	您是冠国人吗？	汝.∅.冠人.乎	wav_r, oga	falira.lyjotafis	
@@ -292,7 +292,7 @@ I can't let myself do this kind of thing.	pai2 mun1 py pai2 zau ka1 suo2 uo1.	�
 I'm as tired as can be.	pai2 hia1 mok1 huet ka1 tau2.	我心行闇此端。	wǒ lèi de bù néng zài lèi le.	我累得不能再累了。	我.心#闇.行7.心!闇.此3.∅.端	oga, wav	falira.lyjotafis	
 When will you return to your country? Next month.	nan2 kak mua2 ty sak2 ie mua2 sip1? et2 ut2 xem1.	何時汝再来於汝国？一下月。	Nǐ shénmeshíhou huíguó? Xià gè yuè.	你什么时候回国？下个月。	何時.汝.再来2.於.汝2.国.一下.月	oga, wav	falira.lyjotafis	
 "Will you come to the Ai'ren Republic again?" "Maybe."	"mua2 ty sak2 ai2 sip1." "taun1 po1 aim2."	「汝再来冠国。」「多道在。」	"Nǐ huì zàilái Guānguó ma?" "Kěnéng."	「你会再来冠国吗？」「可能。」	汝.再来.冠国.多.道.在5	oga, wav	falira.lyjotafis	
-Something might have happened to her.	cue1 aim2 ie zap2 a po1 aim2.	或在於彼之道在。	tā kěnéng chū shénme shì le.	她可能出什么事了。	或.在2.於0.彼.之2.道.在5	oga, wav	falira.lyjotafis	
+Something might have happened to her.	cue1 aim2 ie zap2 a po1 aim2.	或在於彼之道在。	tā kěnéng chū shénme shì le.	她可能出什么事了。	或.在3.於1.彼.之2.道.在5	oga, wav	falira.lyjotafis	
 I didn't know about this matter.	pai2 mun1 aim2 can2 ka1 uo1.	我無在識此件。	Wǒ bù zhīdào zhè jiàn shì.	我不知道这件事。	我.無.在.識.此2.件	oga, wav	falira.lyjotafis	
 How can you not know? (lit. Why do you not know?)	nan2 xit2 mua2 mun1 aim2 can2.	何故汝無在識。	nǐ zěnme huì bù zhīdào?	你怎么会不知道？	何故.汝.無.在.識	oga, wav	falira.lyjotafis	
 I don't know if I still have it.	pai2 mun1 aim2 can2 ie pai2 ka1 kak aim2 y mun1.	我無在識於我此時在亦無。	wǒ bù zhīdào wǒ hái yǒu méi yǒu.	我不知道我还有没有。	我.無.在.識2.於0.我.此時.在.亦.無	oga, wav	falira.lyjotafis	
@@ -1245,7 +1245,7 @@ Would you like tea or coffee?			nín xiǎng yào chá háishì kāfēi?	您想�
 I like coffee more.			wǒ gèng xǐhuān kāfēi.	我更喜欢咖啡。				
 He always drinks black coffee.			tā zǒng hē tā de hēi kāfēi. 	他总喝他的黑咖啡。				
 I want a cup of coffee.	pai2 hia1 guk2 et2 niep1 det tia2.	我心受一杯種茶。	Wǒ yào yī bēi kāfēi.	我要一杯咖啡。	我.心受.一.杯.種茶			
-She likes to drink coffee.	zap2 hia1 kait iam1 det tia2.	彼心善口種茶。	Tā xǐhuan hē kāfēi.	她喜欢喝咖啡。				
+She likes to drink coffee.	zap2 hia1 kait iam1 det tia2.	彼心善口種茶。	Tā xǐhuan hē kāfēi.	她喜欢喝咖啡。	彼.心善2.口.種茶			
 I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終一杯種茶。	Wǒ mǎile yī bēi kāfēi.	我买了一杯咖啡。				
 The coffee is a little bitter.			Kāfēi yǒudiǎn kǔ.	咖啡有点苦。				
 Will you have some more coffee? No, thanks. I've had enough.			nǐ xiǎng zài lái diǎn kāfēi ma? bù, xièxie. wǒ gòu le.	“你想再来点咖啡吗？”“不，谢谢。我够了。”				
@@ -1265,7 +1265,8 @@ Their whole family immigrated to the Ai'ren Republic.			Tāmen yījiā dōu yím
 His bag is right here, so he can't have already gone to school.			tā de bāo jiù zài zhèr, suǒyǐ tā bù kěnéng yǐjīng qù le xuéxiào.	他的包就在这儿，所以他不可能已经去了学校。				
 I am carrying a bag.			Wǒ bèizhe gè bāo.	我背着个包。				
 I have already carried three bags.			Wǒ yǐjīng bèile sān gè bāo.	我已经背了三个包。				
-This little dog has very long fur.	ka1 ni1 pa2 a im1 kit auk2.	此小犬之毛極長。	Zhè zhī xiǎo gǒu de máo hěn cháng.	这只小狗的毛很长。				
+This little dog has very long fur.	ka1 ni1 pa2 a im1 kit auk2.	此小犬之毛極長。	Zhè zhī xiǎo gǒu de máo hěn cháng.	这只小狗的毛很长。	此2.小.犬.之.毛.極.長			
+The bristles of this brush are very good.	ka1 kua2 a im1 kit kait.	@	Zhè bǎ máobǐ de máo hěn hǎo.	这把毛笔的毛很好。				
 There are a lot of dishes on the table.			Zhuō shàng bǎile hěn duō cài.	桌上摆了很多菜。				
 One volume of the set of books is on the desk.			Zhuō shàng bǎiyǒu yī juàn shū.	桌上摆有一卷书。				
 I'm afraid of ghosts.			Wǒ pà guǐ.	我怕鬼。				
@@ -1278,7 +1279,7 @@ We also need entertainment outside of work.			Zài gōngzuò zhī yú wǒmen yě
 We already discussed that topic.			Wǒmen yǐjīng tǎolùn guò nàge huàtí.	我们已经讨论过那个话题。				
 Let us change the topic, ok?			Wǒmen huàn gè huàtí ba!	我们换个话题吧！				
 Allow me to introduce you, this is my principal.			Ràng wǒ lái jièshào yī xià, zhè shì wǒ de xiàozhǎng.	让我来介绍一下,这是我的校长。				
-I've eaten one bowl of rice.	pai2 iam1 ta et2 niep1 mo1.	我口終一杯米。	Wǒ chī le yī wǎn fàn.	我吃了一碗饭。				
+I've eaten one bowl of rice.	pai2 iam1 ta et2 niep1 mo1.	我口終一杯米。	Wǒ chī le yī wǎn fàn.	我吃了一碗饭。	我.口.終.一.杯.米			
 My job is to wash dishes.			wǒ de gōngzuò shì xǐwǎn.	我的工作是洗碗。				
 Are you going to visit any other countries?			nǐ huì qù fǎngwèn qítāguójiā ma?	你会去访问其他国家吗？				
 They have undergone a reporter's interview.			Tāmen jiēshòu le jìzhě de fǎngwèn.	他们接受了记者的访问。				
@@ -1291,7 +1292,7 @@ He has been stealing the company's money for very many years.			Tā tōu gōngs�
 I cannot stop thinking about the stolen money.			wǒ wúfǎ bù qù xiǎng bèi tōu diào de qián. (wúfǎ bù qù, mei you banfa bu qu = cannot stop)	我无法不去想被偷掉的钱。				
 Perchance there's a problem, what to do what to do?			Yīdàn fāshēng wèntí, zěnme bàn? 	一旦发生问题，怎么办？				
 I don't care what your names are. Once the work is done, I'm leaving here.			wǒ bùguǎn nǐmen de míngzi jiào shénme. yīdàn gōngzuò wánchéng, wǒ jiù cóng zhèr líkāi.	我不管你们的名字叫什么。一旦工作完成，我就从这儿离开。				
-He bought a computer.	zap2 sui1 su1 ta li1.	彼使銭終倉。	Tā mǎi le yī tái jìsuànjī.	他买了一台计算机。				
+He bought a computer.	zap2 sui1 su1 ta li1.	彼使銭終倉。	Tā mǎi le yī tái jìsuànjī.	他买了一台计算机。	彼.使銭.終.倉			
 He doesn't know Mr. Chen.			Tā bú rènshi Chén xiānsheng.	他不认识陈先生。				1
 "Mr. Chen, are you going to school?" "Yes, I am going to school. How about you?"			"Chén xiānsheng, nín qù xuéxiào ma?" "Shì, wǒ qù xuéxiào. Nǐ ne?"	A陈先生,您去学校吗? B是,我去学校。你呢?				1
 Without software, a computer just can't be used.			méi yǒu ruǎnjiàn, jìsuànjī jiù yòng bù liao.	没有软件，计算机就用不了。				
@@ -1324,7 +1325,7 @@ Excuse me, what kind of job do you do?			Qǐngwèn nín cóngshì shénme gōngz
 She really likes gardening.			Tā hěn xǐhuan yǎnghuā.	她很喜欢养花。				
 The doctor told her she needs to rest/recuperate.			yīshēng gàosu tā yào jìngyǎng.	医生告诉她要静养。				
 I must go.	pai2 ly mok1.	我須行。	Wǒ bìxū zǒu le.	我必须走了。	我.須.行			
-They must work 7.2 hours each day (literally "thirty percent of a day").	zap2 ge ly naip2 ie om2 nun1 zuo1.	彼等須労於三十片。	Tāmen měitiān bìxū gōngzuò qī xiǎoshí shí'èr fēnzhōng.	他们每天必须工作七小时十二分钟。				
+They must work 7.2 hours each day (literally "thirty percent of a day").	zap2 ge ly naip2 ie om2 nun1 zuo1.	彼等須労於三十片。	Tāmen měitiān bìxū gōngzuò qī xiǎoshí shí'èr fēnzhōng.	他们每天必须工作七小时十二分钟。	彼等.須.労.於dur.三十.片			
 You must start at once.			nǐ bìxū mǎshàng kāishǐ.	你必须马上开始。				
 We must go to school!	pai2 ge ly mok1 nui2 hue a!	我等須行学処噫！	wǒmen bìxū qù xuéxiào le.	我们必须去学校了。	我等.須.行.学処.噫			
 The best is often the enemy of the good.			wù jí bì fǎn.	物极必反。				
@@ -1336,9 +1337,9 @@ Two times two is four.	ik2 gy1 ik2 ka1 ap1.	二層二此四。	Èr de liǎng bè
 It's twice as large as that.			shì tā de liǎng bèi dà.	是它的两倍大。				
 Teachers point out student's problems.			Lǎoshī zhǐchū xuésheng de wèntí.	老师指出学生的问题。				
 The teacher pointed out this student's mistake.			Lǎoshī zhǐchū le zhè gè xuésheng de cuòwù.	老师指出了这个学生的错误。				
-We need to help each other.	pai2 ge ly huat1 uaip2.	我等須互助。	Wǒmen xūyào hùxiāng bāngzhù.	我们需要互相帮助。				
-The classmates are always helping each other.	nui2 hi1 ket huat1 uaip2.	学友常互助。	Tóngxuémen zǒngshì hùxiāng bāngzhù.	同学们总是互相帮助。				
-The two countries communicate with each other.	ik2 sip1 huat1 zep1.	二国互言。	Liǎng guó hùxiāng jiāoliú. 	两国互相交流。				
+We need to help each other.	pai2 ge ly huat1 uaip2.	我等須互助。	Wǒmen xūyào hùxiāng bāngzhù.	我们需要互相帮助。	我等.須.互.助			
+The classmates are always helping each other.	nui2 hi1 ket huat1 uaip2.	学友常互助。	Tóngxuémen zǒngshì hùxiāng bāngzhù.	同学们总是互相帮助。	学友.常.互.助			
+The two countries communicate with each other.	ik2 sip1 huat1 zep1.	二国互言。	Liǎng guó hùxiāng jiāoliú. 	两国互相交流。	二2.国.互言			
 This man and his wife help each other.			zhè nánrén hé tā qīzi hùxiāng bāngzhù.	这男人和他妻子互相帮助。				
 My friend and I appointed to meet here.			Wǒ hé péngyou yuē zài zhèlǐ jiànmiàn.	我和朋友约在这里见面。				
 He grew up in a teacher's household.			Tā zài jiàoshī jiātíng zhōng chéngzhǎng. (jiàoshī for occupation)	他在教师家庭中成长。				
@@ -1350,7 +1351,7 @@ I gave up the opportunity to study for a doctorate.			Wǒ fàngqì dú bóshì d
 Are you satisfied?			Nǐ mǎnyì ma?	你满意吗？				
 The mom is very satisfied with her daughter's performance.			Māma hěn mǎnyì nǚ'ér de biǎoxiàn.	妈妈很满意女儿的表现。				
 I never saw this movie before.			Wǒ yǐqián méi kànguò zhè gè diànyǐng.	我以前没看过这个电影。				
-There is a cup of coffee on the table/desk.	et2 niep1 det tia2 aim2 ie cet2.	一杯種茶在於机。	Zhuōzi shàng yǒu yī bēi kāfēi.	桌子上有一杯咖啡。				
+There is a cup of coffee on the table/desk.	et2 niep1 det tia2 aim2 ie cet2.	一杯種茶在於机。	Zhuōzi shàng yǒu yī bēi kāfēi.	桌子上有一杯咖啡。	一.杯.種茶.在3.於1.机			
 Everyone's sitting at the table/desk.	be1 cuk2 aim2 cy2 cei2 cet2.	全人在席周机。	Dàjiā zuò zài zhuōzi pángbiān.	大家坐在桌子旁边。				
 The books are arranged on the table/desk.			Shū bǎi zài zhuōzi shàng.	书摆在桌子上。				
 She turned her head and looked at me.			Tā huítóu kàn wǒ.	她回头看我。				
@@ -2093,11 +2094,11 @@ I've heard that living in Canada is very boring.			Wǒ tīngshuō zhùzài Jiān
 Is living in Canada boring?			Zhù zài Jiānádà wúliáo ma?	住在加拿大无聊吗？				1
 He has nothing to do and is very bored.			Tā méi yǒu shìqing zuò, hěn wúliáo.	他没有事情做，很无聊。				
 Studying math is very boring.			Xuéxí shùxué hěn wúliáo.	学习数学很无聊。				
-I've heard that this teacher is very boring.			Wǒ tīngshuō zhè wèi lǎoshī hěn wúliáo.	我听说这位老师很无聊。				
-His girlfriend is very boring.			Tā nǚpéngyou hěn wúliáo.	他女朋友很无聊。				
-Is studying Linepāine boring?			Xuéxí Lǐyǔ wúliáo ma?	学习哩语无聊吗？				
-My younger sister is very boring.			Wǒ mèimèi hěn wúliáo.	我妹妹很无聊。				
-I've heard that studying Linepāine is very boring.			Wǒ tīngshuō xuéxí Lǐyǔ hěn wúliáo.	我听说学习哩语很无聊。				
+I've heard that this teacher is very boring.	pai2 lua2 can2 ta ka1 tui2 nui2 cuk2 kit pua2 mun1.	@	Wǒ tīngshuō zhè wèi lǎoshī hěn wúliáo.	我听说这位老师很无聊。				
+His girlfriend is very boring.	zap2 a huat1 hia1 sa1 hi1 kit pua2 mun1.	@	Tā nǚpéngyou hěn wúliáo.	他女朋友很无聊。				
+Is studying Linepāine boring?	nui2 lip zep1 ka1 pua2 mun1 yn2?	@	Xuéxí Lǐyǔ wúliáo ma?	学习哩语无聊吗？				
+My younger sister is very boring.	pai2 a sa1 ut2 huok1 kit pua2 mun1.	@	Wǒ mèimèi hěn wúliáo.	我妹妹很无聊。				
+I've heard that studying Linepāine is very boring.	pai2 lua2 can2 ta nui2 lip zep1 kit pua2 mun1.	@	Wǒ tīngshuō xuéxí Lǐyǔ hěn wúliáo.	我听说学习哩语很无聊。				
 He's fallen asleep.			Tā shuìzháo le.	他睡着了。				
 She fell asleep leaning on a chair.			Tā kào zhe yǐzi shuì zháo le. (kao is leaning head/back, pa is supported underneath)	她靠着椅子睡着了。				
 Watching football games is thrilling.			Kàn zúqiú bǐsài hěn cìjī.	看足球比赛很刺激。				
@@ -2490,7 +2491,7 @@ Newspapers, magazines, and newscasts tell what is going on in the world.			bàoz
 He told me the story of his life.			tā gěi wǒ jiǎngshù le tā de yīshēng.	他给我讲述了他的一生。				
 The little children gathered round to plant the tree.			Xiǎopéngyou wéi zài yīqǐ zhòngshù.	小朋友围在一起种树。				
 What's that small child doing?			Nàge xiǎopéngyou zài nòng shénme?	那个小朋友在弄什么？				
-He's the king.	zap2 sip1 io.	彼国王。	Tā shì guówáng.	他是国王。				
+He's the king.	zap2 sip1 io.	彼国王。	Tā shì guówáng.	他是国王。	彼.∅.国王			
 You're really an angel!			nǐ zhēn shì ge tiānshǐ!	你真是个天使！				
 Do you have any relatives in the mainland?			Nǐ zài dàlù yǒu qīnrén ma?	你在大陆有亲人吗？				1
 All his relatives are in Vefisait Republic.			Tā de qīnrén dōu zài Huáiguó.	他的亲人都在淮国。				
@@ -2531,7 +2532,7 @@ The last three weeks, Jim has been continuously attempting to take me out to din
 These are his great-grandchildren.			Zhèxiē dōu shì tā de zēngsūn.	这些都是他的曾孙。				
 Sun Peng wants to become a policeman.			Sūn Péng xiǎng dāng yīmíng jǐngchá.	孙朋想当一名警察。				1
 Ms. Sun often goes out with friends to have a good time.			Sūn xiǎojiě chángcháng hé péngyou chūqù wánr.	孙小姐常常和朋友出去玩儿。				1
-Autumn is here.	kat1 sak2 ta.	子来終。	Qiūtiān dào le.	秋天到了。				
+The child has come.	kat1 sak2 ta.	@	Háizi yǐjīng láile.	孩子已经来了。				
 Which do you like better, spring or autumn?			chūntiān hé qiūtiān, nǐ gèng xǐhuān nǎ ge?	春天和秋天，你更喜欢哪个？				
 It is humid.			Tiānqì hěn shī.	天气很湿。				
 Wet is the opposite of dry.			Yǔ shī xiāngduì de shì gān.	与湿相对的是干。				
@@ -2542,7 +2543,7 @@ They're giving the dog a bath.			Tāmen zài gěi gǒu xǐzǎo.	他们在给狗�
 I usually take a shower in the evening.			wǒ tōngcháng zài wǎnshang xǐzǎo.	我通常在晚上洗澡。				
 The phone rang while I was taking a shower.			wǒ zài xǐzǎo de shíhou, diànhuà xiǎng le.	我在洗澡的时候，电话响了。				
 He wrote this down in his notebook.			tā bǎ zhè jì zài tā de bǐjìběn shàng.	他把这记在他的笔记本上。				
-My little brother passed his university entrance exam last week.			Wǒ dìdi shàng gè xīngqī tōngguò le dàxué de rùxué kǎoshì.	我弟弟上个星期通过了大学的入学考试。				
+My little brother passed his university entrance exam last week.			Wǒ dìdi shàng gè xīngqī tōngguò le dàxué de rùxué kǎoshì.	我弟弟上个星期通过了大学的入学考试。				1
 He owes a lot of money.			Tā qiànle xǔduō qián.	他欠了许多钱。				
 I owe ten dollars to her.			Wǒ qiàn tā shí měiyuán.	我欠她十美元。				1
 This brand's quality is good.			Zhè gè páizi zhìliàng hěn hǎo!	这个牌子质量很好！				
@@ -3520,12 +3521,13 @@ Mr. Chen's hobby is calligraphy.			Chén xiānshēngde àihào shì shūfǎ.	陈
 This nurse is very gentle.			Zhè gè hùshi hěn wēnhé.	这个护士很温和。				
 She has a mild temperament.			Tā de píqi hěn wēnhé.	她的脾气很温和。				
 They're building a house.	zap2 ge aim2 lo mut2.	彼等在立家。	Tāmen zhèngzài jiànzào fángzi.	他们正在建造房子。	彼等.在.立#家.立!家			
+We built thirteen small houses last year.	et2 sau2 pet2 pai2 ge lo ta nun1 om2 ni1 mut2.	@	Wǒmen qùnián jiànzàole shísān zuò xiǎo fángzi.	我们去年建造了十三座小房子。	一上星.我等.立#家.終.十三.小.立!家			
 This is the key to my house.			Zhè shì wǒ de jiāmén yàoshi.	这是我的家门钥匙。				
-This cup of tea is very hot.			Zhè bēi chá hěn tàng.	这杯茶很烫。				
+This cup of tea is very hot.	ka1 niep1 a tia2 kit kan1.	@	Zhè bēi chá hěn tàng.	这杯茶很烫。				
 She's ironing the clothes.			Tā zài tàng yīfu.	她在烫衣服。				
 Dad's in an impatient mood today.			bàba jīntiān hěnbù nàifán.	爸爸今天很不耐烦。				
 I can't understand why you are so critical of him.			wǒ bùmíng bái wèishénme nǐ zhème pīpíng tā.	我不明白为什么你这么批评他。				
-The two of us are good friends.			Wǒmen liǎ shì hǎo péngyou.	我们俩是好朋友。				
+The two of us are good friends.	pai2 ge ik2 cuk2 huat1 kait hi1.	@	Wǒmen liǎ shì hǎo péngyou.	我们俩是好朋友。				
 Whose name card is this?			Zhè shì shéi de míngpiàn?	这是谁的名片？				
 They're exchanging their name cards.			Tāmen hùxiāng jiāohuàn míngpiàn.	他们互相交换名片。				
 My watch was stolen.			Wǒ de shǒubiǎo bèi tōule.	我的手表被偷了。				
@@ -3635,7 +3637,7 @@ The whole class is present one time a week.			quán bān tóngxué měizhōu ch�
 The shape of these stones is different.	ka1 sy2 a cuau2 huat1 pau1.	此石之形互別。	Zhèxiē shítou de xíngzhuàng bù tóng.	这些石头的形状不同。	此2.石.之.形.互別			
 The shape of this piece of furniture is very special.			Zhèjiàn jiājù de xíngzhuàng hěn tèshū.	这件家具的形状很特殊。				
 This horse is very well-behaved.			Zhè pǐ mǎ zhēn guāi.	这匹马真乖。				
-My daughter is a very good girl.			Wǒ de nǚ'ér hěn guāi.	我的女儿很乖。				
+My daughter is a very good girl.	pai2 a sa1 kat1 kit kait.	@	Wǒ de nǚ'ér hěn guāi.	我的女儿很乖。				
 Look at that mountain which is covered with snow.			kàn nà zuò bèi xuě fùgài de shān.	看那座被雪覆盖的山。				
 You will only remember after repeated viewings.			Chóngfù kàn, cái huì jì zhù.	重覆看，才会记住。				
 Xiao Bing repeated the teacher's movements.			Xiǎo Bīng chóngfù lǎoshī de dòngzuò.	小冰重覆老师的动作。				1
@@ -3930,7 +3932,7 @@ I give my mother fifty thousand yen on payday every month.			měi yuè fā gōng
 The carpet is a little dirty.			Dìtǎn yǒudiǎn zāng.	地毯有点脏。				
 We're in love with each other.			Wǒmen bǐcǐ xiāng'ài.	我们彼此相爱。				
 The soldier is very alert.			Shìbīng hěn jǐngtì.	士兵很警惕。				
-Cotton is very soft.	hon1 kit ho.	綿極軟。	Miánhua hěn róuruǎn.	棉花很柔软。				
+Cotton is very soft.	hon1 kit ho.	綿極軟。	Miánhua hěn róuruǎn.	棉花很柔软。	綿.極.軟3			
 Cotton candy sticks to your teeth.			Miánhuatáng bǐjiào zhānyá.	棉花糖比较粘牙。				
 Machines can do the work of humans.			Jīqì kěyǐ dàitì rén gōngzuò.	机器可以代替人工作。				
 He's looking for a file.			Tā zài cházhǎo wénjiàn.	他在查找文件。				
@@ -4816,7 +4818,7 @@ The police are patrolling the neighborhood.			Jǐngchá zài fùjìn xúnluó.	�
 The soldiers are on patrol.			Shìbīng zài xúnluó.	士兵在巡逻。				
 Chinese traditionally eat "jiaozi" (dumplings) at the Chinese New Year.			Guānguórén guònián yǒu chī jiǎozi de fēngsú.	冠国人过年有吃饺子的风俗。				
 Customs in every country are different.			Měige guójiā de fēngsú bùtóng.	每个国家的风俗不同。				
-My mom reads me stories from the book.			Māma gěi wǒ jiǎngshù shū lǐ de gùshi.	妈妈给我讲述书里的故事。				
+My mom reads me stories from the book.	pai2 mam1 ie ak1 zep1 tui2 sia1 zui1 ie pai2.	@	Māma gěi wǒ jiǎngshù shū lǐ de gùshi.	妈妈给我讲述书里的故事。				
 You are talking nonsense.			Nǐ húshuō.	你胡说。				
 The Tang Dynasty's culture was very advanced.			Tángcháo wénhuà hěn fādá.	唐朝文化很发达。				1
 He mainly researches the history of the Tang Dynasty.			Tā zhǔyào yánjiū Táng Cháo de lìshǐ.	他主要研究唐朝的历史。				1

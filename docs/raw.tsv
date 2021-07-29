@@ -15,8 +15,8 @@ Where is she from?	zap2 nan2 hue a cuk2?	彼何処之人？	Tā shì nǎli de r�
 Where would you like to go to eat?	mua2 hia1 mok1 nan2 hue iam1?	汝心行何処口？	Nǐ xiǎng qù nǎli chī?	你想去哪里吃？	汝.心.行.何処.口	wav_r	falira.lyjotafis
 I would like to eat food.	pai2 hia1 iam1 ku.	我心口物。	Wǒ xiǎng chī fàn.	我想吃饭。	我.心.口物	wav_r	falira.lyjotafis
 Does she want to eat?	zap2 hia1 iam1 ku yn2?	彼心口物乎？	Tā xiǎng chī fàn ma?	她想吃饭吗？	彼.心.口物.乎	wav_r	falira.lyjotafis
-What happened?	nan2 aim2?	何在？	Zěnme le?	怎么了？	何.在2	wav_r	falira.lyjotafis
-What has happened to her?	nan2 aim2 zap2?	何在彼？	Tā zěnmele?	她怎么了？	何.在2.彼	wav_r, oga	falira.lyjotafis
+What happened?	nan2 aim2?	何在？	Zěnme le?	怎么了？	何.在5	wav_r	falira.lyjotafis
+What has happened to her?	nan2 aim2 zap2?	何在彼？	Tā zěnmele?	她怎么了？	何.在7.彼	wav_r, oga	falira.lyjotafis
 Listen to him.	lua1 can2 zap2.	耳識彼。	Tīng tā shuō.	听他说。	耳識.彼	wav_r	falira.lyjotafis
 Are you listening to me?	mua2 aim2 lua1 can2 pai2 yn2?	汝在耳識我乎？	Nǐ zài tīng wǒ shuō ma?	你在听我说吗？	汝.在.耳識.我.乎	wav_r	falira.lyjotafis
 How are you lately?	cei2 ka1 kia1 em nan2?	周此日如何？	Zuìjìn zěnmeyàng a?	最近怎么样啊？	周.此日.如.何	wav_r	falira.lyjotafis
@@ -37,7 +37,7 @@ I am a Vefisaitē.	pai2 uep1 cuk2.	我淮人。	Wǒ shì Huáiguórén.	我是�
 He likes the Vefisait Republic.	zap2 hia1 kait uep1 sip1.	彼心善淮国。	Tā hěn xǐhuan Huáiguó.	他很喜欢淮国。	彼.心善.淮国	wav_r, oga	falira.lyjotafis
 Is the Vefisait Republic big?	uep1 sip1 ma1 yn2?	淮国大乎？	Huáiguó dà ma?	淮国大吗？	淮国.大.乎	wav_r, oga	falira.lyjotafis
 Who is he?	zap2 nan2 cuk2?	彼何人？	Tā shì shéi?	他是谁？	彼.何2.人	wav_r, oga	falira.lyjotafis
-Who is your student?	nan2 mua2 a nui2 cuk2?	何汝之学人？	Shéi shì nǐ de xuésheng?	谁是你的学生？	何2.∅2.汝.之.学人	wav_r, oga	falira.lyjotafis
+Who is your student?	nan2 mua2 a nui2 cuk2?	何汝之学人？	Shéi shì nǐ de xuésheng?	谁是你的学生？	何3.∅.汝.之.学人	wav_r, oga	falira.lyjotafis
 How do I get to Makati?	pai2 em nan2 mok1 syt2 tun2?	我如何行天神？	Wǒ zěnme qù Tiānshén?	我怎么去天神？	我.如2.何.行.天神	wav_r, oga	falira.lyjotafis
 She will go to Makati.	zap2 mok1 mok1 syt2 tun2.	彼行行天神。	Tā yào qù Tiānshén.	她要去天神。	彼.行2.行.天神	wav_r, oga	falira.lyjotafis
 Are you of the Ai'ren Republic?	mua2 ai2 cuk2 yn2?	汝冠人乎？	Nín shì Guānguórén ma?	您是冠国人吗？	汝.∅.冠人.乎	wav_r, oga	falira.lyjotafis
@@ -292,7 +292,7 @@ I can't let myself do this kind of thing.	pai2 mun1 py pai2 zau ka1 suo2 uo1.	�
 I'm as tired as can be.	pai2 hia1 mok1 huet ka1 tau2.	我心行闇此端。	Wǒ lèi de bù néng zài lèi le.	我累得不能再累了。	我.心#闇.行7.心!闇.此3.∅.端	oga, wav	falira.lyjotafis
 When will you return to your country? Next month.	nan2 kak mua2 ty sak2 ie mua2 sip1? et2 ut2 xem1.	何時汝再来於汝国？一下月。	Nǐ shénmeshíhou huíguó? Xià gè yuè.	你什么时候回国？下个月。	何時.汝.再来2.於.汝2.国.一下.月	oga, wav	falira.lyjotafis
 "Will you come to the Ai'ren Republic again?" "Maybe."	"mua2 ty sak2 ai2 sip1." "taun1 po1 aim2."	「汝再来冠国。」「多道在。」	"Nǐ huì zàilái Guānguó ma?" "Kěnéng."	「你会再来冠国吗？」「可能。」	汝.再来.冠国.多.道.在5	oga, wav	falira.lyjotafis
-Something might have happened to her.	cue1 aim2 ie zap2 a po1 aim2.	或在於彼之道在。	Tā kěnéng chū shénme shì le.	她可能出什么事了。	或.在2.於0.彼.之2.道.在5	oga, wav	falira.lyjotafis
+Something might have happened to her.	cue1 aim2 ie zap2 a po1 aim2.	或在於彼之道在。	Tā kěnéng chū shénme shì le.	她可能出什么事了。	或.在3.於1.彼.之2.道.在5	oga, wav	falira.lyjotafis
 I didn't know about this matter.	pai2 mun1 aim2 can2 ka1 uo1.	我無在識此件。	Wǒ bù zhīdào zhè jiàn shì.	我不知道这件事。	我.無.在.識.此2.件	oga, wav	falira.lyjotafis
 How can you not know? (lit. Why do you not know?)	nan2 xit2 mua2 mun1 aim2 can2.	何故汝無在識。	Nǐ zěnme huì bù zhīdào?	你怎么会不知道？	何故.汝.無.在.識	oga, wav	falira.lyjotafis
 I don't know if I still have it.	pai2 mun1 aim2 can2 ie pai2 ka1 kak aim2 y mun1.	我無在識於我此時在亦無。	Wǒ bù zhīdào wǒ hái yǒu méi yǒu.	我不知道我还有没有。	我.無.在.識2.於0.我.此時.在.亦.無	oga, wav	falira.lyjotafis
@@ -751,23 +751,23 @@ The school is 150 thousand tswoh (8.3 km) away from my home.	nui2 hue aim2 nun1 
 The school is near my home.	nui2 hue aim2 cei2 pai2 mut2.	学処在周我家。	Xuéxiào jù wǒ jiā hěn jìn.	学校距我家很近。	学処.在5.周.我2.家		
 I'm drinking coffee too.	pai2 bap aim2 iam1 det tia2 a.	我同在口種茶噫。	Wǒ yě hē kāfēi.	我也喝咖啡。			
 I want a cup of coffee.	pai2 hia1 guk2 et2 niep1 det tia2.	我心受一杯種茶。	Wǒ yào yī bēi kāfēi.	我要一杯咖啡。	我.心受.一.杯.種茶		
-She likes to drink coffee.	zap2 hia1 kait iam1 det tia2.	彼心善口種茶。	Tā xǐhuan hē kāfēi.	她喜欢喝咖啡。			
+She likes to drink coffee.	zap2 hia1 kait iam1 det tia2.	彼心善口種茶。	Tā xǐhuan hē kāfēi.	她喜欢喝咖啡。	彼.心善2.口.種茶		
 I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終一杯種茶。	Wǒ mǎile yī bēi kāfēi.	我买了一杯咖啡。			
 The coffee machine is always broken.	det tia2 kik1 ket mun1 mok1.	種茶機常無行。	Kāfēijī zǒngshì huài.	咖啡机总是坏。			
-This little dog has very long fur.	ka1 ni1 pa2 a im1 kit auk2.	此小犬之毛極長。	Zhè zhī xiǎo gǒu de máo hěn cháng.	这只小狗的毛很长。			
-I've eaten one bowl of rice.	pai2 iam1 ta et2 niep1 mo1.	我口終一杯米。	Wǒ chī le yī wǎn fàn.	我吃了一碗饭。			
-He bought a computer.	zap2 sui1 su1 ta li1.	彼使銭終倉。	Tā mǎi le yī tái jìsuànjī.	他买了一台计算机。			
+This little dog has very long fur.	ka1 ni1 pa2 a im1 kit auk2.	此小犬之毛極長。	Zhè zhī xiǎo gǒu de máo hěn cháng.	这只小狗的毛很长。	此2.小.犬.之.毛.極.長		
+I've eaten one bowl of rice.	pai2 iam1 ta et2 niep1 mo1.	我口終一杯米。	Wǒ chī le yī wǎn fàn.	我吃了一碗饭。	我.口.終.一.杯.米		
+He bought a computer.	zap2 sui1 su1 ta li1.	彼使銭終倉。	Tā mǎi le yī tái jìsuànjī.	他买了一台计算机。	彼.使銭.終.倉		
 Happy New Year / Happy Birthday!	lu2 pet2 kait sak2!	新星善来！	Xīnnián kuàilè! / Shēngrì kuàilè!	新年快乐！ / 生日快乐！			
 Wish you a happy birthday / happy new year.	lu2 pet2 kait sak2 ie mua2.	新星善来於汝。	Zhù nǐ shēngrì kuàilè.	祝你生日快乐。			
 He wished his parents a happy New Year.	zap2 zep1 lu2 pet2 kait sak2 ie zap2 a mam1 kuak1.	彼言新星善来於彼之母父。	Tā zhù fùmǔ xīnnián kuàilè.	他祝父母新年快乐。			
 I must go.	pai2 ly mok1.	我須行。	Wǒ bìxū zǒu le.	我必须走了。	我.須.行		
-They must work 7.2 hours each day (literally "thirty percent of a day").	zap2 ge ly naip2 ie om2 nun1 zuo1.	彼等須労於三十片。	Tāmen měitiān bìxū gōngzuò qī xiǎoshí shí'èr fēnzhōng.	他们每天必须工作七小时十二分钟。			
+They must work 7.2 hours each day (literally "thirty percent of a day").	zap2 ge ly naip2 ie om2 nun1 zuo1.	彼等須労於三十片。	Tāmen měitiān bìxū gōngzuò qī xiǎoshí shí'èr fēnzhōng.	他们每天必须工作七小时十二分钟。	彼等.須.労.於dur.三十.片		
 We must go to school!	pai2 ge ly mok1 nui2 hue a!	我等須行学処噫！	Wǒmen bìxū qù xuéxiào le.	我们必须去学校了。	我等.須.行.学処.噫		
 Two times two is four.	ik2 gy1 ik2 ka1 ap1.	二層二此四。	Èr de liǎng bèi shì sì.	二的两倍是四。			
-We need to help each other.	pai2 ge ly huat1 uaip2.	我等須互助。	Wǒmen xūyào hùxiāng bāngzhù.	我们需要互相帮助。			
-The classmates are always helping each other.	nui2 hi1 ket huat1 uaip2.	学友常互助。	Tóngxuémen zǒngshì hùxiāng bāngzhù.	同学们总是互相帮助。			
-The two countries communicate with each other.	ik2 sip1 huat1 zep1.	二国互言。	Liǎng guó hùxiāng jiāoliú. 	两国互相交流。			
-There is a cup of coffee on the table/desk.	et2 niep1 det tia2 aim2 ie cet2.	一杯種茶在於机。	Zhuōzi shàng yǒu yī bēi kāfēi.	桌子上有一杯咖啡。			
+We need to help each other.	pai2 ge ly huat1 uaip2.	我等須互助。	Wǒmen xūyào hùxiāng bāngzhù.	我们需要互相帮助。	我等.須.互.助		
+The classmates are always helping each other.	nui2 hi1 ket huat1 uaip2.	学友常互助。	Tóngxuémen zǒngshì hùxiāng bāngzhù.	同学们总是互相帮助。	学友.常.互.助		
+The two countries communicate with each other.	ik2 sip1 huat1 zep1.	二国互言。	Liǎng guó hùxiāng jiāoliú. 	两国互相交流。	二2.国.互言		
+There is a cup of coffee on the table/desk.	et2 niep1 det tia2 aim2 ie cet2.	一杯種茶在於机。	Zhuōzi shàng yǒu yī bēi kāfēi.	桌子上有一杯咖啡。	一.杯.種茶.在3.於1.机		
 Everyone's sitting at the table/desk.	be1 cuk2 aim2 cy2 cei2 cet2.	全人在席周机。	Dàjiā zuò zài zhuōzi pángbiān.	大家坐在桌子旁边。			
 This island is very beautiful.	ka1 dop1 kit hem1.	此島極美。	Zhè gè xiǎodǎo hěn měi.	这个小岛很美。			
 The boy I love doesn't love me.	pai2 hia1 a ki1 kat1 mun1 hia1 pai2.	我心之男子無心我。	Wǒ ài de nà ge nánhái bù ài wǒ.	我爱的那个男孩不爱我。			
@@ -911,10 +911,9 @@ The egg broke.	uet mot2 ta.	卵壊終。	Jīdàn pò le.	鸡蛋破了。	卵.壊
 Where are the eggs, please?	zep1 sau2. uet aim2 nan2 hue?	言上。卵在何処？	Qǐngwèn jīdàn zài nǎlǐ?	请问鸡蛋在哪里？			
 This house does not have a dining room.	ka1 mut2 iam1 uo1 a pia2 mun1.	此家口件之囲無。	Zhè suǒ fángzi méiyǒu cāntīng.	这所房子没有餐厅。			
 Why couldn't you sleep last night?	et2 sau2 huet mua2 ie nan2 mun1 py hok1?	一上闇汝於何無力寝？	Wèishénme nǐ zuówǎn shuìbuzháo?	为什么你昨晚睡不着？			
-He's the king.	zap2 sip1 io.	彼国王。	Tā shì guówáng.	他是国王。			
+He's the king.	zap2 sip1 io.	彼国王。	Tā shì guówáng.	他是国王。	彼.∅.国王		
 The rain began to fall.	syt2 nua2 ut2 hut2.	天水下始。	Yǔ kāishǐ wǎng xià diào.	雨开始往下掉。			
 Will it rain tomorrow?	et2 ut2 kia1 syt2 nua2 ut2 yn2?	一下日天水下乎？	Míngtiān huì xiàyǔ ma?	明天会下雨吗？			
-Autumn is here.	kat1 sak2 ta.	子来終。	Qiūtiān dào le.	秋天到了。			
 The boss is really stupid.	uai1 kit can2 hei2.	将極識貧。	Lǎobǎn zhēn bèn.	老板真笨。			
 She is very stupid.	zap2 kit can2 hei2.	彼極識貧。	Tā hěn bèn.	她很笨。			
 The children are playing with their toys.	kat1 ge sui1 tu2 gau2 aim2 tu2. 	子等使遊刀在遊。	Háizǐmen zài wán wánjù.	孩子们在玩玩具。			
@@ -1028,7 +1027,7 @@ She wants to drink tea.	zap2 hia1 iam1 tia2.	彼心口茶。	Tā xiǎng hē chá
 I'm drinking water.	pai2 aim2 iam1 nua2.	我在口水。	Wǒ zài hē shuǐ.	我在喝水。			
 She opened her eyes.	zap2 nam2 ta ta1.	彼開終目。	Tā zhēngkāile shuāngyǎn.	她睁开了双眼。			
 She is an ethnic minority.	zap2 ni1 nim2.	彼小族。	Tā shì shǎoshù mínzú.	她是少数民族。			
-Cotton is very soft.	hon1 kit ho.	綿極軟。	Miánhua hěn róuruǎn.	棉花很柔软。			
+Cotton is very soft.	hon1 kit ho.	綿極軟。	Miánhua hěn róuruǎn.	棉花很柔软。	綿.極.軟3		
 Learning a foreign language well isn't easy.	nui2 pau1 zep1 kait ka1 mun1 ho.	学別言善此無軟。	Xué hǎo yī mén wàiyǔ bù róngyì.	学好一门外语不容易。			
 The sun is shining on the tree leaves.	kia1 aik2 ut2 mok1 ie hup1 kot hop1.	日光下行於木草手。	Yángguāng zhào zài shùyè shàng.	阳光照在树叶上。			
 Can I use your dictionary?	pai2 py sui1 mua2 a zep1 ak1 yn2?	我力使汝之言書乎？	Wǒ néngyòng yīxià nǐ de zìdiǎn ma?	我能用一下你的字典吗？			
