@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="120mm" height="490mm" version="1.1" viewBox="0 -150 120 490" xmlns="http://www.w3.org/2000/svg">
-    <g id="spaces" stroke-width="0" fill="none">
-        <path d="m0 -11h130v-20h-130z" />
-        <path d="m0 109h130v-20h-130z" />
-        <path d="m0 229h130v-20h-130z" />
+<svg width="155mm" height="500mm" version="1.1" viewBox="-10 -130 155 500" xmlns="http://www.w3.org/2000/svg">
+    <g id="spaces" stroke-width="0" fill="#a00">
+        <path d="m5 -110h130v-20h-130z" />
+        <path d="m5 10h130v-20h-130z" />
+        <path d="m5 130h130v-20h-130z" />
+        <path d="m5 250h130v-20h-130z" />
+        <path d="m5 370h130v-20h-130z" />
+
+        <path d="m125 -130h20v500h-20z" />
+        <path d="m-10 -130h20v500h-20z" />
+    </g>
+    <path fill="#ffa" d="m0 -120 h135v120h-135" />
+    <path fill="#faa" d="m0 0 h135v120h-135" />
+    <path fill="#faf" d="m0 120 h135v120h-135" />
+    <path fill="#aaf" d="m0 240 h135v120h-135" />
+
+    <g id="bounding-boxes" fill="#aff">
+        <path d="m10 -110 h115 v 100 h-115 z" />
+        <path d="m10 10 h115 v 100 h-115 z" />
+        <path d="m10 130 h115 v 100 h-115 z" />
+        <path d="m10 250 h115 v 100 h-115 z" />
     </g>
 
-    <g id="glyphs" stroke="#000" stroke-width="10" fill="none">
+    <g id="glyphs" stroke="#000" stroke-width="10" fill="none" transform="translate(5,21)">
         <g id="軟000">
-            <path d="m4-123h50z" />
-            <path d="m17-123v30z" />
-            <path d="m42-123v30z" />
-            <path d="m4-93h50z" />
-            <path d="m4-78h50z" />
-            <path d="m17-78v30z" />
-            <path d="m42-78v30z" />
-            <path d="m4-48h50z" />
-            <path d="m77-114-8-24z" />
-            <path d="m83-38h7c5 0 10-2 12-10l10-40c4-16-4-26-17-26h-38" />
-            <path d="m64-38 33-99z" />
+            <path d="m4-119h50z" />
+            <path d="m17-119v30z" />
+            <path d="m42-119v30z" />
+            <path d="m4-89h50z" />
+            <path d="m4-74h50z" />
+            <path d="m17-74v30z" />
+            <path d="m42-74v30z" />
+            <path d="m4-44h50z" />
+            <path d="m77-110-7-21z" />
+            <path d="m83-34h7c5 0 10-2 12-10l10-40c4-16-4-26-17-26h-38" />
+            <path d="m64-34 32-96z" />
         </g>
         <g id="学001">
             <path d="m49 67 0-35c0-10-10-20-20-20c-10 0-20 10-20 20l0 35" />
@@ -29,7 +45,7 @@
         </g>
         <g id="牌002">
             <path d="m20 132h80l-34-17 34 17h-80l34-17z" />
-            <path d="m0 156h120z" />
+            <path d="m5 156h115z" />
             <path d="m10 207 25-75z" />
             <path d="m45 207-17-51z" />
             <path d="m75 207 17-51z" />
