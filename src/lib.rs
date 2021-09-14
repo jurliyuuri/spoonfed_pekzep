@@ -161,6 +161,19 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String
                 eprintln!("Copying raw/char_img/{}.png failed: {}", name, e);
             }
         }
+    } else if std::path::Path::new(&format!("raw/char_img_fallback/{}.png", name)).exists() {
+        match std::fs::copy(
+            format!("raw/char_img_fallback/{}.png", name),
+            format!("docs/char_img/{}.png", name),
+        ) {
+            Ok(_) => {
+                info!("char_img not found, but found in char_img_fallback: {}.png", name);
+                File::create(&format!("docs/char_img/fallback_{}.txt", name)).unwrap();
+            }
+            Err(e) => {
+                eprintln!("Copying raw/char_img_fallback/{}.png failed: {}", name, e);
+            }
+        }
     } else {
         info!("char_img not found: {}.png", name);
         File::create(&format!("docs/char_img/dummy_{}.txt", name)).unwrap();
