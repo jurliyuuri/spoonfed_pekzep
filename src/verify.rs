@@ -1,6 +1,6 @@
 use crate::read;
 use crate::read::char_pronunciation::Linzklar;
-use crate::read::vocab::{InternalKey, InternalKeyGloss};
+use crate::read::vocab::{InternalKey, InternalKeyGloss, SplittableCompoundInfo};
 use anyhow::anyhow;
 use linked_hash_map::LinkedHashMap;
 use pekzep_syllable::PekZepSyllable;
@@ -342,7 +342,7 @@ impl DataBundle {
     pub fn new() -> anyhow::Result<Self> {
         use log::{info, warn};
         use match_pinyin_with_hanzi::match_pinyin_with_hanzi;
-        let (char_pronunciation, variants) = read::char_pronunciation::parse("raw/字音.tsv")?;
+        let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
         let contraction_pronunciation = read::contraction::parse()?;
 
         let spoonfed_rows = read::phrase::parse()?;
@@ -414,12 +414,6 @@ impl DataBundle {
     }
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-
-pub enum SplittableCompoundInfo {
-    FormerHalfHash,
-    LatterHalfExclamation,
-}
 
 #[derive(Debug, Clone)]
 pub struct DecompositionItem {

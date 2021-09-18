@@ -6,7 +6,12 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 
-use crate::verify::SplittableCompoundInfo;
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+
+pub enum SplittableCompoundInfo {
+    FormerHalfHash,
+    LatterHalfExclamation,
+}
 
 #[derive(Ser, De, Debug, Clone)]
 struct Record {

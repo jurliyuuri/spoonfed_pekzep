@@ -2,15 +2,23 @@
 #![allow(clippy::non_ascii_literal)]
 #[macro_use]
 extern crate lazy_static;
+use crate::read::vocab::SplittableCompoundInfo;
 use askama::Template;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
+
+/// used by [askama](https://djc.github.io/askama/) to generate HTML
 pub mod filters;
 
-/// Reads from the input files
+/// reads from the input files
 pub mod read;
+
+/// checks whether all the data collected from the input files are consistent with each other
 pub mod verify;
+
+/// Pure functions that are used to normalize the input
+pub mod normalizer;
 
 #[cfg(test)]
 mod tests {
@@ -53,7 +61,7 @@ impl verify::DecompositionItem {
             let (latin_former, latin_latter) = split_at_slashslash(&self.voc.pekzep_latin);
             let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.voc.pekzep_hanzi);
             match splittable {
-                verify::SplittableCompoundInfo::FormerHalfHash => {
+                SplittableCompoundInfo::FormerHalfHash => {
                     format!(
                         "<a href=\"{}\">{}<span style=\"font-size: 75%; color: #444\">//{}</span></a>\t{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>//<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>\t{}\t{}\t{}",
                         link_path,
@@ -68,7 +76,7 @@ impl verify::DecompositionItem {
                         self.voc.english_gloss
                     )
                 }
-                verify::SplittableCompoundInfo::LatterHalfExclamation => {
+                SplittableCompoundInfo::LatterHalfExclamation => {
                     format!(
                         "<a href=\"{}\"><span style=\"font-size: 75%; color: #444\">{}//</span>{}</a>\t<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>//<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
                         link_path,
@@ -295,9 +303,9 @@ fn decomposition_to_analysis_merging_unsplitted_compounds(
 
     let mut skip_flag = false;
     for (i, decomposition_item) in decomposition.iter().enumerate() {
-        if Some(verify::SplittableCompoundInfo::FormerHalfHash)
+        if Some(SplittableCompoundInfo::FormerHalfHash)
             == decomposition_item.splittable_compound_info
-            && Some(verify::SplittableCompoundInfo::LatterHalfExclamation)
+            && Some(SplittableCompoundInfo::LatterHalfExclamation)
                 == decomposition[i + 1].splittable_compound_info
         {
             // Splittable compounds appear unsplitted; it is better to display them merged.
@@ -549,7 +557,7 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
-    use filters::normalizer::{
+    use normalizer::{
         capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
     };
     use log::warn;
@@ -600,7 +608,7 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
-    use filters::normalizer::{
+    use normalizer::{
         capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
     };
     use read::phrase::Record;

@@ -41,7 +41,7 @@ pub type CharSoundTable = Vec<(Linzklar, PekZepSyllable)>;
 pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
 
 #[allow(clippy::tabs_in_doc_comments)]
-/// Parses the tsv specified by `path` to obtain a table converting a character to a syllable,
+/// Parses "raw/字音.tsv" to obtain a table converting a character to a syllable,
 /// as well as a table converting a non-recommended character into a recommended alternative.
 /// The tsv used for the input should be of the following form:
 /// ```text
@@ -53,14 +53,14 @@ pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
 ///御	am	
 ///禦	am	御
 /// ```
-/// Each of the first column must be a linzklar. Each of the second column must be a valid Pekzep syllable. The third column must either be 
+/// Each of the first column must be a linzklar. Each of the second column must be a valid Pekzep syllable. The third column must either be a linzklar or otherwise must be empty.
 /// # Errors
 /// Gives errors if:
 /// - IO fails
-/// - the file specified by the `path` does not conform to an expected format
+/// - "raw/字音.tsv" does not conform to an expected format
 /// - the Pekzep is unparsable
 ///
-pub fn parse(path: &str) -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
+pub fn parse() -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
     fn convert(record: &Record) -> anyhow::Result<(Linzklar, PekZepSyllable)> {
         match PekZepSyllable::parse(&record.sound) {
             None => Err(anyhow!("Invalid sound {}", record.sound)),
@@ -68,7 +68,7 @@ pub fn parse(path: &str) -> anyhow::Result<(CharSoundTable, NonRecommendedCharTa
         }
     }
 
-    let f = File::open(path)?;
+    let f = File::open("raw/字音.tsv")?;
     let mut rdr = csv::ReaderBuilder::new().delimiter(b'\t').from_reader(f);
     let mut ans = vec![];
     for result in rdr.deserialize() {
