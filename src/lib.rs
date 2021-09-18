@@ -429,9 +429,10 @@ pub fn generate_vocab_list_internal(
         let rel_path = ".";
         let link_path = format!("{}/vocab/{}.html", rel_path, key.to_path_safe_string());
         vocab_html.push(format!(
-            "<a href=\"{}\">{}</a>\t{}",
+            "<a href=\"{}\">{}</a>\t{}\t{}",
             link_path,
             key,
+            data_bundle.vocab_count.get(key).expect("vocab_count should be consistent with vocab_ordered"),
             vocab.to_tab_separated(rel_path)
         ));
     }

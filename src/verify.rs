@@ -16,6 +16,7 @@ pub struct Rows3Item {
 pub struct DataBundle {
     pub rows3: Vec<Rows3Item>,
     pub vocab_ordered: LinkedHashMap<InternalKey, read::vocab::Item>,
+    pub vocab_count: HashMap<InternalKey, usize>,
 }
 
 impl DataBundle {
@@ -376,6 +377,7 @@ impl DataBundle {
         }
 
         let mut vocab_ordered = LinkedHashMap::new();
+        let mut vocab_count = HashMap::new();
 
         let rows3 = spoonfed_rows
             .iter()
@@ -390,6 +392,9 @@ impl DataBundle {
                         if !vocab_ordered.contains_key(key) {
                             vocab_ordered.insert((*key).clone(), voc.clone());
                         }
+
+                        let count = vocab_count.entry((*key).clone()).or_insert(0_usize);
+                        *count += 1;
                     }
                     Ok(Rows3Item {
                         syllables: syllables.clone(),
@@ -410,6 +415,7 @@ impl DataBundle {
         Ok(Self {
             rows3,
             vocab_ordered,
+            vocab_count,
         })
     }
 }
