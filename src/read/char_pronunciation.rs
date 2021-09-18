@@ -21,12 +21,17 @@ impl std::fmt::Display for Linzklar {
 pub struct LinzklarString(pub Vec<Linzklar>);
 
 impl LinzklarString {
+    /// Creates a `LinzklarString`.
+    /// # Errors
+    /// Fails if the input contains anything other than:
+    /// - a character in the Unicode block "CJK Unified Ideographs"
+    /// - a character in the Unicode block "CJK Unified Ideographs Extension A"
     pub fn new(a: &str) -> anyhow::Result<Self> {
         let vec = a
             .chars()
             .map(Linzklar::from_char)
             .collect::<anyhow::Result<_>>()?;
-        Ok(LinzklarString(vec))
+        Ok(Self(vec))
     }
 }
 

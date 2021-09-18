@@ -8,8 +8,12 @@ use std::io::BufReader;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 
+/// an enum used to talk about a splittable compound
 pub enum SplittableCompoundInfo {
+    /// Denotes the former half of the splittable compound, such as `享#銭`
     FormerHalfHash,
+
+    /// Denotes the latter half of the splittable compound, such as `享!銭`
     LatterHalfExclamation,
 }
 
