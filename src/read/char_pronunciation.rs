@@ -53,6 +53,7 @@ pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
 ///御	am	
 ///禦	am	御
 /// ```
+/// Each of the first column must be a linzklar. Each of the second column must be a valid Pekzep syllable. The third column must either be 
 /// # Errors
 /// Gives errors if:
 /// - IO fails
