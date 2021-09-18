@@ -1,8 +1,9 @@
 use anyhow::anyhow;
-use partition_eithers::collect_any_errors;
 use pekzep_syllable::PekZepSyllable;
 use serde_derive::Deserialize as De;
 use std::fs::File;
+
+use super::char_pronunciation::LinzklarString;
 
 #[derive(Debug, De)]
 struct Record {
@@ -10,13 +11,27 @@ struct Record {
     sound: String,
 }
 
-pub type SoundTable = Vec<(String, PekZepSyllable)>;
+pub type SoundTable = Vec<(LinzklarString, PekZepSyllable)>;
 
+#[allow(clippy::tabs_in_doc_comments)]
+/// Parses "raw/contraction.tsv" to obtain a table converting a string of characters to a contracted syllable.
+/// The tsv used for the input should be of the following form:
+/// ```text
+///characters	sound
+///足手	xiop1
+/// ```
+/// Each of the first column must be a sequence of linzklars. Each of the second column must be a valid Pekzep syllable.
+/// # Errors
+/// Gives errors if:
+/// - IO fails
+/// - "raw/contraction.tsv" does not conform to an expected format
+/// - the Pekzep is unparsable
+///
 pub fn parse() -> anyhow::Result<SoundTable> {
-    fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
+    fn convert(record: &Record) -> anyhow::Result<(LinzklarString, PekZepSyllable)> {
         match PekZepSyllable::parse(&record.sound) {
-            None => Err(format!("Invalid sound {}", record.sound)),
-            Some(a) => Ok((record.characters.clone(), a)),
+            None => Err(anyhow!("Invalid sound {}", record.sound)),
+            Some(a) => Ok((LinzklarString::new(&record.characters)?, a)),
         }
     }
 
@@ -28,11 +43,5 @@ pub fn parse() -> anyhow::Result<SoundTable> {
         ans.push(record);
     }
 
-    let a: anyhow::Result<Vec<(String, PekZepSyllable)>> =
-        collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
-            .map_err(|e| anyhow!(e.join("\n")));
-
-    let a: Vec<(String, PekZepSyllable)> = a?;
-
-    Ok(a)
+    ans.iter().map(convert).collect::<anyhow::Result<_>>()
 }

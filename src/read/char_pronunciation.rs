@@ -18,16 +18,28 @@ impl std::fmt::Display for Linzklar {
 }
 
 #[derive(Clone, Hash, PartialEq, Eq)]
+pub struct LinzklarString(pub Vec<Linzklar>);
+
+impl LinzklarString {
+    pub fn new(a: &str) -> anyhow::Result<Self> {
+        let vec = a
+            .chars()
+            .map(Linzklar::from_char)
+            .collect::<anyhow::Result<_>>()?;
+        Ok(LinzklarString(vec))
+    }
+}
+
+impl std::fmt::Display for LinzklarString {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0.iter().map(|c| c.0).collect::<String>())
+    }
+}
+
+#[derive(Clone, Hash, PartialEq, Eq)]
 pub struct Linzklar(char);
 impl Linzklar {
-    fn new(a: &str) -> anyhow::Result<Self> {
-        let c = a.chars().next().ok_or_else(|| anyhow!("Got an empty string"))?;
-        if a.chars().count() > 1 {
-            return Err(anyhow!(
-                "Got `{}`, a string longer than a single character",
-                a
-            ));
-        }
+    fn from_char(c: char) -> anyhow::Result<Self> {
         match c {
             '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => Ok(Self(c)),
             _ => Err(anyhow!(
@@ -35,6 +47,19 @@ impl Linzklar {
                 c
             )),
         }
+    }
+    fn new(a: &str) -> anyhow::Result<Self> {
+        let c = a
+            .chars()
+            .next()
+            .ok_or_else(|| anyhow!("Got an empty string"))?;
+        if a.chars().count() > 1 {
+            return Err(anyhow!(
+                "Got `{}`, a string longer than a single character",
+                a
+            ));
+        }
+        Self::from_char(c)
     }
 }
 pub type CharSoundTable = Vec<(Linzklar, PekZepSyllable)>;
@@ -46,11 +71,11 @@ pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
 /// The tsv used for the input should be of the following form:
 /// ```text
 ///character	sound	variant_of
-///之	a	
-///噫	a	
+///之	a
+///噫	a
 ///吁	a	噫
-///四	ap1	
-///御	am	
+///四	ap1
+///御	am
 ///禦	am	御
 /// ```
 /// Each of the first column must be a linzklar. Each of the second column must be a valid Pekzep syllable. The third column must either be a linzklar or otherwise must be empty.

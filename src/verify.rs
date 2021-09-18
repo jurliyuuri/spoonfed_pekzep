@@ -1,5 +1,5 @@
 use crate::read;
-use crate::read::char_pronunciation::Linzklar;
+use crate::read::char_pronunciation::{Linzklar, LinzklarString};
 use crate::read::vocab::{InternalKey, InternalKeyGloss, SplittableCompoundInfo};
 use anyhow::anyhow;
 use linked_hash_map::LinkedHashMap;
@@ -22,7 +22,7 @@ impl DataBundle {
     fn check_sentence_pronunciation(
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
         char_pronunciation: &[(Linzklar, pekzep_syllable::PekZepSyllable)],
-        contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+        contraction_pronunciation: &[(LinzklarString, pekzep_syllable::PekZepSyllable)],
     ) -> anyhow::Result<()> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
@@ -57,7 +57,7 @@ impl DataBundle {
                     };
 
                     if let Some(a) = contraction_pronunciation.iter().find(|(h, syllable)| {
-                        **h == contraction
+                        *h.to_string() == contraction
                             && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
                         info!("matched {} with {}", a.0, a.1);
@@ -148,7 +148,7 @@ impl DataBundle {
     fn check_vocab_pronunciation(
         vocab: &HashMap<InternalKey, read::vocab::Item>,
         char_pronunciation: &[(Linzklar, pekzep_syllable::PekZepSyllable)],
-        contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+        contraction_pronunciation: &[(LinzklarString, pekzep_syllable::PekZepSyllable)],
     ) -> anyhow::Result<()> {
         use log::info;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
@@ -187,7 +187,7 @@ impl DataBundle {
                         }
                         if let Some(a) = contraction_pronunciation
                             .iter()
-                            .find(|(h, sy)| *h == contraction && *sy == syllable)
+                            .find(|(h, sy)| *h.to_string() == contraction && *sy == syllable)
                         {
                             info!("matched {} with {}", a.0, a.1);
                         } else {
@@ -413,7 +413,6 @@ impl DataBundle {
         })
     }
 }
-
 
 #[derive(Debug, Clone)]
 pub struct DecompositionItem {
