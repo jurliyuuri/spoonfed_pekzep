@@ -1,5 +1,6 @@
 use crate::read;
-use crate::read::vocab::{InternalKeyGloss, InternalKey};
+use crate::read::char_pronunciation::Linzklar;
+use crate::read::vocab::{InternalKey, InternalKeyGloss};
 use anyhow::anyhow;
 use linked_hash_map::LinkedHashMap;
 use pekzep_syllable::PekZepSyllable;
@@ -20,7 +21,7 @@ pub struct DataBundle {
 impl DataBundle {
     fn check_sentence_pronunciation(
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
-        char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+        char_pronunciation: &[(Linzklar, pekzep_syllable::PekZepSyllable)],
         contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> anyhow::Result<()> {
         use log::info;
@@ -90,7 +91,7 @@ impl DataBundle {
                         ));
                     };
                     if let Some(a) = char_pronunciation.iter().find(|(h, syllable)| {
-                        **h == c.to_string()
+                        *h.to_string() == c.to_string()
                             && read::phrase::ExtSyllable::Syllable(*syllable) == expected_syllable
                     }) {
                         info!("matched {} with {}", a.0, a.1);
@@ -146,7 +147,7 @@ impl DataBundle {
 
     fn check_vocab_pronunciation(
         vocab: &HashMap<InternalKey, read::vocab::Item>,
-        char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
+        char_pronunciation: &[(Linzklar, pekzep_syllable::PekZepSyllable)],
         contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> anyhow::Result<()> {
         use log::info;
@@ -197,7 +198,7 @@ impl DataBundle {
                         }
                     } else if let Some(a) = char_pronunciation
                         .iter()
-                        .find(|(h, sy)| **h == c.to_string() && *sy == syllable)
+                        .find(|(h, sy)| *h.to_string() == c.to_string() && *sy == syllable)
                     {
                         info!("matched {} with {}", a.0, a.1);
                     } else {
@@ -256,10 +257,10 @@ impl DataBundle {
         }
         Ok(())
     }
-    fn check_nonrecommended_character(s: &str, variants: &HashMap<String, String>) {
+    fn check_nonrecommended_character(s: &str, variants: &HashMap<Linzklar, Linzklar>) {
         use log::warn;
         for (key, value) in variants {
-            if s.contains(key) {
+            if s.contains(&key.to_string()) {
                 warn!(
                     "{} contains {}, which should be replaced with {}",
                     s, key, value
@@ -492,7 +493,8 @@ fn parse_decomposed(
         row.decomposed
             .split('.')
             .map(|a| {
-                let (key, splittable_compound_info) = InternalKeyGloss::new(a)?.to_internal_key()?;
+                let (key, splittable_compound_info) =
+                    InternalKeyGloss::new(a)?.to_internal_key()?;
                 let res = vocab.get(&key).ok_or(anyhow! {
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",

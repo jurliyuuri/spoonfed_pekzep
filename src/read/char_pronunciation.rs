@@ -1,5 +1,4 @@
 use anyhow::anyhow;
-use partition_eithers::collect_any_errors;
 use pekzep_syllable::PekZepSyllable;
 use serde_derive::Deserialize as De;
 use std::collections::HashMap;
@@ -12,11 +11,48 @@ struct Record {
     variant_of: String,
 }
 
-pub type CharSoundTable = Vec<(String, PekZepSyllable)>;
-pub type NonRecommendedCharTable = HashMap<String, String>;
+impl std::fmt::Display for Linzklar {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
 
-/// Parses the tsv specified by `path` to obtain a table converting a character to a syllable, 
+#[derive(Clone, Hash, PartialEq, Eq)]
+pub struct Linzklar(char);
+impl Linzklar {
+    fn new(a: &str) -> anyhow::Result<Self> {
+        let c = a.chars().next().ok_or_else(|| anyhow!("Got an empty string"))?;
+        if a.chars().count() > 1 {
+            return Err(anyhow!(
+                "Got `{}`, a string longer than a single character",
+                a
+            ));
+        }
+        match c {
+            '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => Ok(Self(c)),
+            _ => Err(anyhow!(
+                "`{}` is not a character in the Unicode block \"CJK Unified Ideographs\" nor a character in the Unicode block \"CJK Unified Ideographs Extension A\"",
+                c
+            )),
+        }
+    }
+}
+pub type CharSoundTable = Vec<(Linzklar, PekZepSyllable)>;
+pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
+
+#[allow(clippy::tabs_in_doc_comments)]
+/// Parses the tsv specified by `path` to obtain a table converting a character to a syllable,
 /// as well as a table converting a non-recommended character into a recommended alternative.
+/// The tsv used for the input should be of the following form:
+/// ```text
+///character	sound	variant_of
+///之	a	
+///噫	a	
+///吁	a	噫
+///四	ap1	
+///御	am	
+///禦	am	御
+/// ```
 /// # Errors
 /// Gives errors if:
 /// - IO fails
@@ -24,10 +60,10 @@ pub type NonRecommendedCharTable = HashMap<String, String>;
 /// - the Pekzep is unparsable
 ///
 pub fn parse(path: &str) -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
-    fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
+    fn convert(record: &Record) -> anyhow::Result<(Linzklar, PekZepSyllable)> {
         match PekZepSyllable::parse(&record.sound) {
-            None => Err(format!("Invalid sound {}", record.sound)),
-            Some(a) => Ok((record.character.clone(), a)),
+            None => Err(anyhow!("Invalid sound {}", record.sound)),
+            Some(a) => Ok((Linzklar::new(&record.character)?, a)),
         }
     }
 
@@ -39,22 +75,15 @@ pub fn parse(path: &str) -> anyhow::Result<(CharSoundTable, NonRecommendedCharTa
         ans.push(record);
     }
 
-    let a: anyhow::Result<Vec<(String, PekZepSyllable)>> =
-        collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
-            .map_err(|e| anyhow!(e.join("\n")));
+    let a = ans.iter().map(convert).collect::<anyhow::Result<_>>()?;
 
-    let a: Vec<(String, PekZepSyllable)> = a?;
-
-    let b = ans
-        .iter()
-        .filter_map(|r| {
-            if r.variant_of.is_empty() {
-                None
-            } else {
-                Some((r.character.clone(), r.variant_of.clone()))
-            }
-        })
-        .collect::<HashMap<_, _>>();
+    let mut b = HashMap::new();
+    for r in ans {
+        if r.variant_of.is_empty() {
+        } else {
+            b.insert(Linzklar::new(&r.character)?, Linzklar::new(&r.variant_of)?);
+        }
+    }
 
     Ok((a, b))
 }

@@ -33,6 +33,7 @@ impl ExtSyllable {
     }
 }
 
+#[must_use]
 pub fn syllables_to_rerrliratixka_no_space(syllables: &[ExtSyllable]) -> String {
     syllables
         .iter()
@@ -41,6 +42,7 @@ pub fn syllables_to_rerrliratixka_no_space(syllables: &[ExtSyllable]) -> String 
         .join("")
 }
 
+#[must_use]
 pub fn syllables_to_str_underscore(syllables: &[ExtSyllable]) -> String {
     syllables
         .iter()
