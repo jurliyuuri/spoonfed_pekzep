@@ -6,8 +6,10 @@ use askama::Template;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-mod filters;
-mod read;
+pub mod filters;
+
+/// Reads from the input files
+pub mod read;
 pub mod verify;
 
 #[cfg(test)]
@@ -33,6 +35,7 @@ fn split_at_slashslash(in_string: &str) -> (String, String) {
 }
 
 impl read::vocab::Item {
+    #[must_use]
     pub fn to_tab_separated(&self, rel_path: &'static str) -> String {
         self.to_tab_separated_with_custom_linzifier(|s| {
             convert_hanzi_to_images(s, "/{} N()SL«»", rel_path)

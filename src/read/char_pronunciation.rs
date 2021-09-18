@@ -15,7 +15,15 @@ struct Record {
 pub type CharSoundTable = Vec<(String, PekZepSyllable)>;
 pub type NonRecommendedCharTable = HashMap<String, String>;
 
-pub fn parse() -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
+/// Parses the tsv specified by `path` to obtain a table converting a character to a syllable, 
+/// as well as a table converting a non-recommended character into a recommended alternative.
+/// # Errors
+/// Gives errors if:
+/// - IO fails
+/// - the file specified by the `path` does not conform to an expected format
+/// - the Pekzep is unparsable
+///
+pub fn parse(path: &str) -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
     fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
         match PekZepSyllable::parse(&record.sound) {
             None => Err(format!("Invalid sound {}", record.sound)),
@@ -23,7 +31,7 @@ pub fn parse() -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
         }
     }
 
-    let f = File::open("raw/字音.tsv")?;
+    let f = File::open(path)?;
     let mut rdr = csv::ReaderBuilder::new().delimiter(b'\t').from_reader(f);
     let mut ans = vec![];
     for result in rdr.deserialize() {

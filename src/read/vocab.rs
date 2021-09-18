@@ -46,19 +46,19 @@ impl Item {
 }
 
 #[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-/// Almost the same as `VocabInternalKey`, but instead of `享 // 銭`, it uses `享#銭` to denote the former half and `享!銭` to denote the latter half of the splittable compound.
-pub struct GlossVocab {
+/// Almost the same as `InternalKey`, but instead of `享 // 銭`, it uses `享#銭` to denote the former half and `享!銭` to denote the latter half of the splittable compound.
+pub struct InternalKeyGloss {
     main: String,
     postfix: String,
 }
 
-impl std::fmt::Display for GlossVocab {
+impl std::fmt::Display for InternalKeyGloss {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "{}{}", self.main, self.postfix)
     }
 }
 
-impl GlossVocab {
+impl InternalKeyGloss {
     pub fn new(input: &str) -> anyhow::Result<Self> {
         let (main, postfix) = split_into_main_and_postfix(input)?;
         Ok(Self { main, postfix })
@@ -66,7 +66,7 @@ impl GlossVocab {
 
     pub fn to_internal_key(
         &self,
-    ) -> anyhow::Result<(VocabInternalKey, Option<SplittableCompoundInfo>)> {
+    ) -> anyhow::Result<(InternalKey, Option<SplittableCompoundInfo>)> {
         let key = self.to_string().replace("!", " // ").replace("#", " // ");
         let splittable_compound_info = if self.to_string().contains('!') {
             Some(SplittableCompoundInfo::LatterHalfExclamation)
@@ -75,7 +75,7 @@ impl GlossVocab {
         } else {
             None
         };
-        Ok((VocabInternalKey::new(&key)?, splittable_compound_info))
+        Ok((InternalKey::new(&key)?, splittable_compound_info))
     }
 }
 
@@ -95,7 +95,7 @@ impl GlossVocab {
 /// |  `[a-z0-9 ]+` (cannot start or end with a space)     | `:[0-9a-zA-Z]*`                                          | `xizi`, `xizi xizi`                    |  Denotes `xizi`, a postfix used after a name, or `xizi xizi`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
 /// |  `[a-z0-9 ]+[\u3400-\u4DBF\u4E00-\u9FFF]+`     | `:[0-9a-zA-Z]*`             | `xizi噫`                               |  Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`.                                    |
 /// |  `\([\u3400-\u4DBF\u4E00-\u9FFF]+\)`     | `:[0-9a-zA-Z]*`                                 | `(噫)`                               |  used for the 噫 placed after 之 to mark that the sentence ends with a possessive                                                                                              |
-pub struct VocabInternalKey {
+pub struct InternalKey {
     main: String,
     postfix: String,
 }
@@ -103,79 +103,80 @@ pub struct VocabInternalKey {
 mod tests {
     #[test]
     fn test_new() {
-        use crate::read::vocab::VocabInternalKey;
+        use crate::read::vocab::InternalKey;
         use big_s::S;
         assert_eq!(
-            VocabInternalKey::new("於dur").unwrap(),
-            VocabInternalKey {
+            InternalKey::new("於dur").unwrap(),
+            InternalKey {
                 postfix: S("dur"),
                 main: S("於")
             }
         );
         assert_eq!(
-            VocabInternalKey::new("於").unwrap(),
-            VocabInternalKey {
+            InternalKey::new("於").unwrap(),
+            InternalKey {
                 postfix: S(""),
                 main: S("於")
             }
         );
         assert_eq!(
-            VocabInternalKey::new("xizi:375").unwrap(),
-            VocabInternalKey {
+            InternalKey::new("xizi:375").unwrap(),
+            InternalKey {
                 postfix: S(":375"),
                 main: S("xizi")
             }
         );
         assert_eq!(
-            VocabInternalKey::new("xizi").unwrap(),
-            VocabInternalKey {
+            InternalKey::new("xizi").unwrap(),
+            InternalKey {
                 postfix: S(""),
                 main: S("xizi")
             }
         );
         assert_eq!(
-            VocabInternalKey::new("xizi375").unwrap(),
-            VocabInternalKey {
+            InternalKey::new("xizi375").unwrap(),
+            InternalKey {
                 postfix: S(""),
                 main: S("xizi375")
             }
         );
     }
 
+    #[test]
     fn test_new2() {
-        use crate::read::vocab::GlossVocab;
+        use crate::read::vocab::InternalKeyGloss;
         use big_s::S;
         assert_eq!(
-            GlossVocab::new("於dur").unwrap(),
-            GlossVocab {
+            InternalKeyGloss::new("於dur").unwrap(),
+            InternalKeyGloss {
                 postfix: S("dur"),
                 main: S("於")
             }
         );
         assert_eq!(
-            GlossVocab::new("於").unwrap(),
-            GlossVocab {
+            InternalKeyGloss::new("於").unwrap(),
+            InternalKeyGloss {
                 postfix: S(""),
                 main: S("於")
             }
         );
         assert_eq!(
-            GlossVocab::new("xizi:375").unwrap(),
-            GlossVocab {
+            InternalKeyGloss::new("xizi:375").unwrap(),
+            InternalKeyGloss {
                 postfix: S(":375"),
                 main: S("xizi")
             }
         );
         assert_eq!(
-            GlossVocab::new("xizi").unwrap(),
-            GlossVocab {
+            InternalKeyGloss::new("xizi").unwrap(),
+            InternalKeyGloss {
                 postfix: S(""),
                 main: S("xizi")
             }
         );
         assert_eq!(
-            GlossVocab::new("xizi375").unwrap(),
-            GlossVocab {
+            InternalKeyGloss::new("xizi375").unwrap(),
+            InternalKeyGloss {
                 postfix: S(""),
                 main: S("xizi375")
             }
@@ -184,16 +185,16 @@ mod tests {
 
     #[test]
     fn test_to_path_safe_string() {
-        use crate::read::vocab::VocabInternalKey;
+        use crate::read::vocab::InternalKey;
         assert_eq!(
-            VocabInternalKey::new("xizi375")
+            InternalKey::new("xizi375")
                 .unwrap()
                 .to_path_safe_string(),
             "xizi375"
         );
 
         assert_eq!(
-            VocabInternalKey::new("享 // 銭")
+            InternalKey::new("享 // 銭")
                 .unwrap()
                 .to_path_safe_string(),
             "享_slashslash_銭"
@@ -201,7 +202,7 @@ mod tests {
     }
 }
 
-impl std::fmt::Display for VocabInternalKey {
+impl std::fmt::Display for InternalKey {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "{}{}", self.main, self.postfix)
     }
@@ -253,7 +254,7 @@ fn split_into_main_and_postfix(input: &str) -> anyhow::Result<(String, String)> 
     Ok((main, postfix))
 }
 
-impl VocabInternalKey {
+impl InternalKey {
     /// `享 // 銭` → `享_slashslash_銭`
     #[must_use]
     pub fn to_path_safe_string(&self) -> String {
@@ -268,7 +269,7 @@ impl VocabInternalKey {
     }
 }
 
-pub fn parse() -> anyhow::Result<HashMap<VocabInternalKey, Item>> {
+pub fn parse() -> anyhow::Result<HashMap<InternalKey, Item>> {
     let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
     let f = BufReader::new(f);
     let mut res = HashMap::new();
@@ -280,7 +281,7 @@ pub fn parse() -> anyhow::Result<HashMap<VocabInternalKey, Item>> {
         if !row.key.is_empty()
             && res
                 .insert(
-                    VocabInternalKey::new(&row.key)?,
+                    InternalKey::new(&row.key)?,
                     Item {
                         pekzep_latin: row.pekzep_latin,
                         pekzep_hanzi: row.pekzep_hanzi,

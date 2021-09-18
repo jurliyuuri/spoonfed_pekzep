@@ -1,5 +1,5 @@
 use crate::read;
-use crate::read::vocab::{GlossVocab, VocabInternalKey};
+use crate::read::vocab::{InternalKeyGloss, InternalKey};
 use anyhow::anyhow;
 use linked_hash_map::LinkedHashMap;
 use pekzep_syllable::PekZepSyllable;
@@ -14,7 +14,7 @@ pub struct Rows3Item {
 #[readonly::make]
 pub struct DataBundle {
     pub rows3: Vec<Rows3Item>,
-    pub vocab_ordered: LinkedHashMap<VocabInternalKey, read::vocab::Item>,
+    pub vocab_ordered: LinkedHashMap<InternalKey, read::vocab::Item>,
 }
 
 impl DataBundle {
@@ -145,7 +145,7 @@ impl DataBundle {
     }
 
     fn check_vocab_pronunciation(
-        vocab: &HashMap<VocabInternalKey, read::vocab::Item>,
+        vocab: &HashMap<InternalKey, read::vocab::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
         contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> anyhow::Result<()> {
@@ -341,7 +341,7 @@ impl DataBundle {
     pub fn new() -> anyhow::Result<Self> {
         use log::{info, warn};
         use match_pinyin_with_hanzi::match_pinyin_with_hanzi;
-        let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
+        let (char_pronunciation, variants) = read::char_pronunciation::parse("raw/字音.tsv")?;
         let contraction_pronunciation = read::contraction::parse()?;
 
         let spoonfed_rows = read::phrase::parse()?;
@@ -422,7 +422,7 @@ pub enum SplittableCompoundInfo {
 
 #[derive(Debug, Clone)]
 pub struct DecompositionItem {
-    pub key: VocabInternalKey,
+    pub key: InternalKey,
     pub voc: read::vocab::Item,
     pub splittable_compound_info: Option<SplittableCompoundInfo>,
 }
@@ -431,7 +431,7 @@ pub struct DecompositionItem {
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
-    vocab: &HashMap<VocabInternalKey, read::vocab::Item>,
+    vocab: &HashMap<InternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
 ) -> anyhow::Result<Vec<DecompositionItem>> {
     if row.decomposed.is_empty() {
@@ -492,7 +492,7 @@ fn parse_decomposed(
         row.decomposed
             .split('.')
             .map(|a| {
-                let (key, splittable_compound_info) = GlossVocab::new(a)?.to_internal_key()?;
+                let (key, splittable_compound_info) = InternalKeyGloss::new(a)?.to_internal_key()?;
                 let res = vocab.get(&key).ok_or(anyhow! {
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
