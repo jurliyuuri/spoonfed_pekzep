@@ -402,7 +402,7 @@ impl DataBundle {
 
         for key in vocab.keys() {
             if !vocab_ordered.contains_key(key) {
-                warn!("Item with internal key `{}` is never used", key.to_string());
+                warn!("Item with internal key `{}` is never used", key);
             }
         }
 
@@ -496,7 +496,7 @@ fn parse_decomposed(
                 let res = vocab.get(&key).ok_or(anyhow! {
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
-                        key.to_string(),
+                        &key,
                         row.decomposed
                     )
                 });

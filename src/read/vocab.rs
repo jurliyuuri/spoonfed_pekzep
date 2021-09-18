@@ -132,6 +132,24 @@ mod tests {
             }
         );
     }
+
+    #[test]
+    fn test_to_path_safe_string() {
+        use crate::read::vocab::VocabInternalKey;
+        assert_eq!(
+            VocabInternalKey::new("xizi375")
+                .unwrap()
+                .to_path_safe_string(),
+            "xizi375"
+        );
+
+        assert_eq!(
+            VocabInternalKey::new("享 // 銭")
+                .unwrap()
+                .to_path_safe_string(),
+            "享_slashslash_銭"
+        );
+    }
 }
 
 impl std::fmt::Display for VocabInternalKey {
@@ -144,7 +162,9 @@ impl VocabInternalKey {
     /// `享 // 銭` → `享_slashslash_銭`
     #[must_use]
     pub fn to_path_safe_string(&self) -> String {
-        self.to_string().replace(" // ", "_slashslash_")
+        self.to_string()
+            .replace(" // ", "_slashslash_")
+            .replace(":", "_colon_")
     }
 
     fn new(input: &str) -> anyhow::Result<Self> {
@@ -181,10 +201,7 @@ impl VocabInternalKey {
     - a character in the Unicode block \"CJK Unified Ideographs Extension A\"", input))
         };
         /* FIXME: be more strict */
-        Ok(Self {
-            main,
-            postfix,
-        })
+        Ok(Self { main, postfix })
     }
 }
 
