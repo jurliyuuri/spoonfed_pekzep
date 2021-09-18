@@ -167,7 +167,10 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String
             format!("docs/char_img/{}.png", name),
         ) {
             Ok(_) => {
-                info!("char_img not found, but found in char_img_fallback: {}.png", name);
+                info!(
+                    "char_img not found, but found in char_img_fallback: {}.png",
+                    name
+                );
                 File::create(&format!("docs/char_img/fallback_{}.txt", name)).unwrap();
             }
             Err(e) => {
@@ -405,10 +408,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     for (key, v) in &data_bundle.vocab_ordered {
-        let mut file = File::create(format!(
-            "docs/vocab/{}.html",
-            key.replace(" // ", "_slashslash_")
-        ))?;
+        let mut file = File::create(format!("docs/vocab/{}.html", key.to_path_safe_string()))?;
 
         let mut usages = String::from("");
 
@@ -418,7 +418,7 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
             row,
         } in &data_bundle.rows3
         {
-            if decomposition.iter().any(|item| &item.key == key) {
+            if decomposition.iter().any(|item| item.key == key.to_str()) {
                 usages += &format!(
                     r#"
             <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
@@ -458,15 +458,11 @@ pub fn generate_vocab_list_internal(
     let mut vocab_html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
         let rel_path = ".";
-        let link_path = format!(
-            "{}/vocab/{}.html",
-            rel_path,
-            key.replace(" // ", "_slashslash_")
-        );
+        let link_path = format!("{}/vocab/{}.html", rel_path, key.to_path_safe_string());
         vocab_html.push(format!(
             "<a href=\"{}\">{}</a>\t{}",
             link_path,
-            key,
+            key.to_str(),
             vocab.to_tab_separated(rel_path)
         ));
     }

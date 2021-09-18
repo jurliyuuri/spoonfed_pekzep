@@ -11,10 +11,34 @@ pub struct Rows3Item {
     pub row: read::phrase::Item,
 }
 
+#[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
+pub struct VocabInternalKey(String);
+
+impl VocabInternalKey {
+    #[must_use]
+    pub fn to_path_safe_string(&self) -> String {
+        self.0.replace(" // ", "_slashslash_")
+    }
+
+    #[must_use]
+    pub fn into_string(self) -> String {
+        self.0
+    }
+
+    pub fn to_str(&self) -> &str {
+        &self.0
+    }
+
+    #[must_use]
+    fn new(a: &str) -> Self {
+        Self(a.to_owned())
+    }
+}
+
 #[readonly::make]
 pub struct DataBundle {
     pub rows3: Vec<Rows3Item>,
-    pub vocab_ordered: LinkedHashMap<String, read::vocab::Item>,
+    pub vocab_ordered: LinkedHashMap<VocabInternalKey, read::vocab::Item>,
 }
 
 impl DataBundle {
@@ -385,8 +409,8 @@ impl DataBundle {
                                 splittable_compound_info: _,
                             } in &decomposition
                             {
-                                if !vocab_ordered.contains_key(key) {
-                                    vocab_ordered.insert(key.to_string(), voc.clone());
+                                if !vocab_ordered.contains_key(&VocabInternalKey::new(key)) {
+                                    vocab_ordered.insert(VocabInternalKey::new(key), voc.clone());
                                 }
                             }
                             Ok(Rows3Item {
@@ -403,7 +427,7 @@ impl DataBundle {
         .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
 
         for key in vocab.keys() {
-            if !vocab_ordered.contains_key(key) {
+            if !vocab_ordered.contains_key(&VocabInternalKey::new(key)) {
                 warn!("Item with internal key `{}` is never used", key);
             }
         }
