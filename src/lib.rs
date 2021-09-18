@@ -48,7 +48,7 @@ impl verify::DecompositionItem {
         let link_path = format!(
             "{}/vocab/{}.html",
             rel_path,
-            self.key.to_str().replace(" // ", "_slashslash_")
+            self.key.to_string().replace(" // ", "_slashslash_")
         );
         if let Some(splittable) = self.splittable_compound_info {
             let (latin_former, latin_latter) = split_at_slashslash(&self.voc.pekzep_latin);
@@ -462,7 +462,7 @@ pub fn generate_vocab_list_internal(
         vocab_html.push(format!(
             "<a href=\"{}\">{}</a>\t{}",
             link_path,
-            key.to_str(),
+            key.to_string(),
             vocab.to_tab_separated(rel_path)
         ));
     }

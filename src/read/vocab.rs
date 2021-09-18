@@ -75,7 +75,7 @@ impl GlossVocab {
 ///
 /// The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character. The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
 ///
-/// It must adhere to one of the following formats (Note that, as of 2021-09-18, Note that we only allow CJK Unified Ideographs or CJK Unified Ideographs Extension A to be used as a transcription):
+/// It must adhere to one of the following formats (Note that, as of 2021-09-18, Note that we only allow chars in the Unicode block "CJK Unified Ideographs" or "CJK Unified Ideographs Extension A" to be used as a transcription):
 ///
 /// | Main | Optional postfix                                                              | Annotation Removed                     | Example |                                                                                                                                                       |
 /// |---------|----------------------------------------------------------------------|----------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -87,34 +87,103 @@ impl GlossVocab {
 /// |  `[a-z0-9 ]+[\u3400-\u4DBF\u4E00-\u9FFF]+`     | `:[0-9a-zA-Z]*`             | `xizi噫`                               |  Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`.                                    |
 /// |  `\([\u3400-\u4DBF\u4E00-\u9FFF]+\)`     | `:[0-9a-zA-Z]*`                                 | `(噫)`                               |  used for the 噫 placed after 之 to mark that the sentence ends with a possessive                                                                                              |
 pub struct VocabInternalKey {
-    raw: String,
     main: String,
     postfix: String,
+}
+
+mod tests {
+    #[test]
+    fn test_new() {
+        use crate::read::vocab::VocabInternalKey;
+        use big_s::S;
+        assert_eq!(
+            VocabInternalKey::new("於dur").unwrap(),
+            VocabInternalKey {
+                postfix: S("dur"),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            VocabInternalKey::new("於").unwrap(),
+            VocabInternalKey {
+                postfix: S(""),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            VocabInternalKey::new("xizi:375").unwrap(),
+            VocabInternalKey {
+                postfix: S(":375"),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            VocabInternalKey::new("xizi").unwrap(),
+            VocabInternalKey {
+                postfix: S(""),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            VocabInternalKey::new("xizi375").unwrap(),
+            VocabInternalKey {
+                postfix: S(""),
+                main: S("xizi375")
+            }
+        );
+    }
+}
+
+impl std::fmt::Display for VocabInternalKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}{}", self.main, self.postfix)
+    }
 }
 
 impl VocabInternalKey {
     /// `享 // 銭` → `享_slashslash_銭`
     #[must_use]
     pub fn to_path_safe_string(&self) -> String {
-        self.raw.replace(" // ", "_slashslash_")
+        self.to_string().replace(" // ", "_slashslash_")
     }
 
-    #[must_use]
-    pub fn into_string(self) -> String {
-        self.raw
-    }
+    fn new(input: &str) -> anyhow::Result<Self> {
+        let (main, postfix) = match input.chars().next().ok_or_else(|| anyhow!(
+            "empty string encountered at VocabInternalKey::new()"
+        ))? {
+            '!'..='~' => {
+                // The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
+                let v: Vec<&str> = input.splitn(2, ':').collect();
+                match v[..] {
+                    [main, postfix] => (main.to_owned(), format!(":{}", postfix)),
+                    [main] => (main.to_owned(), String::new()),
+                    _ => panic!("cannot happen"),
+                }
+            }
 
-    pub fn to_str(&self) -> &str {
-        &self.raw
-    }
-
-    #[must_use]
-    fn new(a: &str) -> anyhow::Result<Self> {
+            '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => {
+                // The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character.
+                let rev_main = input
+                    .chars()
+                    .rev()
+                    .skip_while(char::is_ascii_alphanumeric)
+                    .collect::<String>();
+                let rev_postfix =  input
+                    .chars()
+                    .rev()
+                    .take_while(char::is_ascii_alphanumeric)
+                    .collect::<String>();
+                (rev_main.chars().rev().collect::<String>(), rev_postfix.chars().rev().collect::<String>())
+            }
+            _ => return Err(anyhow!("The input to VocabInternalKey::new(), `{}`, began with an unexpected character. It must begin either with either:
+    - an ASCII character
+    - a character in the Unicode block \"CJK Unified Ideographs\"
+    - a character in the Unicode block \"CJK Unified Ideographs Extension A\"", input))
+        };
         /* FIXME: be more strict */
         Ok(Self {
-            raw: a.to_owned(),
-            main: a.to_owned(),
-            postfix: a.to_owned(),
+            main,
+            postfix,
         })
     }
 }

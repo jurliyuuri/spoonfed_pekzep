@@ -85,7 +85,8 @@ impl DataBundle {
                     } else {
                         return Err(anyhow!(
                             "While trying to match {:?} with {}, end of key encountered",
-                            k, v.pekzep_hanzi
+                            k,
+                            v.pekzep_hanzi
                         ));
                     };
                     if let Some(a) = char_pronunciation.iter().find(|(h, syllable)| {
@@ -135,7 +136,8 @@ impl DataBundle {
             _ => {
                 return Err(anyhow!(
                     "While trying to match {:?} with {}, cannot find matching xizi.",
-                    v.pekzep_hanzi, v.pekzep_latin
+                    v.pekzep_hanzi,
+                    v.pekzep_latin
                 ))
             }
         }
@@ -400,7 +402,7 @@ impl DataBundle {
 
         for key in vocab.keys() {
             if !vocab_ordered.contains_key(key) {
-                warn!("Item with internal key `{}` is never used", key.to_str());
+                warn!("Item with internal key `{}` is never used", key.to_string());
             }
         }
 
@@ -494,7 +496,7 @@ fn parse_decomposed(
                 let res = vocab.get(&key).ok_or(anyhow! {
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
-                        key.to_str(),
+                        key.to_string(),
                         row.decomposed
                     )
                 });
