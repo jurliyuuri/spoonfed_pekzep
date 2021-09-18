@@ -11,6 +11,7 @@ struct Record {
     sound: String,
 }
 
+/// a lookup table from a sequence of linzklars to a contracted syllable
 pub type SoundTable = Vec<(LinzklarString, PekZepSyllable)>;
 
 #[allow(clippy::tabs_in_doc_comments)]

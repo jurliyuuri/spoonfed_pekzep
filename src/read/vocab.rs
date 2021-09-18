@@ -75,8 +75,7 @@ impl InternalKeyGloss {
         Ok(Self { main, postfix })
     }
 
-    pub fn to_internal_key(&self) -> anyhow::Result<(InternalKey, Option<SplittableCompoundInfo>)> {
-        let key = self.to_string().replace("!", " // ").replace("#", " // ");
+    pub fn to_internal_key(&self) -> (InternalKey, Option<SplittableCompoundInfo>) {
         let splittable_compound_info = if self.to_string().contains('!') {
             Some(SplittableCompoundInfo::LatterHalfExclamation)
         } else if self.to_string().contains('#') {
@@ -84,7 +83,14 @@ impl InternalKeyGloss {
         } else {
             None
         };
-        Ok((InternalKey::new(&key)?, splittable_compound_info))
+
+        (
+            InternalKey {
+                postfix: self.postfix.clone(),
+                main: self.main.replace("!", " // ").replace("#", " // "),
+            },
+            splittable_compound_info,
+        )
     }
 }
 
@@ -276,6 +282,22 @@ impl InternalKey {
     }
 }
 
+#[allow(clippy::tabs_in_doc_comments)]
+/// Parses "raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv" to make a lookup table from the `InternalKey` to the `Item`.
+/// The tsv used for the input should be of the following form:
+/// ```text
+///善日	kait kia1	善日	interjection	greeting	hello
+///汝	mua2	汝	noun		you
+///言	zep1	言	verb		to say
+///何	nan2	何	noun	interrogative	what
+///彼等	zap2 ge	彼等	noun		they
+///在	aim2	在	verb-modifier	aspect marker	be ~ing
+/// ```
+/// # Errors
+/// Gives errors if:
+/// - IO fails
+/// - "raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv" does not conform to an expected format
+///
 pub fn parse() -> anyhow::Result<HashMap<InternalKey, Item>> {
     let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
     let f = BufReader::new(f);

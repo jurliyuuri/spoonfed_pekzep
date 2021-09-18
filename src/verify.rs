@@ -486,8 +486,7 @@ fn parse_decomposed(
         row.decomposed
             .split('.')
             .map(|a| {
-                let (key, splittable_compound_info) =
-                    InternalKeyGloss::new(a)?.to_internal_key()?;
+                let (key, splittable_compound_info) = InternalKeyGloss::new(a)?.to_internal_key();
                 let res = vocab.get(&key).ok_or(anyhow! {
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
