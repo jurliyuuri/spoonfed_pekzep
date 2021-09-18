@@ -433,7 +433,7 @@ fn parse_decomposed(
     } else {
         let rejoined = row
             .decomposed
-            .split('.')
+            .iter()
             .map(|a| {
                 let init_char = a.chars().next().unwrap();
                 if init_char == '∅' {
@@ -484,7 +484,7 @@ fn parse_decomposed(
             ));
         }
         row.decomposed
-            .split('.')
+            .iter()
             .map(|a| {
                 let key_gloss = InternalKeyGloss::new(a)?;
                 let key = key_gloss.to_internal_key();
@@ -493,7 +493,7 @@ fn parse_decomposed(
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         &key,
-                        row.decomposed
+                        row.decomposed.join(".")
                     )
                 });
 

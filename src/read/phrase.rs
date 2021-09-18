@@ -73,7 +73,7 @@ pub struct Item {
     pub pekzep_hanzi: String,
     pub chinese_pinyin: String,
     pub chinese_hanzi: String,
-    pub decomposed: String,
+    pub decomposed: Vec<String>,
     pub filetype: HashSet<FilePathType>,
     pub recording_author: Option<Author>,
 }
@@ -131,7 +131,7 @@ fn encode_to_pekzep_syllables(i: &str) -> anyhow::Result<Vec<ExtSyllable>> {
 /// The tsv used for the input should be of the following form:
 /// ```text
 ///Hello / how are you	kait kia1!	善日！	Nǐ hǎo!	你好！	善日	wav_r	falira.lyjotafis		Jeemusn!
-///I'm hurrying to work.	pai2 sam1 mok1 ie naip2 hue.	我急行於労処。	Wǒ cōngmáng de qù shàngbān.	我匆忙地去上班。	我.急行2.於1.労処				
+///I'm hurrying to work.	pai2 sam1 mok1 ie naip2 hue.	我急行於労処。	Wǒ cōngmáng de qù shàngbān.	我匆忙地去上班。	我.急行2.於1.労処
 /// ```
 /// # Errors
 /// Gives errors if:
@@ -182,7 +182,7 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
             } else {
                 Some(Author::Other(rec.recording_author))
             },
-            decomposed: rec.decomposed,
+            decomposed: rec.decomposed.split('.').map(|a| a.to_owned()).collect(),
         };
 
         // 未査読の行は飛ばす
