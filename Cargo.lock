@@ -12,6 +12,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.44"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "61604a8f862e1d5c3229fdd78f8b02c68dcf73a4c4b05fd636d12240aaa242c1"
+
+[[package]]
 name = "arrayvec"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -79,6 +85,12 @@ name = "autocfg"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
+
+[[package]]
+name = "big_s"
+version = "1.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "199edb7b90631283b10c2422e6a0bc8b7d987bf732995ba1de53b576c97e51a8"
 
 [[package]]
 name = "bitflags"
@@ -384,7 +396,9 @@ dependencies = [
 name = "spoonfed_pekzep"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "askama",
+ "big_s",
  "csv",
  "env_logger",
  "lazy_static",

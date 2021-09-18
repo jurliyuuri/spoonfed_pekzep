@@ -1,10 +1,12 @@
+use anyhow::anyhow;
 use csv::StringRecord;
 use serde_derive::{Deserialize as De, Serialize as Ser};
 use std::collections::HashMap;
-use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
+
+use crate::verify::SplittableCompoundInfo;
 
 #[derive(Ser, De, Debug, Clone)]
 struct Record {
@@ -43,7 +45,231 @@ impl Item {
     }
 }
 
-pub fn parse() -> Result<HashMap<String, Item>, Box<dyn Error>> {
+#[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
+/// Almost the same as `InternalKey`, but instead of `享 // 銭`, it uses `享#銭` to denote the former half and `享!銭` to denote the latter half of the splittable compound.
+pub struct InternalKeyGloss {
+    main: String,
+    postfix: String,
+}
+
+impl std::fmt::Display for InternalKeyGloss {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}{}", self.main, self.postfix)
+    }
+}
+
+impl InternalKeyGloss {
+    pub fn new(input: &str) -> anyhow::Result<Self> {
+        let (main, postfix) = split_into_main_and_postfix(input)?;
+        Ok(Self { main, postfix })
+    }
+
+    pub fn to_internal_key(
+        &self,
+    ) -> anyhow::Result<(InternalKey, Option<SplittableCompoundInfo>)> {
+        let key = self.to_string().replace("!", " // ").replace("#", " // ");
+        let splittable_compound_info = if self.to_string().contains('!') {
+            Some(SplittableCompoundInfo::LatterHalfExclamation)
+        } else if self.to_string().contains('#') {
+            Some(SplittableCompoundInfo::FormerHalfHash)
+        } else {
+            None
+        };
+        Ok((InternalKey::new(&key)?, splittable_compound_info))
+    }
+}
+
+#[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
+/// The key used to identify a word in the glosses. It is made up of a "main" followed by an optional "postfix", where "main" denotes the word and "postfix" disambiguates the subdivision of the word.
+///
+/// The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character. The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
+///
+/// It must adhere to one of the following formats (Note that, as of 2021-09-18, Note that we only allow chars in the Unicode block "CJK Unified Ideographs" or "CJK Unified Ideographs Extension A" to be used as a transcription):
+///
+/// | Main | Optional postfix                                                              | Annotation Removed                     | Example |                                                                                                                                                       |
+/// |---------|----------------------------------------------------------------------|----------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+/// |  `[\u3400-\u4DBF\u4E00-\u9FFF]+`       | `[0-9a-zA-Z]*`                        | `種茶銭処`, `紙机戦`, `於dur`, `須多2` |  The most basic form available for a key: the postfix disambiguates which meaning is intended for the glossed word.                                            |
+/// |  `∅`      | `[0-9a-zA-Z]*`                                                      | `∅`, `∅3`                              | used when the word is realized as an empty string in Pekzep                                                                                           |
+/// |  `[\u3400-\u4DBF\u4E00-\u9FFF]+) // ([\u3400-\u4DBF\u4E00-\u9FFF]+`      | `[0-9a-zA-Z]*` | `享 // 銭`, `行 // 星周`               | used for a splittable compound                                                                                                                        |
+/// |  `«[\u3400-\u4DBF\u4E00-\u9FFF]+»`     | `[0-9a-zA-Z]*`                                  | `«足手»`                               |  used when a multisyllable merges into a single syllable                                                                                               |
+/// |  `[a-z0-9 ]+` (cannot start or end with a space)     | `:[0-9a-zA-Z]*`                                          | `xizi`, `xizi xizi`                    |  Denotes `xizi`, a postfix used after a name, or `xizi xizi`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
+/// |  `[a-z0-9 ]+[\u3400-\u4DBF\u4E00-\u9FFF]+`     | `:[0-9a-zA-Z]*`             | `xizi噫`                               |  Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`.                                    |
+/// |  `\([\u3400-\u4DBF\u4E00-\u9FFF]+\)`     | `:[0-9a-zA-Z]*`                                 | `(噫)`                               |  used for the 噫 placed after 之 to mark that the sentence ends with a possessive                                                                                              |
+pub struct InternalKey {
+    main: String,
+    postfix: String,
+}
+
+mod tests {
+    #[test]
+    fn test_new() {
+        use crate::read::vocab::InternalKey;
+        use big_s::S;
+        assert_eq!(
+            InternalKey::new("於dur").unwrap(),
+            InternalKey {
+                postfix: S("dur"),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            InternalKey::new("於").unwrap(),
+            InternalKey {
+                postfix: S(""),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            InternalKey::new("xizi:375").unwrap(),
+            InternalKey {
+                postfix: S(":375"),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            InternalKey::new("xizi").unwrap(),
+            InternalKey {
+                postfix: S(""),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            InternalKey::new("xizi375").unwrap(),
+            InternalKey {
+                postfix: S(""),
+                main: S("xizi375")
+            }
+        );
+    }
+
+    #[test]
+    fn test_new2() {
+        use crate::read::vocab::InternalKeyGloss;
+        use big_s::S;
+        assert_eq!(
+            InternalKeyGloss::new("於dur").unwrap(),
+            InternalKeyGloss {
+                postfix: S("dur"),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            InternalKeyGloss::new("於").unwrap(),
+            InternalKeyGloss {
+                postfix: S(""),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            InternalKeyGloss::new("xizi:375").unwrap(),
+            InternalKeyGloss {
+                postfix: S(":375"),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            InternalKeyGloss::new("xizi").unwrap(),
+            InternalKeyGloss {
+                postfix: S(""),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            InternalKeyGloss::new("xizi375").unwrap(),
+            InternalKeyGloss {
+                postfix: S(""),
+                main: S("xizi375")
+            }
+        );
+    }
+
+    #[test]
+    fn test_to_path_safe_string() {
+        use crate::read::vocab::InternalKey;
+        assert_eq!(
+            InternalKey::new("xizi375")
+                .unwrap()
+                .to_path_safe_string(),
+            "xizi375"
+        );
+
+        assert_eq!(
+            InternalKey::new("享 // 銭")
+                .unwrap()
+                .to_path_safe_string(),
+            "享_slashslash_銭"
+        );
+    }
+}
+
+impl std::fmt::Display for InternalKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}{}", self.main, self.postfix)
+    }
+}
+
+fn split_into_main_and_postfix(input: &str) -> anyhow::Result<(String, String)> {
+    let (main, postfix) = match input
+        .chars()
+        .next()
+        .ok_or_else(|| anyhow!("empty string encountered"))?
+    {
+        '!'..='~' => {
+            // The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
+            let v: Vec<&str> = input.splitn(2, ':').collect();
+            match v[..] {
+                [main, postfix] => (main.to_owned(), format!(":{}", postfix)),
+                [main] => (main.to_owned(), String::new()),
+                _ => panic!("cannot happen"),
+            }
+        }
+
+        '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => {
+            // The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character.
+            let rev_main = input
+                .chars()
+                .rev()
+                .skip_while(char::is_ascii_alphanumeric)
+                .collect::<String>();
+            let rev_postfix = input
+                .chars()
+                .rev()
+                .take_while(char::is_ascii_alphanumeric)
+                .collect::<String>();
+            (
+                rev_main.chars().rev().collect::<String>(),
+                rev_postfix.chars().rev().collect::<String>(),
+            )
+        }
+        _ => {
+            return Err(anyhow!(
+            "The input, `{}`, began with an unexpected character. It must begin either with either:
+- an ASCII character
+- a character in the Unicode block \"CJK Unified Ideographs\"
+- a character in the Unicode block \"CJK Unified Ideographs Extension A\"",
+            input
+        ))
+        }
+    };
+    Ok((main, postfix))
+}
+
+impl InternalKey {
+    /// `享 // 銭` → `享_slashslash_銭`
+    #[must_use]
+    pub fn to_path_safe_string(&self) -> String {
+        self.to_string()
+            .replace(" // ", "_slashslash_")
+            .replace(":", "_colon_")
+    }
+
+    fn new(input: &str) -> anyhow::Result<Self> {
+        let (main, postfix) = split_into_main_and_postfix(input)?;
+        Ok(Self { main, postfix })
+    }
+}
+
+pub fn parse() -> anyhow::Result<HashMap<InternalKey, Item>> {
     let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
     let f = BufReader::new(f);
     let mut res = HashMap::new();
@@ -55,7 +281,7 @@ pub fn parse() -> Result<HashMap<String, Item>, Box<dyn Error>> {
         if !row.key.is_empty()
             && res
                 .insert(
-                    row.key.clone(),
+                    InternalKey::new(&row.key)?,
                     Item {
                         pekzep_latin: row.pekzep_latin,
                         pekzep_hanzi: row.pekzep_hanzi,
@@ -72,7 +298,7 @@ pub fn parse() -> Result<HashMap<String, Item>, Box<dyn Error>> {
     if errors.is_empty() {
         Ok(res)
     } else {
-        let err: Box<dyn Error> = errors.join("\n").into();
-        Err(err)
+        let err = errors.join("\n");
+        Err(anyhow!(err))
     }
 }
