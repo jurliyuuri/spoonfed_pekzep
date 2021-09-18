@@ -59,14 +59,18 @@ impl std::fmt::Display for InternalKeyGloss {
 }
 
 impl InternalKeyGloss {
+    /// Splits the input and stores it as the "main" and the "postfix".
+    /// # Errors
+    /// Returns error if the input does not start with one of the following:
+    /// - an ASCII character
+    /// - a character in the Unicode block "CJK Unified Ideographs"
+    /// - a character in the Unicode block "CJK Unified Ideographs Extension A"
     pub fn new(input: &str) -> anyhow::Result<Self> {
         let (main, postfix) = split_into_main_and_postfix(input)?;
         Ok(Self { main, postfix })
     }
 
-    pub fn to_internal_key(
-        &self,
-    ) -> anyhow::Result<(InternalKey, Option<SplittableCompoundInfo>)> {
+    pub fn to_internal_key(&self) -> anyhow::Result<(InternalKey, Option<SplittableCompoundInfo>)> {
         let key = self.to_string().replace("!", " // ").replace("#", " // ");
         let splittable_compound_info = if self.to_string().contains('!') {
             Some(SplittableCompoundInfo::LatterHalfExclamation)
@@ -187,16 +191,12 @@ mod tests {
     fn test_to_path_safe_string() {
         use crate::read::vocab::InternalKey;
         assert_eq!(
-            InternalKey::new("xizi375")
-                .unwrap()
-                .to_path_safe_string(),
+            InternalKey::new("xizi375").unwrap().to_path_safe_string(),
             "xizi375"
         );
 
         assert_eq!(
-            InternalKey::new("享 // 銭")
-                .unwrap()
-                .to_path_safe_string(),
+            InternalKey::new("享 // 銭").unwrap().to_path_safe_string(),
             "享_slashslash_銭"
         );
     }
