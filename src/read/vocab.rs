@@ -75,22 +75,23 @@ impl InternalKeyGloss {
         Ok(Self { main, postfix })
     }
 
-    pub fn to_internal_key(&self) -> (InternalKey, Option<SplittableCompoundInfo>) {
-        let splittable_compound_info = if self.to_string().contains('!') {
+    #[must_use]
+    pub fn to_internal_key(&self) -> InternalKey {
+        InternalKey {
+            postfix: self.postfix.clone(),
+            main: self.main.replace("!", " // ").replace("#", " // "),
+        }
+    }
+
+    #[must_use]
+    pub fn to_splittable_compound_info(&self) -> Option<SplittableCompoundInfo> {
+        if self.to_string().contains('!') {
             Some(SplittableCompoundInfo::LatterHalfExclamation)
         } else if self.to_string().contains('#') {
             Some(SplittableCompoundInfo::FormerHalfHash)
         } else {
             None
-        };
-
-        (
-            InternalKey {
-                postfix: self.postfix.clone(),
-                main: self.main.replace("!", " // ").replace("#", " // "),
-            },
-            splittable_compound_info,
-        )
+        }
     }
 }
 
