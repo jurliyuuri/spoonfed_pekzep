@@ -1,7 +1,7 @@
+use anyhow::anyhow;
 use csv::StringRecord;
 use serde_derive::{Deserialize as De, Serialize as Ser};
 use std::collections::HashMap;
-use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -55,7 +55,9 @@ impl GlossVocab {
         Self(a.to_owned())
     }
 
-    pub fn to_internal_key(&self) -> (VocabInternalKey, Option<SplittableCompoundInfo>) {
+    pub fn to_internal_key(
+        &self,
+    ) -> anyhow::Result<(VocabInternalKey, Option<SplittableCompoundInfo>)> {
         let key = self.0.to_string().replace("!", " // ").replace("#", " // ");
         let splittable_compound_info = if self.0.contains('!') {
             Some(SplittableCompoundInfo::LatterHalfExclamation)
@@ -64,7 +66,7 @@ impl GlossVocab {
         } else {
             None
         };
-        (VocabInternalKey::new(&key), splittable_compound_info)
+        Ok((VocabInternalKey::new(&key)?, splittable_compound_info))
     }
 }
 
@@ -84,32 +86,40 @@ impl GlossVocab {
 /// |  `[a-z0-9 ]+` (cannot start or end with a space)     | `:[0-9a-zA-Z]*`                                          | `xizi`, `xizi xizi`                    |  Denotes `xizi`, a postfix used after a name, or `xizi xizi`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
 /// |  `[a-z0-9 ]+[\u3400-\u4DBF\u4E00-\u9FFF]+`     | `:[0-9a-zA-Z]*`             | `xizi噫`                               |  Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`.                                    |
 /// |  `\([\u3400-\u4DBF\u4E00-\u9FFF]+\)`     | `:[0-9a-zA-Z]*`                                 | `(噫)`                               |  used for the 噫 placed after 之 to mark that the sentence ends with a possessive                                                                                              |
-pub struct VocabInternalKey(String);
+pub struct VocabInternalKey {
+    raw: String,
+    main: String,
+    postfix: String,
+}
 
 impl VocabInternalKey {
     /// `享 // 銭` → `享_slashslash_銭`
     #[must_use]
     pub fn to_path_safe_string(&self) -> String {
-        self.0.replace(" // ", "_slashslash_")
+        self.raw.replace(" // ", "_slashslash_")
     }
 
     #[must_use]
     pub fn into_string(self) -> String {
-        self.0
+        self.raw
     }
 
     pub fn to_str(&self) -> &str {
-        &self.0
+        &self.raw
     }
 
     #[must_use]
-    fn new(a: &str) -> Self {
+    fn new(a: &str) -> anyhow::Result<Self> {
         /* FIXME: be more strict */
-        Self(a.to_owned())
+        Ok(Self {
+            raw: a.to_owned(),
+            main: a.to_owned(),
+            postfix: a.to_owned(),
+        })
     }
 }
 
-pub fn parse() -> Result<HashMap<VocabInternalKey, Item>, Box<dyn Error>> {
+pub fn parse() -> anyhow::Result<HashMap<VocabInternalKey, Item>> {
     let f = File::open("raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv")?;
     let f = BufReader::new(f);
     let mut res = HashMap::new();
@@ -121,7 +131,7 @@ pub fn parse() -> Result<HashMap<VocabInternalKey, Item>, Box<dyn Error>> {
         if !row.key.is_empty()
             && res
                 .insert(
-                    VocabInternalKey::new(&row.key),
+                    VocabInternalKey::new(&row.key)?,
                     Item {
                         pekzep_latin: row.pekzep_latin,
                         pekzep_hanzi: row.pekzep_hanzi,
@@ -138,7 +148,7 @@ pub fn parse() -> Result<HashMap<VocabInternalKey, Item>, Box<dyn Error>> {
     if errors.is_empty() {
         Ok(res)
     } else {
-        let err: Box<dyn Error> = errors.join("\n").into();
-        Err(err)
+        let err = errors.join("\n");
+        Err(anyhow!(err))
     }
 }

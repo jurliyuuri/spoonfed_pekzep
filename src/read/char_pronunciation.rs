@@ -1,8 +1,8 @@
+use anyhow::anyhow;
 use partition_eithers::collect_any_errors;
 use pekzep_syllable::PekZepSyllable;
 use serde_derive::Deserialize as De;
 use std::collections::HashMap;
-use std::error::Error;
 use std::fs::File;
 
 #[derive(Debug, De)]
@@ -15,7 +15,7 @@ struct Record {
 pub type CharSoundTable = Vec<(String, PekZepSyllable)>;
 pub type NonRecommendedCharTable = HashMap<String, String>;
 
-pub fn parse() -> Result<(CharSoundTable, NonRecommendedCharTable), Box<dyn Error>> {
+pub fn parse() -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
     fn convert(record: &Record) -> Result<(String, PekZepSyllable), String> {
         match PekZepSyllable::parse(&record.sound) {
             None => Err(format!("Invalid sound {}", record.sound)),
@@ -31,9 +31,9 @@ pub fn parse() -> Result<(CharSoundTable, NonRecommendedCharTable), Box<dyn Erro
         ans.push(record);
     }
 
-    let a: Result<Vec<(String, PekZepSyllable)>, Box<dyn Error>> =
+    let a: anyhow::Result<Vec<(String, PekZepSyllable)>> =
         collect_any_errors(ans.iter().map(convert).collect::<Vec<_>>())
-            .map_err(|e| e.join("\n").into());
+            .map_err(|e| anyhow!(e.join("\n")));
 
     let a: Vec<(String, PekZepSyllable)> = a?;
 

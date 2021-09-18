@@ -1,10 +1,9 @@
 use crate::read;
 use crate::read::vocab::{GlossVocab, VocabInternalKey};
+use anyhow::anyhow;
 use linked_hash_map::LinkedHashMap;
-use partition_eithers::collect_any_errors;
 use pekzep_syllable::PekZepSyllable;
 use std::collections::HashMap;
-use std::error::Error;
 
 pub struct Rows3Item {
     pub syllables: Vec<read::phrase::ExtSyllable>,
@@ -23,7 +22,7 @@ impl DataBundle {
         spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
         contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
-    ) -> Result<(), String> {
+    ) -> anyhow::Result<()> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         for (k, v) in spoonfed_rows.iter() {
@@ -49,9 +48,10 @@ impl DataBundle {
                     let expected_syllable = if let Some(s) = key_iter.next() {
                         *s
                     } else {
-                        return Err(format!(
+                        return Err(anyhow!(
                             "While trying to match {:?} with {}, end of key encountered",
-                            k, v.pekzep_hanzi
+                            k,
+                            v.pekzep_hanzi
                         ));
                     };
 
@@ -61,7 +61,7 @@ impl DataBundle {
                     }) {
                         info!("matched {} with {}", a.0, a.1);
                     } else {
-                        return Err(format!(
+                        return Err(anyhow!(
                             "While trying to match {:?} with {}, cannot find the contracted pronunciation `{}` for the character sequence `{}`", k, v.pekzep_hanzi,
                             expected_syllable, contraction
                         ));
@@ -74,16 +74,16 @@ impl DataBundle {
                         if let Some(read::phrase::ExtSyllable::Xizi) = key_iter.next() {
                             info!("matched `xizi`.");
                         } else {
-                            return Err(format!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi));
+                            return Err(anyhow!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi));
                         }
                     } else {
-                        return Err(format!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi));
+                        return Err(anyhow!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi));
                     }
                 } else {
                     let expected_syllable = if let Some(s) = key_iter.next() {
                         *s
                     } else {
-                        return Err(format!(
+                        return Err(anyhow!(
                             "While trying to match {:?} with {}, end of key encountered",
                             k, v.pekzep_hanzi
                         ));
@@ -94,7 +94,7 @@ impl DataBundle {
                     }) {
                         info!("matched {} with {}", a.0, a.1);
                     } else {
-                        return Err(format!(
+                        return Err(anyhow!(
                             "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
                             expected_syllable, c
                         ));
@@ -103,7 +103,7 @@ impl DataBundle {
             }
 
             if let Some(a) = key_iter.next() {
-                return Err(format!(
+                return Err(anyhow!(
                     "Encountered {} but `{}` ended earlier.\n\nThis occurred while trying to match {:?} with {}, ",
                     a, v.pekzep_hanzi, k, v.pekzep_hanzi,
                 ));
@@ -112,7 +112,7 @@ impl DataBundle {
         Ok(())
     }
 
-    fn match_xizi(hanzi_iter: &mut std::str::Chars, v: &read::vocab::Item) -> Result<(), String> {
+    fn match_xizi(hanzi_iter: &mut std::str::Chars, v: &read::vocab::Item) -> anyhow::Result<()> {
         use log::info;
         match hanzi_iter.next() {
             Some('x') => {
@@ -133,7 +133,7 @@ impl DataBundle {
                 }
             }
             _ => {
-                return Err(format!(
+                return Err(anyhow!(
                     "While trying to match {:?} with {}, cannot find matching xizi.",
                     v.pekzep_hanzi, v.pekzep_latin
                 ))
@@ -146,7 +146,7 @@ impl DataBundle {
         vocab: &HashMap<VocabInternalKey, read::vocab::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
         contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
-    ) -> Result<(), String> {
+    ) -> anyhow::Result<()> {
         use log::info;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         // let mut pronunciation_errors_in_vocab = vec![];
@@ -188,7 +188,7 @@ impl DataBundle {
                         {
                             info!("matched {} with {}", a.0, a.1);
                         } else {
-                            return Err(format!(
+                            return Err(anyhow!(
                             "While trying to match {} with {}, cannot find the contracted pronunciation `{}` for `«{}»`", syllable, contraction,
                             syllable, c
                         ));
@@ -199,7 +199,7 @@ impl DataBundle {
                     {
                         info!("matched {} with {}", a.0, a.1);
                     } else {
-                        return Err(format!(
+                        return Err(anyhow!(
                             "While trying to match {} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
                             syllable, c
                         ));
@@ -336,7 +336,7 @@ impl DataBundle {
 
     /// # Errors
     /// Returns `Err` if the validation fails.
-    pub fn new() -> Result<Self, Box<dyn Error>> {
+    pub fn new() -> anyhow::Result<Self> {
         use log::{info, warn};
         use match_pinyin_with_hanzi::match_pinyin_with_hanzi;
         let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
@@ -374,37 +374,32 @@ impl DataBundle {
 
         let mut vocab_ordered = LinkedHashMap::new();
 
-        let rows3 = collect_any_errors(
-            spoonfed_rows
-                .iter()
-                .map(|(syllables, row)| {
-                    match parse_decomposed(&vocab, row).map_err(|e| e.join("\n")) {
-                        Ok(decomposition) => {
-                            for DecompositionItem {
-                                key,
-                                voc,
-                                splittable_compound_info: _,
-                            } in &decomposition
-                            {
-                                if !vocab_ordered.contains_key(key) {
-                                    vocab_ordered.insert((*key).clone(), voc.clone());
-                                }
-                            }
-                            Ok(Rows3Item {
-                                syllables: syllables.clone(),
-                                decomposition,
-                                row: row.clone(),
-                            })
+        let rows3 = spoonfed_rows
+            .iter()
+            .map(|(syllables, row)| match parse_decomposed(&vocab, row) {
+                Ok(decomposition) => {
+                    for DecompositionItem {
+                        key,
+                        voc,
+                        splittable_compound_info: _,
+                    } in &decomposition
+                    {
+                        if !vocab_ordered.contains_key(key) {
+                            vocab_ordered.insert((*key).clone(), voc.clone());
                         }
-                        Err(e) => Err(e),
                     }
-                })
-                .collect::<Vec<_>>(),
-        )
-        .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
+                    Ok(Rows3Item {
+                        syllables: syllables.clone(),
+                        decomposition,
+                        row: row.clone(),
+                    })
+                }
+                Err(e) => Err(e),
+            })
+            .collect::<anyhow::Result<_>>()?;
 
         for key in vocab.keys() {
-            if !vocab_ordered.contains_key(&key) {
+            if !vocab_ordered.contains_key(key) {
                 warn!("Item with internal key `{}` is never used", key.to_str());
             }
         }
@@ -436,7 +431,7 @@ pub struct DecompositionItem {
 fn parse_decomposed(
     vocab: &HashMap<VocabInternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
-) -> Result<Vec<DecompositionItem>, Vec<String>> {
+) -> anyhow::Result<Vec<DecompositionItem>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
@@ -486,29 +481,30 @@ fn parse_decomposed(
             .replace("「", "")
             .replace("」", "");
         if rejoined != expectation {
-            return Err(vec![format!(
+            return Err(anyhow!(
                 "mismatch: the original row gives {} but the decomposition is {}",
-                expectation, rejoined
-            )]);
+                expectation,
+                rejoined
+            ));
         }
-        collect_any_errors(
-            row.decomposed
-                .split('.')
-                .map(|a| {
-                    let (key, splittable_compound_info) = GlossVocab::new(a).to_internal_key();
-                    let res = vocab.get(&key).ok_or(format!(
+        row.decomposed
+            .split('.')
+            .map(|a| {
+                let (key, splittable_compound_info) = GlossVocab::new(a).to_internal_key()?;
+                let res = vocab.get(&key).ok_or(anyhow! {
+                    format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         key.to_str(),
                         row.decomposed
-                    ));
+                    )
+                });
 
-                    Ok(DecompositionItem {
-                        key,
-                        voc: res?.clone(),
-                        splittable_compound_info,
-                    })
+                Ok(DecompositionItem {
+                    key,
+                    voc: res?.clone(),
+                    splittable_compound_info,
                 })
-                .collect::<Vec<_>>(),
-        )
+            })
+            .collect::<anyhow::Result<_>>()
     }
 }

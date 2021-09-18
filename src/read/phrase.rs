@@ -1,10 +1,10 @@
+use anyhow::anyhow;
 use csv::StringRecord;
 use linked_hash_map::LinkedHashMap;
 use partition_eithers::collect_any_errors;
 use pekzep_syllable::PekZepSyllable;
 use serde_derive::{Deserialize as De, Serialize as Ser};
 use std::collections::HashSet;
-use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -100,7 +100,7 @@ impl std::fmt::Display for Author {
     }
 }
 
-fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyllable>, Box<dyn Error>> {
+fn encode_to_pekzep_syllables(i: &str) -> anyhow::Result<Vec<ExtSyllable>> {
     collect_any_errors(
         i.split(|c: char| c.is_ascii_punctuation() || c.is_whitespace())
             .filter_map(|k| {
@@ -121,10 +121,10 @@ fn encode_to_pekzep_syllables(i: &str) -> Result<Vec<ExtSyllable>, Box<dyn Error
             })
             .collect::<Vec<_>>(),
     )
-    .map_err(|e| e.join("\n").into())
+    .map_err(|e| anyhow!(e.join("\n")))
 }
 
-pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyllable>, Item>, Box<dyn Error>> {
+pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
     use log::info;
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
     let f = BufReader::new(f);
@@ -186,7 +186,7 @@ pub fn parse() -> Result<LinkedHashMap<Vec<ExtSyllable>, Item>, Box<dyn Error>> 
     if errors.is_empty() {
         Ok(rows)
     } else {
-        let err: Box<dyn Error> = errors.join("\n").into();
-        Err(err)
+        let err = errors.join("\n");
+        Err(anyhow!(err))
     }
 }
