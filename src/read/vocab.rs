@@ -47,21 +47,30 @@ impl Item {
 
 #[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
 /// Almost the same as `VocabInternalKey`, but instead of `享 // 銭`, it uses `享#銭` to denote the former half and `享!銭` to denote the latter half of the splittable compound.
-pub struct GlossVocab(String);
+pub struct GlossVocab {
+    main: String,
+    postfix: String,
+}
+
+impl std::fmt::Display for GlossVocab {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{}{}", self.main, self.postfix)
+    }
+}
 
 impl GlossVocab {
-    pub fn new(a: &str) -> Self {
-        /* FIXME: check more strictly */
-        Self(a.to_owned())
+    pub fn new(input: &str) -> anyhow::Result<Self> {
+        let (main, postfix) = split_into_main_and_postfix(input)?;
+        Ok(Self { main, postfix })
     }
 
     pub fn to_internal_key(
         &self,
     ) -> anyhow::Result<(VocabInternalKey, Option<SplittableCompoundInfo>)> {
-        let key = self.0.to_string().replace("!", " // ").replace("#", " // ");
-        let splittable_compound_info = if self.0.contains('!') {
+        let key = self.to_string().replace("!", " // ").replace("#", " // ");
+        let splittable_compound_info = if self.to_string().contains('!') {
             Some(SplittableCompoundInfo::LatterHalfExclamation)
-        } else if self.0.contains('#') {
+        } else if self.to_string().contains('#') {
             Some(SplittableCompoundInfo::FormerHalfHash)
         } else {
             None
@@ -133,6 +142,46 @@ mod tests {
         );
     }
 
+    fn test_new2() {
+        use crate::read::vocab::GlossVocab;
+        use big_s::S;
+        assert_eq!(
+            GlossVocab::new("於dur").unwrap(),
+            GlossVocab {
+                postfix: S("dur"),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            GlossVocab::new("於").unwrap(),
+            GlossVocab {
+                postfix: S(""),
+                main: S("於")
+            }
+        );
+        assert_eq!(
+            GlossVocab::new("xizi:375").unwrap(),
+            GlossVocab {
+                postfix: S(":375"),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            GlossVocab::new("xizi").unwrap(),
+            GlossVocab {
+                postfix: S(""),
+                main: S("xizi")
+            }
+        );
+        assert_eq!(
+            GlossVocab::new("xizi375").unwrap(),
+            GlossVocab {
+                postfix: S(""),
+                main: S("xizi375")
+            }
+        );
+    }
+
     #[test]
     fn test_to_path_safe_string() {
         use crate::read::vocab::VocabInternalKey;
@@ -158,6 +207,52 @@ impl std::fmt::Display for VocabInternalKey {
     }
 }
 
+fn split_into_main_and_postfix(input: &str) -> anyhow::Result<(String, String)> {
+    let (main, postfix) = match input
+        .chars()
+        .next()
+        .ok_or_else(|| anyhow!("empty string encountered"))?
+    {
+        '!'..='~' => {
+            // The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
+            let v: Vec<&str> = input.splitn(2, ':').collect();
+            match v[..] {
+                [main, postfix] => (main.to_owned(), format!(":{}", postfix)),
+                [main] => (main.to_owned(), String::new()),
+                _ => panic!("cannot happen"),
+            }
+        }
+
+        '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => {
+            // The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character.
+            let rev_main = input
+                .chars()
+                .rev()
+                .skip_while(char::is_ascii_alphanumeric)
+                .collect::<String>();
+            let rev_postfix = input
+                .chars()
+                .rev()
+                .take_while(char::is_ascii_alphanumeric)
+                .collect::<String>();
+            (
+                rev_main.chars().rev().collect::<String>(),
+                rev_postfix.chars().rev().collect::<String>(),
+            )
+        }
+        _ => {
+            return Err(anyhow!(
+            "The input, `{}`, began with an unexpected character. It must begin either with either:
+- an ASCII character
+- a character in the Unicode block \"CJK Unified Ideographs\"
+- a character in the Unicode block \"CJK Unified Ideographs Extension A\"",
+            input
+        ))
+        }
+    };
+    Ok((main, postfix))
+}
+
 impl VocabInternalKey {
     /// `享 // 銭` → `享_slashslash_銭`
     #[must_use]
@@ -168,39 +263,7 @@ impl VocabInternalKey {
     }
 
     fn new(input: &str) -> anyhow::Result<Self> {
-        let (main, postfix) = match input.chars().next().ok_or_else(|| anyhow!(
-            "empty string encountered at VocabInternalKey::new()"
-        ))? {
-            '!'..='~' => {
-                // The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
-                let v: Vec<&str> = input.splitn(2, ':').collect();
-                match v[..] {
-                    [main, postfix] => (main.to_owned(), format!(":{}", postfix)),
-                    [main] => (main.to_owned(), String::new()),
-                    _ => panic!("cannot happen"),
-                }
-            }
-
-            '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => {
-                // The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character.
-                let rev_main = input
-                    .chars()
-                    .rev()
-                    .skip_while(char::is_ascii_alphanumeric)
-                    .collect::<String>();
-                let rev_postfix =  input
-                    .chars()
-                    .rev()
-                    .take_while(char::is_ascii_alphanumeric)
-                    .collect::<String>();
-                (rev_main.chars().rev().collect::<String>(), rev_postfix.chars().rev().collect::<String>())
-            }
-            _ => return Err(anyhow!("The input to VocabInternalKey::new(), `{}`, began with an unexpected character. It must begin either with either:
-    - an ASCII character
-    - a character in the Unicode block \"CJK Unified Ideographs\"
-    - a character in the Unicode block \"CJK Unified Ideographs Extension A\"", input))
-        };
-        /* FIXME: be more strict */
+        let (main, postfix) = split_into_main_and_postfix(input)?;
         Ok(Self { main, postfix })
     }
 }
