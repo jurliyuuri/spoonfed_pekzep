@@ -1,6 +1,6 @@
 use crate::read;
 use crate::read::char_pronunciation::{Linzklar, LinzklarString};
-use crate::read::vocab::{InternalKey, InternalKeyGloss, SplittableCompoundInfo};
+use crate::read::vocab::{InternalKey, SplittableCompoundInfo};
 use anyhow::anyhow;
 use linked_hash_map::LinkedHashMap;
 use pekzep_syllable::PekZepSyllable;
@@ -434,7 +434,8 @@ fn parse_decomposed(
         let rejoined = row
             .decomposed
             .iter()
-            .map(|a| {
+            .map(|gloss| {
+                let a = gloss.to_string();
                 let init_char = a.chars().next().unwrap();
                 if init_char == '∅' {
                     return "".to_string();
@@ -485,15 +486,14 @@ fn parse_decomposed(
         }
         row.decomposed
             .iter()
-            .map(|a| {
-                let key_gloss = InternalKeyGloss::new(a)?;
+            .map(|key_gloss| {
                 let key = key_gloss.to_internal_key();
                 let splittable_compound_info = key_gloss.to_splittable_compound_info();
                 let res = vocab.get(&key).ok_or(anyhow! {
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         &key,
-                        row.decomposed.join(".")
+                        row.decomposed.iter().map(std::string::ToString::to_string).collect::<Vec<_>>().join(".")
                     )
                 });
 

@@ -1,3 +1,4 @@
+use crate::read::vocab::InternalKeyGloss;
 use anyhow::anyhow;
 use csv::StringRecord;
 use linked_hash_map::LinkedHashMap;
@@ -73,7 +74,7 @@ pub struct Item {
     pub pekzep_hanzi: String,
     pub chinese_pinyin: String,
     pub chinese_hanzi: String,
-    pub decomposed: Vec<String>,
+    pub decomposed: Vec<InternalKeyGloss>,
     pub filetype: HashSet<FilePathType>,
     pub recording_author: Option<Author>,
 }
@@ -152,6 +153,14 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
             StringRecord::from(line?.split('\t').collect::<Vec<_>>()).deserialize(None)?;
 
         info!("Parsing `{}`, `{}`:", rec.english, rec.pekzep_latin);
+        let decomposed = if rec.decomposed.is_empty() {
+            vec![]
+        } else {
+            rec.decomposed
+                .split('.')
+                .map(|a| InternalKeyGloss::new(a))
+                .collect::<anyhow::Result<_>>()?
+        };
         let row = Item {
             pekzep_latin: rec.pekzep_latin,
             pekzep_hanzi: rec.pekzep_hanzi,
@@ -182,7 +191,7 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
             } else {
                 Some(Author::Other(rec.recording_author))
             },
-            decomposed: rec.decomposed.split('.').map(|a| a.to_owned()).collect(),
+            decomposed,
         };
 
         // 未査読の行は飛ばす
