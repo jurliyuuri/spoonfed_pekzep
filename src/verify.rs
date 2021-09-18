@@ -12,18 +12,21 @@ pub struct Rows3Item {
 }
 
 #[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-/// The key used to identify a word in the glosses. 
+/// The key used to identify a word in the glosses. It is made up of a "main" followed by an optional "postfix", where "main" denotes the word and "postfix" disambiguates the subdivision of the word.
+///
+/// The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character. The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
+/// 
 /// It must adhere to one of the following formats (Note that, as of 2021-09-18, Note that we only allow CJK Unified Ideographs or CJK Unified Ideographs Extension A to be used as a transcription):
 /// 
-/// | Pattern | Example | Annotation Removed | Explanation |
-/// |---------|---------|----------------------|-------------|
-/// | `([\u3400-\u4DBF\u4E00-\u9FFF]+)`     | `種茶銭処`, `紙机戦`    | `$1` | the most basic form available for a key |
-/// | `([\u3400-\u4DBF\u4E00-\u9FFF]+)[0-9a-zA-Z]+`     | `於dur`, `須多2`    | `$1` | The postfix disambiguates the meaning of the glossed word. |
-/// | `∅[0-9a-zA-Z]*` | `∅`, `∅3` | `∅` | used when the word is realized as an empty string in Pekzep |
-/// | `([a-z][a-z ]*[a-z])[0-9]*` | `xizi`, `xizi xizi` | `$1` | Denotes `xizi`, a postfix used after a name, or `xizi xizi`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
-/// | `([a-z][a-z ]*[a-z][\u3400-\u4DBF\u4E00-\u9FFF]+)[0-9]*` | `xizi噫` | `$1` | Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
-/// | `([\u3400-\u4DBF\u4E00-\u9FFF]+) // ([\u3400-\u4DBF\u4E00-\u9FFF]+)`     | `享 // 銭`, `行 // 星周`    | `$1 // $2` | used for a splittable compound |
-/// | `«([\u3400-\u4DBF\u4E00-\u9FFF]+)»` | `«足手»` | `«$1»` | used when a multisyllable merges into a single syllable
+/// | Main | Optional postfix                                                              | Annotation Removed                     | Example |                                                                                                                                                       |
+/// |---------|----------------------------------------------------------------------|----------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+/// |  `[\u3400-\u4DBF\u4E00-\u9FFF]+`       | `[0-9a-zA-Z]*`                        | `種茶銭処`, `紙机戦`, `於dur`, `須多2` |  The most basic form available for a key: the postfix disambiguates which meaning is intended for the glossed word.                                            |
+/// |  `∅`      | `[0-9a-zA-Z]*`                                                      | `∅`, `∅3`                              | used when the word is realized as an empty string in Pekzep                                                                                           |
+/// |  `[\u3400-\u4DBF\u4E00-\u9FFF]+) // ([\u3400-\u4DBF\u4E00-\u9FFF]+`      | `[0-9a-zA-Z]*` | `享 // 銭`, `行 // 星周`               | used for a splittable compound                                                                                                                        |
+/// |  `«[\u3400-\u4DBF\u4E00-\u9FFF]+»`     | `[0-9a-zA-Z]*`                                  | `«足手»`                               |  used when a multisyllable merges into a single syllable                                                                                               |
+/// |  `[a-z0-9 ]+` (cannot start or end with a space)     | `:[0-9a-zA-Z]*`                                          | `xizi`, `xizi xizi`                    |  Denotes `xizi`, a postfix used after a name, or `xizi xizi`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
+/// |  `[a-z0-9 ]+[\u3400-\u4DBF\u4E00-\u9FFF]+`     | `:[0-9a-zA-Z]*`             | `xizi噫`                               |  Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`.                                    |
+/// |  `\([\u3400-\u4DBF\u4E00-\u9FFF]+\)`     | `:[0-9a-zA-Z]*`                                 | `(噫)`                               |  used for the 噫 placed after 之 to mark that the sentence ends with a possessive                                                                                              |
 pub struct VocabInternalKey(String);
 
 impl VocabInternalKey {
