@@ -130,12 +130,15 @@ fn encode_to_pekzep_syllables(i: &str) -> anyhow::Result<Vec<ExtSyllable>> {
 /// Parses "raw/Spoonfed Pekzep - SpoonfedPekzep.tsv" to obtain a table converting a string of characters to a contracted syllable.
 /// The tsv used for the input should be of the following form:
 /// ```text
+///Hello / how are you	kait kia1!	善日！	Nǐ hǎo!	你好！	善日	wav_r	falira.lyjotafis		Jeemusn!
 ///I'm hurrying to work.	pai2 sam1 mok1 ie naip2 hue.	我急行於労処。	Wǒ cōngmáng de qù shàngbān.	我匆忙地去上班。	我.急行2.於1.労処				
 /// ```
-/// 
 /// # Errors
 /// Gives errors if:
 /// - IO fails
+/// - Pekzep is invalid
+/// - there is a duplication in phrases
+/// - filetype is invalid
 ///
 pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
     use log::info;
