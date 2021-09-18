@@ -48,7 +48,7 @@ impl verify::DecompositionItem {
         let link_path = format!(
             "{}/vocab/{}.html",
             rel_path,
-            self.key.replace(" // ", "_slashslash_")
+            self.key.to_str().replace(" // ", "_slashslash_")
         );
         if let Some(splittable) = self.splittable_compound_info {
             let (latin_former, latin_latter) = split_at_slashslash(&self.voc.pekzep_latin);
@@ -418,7 +418,7 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
             row,
         } in &data_bundle.rows3
         {
-            if decomposition.iter().any(|item| item.key == key.to_str()) {
+            if decomposition.iter().any(|item| item.key == *key) {
                 usages += &format!(
                     r#"
             <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">

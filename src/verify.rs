@@ -1,4 +1,5 @@
 use crate::read;
+use crate::read::vocab::{GlossVocab, VocabInternalKey};
 use linked_hash_map::LinkedHashMap;
 use partition_eithers::collect_any_errors;
 use pekzep_syllable::PekZepSyllable;
@@ -9,46 +10,6 @@ pub struct Rows3Item {
     pub syllables: Vec<read::phrase::ExtSyllable>,
     pub decomposition: Vec<DecompositionItem>,
     pub row: read::phrase::Item,
-}
-
-#[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-/// The key used to identify a word in the glosses. It is made up of a "main" followed by an optional "postfix", where "main" denotes the word and "postfix" disambiguates the subdivision of the word.
-///
-/// The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character. The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
-/// 
-/// It must adhere to one of the following formats (Note that, as of 2021-09-18, Note that we only allow CJK Unified Ideographs or CJK Unified Ideographs Extension A to be used as a transcription):
-/// 
-/// | Main | Optional postfix                                                              | Annotation Removed                     | Example |                                                                                                                                                       |
-/// |---------|----------------------------------------------------------------------|----------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-/// |  `[\u3400-\u4DBF\u4E00-\u9FFF]+`       | `[0-9a-zA-Z]*`                        | `種茶銭処`, `紙机戦`, `於dur`, `須多2` |  The most basic form available for a key: the postfix disambiguates which meaning is intended for the glossed word.                                            |
-/// |  `∅`      | `[0-9a-zA-Z]*`                                                      | `∅`, `∅3`                              | used when the word is realized as an empty string in Pekzep                                                                                           |
-/// |  `[\u3400-\u4DBF\u4E00-\u9FFF]+) // ([\u3400-\u4DBF\u4E00-\u9FFF]+`      | `[0-9a-zA-Z]*` | `享 // 銭`, `行 // 星周`               | used for a splittable compound                                                                                                                        |
-/// |  `«[\u3400-\u4DBF\u4E00-\u9FFF]+»`     | `[0-9a-zA-Z]*`                                  | `«足手»`                               |  used when a multisyllable merges into a single syllable                                                                                               |
-/// |  `[a-z0-9 ]+` (cannot start or end with a space)     | `:[0-9a-zA-Z]*`                                          | `xizi`, `xizi xizi`                    |  Denotes `xizi`, a postfix used after a name, or `xizi xizi`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
-/// |  `[a-z0-9 ]+[\u3400-\u4DBF\u4E00-\u9FFF]+`     | `:[0-9a-zA-Z]*`             | `xizi噫`                               |  Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`.                                    |
-/// |  `\([\u3400-\u4DBF\u4E00-\u9FFF]+\)`     | `:[0-9a-zA-Z]*`                                 | `(噫)`                               |  used for the 噫 placed after 之 to mark that the sentence ends with a possessive                                                                                              |
-pub struct VocabInternalKey(String);
-
-impl VocabInternalKey {
-    /// `享 // 銭` → `享_slashslash_銭`
-    #[must_use]
-    pub fn to_path_safe_string(&self) -> String {
-        self.0.replace(" // ", "_slashslash_")
-    }
-
-    #[must_use]
-    pub fn into_string(self) -> String {
-        self.0
-    }
-
-    pub fn to_str(&self) -> &str {
-        &self.0
-    }
-
-    #[must_use]
-    fn new(a: &str) -> Self {
-        Self(a.to_owned())
-    }
 }
 
 #[readonly::make]
@@ -182,7 +143,7 @@ impl DataBundle {
     }
 
     fn check_vocab_pronunciation(
-        vocab: &HashMap<String, read::vocab::Item>,
+        vocab: &HashMap<VocabInternalKey, read::vocab::Item>,
         char_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
         contraction_pronunciation: &[(String, pekzep_syllable::PekZepSyllable)],
     ) -> Result<(), String> {
@@ -425,8 +386,8 @@ impl DataBundle {
                                 splittable_compound_info: _,
                             } in &decomposition
                             {
-                                if !vocab_ordered.contains_key(&VocabInternalKey::new(key)) {
-                                    vocab_ordered.insert(VocabInternalKey::new(key), voc.clone());
+                                if !vocab_ordered.contains_key(key) {
+                                    vocab_ordered.insert((*key).clone(), voc.clone());
                                 }
                             }
                             Ok(Rows3Item {
@@ -443,8 +404,8 @@ impl DataBundle {
         .map_err(|e| -> Box<dyn Error> { e.join("\n").into() })?;
 
         for key in vocab.keys() {
-            if !vocab_ordered.contains_key(&VocabInternalKey::new(key)) {
-                warn!("Item with internal key `{}` is never used", key);
+            if !vocab_ordered.contains_key(&key) {
+                warn!("Item with internal key `{}` is never used", key.to_str());
             }
         }
 
@@ -464,7 +425,7 @@ pub enum SplittableCompoundInfo {
 
 #[derive(Debug, Clone)]
 pub struct DecompositionItem {
-    pub key: String,
+    pub key: VocabInternalKey,
     pub voc: read::vocab::Item,
     pub splittable_compound_info: Option<SplittableCompoundInfo>,
 }
@@ -473,7 +434,7 @@ pub struct DecompositionItem {
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
 fn parse_decomposed(
-    vocab: &HashMap<String, read::vocab::Item>,
+    vocab: &HashMap<VocabInternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
 ) -> Result<Vec<DecompositionItem>, Vec<String>> {
     if row.decomposed.is_empty() {
@@ -534,18 +495,13 @@ fn parse_decomposed(
             row.decomposed
                 .split('.')
                 .map(|a| {
-                    let key = a.to_string().replace("!", " // ").replace("#", " // ");
+                    let (key, splittable_compound_info) = GlossVocab::new(a).to_internal_key();
                     let res = vocab.get(&key).ok_or(format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
-                        key, row.decomposed
+                        key.to_str(),
+                        row.decomposed
                     ));
-                    let splittable_compound_info = if a.contains('!') {
-                        Some(SplittableCompoundInfo::LatterHalfExclamation)
-                    } else if a.contains('#') {
-                        Some(SplittableCompoundInfo::FormerHalfHash)
-                    } else {
-                        None
-                    };
+
                     Ok(DecompositionItem {
                         key,
                         voc: res?.clone(),
