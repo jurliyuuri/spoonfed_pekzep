@@ -2,14 +2,13 @@
 #![allow(clippy::non_ascii_literal)]
 #[macro_use]
 extern crate lazy_static;
-use crate::read::vocab::SplittableCompoundInfo;
 use askama::Template;
+
+use crate::askama_templates::{IndTemplate, PhraseTemplate, VocabListTemplate, VocabTemplate};
+use crate::read::vocab::SplittableCompoundInfo;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-
-/// used by [askama](https://djc.github.io/askama/) to generate HTML
-pub mod filters;
 
 /// reads from the input files
 pub mod read;
@@ -19,6 +18,9 @@ pub mod verify;
 
 /// Pure functions that are used to normalize the input
 pub mod normalizer;
+
+/// used by [askama](https://djc.github.io/askama/) to generate HTML
+pub mod askama_templates;
 
 #[cfg(test)]
 mod tests {
@@ -105,46 +107,6 @@ impl verify::DecompositionItem {
             )
         }
     }
-}
-
-#[derive(Template)]
-#[template(path = "phrase.html")]
-struct PhraseTemplate<'a> {
-    english: &'a str,
-    chinese_hanzi: &'a str,
-    chinese_pinyin: &'a str,
-    pekzep_latin: &'a str,
-    pekzep_hanzi: &'a str,
-    prev_link: &'a str,
-    next_link: &'a str,
-    wav_tag: &'a str,
-    analysis: &'a str,
-    oga_tag: &'a str,
-    pekzep_images: &'a str,
-    author_color: &'a str,
-    author_name: &'a str,
-    has_audio: bool,
-}
-
-#[derive(Template)]
-#[template(path = "ind.html")]
-struct IndTemplate<'a> {
-    index: &'a str,
-    length: usize,
-    how_many_glosses: usize,
-}
-
-#[derive(Template)]
-#[template(path = "vocab.html")]
-struct VocabTemplate<'a> {
-    analysis: &'a str,
-    usage_table: &'a str,
-}
-
-#[derive(Template)]
-#[template(path = "vocab_list.html")]
-struct VocabListTemplate<'a> {
-    vocab_html: &'a str,
 }
 
 const fn to_check(a: bool) -> &'static str {
@@ -557,10 +519,10 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
     use csv::StringRecord;
+    use log::warn;
     use normalizer::{
         capitalize_first_char, normalize_a_b_dialogue, normalize_chinese_punctuation,
     };
-    use log::warn;
     use read::phrase::Record;
     use std::io::BufReader;
     let f = File::open("raw/Spoonfed Pekzep - SpoonfedPekzep.tsv")?;
