@@ -229,7 +229,7 @@ fn split_into_main_and_postfix(input: &str) -> anyhow::Result<(String, String)> 
             }
         }
 
-        '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => {
+        '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' | '∅' | '«' => {
             // The postfix is `[0-9a-zA-Z]*` when the main does not begin with an ASCII character.
             let rev_main = input
                 .chars()
@@ -250,6 +250,8 @@ fn split_into_main_and_postfix(input: &str) -> anyhow::Result<(String, String)> 
             return Err(anyhow!(
             "The input, `{}`, began with an unexpected character. It must begin either with either:
 - an ASCII character
+- `∅`
+- `«`
 - a character in the Unicode block \"CJK Unified Ideographs\"
 - a character in the Unicode block \"CJK Unified Ideographs Extension A\"",
             input
