@@ -135,7 +135,7 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let rec: Record =
-            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
+            StringRecord::from(line?.split('\t').collect::<Vec<_>>()).deserialize(None)?;
 
         info!("Parsing `{}`, `{}`:", rec.english, rec.pekzep_latin);
         let row = Item {
@@ -147,15 +147,17 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
             filetype: if rec.filetype.is_empty() {
                 HashSet::new()
             } else {
-                rec.filetype
-                    .split(',')
-                    .map(|x| match x.trim() {
+                let filetypes = rec.filetype.split(',').collect::<Vec<_>>();
+                let mut ans = HashSet::new();
+                for x in filetypes {
+                    ans.insert(match x.trim() {
                         "wav_r" => FilePathType::WavR,
                         "wav" => FilePathType::Wav,
                         "oga" => FilePathType::Oga,
-                        a => panic!("Invalid file type `{}`. Run with RUST_LOG environment variable set to `info` to see the details.", a),
-                    })
-                    .collect()
+                        a => return Err(anyhow!("Invalid file type `{}`. Run with RUST_LOG environment variable set to `info` to see the details.", a)),
+                    });
+                }
+                ans
             },
             recording_author: if rec.recording_author == "jekto.vatimeliju" {
                 Some(Author::JektoVatimeliju)

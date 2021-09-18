@@ -277,7 +277,7 @@ pub fn parse() -> anyhow::Result<HashMap<InternalKey, Item>> {
     for line in f.lines() {
         // to prevent double quotes from vanishing, I do not read with CSV parser
         let row: Record =
-            StringRecord::from(line.unwrap().split('\t').collect::<Vec<_>>()).deserialize(None)?;
+            StringRecord::from(line?.split('\t').collect::<Vec<_>>()).deserialize(None)?;
         if !row.key.is_empty()
             && res
                 .insert(
