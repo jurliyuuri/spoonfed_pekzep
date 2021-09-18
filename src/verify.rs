@@ -12,9 +12,22 @@ pub struct Rows3Item {
 }
 
 #[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
+/// The key used to identify a word in the glosses. 
+/// It must adhere to one of the following formats (Note that, as of 2021-09-18, Note that we only allow CJK Unified Ideographs or CJK Unified Ideographs Extension A to be used as a transcription):
+/// 
+/// | Pattern | Example | Annotation Removed | Explanation |
+/// |---------|---------|----------------------|-------------|
+/// | `([\u3400-\u4DBF\u4E00-\u9FFF]+)`     | `種茶銭処`, `紙机戦`    | `$1` | the most basic form available for a key |
+/// | `([\u3400-\u4DBF\u4E00-\u9FFF]+)[0-9a-zA-Z]+`     | `於dur`, `須多2`    | `$1` | The postfix disambiguates the meaning of the glossed word. |
+/// | `∅[0-9a-zA-Z]*` | `∅`, `∅3` | `∅` | used when the word is realized as an empty string in Pekzep |
+/// | `([a-z][a-z ]*[a-z])[0-9]*` | `xizi`, `xizi xizi` | `$1` | Denotes `xizi`, a postfix used after a name, or `xizi xizi`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
+/// | `([a-z][a-z ]*[a-z][\u3400-\u4DBF\u4E00-\u9FFF]+)[0-9]*` | `xizi噫` | `$1` | Denotes `xizi噫`, an interjection. Currently, this program does not allow any non-Linzklar word other than `xizi`. |
+/// | `([\u3400-\u4DBF\u4E00-\u9FFF]+) // ([\u3400-\u4DBF\u4E00-\u9FFF]+)`     | `享 // 銭`, `行 // 星周`    | `$1 // $2` | used for a splittable compound |
+/// | `«([\u3400-\u4DBF\u4E00-\u9FFF]+)»` | `«足手»` | `«$1»` | used when a multisyllable merges into a single syllable
 pub struct VocabInternalKey(String);
 
 impl VocabInternalKey {
+    /// `享 // 銭` → `享_slashslash_銭`
     #[must_use]
     pub fn to_path_safe_string(&self) -> String {
         self.0.replace(" // ", "_slashslash_")
