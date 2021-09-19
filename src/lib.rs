@@ -419,7 +419,7 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
 
 /// Generates `vocab_list_internal.html`
 /// # Errors
-/// Will return `Err` if the file I/O fails or the render panics.
+/// Will return `Err` if the file I/O or the rendering fails.
 pub fn generate_vocab_list_internal(
     data_bundle: &verify::DataBundle,
 ) -> Result<(), Box<dyn Error>> {

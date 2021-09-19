@@ -1,4 +1,9 @@
 #[must_use]
+/// Capitalizes the first character of a string.
+/// ```
+/// use spoonfed_pekzep::normalizer::capitalize_first_char;
+/// assert_eq!(capitalize_first_char("ā, wǒ rènshi zhège nánrén!"), "Ā, wǒ rènshi zhège nánrén!");
+/// ```
 pub fn capitalize_first_char(text: &str) -> String {
     let mut iter = text.chars();
     if let Some(init) = iter.next() {
