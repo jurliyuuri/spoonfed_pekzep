@@ -38,6 +38,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     eprintln!("Generating docs/vocab_list.html");
     generate_vocab_list(&data_bundle)?;
 
+    eprintln!("Generating docs/char_list.html");
+    generate_char_list(&data_bundle)?;
+
     eprintln!("Generating docs/index.html");
     generate_index(&data_bundle)?;
 
@@ -46,6 +49,10 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     eprintln!("Writing docs/raw.js");
     write_condensed_js()?;
+
+    eprintln!("Writing docs/char_count.js");
+    write_char_count_js(&data_bundle.char_count)?;
+
 
     Ok(())
 }

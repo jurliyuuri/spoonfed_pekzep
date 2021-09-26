@@ -17,6 +17,7 @@ pub struct DataBundle {
     pub rows3: Vec<Rows3Item>,
     pub vocab_ordered: LinkedHashMap<InternalKey, read::vocab::Item>,
     pub vocab_count: HashMap<InternalKey, usize>,
+    pub char_count: HashMap<Linzklar, usize>,
 }
 
 impl DataBundle {
@@ -113,6 +114,46 @@ impl DataBundle {
             }
         }
         Ok(())
+    }
+
+    fn char_count(
+        spoonfed_rows: &LinkedHashMap<Vec<read::phrase::ExtSyllable>, read::phrase::Item>,
+    ) -> anyhow::Result<HashMap<Linzklar, usize>> {
+        use log::info;
+        let mut ans = HashMap::new();
+        for (_, v) in spoonfed_rows.iter() {
+            let mut iter = v.pekzep_hanzi.chars();
+            while let Some(c) = iter.next() {
+                if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
+                    info!("Skipped: {}", c);
+                } else if c == '«' {
+                    // Handle exceptional contractions such as «足手» xiop1
+                    let mut c = iter.next().expect("Unmatched guillemet");
+                    loop {
+                        if c == '»' {
+                            break;
+                        }
+                        let key = Linzklar::from_char(c)?;
+                        let count = ans.entry(key).or_insert(0_usize);
+                        *count += 1;
+                        c = iter.next().expect("Unmatched guillemet");
+                    }
+                } else if c == 'x' {
+                    if Some('i') == iter.next()
+                        && Some('z') == iter.next()
+                        && Some('i') == iter.next()
+                    {
+                    } else {
+                        return Err(anyhow!("xizi expected, but found something else."));
+                    }
+                } else {
+                    let key = Linzklar::from_char(c)?;
+                    let count = ans.entry(key).or_insert(0_usize);
+                    *count += 1;
+                }
+            }
+        }
+        Ok(ans)
     }
 
     fn match_xizi(hanzi_iter: &mut std::str::Chars, v: &read::vocab::Item) -> anyhow::Result<()> {
@@ -412,10 +453,13 @@ impl DataBundle {
             }
         }
 
+        let char_count = Self::char_count(&spoonfed_rows)?;
+
         Ok(Self {
             rows3,
             vocab_ordered,
             vocab_count,
+            char_count,
         })
     }
 }

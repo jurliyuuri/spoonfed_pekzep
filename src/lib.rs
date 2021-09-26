@@ -3,9 +3,13 @@
 #[macro_use]
 extern crate lazy_static;
 use askama::Template;
+use read::char_pronunciation::Linzklar;
 
-use crate::askama_templates::{IndTemplate, PhraseTemplate, VocabListTemplate, VocabTemplate};
+use crate::askama_templates::{
+    CharListTemplate, IndTemplate, PhraseTemplate, VocabListTemplate, VocabTemplate,
+};
 use crate::read::vocab::SplittableCompoundInfo;
+use std::collections::HashMap;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
@@ -423,24 +427,27 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
 pub fn generate_vocab_list_internal(
     data_bundle: &verify::DataBundle,
 ) -> Result<(), Box<dyn Error>> {
-    let mut vocab_file = File::create("docs/vocab_list_internal.html")?;
-    let mut vocab_html = vec![];
+    let mut file = File::create("docs/vocab_list_internal.html")?;
+    let mut html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
         let rel_path = ".";
         let link_path = format!("{}/vocab/{}.html", rel_path, key.to_path_safe_string());
-        vocab_html.push(format!(
+        html.push(format!(
             "<a href=\"{}\">{}</a>\t{}\t{}",
             link_path,
             key,
-            data_bundle.vocab_count.get(key).expect("vocab_count should be consistent with vocab_ordered"),
+            data_bundle
+                .vocab_count
+                .get(key)
+                .expect("vocab_count should be consistent with vocab_ordered"),
             vocab.to_tab_separated(rel_path)
         ));
     }
     write!(
-        vocab_file,
+        file,
         "{}",
         VocabListTemplate {
-            vocab_html: &vocab_html.join("\n")
+            vocab_html: &html.join("\n")
         }
         .render()?
     )?;
@@ -451,16 +458,45 @@ pub fn generate_vocab_list_internal(
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_vocab_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
-    let mut vocab_file = File::create("docs/vocab_list.html")?;
-    let mut vocab_html = vec![];
+    let mut file = File::create("docs/vocab_list.html")?;
+    let mut html = vec![];
     for (_, vocab) in &data_bundle.vocab_ordered {
-        vocab_html.push(vocab.to_tab_separated("."));
+        html.push(vocab.to_tab_separated("."));
     }
     write!(
-        vocab_file,
+        file,
         "{}",
         VocabListTemplate {
-            vocab_html: &vocab_html.join("\n")
+            vocab_html: &html.join("\n")
+        }
+        .render()?
+    )?;
+    Ok(())
+}
+
+/// Generates `char_list.html`
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
+pub fn generate_char_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+    let mut file = File::create("docs/char_list.html")?;
+    let mut html = vec![];
+    let rel_path = ".";
+
+    let mut count_vec: Vec<_> = data_bundle.char_count.iter().collect();
+    count_vec.sort_by(|a, b| b.1.cmp(a.1));
+    for (linzklar, size) in count_vec {
+        html.push(format!(
+            "{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}",
+            linzklar,
+            convert_hanzi_to_images(&format!("{}", linzklar), "/{} N()SL«»", rel_path),
+            size
+        ));
+    }
+    write!(
+        file,
+        "{}",
+        CharListTemplate {
+            char_list_html: &html.join("\n")
         }
         .render()?
     )?;
@@ -614,5 +650,21 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
     js += "]\n";
 
     std::fs::write("docs/raw.js", js)?;
+    Ok(())
+}
+
+/// Generates `char_count.js`
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
+pub fn write_char_count_js(char_count: &HashMap<Linzklar, usize>) -> Result<(), Box<dyn Error>> {
+    let mut js = String::from("const CHAR_COUNT = {\n");
+
+    for (k, v) in char_count {
+        js += &format!("    \"{}\": {},\n", k, v);
+    }
+
+    js += "}\n";
+
+    std::fs::write("docs/char_count.js", js)?;
     Ok(())
 }

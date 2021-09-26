@@ -44,7 +44,9 @@ impl std::fmt::Display for LinzklarString {
 #[derive(Clone, Hash, PartialEq, Eq)]
 pub struct Linzklar(char);
 impl Linzklar {
-    fn from_char(c: char) -> anyhow::Result<Self> {
+    /// # Errors
+    /// Fails if the input is outside the Unicode range `U+3400` - `U+4DBF` or `U+4E00` - `U+9FFF`.
+    pub fn from_char(c: char) -> anyhow::Result<Self> {
         match c {
             '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => Ok(Self(c)),
             _ => Err(anyhow!(
@@ -53,7 +55,7 @@ impl Linzklar {
             )),
         }
     }
-    fn new(a: &str) -> anyhow::Result<Self> {
+    fn from_str(a: &str) -> anyhow::Result<Self> {
         let c = a
             .chars()
             .next()
@@ -94,7 +96,7 @@ pub fn parse() -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
     fn convert(record: &Record) -> anyhow::Result<(Linzklar, PekZepSyllable)> {
         match PekZepSyllable::parse(&record.sound) {
             None => Err(anyhow!("Invalid sound {}", record.sound)),
-            Some(a) => Ok((Linzklar::new(&record.character)?, a)),
+            Some(a) => Ok((Linzklar::from_str(&record.character)?, a)),
         }
     }
 
@@ -112,7 +114,7 @@ pub fn parse() -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
     for r in ans {
         if r.variant_of.is_empty() {
         } else {
-            b.insert(Linzklar::new(&r.character)?, Linzklar::new(&r.variant_of)?);
+            b.insert(Linzklar::from_str(&r.character)?, Linzklar::from_str(&r.variant_of)?);
         }
     }
 

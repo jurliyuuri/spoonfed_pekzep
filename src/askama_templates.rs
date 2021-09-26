@@ -40,3 +40,9 @@ pub struct VocabTemplate<'a> {
 pub struct VocabListTemplate<'a> {
     pub vocab_html: &'a str,
 }
+
+#[derive(Template)]
+#[template(path = "char_list.html")]
+pub struct CharListTemplate<'a> {
+    pub char_list_html: &'a str,
+}
