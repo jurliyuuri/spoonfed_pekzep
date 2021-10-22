@@ -2,14 +2,14 @@
 name = "spoonfed_pekzep"
 version = "0.1.0"
 authors = ["jekto_vatimeliju <jekto.vatimeliju@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 csv = "1.1.6"
-serde = "1.0.126"
-serde_derive = "1.0.126"
+serde = "1.0.130"
+serde_derive = "1.0.130"
 askama = "0.10.5"
 pekzep_syllable = "0.1.2"
 linked-hash-map = "0.5.4"

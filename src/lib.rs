@@ -656,7 +656,9 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
 /// Generates `char_count.js`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
-pub fn write_char_count_js(char_count: &HashMap<Linzklar, usize>) -> Result<(), Box<dyn Error>> {
+pub fn write_char_count_js<S: ::std::hash::BuildHasher>(
+    char_count: &HashMap<Linzklar, usize, S>,
+) -> Result<(), Box<dyn Error>> {
     let mut js = String::from("const CHAR_COUNT = {\n");
 
     for (k, v) in char_count {
