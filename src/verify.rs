@@ -314,11 +314,11 @@ impl DataBundle {
     fn check_kan1(pekzep_hanzi: &str, english: &str) {
         use log::warn;
         if pekzep_hanzi.contains('躍') {
-            if english.contains("jump") {
+            if english.contains("jump") || english.contains("dance") {
                 return;
             }
             warn!(
-                "{} contains 躍, but the English translation did not contain the word 'jump'. Please check if the sentence `{}` should contains the notion of 'jump'.", 
+                "{} contains 躍, but the English translation did not contain the word 'jump' or 'dance'. Please check if the sentence `{}` should contains the notion of 'jump'.", 
                 pekzep_hanzi,
                 english
             );
