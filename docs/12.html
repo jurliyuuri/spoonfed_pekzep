@@ -8,14 +8,13 @@
 <body>
     <h1>12 random sentences from Spoonfed Pekzep</h1>
     <textarea id="out" readonly spellcheck="false" rows="25" cols="80"></textarea><br>
-    ↑ のテキストを<button onclick="copy_text()">コピー</button>して、<a href="https://bellard.org/textsynth/">Text
+    ↑ のテキストを<button onclick="select_text()">全選択</button>して、コピーして<a href="https://textsynth.com/playground.html">Text
         Synth</a>に入れてComplete Textを押すと、いい感じの追加例文がﾃﾞｨｰﾌﾟﾗｰﾆﾝｸﾞってやつでなんとかされる
     <script>
-        function copy_text() {
+        function select_text() {
             const copyText = document.getElementById("out");
             copyText.select();
             copyText.setSelectionRange(0, 99999); 
-            navigator.clipboard.writeText(copyText.value);
         }
         document.getElementById("out").textContent = Array.from({ length: 12 }, _ => RAW_DATA[RAW_DATA.length * Math.random() | 0].english).join("\n\n")
     </script>
