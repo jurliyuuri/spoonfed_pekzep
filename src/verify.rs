@@ -496,7 +496,15 @@ fn parse_decomposed(
                 if a.contains('!') {
                     let mut iter = a.chars().skip_while(|c| *c != '!');
                     iter.next();
-                    return iter.collect::<String>();
+
+                    let latter_half = iter.collect::<String>(); // have to drop alphanumeric from the end of the string
+
+                    let rev = latter_half
+                        .chars()
+                        .rev()
+                        .skip_while(char::is_ascii_alphanumeric)
+                        .collect::<String>();
+                    return rev.chars().rev().collect::<String>();
                 }
 
                 // handle xizi

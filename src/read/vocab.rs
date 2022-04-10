@@ -215,6 +215,11 @@ mod tests {
             InternalKey::new("享 // 銭").unwrap().to_path_safe_string(),
             "享_slashslash_銭"
         );
+
+        assert_eq!(
+            InternalKey::new("識 // 言2").unwrap().to_path_safe_string(),
+            "識_slashslash_言2"
+        );
     }
 }
 
