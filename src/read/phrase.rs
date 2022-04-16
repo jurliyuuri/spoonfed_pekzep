@@ -158,7 +158,7 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
         } else {
             rec.decomposed
                 .split('.')
-                .map(|a| InternalKeyGloss::new(a))
+                .map(InternalKeyGloss::new)
                 .collect::<anyhow::Result<_>>()?
         };
         let row = Item {

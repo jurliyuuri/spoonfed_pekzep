@@ -83,7 +83,7 @@ impl InternalKeyGloss {
     pub fn to_internal_key(&self) -> InternalKey {
         InternalKey {
             postfix: self.postfix.clone(),
-            main: self.main.replace("!", " // ").replace("#", " // "),
+            main: self.main.replace('!', " // ").replace('#', " // "),
         }
     }
 
@@ -283,7 +283,7 @@ impl InternalKey {
     pub fn to_path_safe_string(&self) -> String {
         self.to_string()
             .replace(" // ", "_slashslash_")
-            .replace(":", "_colon_")
+            .replace(':', "_colon_")
     }
 
     fn new(input: &str) -> anyhow::Result<Self> {

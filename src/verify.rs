@@ -74,7 +74,7 @@ impl DataBundle {
                         && Some('z') == iter.next()
                         && Some('i') == iter.next()
                     {
-                        if let Some(read::phrase::ExtSyllable::Xizi) = key_iter.next() {
+                        if key_iter.next() == Some(&read::phrase::ExtSyllable::Xizi) {
                             info!("matched `xizi`.");
                         } else {
                             return Err(anyhow!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi));
@@ -530,11 +530,11 @@ fn parse_decomposed(
         let expectation = row
             .pekzep_hanzi
             .to_string()
-            .replace("！", "")
-            .replace("？", "")
-            .replace("。", "")
-            .replace("「", "")
-            .replace("」", "");
+            .replace('！', "")
+            .replace('？', "")
+            .replace('。', "")
+            .replace('「', "")
+            .replace('」', "");
         if rejoined != expectation {
             return Err(anyhow!(
                 "mismatch: the original row gives {} but the decomposition is {}",

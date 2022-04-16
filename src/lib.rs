@@ -63,7 +63,16 @@ impl verify::DecompositionItem {
         rel_path: &'static str,
     ) -> String {
         let link_path = format!("{}/vocab/{}.html", rel_path, self.key.to_path_safe_string());
-        if let Some(splittable) = self.splittable_compound_info {
+        self.splittable_compound_info.map_or_else(|| format!(
+                "<a href=\"{}\">{}</a>\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                link_path,
+                self.voc.pekzep_latin,
+                self.voc.pekzep_hanzi,
+                convert_hanzi_to_images(&self.voc.pekzep_hanzi,  "/{} N()SL«»", rel_path),
+                self.voc.parts_of_speech,
+                self.voc.parts_of_speech_supplement,
+                self.voc.english_gloss
+            ), |splittable| {
             let (latin_former, latin_latter) = split_at_slashslash(&self.voc.pekzep_latin);
             let (hanzi_former, hanzi_latter) = split_at_slashslash(&self.voc.pekzep_hanzi);
             match splittable {
@@ -98,18 +107,7 @@ impl verify::DecompositionItem {
                     )
                 }
             }
-        } else {
-            format!(
-                "<a href=\"{}\">{}</a>\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
-                link_path,
-                self.voc.pekzep_latin,
-                self.voc.pekzep_hanzi,
-                convert_hanzi_to_images(&self.voc.pekzep_hanzi,  "/{} N()SL«»", rel_path),
-                self.voc.parts_of_speech,
-                self.voc.parts_of_speech_supplement,
-                self.voc.english_gloss
-            )
-        }
+        })
     }
 }
 
@@ -297,7 +295,7 @@ fn decomposition_to_analysis_merging_unsplitted_compounds(
 }
 
 fn remove_guillemets(a: &str) -> String {
-    a.replace("«", "").replace("»", "")
+    a.replace('«', "").replace('»', "")
 }
 
 /// Generates `phrase/`
