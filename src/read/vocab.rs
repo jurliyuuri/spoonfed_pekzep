@@ -43,7 +43,7 @@ impl Item {
         F: FnOnce(&str) -> String,
     {
         format!(
-            "{}\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+            "{}\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
             self.pekzep_latin,
             self.pekzep_hanzi,
             f(&self.pekzep_hanzi),

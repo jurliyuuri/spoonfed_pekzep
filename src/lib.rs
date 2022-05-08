@@ -64,7 +64,7 @@ impl verify::DecompositionItem {
     ) -> String {
         let link_path = format!("{}/vocab/{}.html", rel_path, self.key.to_path_safe_string());
         self.splittable_compound_info.map_or_else(|| format!(
-                "<a href=\"{}\">{}</a>\t{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                "<a href=\"{}\">{}</a>\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
                 link_path,
                 self.voc.pekzep_latin,
                 self.voc.pekzep_hanzi,
@@ -78,7 +78,7 @@ impl verify::DecompositionItem {
             match splittable {
                 SplittableCompoundInfo::FormerHalfHash => {
                     format!(
-                        "<a href=\"{}\">{}<span style=\"font-size: 75%; color: #444\">//{}</span></a>\t{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>//<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>\t{}\t{}\t{}",
+                        "<a href=\"{}\">{}<span style=\"font-size: 75%; color: #444\">//{}</span></a>\t{}<span style=\"font-size: 75%; color: #444\">//{}</span>\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>//<span style=\"filter:brightness(80%) contrast(80%);\">{}</span>\t{}\t{}\t{}",
                         link_path,
                         latin_former,
                         latin_latter,
@@ -93,7 +93,7 @@ impl verify::DecompositionItem {
                 }
                 SplittableCompoundInfo::LatterHalfExclamation => {
                     format!(
-                        "<a href=\"{}\"><span style=\"font-size: 75%; color: #444\">{}//</span>{}</a>\t<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"filter:brightness(80%)contrast(80%);\">{}</span>//<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                        "<a href=\"{}\"><span style=\"font-size: 75%; color: #444\">{}//</span>{}</a>\t<span style=\"font-size: 75%; color: #444\">{}//</span>{}\t<span style=\"filter:brightness(80%) contrast(80%);\">{}</span>//<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
                         link_path,
                         latin_former,
                         latin_latter,
@@ -484,7 +484,7 @@ pub fn generate_char_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dy
     count_vec.sort_by(|a, b| b.1.cmp(a.1));
     for (linzklar, size) in count_vec {
         html.push(format!(
-            "{}\t<span style=\"filter:brightness(65%)contrast(500%);\">{}</span>\t{}",
+            "{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}",
             linzklar,
             convert_hanzi_to_images(&format!("{}", linzklar), "/{} N()SL«»", rel_path),
             size
