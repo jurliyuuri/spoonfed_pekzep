@@ -210,10 +210,15 @@ fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
             r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
             filename
         )
+    } else if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
+        warn!("oga file IS found, but is not linked: {}.oga", filename);
+        "".to_owned()
+    } else if std::path::Path::new(&format!("docs/nonreviewed_sounds/{}.oga", filename)).exists() {
+        format!(
+            r#"<source src="../nonreviewed_sounds/{}.oga" type="audio/ogg">"#,
+            filename
+        )
     } else {
-        if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
-            warn!("oga file IS found, but is not linked: {}.oga", filename);
-        }
         "".to_owned()
     }
 }
