@@ -198,7 +198,10 @@ fn convert_hanzi_to_images_with_size(
     ans
 }
 
-fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyllable]) -> String {
+fn generate_oga_tag(
+    row: &read::phrase::Item,
+    syllables: &[read::phrase::ExtSyllable],
+) -> (String, Option<bool>) {
     use log::warn;
     let filename = read::phrase::syllables_to_str_underscore(syllables);
     if row.filetype.contains(&read::phrase::FilePathType::Oga) {
@@ -206,20 +209,28 @@ fn generate_oga_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
         {
             warn!("oga file not found: {}.oga", filename);
         }
-        format!(
-            r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
-            filename
+        (
+            format!(
+                r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
+                filename
+            ),
+            Some(true),
         )
-    } else if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists() {
+    } else if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
+        .exists()
+    {
         warn!("oga file IS found, but is not linked: {}.oga", filename);
-        "".to_owned()
+        ("".to_owned(), None)
     } else if std::path::Path::new(&format!("docs/nonreviewed_sounds/{}.oga", filename)).exists() {
-        format!(
-            r#"<source src="../nonreviewed_sounds/{}.oga" type="audio/ogg">"#,
-            filename
+        (
+            format!(
+                r#"<source src="../nonreviewed_sounds/{}.oga" type="audio/ogg">"#,
+                filename
+            ),
+            Some(false),
         )
     } else {
-        "".to_owned()
+        ("".to_owned(), None)
     }
 }
 
@@ -333,6 +344,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
 
         let analysis = decomposition_to_analysis_merging_unsplitted_compounds(decomposition);
         let pekzep_hanzi_guillemet_removed = remove_guillemets(&row.pekzep_hanzi);
+        let (oga_tag, is_reviewed) = generate_oga_tag(row, syllables);
         let content = PhraseTemplate {
             english: &row.english,
             chinese_pinyin: &row.chinese_pinyin,
@@ -352,21 +364,26 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
                 }
             },
             wav_tag: &generate_wav_tag(row, syllables),
-            oga_tag: &generate_oga_tag(row, syllables),
+            oga_tag: &oga_tag,
             analysis: &analysis.join("\n"),
             pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", ".."),
-            author_color: match &row.recording_author {
-                Some(read::phrase::Author::JektoVatimeliju) => "#754eab",
-                Some(read::phrase::Author::FaliraLyjotafis) => "#e33102",
-                Some(s) => {
+            author_color: match (&row.recording_author, is_reviewed) {
+                (_, Some(false)) => "#333333",
+                (Some(read::phrase::Author::JektoVatimeliju), _) => "#754eab",
+                (Some(read::phrase::Author::FaliraLyjotafis), _) => "#e33102",
+                (Some(s), _) => {
                     warn!("Unrecognized author `{:?}`", s);
                     "#000000"
                 }
-                None => "#000000",
+                (None, _) => "#000000",
             },
-            author_name: &match &row.recording_author {
-                Some(author) => format!("{}", author),
-                None => "".to_string(),
+            author_name: &if is_reviewed == Some(false) {
+                "jekto.vatimeliju (not reviewed)".to_string()
+            } else {
+                match &row.recording_author {
+                    Some(author) => format!("{}", author),
+                    None => "".to_string(),
+                }
             },
             has_audio: row.recording_author.is_some(),
         };
