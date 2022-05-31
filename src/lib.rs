@@ -385,7 +385,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
                     None => "".to_string(),
                 }
             },
-            has_audio: row.recording_author.is_some(),
+            has_audio: row.recording_author.is_some() || is_reviewed == Some(false),
         };
         write!(file, "{}", content.render()?)?;
 
