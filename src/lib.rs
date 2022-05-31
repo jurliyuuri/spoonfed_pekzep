@@ -368,7 +368,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             analysis: &analysis.join("\n"),
             pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", ".."),
             author_color: match (&row.recording_author, is_reviewed) {
-                (_, Some(false)) => "#333333",
+                (_, Some(false)) => "#ff00ff",
                 (Some(read::phrase::Author::JektoVatimeliju), _) => "#754eab",
                 (Some(read::phrase::Author::FaliraLyjotafis), _) => "#e33102",
                 (Some(s), _) => {
