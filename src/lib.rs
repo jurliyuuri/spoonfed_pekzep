@@ -119,6 +119,20 @@ const fn to_check(a: bool) -> &'static str {
     }
 }
 
+enum R {
+    Ready,
+    NonReviewed,
+    Missing,
+}
+
+const fn to_check_or_parencheck(a: R) -> &'static str {
+    match a {
+        R::Ready => "&#x2713;",
+        R::NonReviewed => "(&#x2713;)",
+        R::Missing => "",
+    }
+}
+
 fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String {
     use log::info;
     if std::path::Path::new(&format!("raw/char_img/{}.png", name)).exists() {
@@ -540,13 +554,23 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             how_many_glosses += 1;
         }
 
+        let wav_or_oga_is_ready = if row.filetype.contains(&read::phrase::FilePathType::Wav)
+            || row.filetype.contains(&read::phrase::FilePathType::WavR)
+            || row.filetype.contains(&read::phrase::FilePathType::Oga)
+        {
+            R::Ready
+        } else {
+            let filename = read::phrase::syllables_to_str_underscore(syllables);
+            if std::path::Path::new(&format!("docs/nonreviewed_sounds/{}.oga", filename)).exists() {
+                R::NonReviewed
+            } else {
+                R::Missing
+            }
+        };
+
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
-            to_check(
-                row.filetype.contains(&read::phrase::FilePathType::Wav)
-                    || row.filetype.contains(&read::phrase::FilePathType::WavR)
-                    || row.filetype.contains(&read::phrase::FilePathType::Oga)
-            ),
+            to_check_or_parencheck(wav_or_oga_is_ready),
             to_check(
                 row.filetype.contains(&read::phrase::FilePathType::Wav)
                     || row.filetype.contains(&read::phrase::FilePathType::WavR)
