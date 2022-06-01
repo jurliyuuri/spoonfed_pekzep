@@ -42,7 +42,7 @@ How do I get to Makati?	pai2 em nan2 mok1 syt2 tun2?	我如何行天神？	Wǒ z
 She will go to Makati.	zap2 mok1 mok1 syt2 tun2.	彼行行天神。	Tā yào qù Tiānshén.	她要去天神。	彼.行2.行.天神	wav_r, oga	falira.lyjotafis
 Are you of the Ai'ren Republic?	mua2 ai2 cuk2 yn2?	汝冠人乎？	Nín shì Guānguórén ma?	您是冠国人吗？	汝.∅.冠人.乎	wav_r, oga	falira.lyjotafis
 I'm going to Makati.	pai2 mok1 mok1 syt2 tun2.	我行行天神。	Wǒ yào qù Tiānshén.	我要去天神。	我.行2.行.天神	wav_r, oga	falira.lyjotafis
-Would you like to go to Makati?	mua2 hia1 mok1 syt2 tun2.	汝心行天神。	Nǐ xiǎng qù Tiānshén ma?	你想去天神吗？	汝.心.行.天神	wav_r, oga	falira.lyjotafis
+Would you like to go to Makati?	mua2 hia1 mok1 syt2 tun2?	汝心行天神？	Nǐ xiǎng qù Tiānshén ma?	你想去天神吗？	汝.心.行.天神	wav_r, oga	falira.lyjotafis
 This is the Vefisait Republic.	ka1 hue uep1 sip1.	此処淮国。	Zhèlǐ shì Huáiguó.	这里是淮国。	此処.∅.淮国	wav_r, oga	falira.lyjotafis
 Where am I? (literally "Where is here?")	ka1 hue nan2 hue?	此処何処？	Zhèlǐ shì nǎli a?	这里是哪里啊？	此処.∅.何処	wav_r, oga	falira.lyjotafis
 This is my home.	ka1 pai2 mut2.	此我家。	Zhè shì wǒ jiā.	这是我家。	此.∅.我2.家	wav_r, oga	falira.lyjotafis
@@ -752,8 +752,8 @@ Please give me a cup of tea.	hia1 tui2 ut2 et2 niep1 tia2 ie pai2.	心与下一�
 Yes. I like flower tea. I also like flower tea.	aim2. pai2 hia1 kait xuo1 tia2. pai2 bap hia1 kait.	在。我心善花茶。我同心善。	Shì de. Wǒ hěn xǐhuan huāchá. Wǒ yě hěn xǐhuan huāchá.	是的。我很喜欢花茶。我也很喜欢花茶。	在4.我.心善.花茶.我.同.心善		
 Do you like tea?	mua2 hia1 kait tia2 yn2?	汝心善茶乎？	Nǐ xǐhuan chá ma?	你喜欢茶吗？	汝.心善.茶.乎		
 He's our new coworker, Mr. Yay.	zap2 pai2 ge a lu2 naip2 hi1 iei2 xizi.	彼我等之新労友春xizi。	Tā shì xīn tóngshì Chūn xiānsheng.	他是新同事春先生。	彼.∅.我等.之.新.労友.春.xizi		
-Do you like your coworkers?	mua2 hia1 kait mua2 a naip2 hi1 yn2?	汝心善汝之労友乎？	Nǐ xǐhuan nǐ tóngshì ma?	你喜欢你同事吗？	汝.心善.汝.之.労友.乎		
-When will your coworker come to the Ai'ren Republic?	mua2 a naip2 hi1 nan2 kak sak2 ai2 sip1?	汝之労友何時来冠国？	Nǐ de tóngshì shénme shíhòu lái Guānguó?	你的同事什么时候来冠国？	汝.之.労友.何時.来3.冠国		
+Do you like your coworkers?	mua2 hia1 kait mua2 a naip2 hi1 yn2?	汝心善汝之労友乎？	Nǐ xǐhuan nǐ tóngshì ma?	你喜欢你同事吗？	汝.心善.汝.之.労友.乎		
+When will your coworker come to the Ai'ren Republic?	mua2 a naip2 hi1 nan2 kak sak2 ai2 sip1?	汝之労友何時来冠国？	Nǐ de tóngshì shénme shíhòu lái Guānguó?	你的同事什么时候来冠国？	汝.之.労友.何時.来3.冠国		
 She is always studying at home.	zap2 ket nui2 ie tin1 mut2.	彼常学於己家。	Tā zǒng shì zài jiālǐ xuéxí.	她总是在家里学习。			
 He has many female friends.	taun1 sa1 hi1 aim2 zap2.	多女友在彼。	Tā yǒu hěn duō nǚxìng péngyou.	他有很多女性朋友。	多.女友.在7.彼		
 Do you have a lot of friends?	taun1 hi1 aim2 ie mua2 yn2?	多友在於汝乎？	Nǐ yǒu hěnduō péngyǒu ma?	你有很多朋友吗？	多.友.在7.於1.汝.乎		
@@ -801,7 +801,7 @@ The school is near my home.	nui2 hue aim2 cei2 pai2 mut2.	学処在周我家。	
 I'm drinking coffee too.	pai2 bap aim2 iam1 det tia2 a.	我同在口種茶噫。	Wǒ yě hē kāfēi.	我也喝咖啡。			
 I want a cup of coffee.	pai2 hia1 guk2 et2 niep1 det tia2.	我心受一杯種茶。	Wǒ yào yī bēi kāfēi.	我要一杯咖啡。	我.心受.一.杯.種茶		
 She likes to drink coffee.	zap2 hia1 kait iam1 det tia2.	彼心善口種茶。	Tā xǐhuan hē kāfēi.	她喜欢喝咖啡。	彼.心善2.口.種茶		
-I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終一杯種茶。	Wǒ mǎile yī bēi kāfēi.	我买了一杯咖啡。	我.使銭.終.一.杯.種茶		
+I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終一杯種茶。	Wǒ mǎile yī bēi kāfēi.	我买了一杯咖啡。	我.使銭.終.一.杯.種茶		
 I am drinking a lot of tea.	pai2 aim2 iam1 taun1 tia2.	我在口多茶。	Wǒ zhèngzài hē hěnduō chá.	我正在喝很多茶。	我.在.口.多.茶		
 You drank too much coffee.	zap2 iam1 ta taun1 u1 giau det tia2.	彼口終多訴門種茶。	Nǐ kāfēi hē de tài duō le.	你咖啡喝得太多了。	彼.口.終.多.訴門.種茶		
 The coffee machine is always broken.	det tia2 kik1 ket mun1 mok1.	種茶機常無行。	Kāfēijī zǒngshì huài.	咖啡机总是坏。			
@@ -901,7 +901,7 @@ They went into the water.	zap2 ge lit1 nua2 ta.	彼等入水終。	Tāmen jìnle
 The ship has sunk.	muak1 lit1 nua2 ut2.	船入水下。	Chuán chén le.	船沉了。	船.入水.下4		
 She's writing down words.	zap2 aim2 kua2 man1 dat2.	彼在筆字集。	Tā zài xiě xià dāncí.	她在写下单词。	彼.在.筆2.字集		
 The teacher is teaching us some new words.	tui2 nui2 cuk2 tui2 ie pai2 ge lu2 man1 dat2.	与学人与於我等新字集。	Lǎoshī jiāo wǒmen xīn dāncí.	老师教我们新单词。			
-He remembered my name.	zap2 ty can2 sak2 ta pai2 a sin1.	彼再識来終我之名。	Tā jìzhu le wǒ de míngzi.	他记住了我的名字。	彼.再識来.終.我.之.名		
+He remembered my name.	zap2 ty can2 sak2 ta pai2 a sin1.	彼再識来終我之名。	Tā jìzhu le wǒ de míngzi.	他记住了我的名字。	彼.再識来.終.我.之.名		
 He threw a piece of meat to a dog.	zap2 kut2 tui2 et2 gek ie pa2.	彼撃与一肉於犬。	Tā diū le kuài ròu gěi yī tiáo gǒu.	他丢了块肉给一条狗。	彼.撃.与.一.肉.於1.犬		
 His words hurt her.	zap2 zep1 ua tui2 gui2 ie zap2.	彼言而与傷於彼。	Tā de huà shānghài le tā.	他的话伤害了她。			
 What is the difference between a dog and a cat?	pa2 ne2 a pau1 ka1 nan2?	犬猫之別此何？	Gǒu hé māo yǒu shénme qūbié?	狗和猫有什么区别？ 			
@@ -966,7 +966,7 @@ The bookstore is not big.	ak1 su1 hue mun1 ma1.	書銭処無大。	Shūdiàn bù
 The teacher is at the bookstore.	tui2 nui2 cuk2 aim2 ak1 su1 hue.	与学人在書銭処。	Lǎoshī zài shūdiàn.	老师在书店。	与学人.在6.書銭処		
 Is the bookstore big?	ak1 su1 hue ma1 yn2?	書銭処大乎？	Shūdiàn dà ma?	书店大吗？	書銭処.大.乎		
 The bookstore is very small.	ak1 su1 hue kit ni1.	書銭処極小。	Shūdiàn hěn xiǎo.	书店很小。	書銭処.極.小2		
-Excuse me, where is the bookstore?	xizi xizi. ak1 su1 hue aim2 nan2 hue a?	xizi xizi。書銭処在何処噫？	Qǐngwèn, shūdiàn zài nǎli?	请问，书店在哪里？			
+Excuse me, where is the bookstore?	xizi xizi. ak1 su1 hue aim2 nan2 hue a?	xizi xizi。書銭処在何処噫？	Qǐngwèn, shūdiàn zài nǎli?	请问，书店在哪里？			
 Excuse me, are you going to the bookstore?	xizi xizi. mua2 mok1 ie ak1 su1 hue yn2?	xizi xizi。汝行於書銭処乎？	Qǐngwèn, nǐ yào qù shūdiàn ma?	请问，你要去书店吗？			
 My classmate is going to the bookstore.	pai2 a nui2 hi1 mok1 ie ak1 su1 hue.	我之学友行於書銭処。	Wǒ tóngxué yào qù shūdiàn.	我同学要去书店。			
 This bookstore sells books and clothes.	ka1 a ak1 su1 hue guk2 su1 ie ak1 at tak1.	此之書銭処受銭於書加衣。	Zhè jiā shūdiàn chūshòu shūjí hé yīfú.	这家书店出售书籍和衣服。			
@@ -982,7 +982,7 @@ Is studying Linepāine boring?	nui2 lip zep1 ka1 pua2 mun1 yn2?	学哩言此風�
 My younger sister is very boring.	pai2 a sa1 ut2 huok1 kit pua2 mun1.	我之女下輩極風無。	Wǒ mèimèi hěn wúliáo.	我妹妹很无聊。	我.之.女下輩.極.風無		
 I've heard that studying Linepāine is very boring.	pai2 lua1 can2 ta nui2 lip zep1 kit pua2 mun1.	我耳識終学哩言極風無。	Wǒ tīngshuō xuéxí Lǐyǔ hěn wúliáo.	我听说学习哩语很无聊。	我.耳識.終.学.哩言.∅4.極.風無		
 He's cutting the fruit.	zap2 aim2 gau2 tua1.	彼在刀果。	Tā zài qiè shuǐguǒ.	他在切水果。	彼.在.刀.果		
-This hotel is very cheap.	ka1 hok1 su1 hue kit ni1 su1.	此寝銭処極小銭。	Zhè jiā lǚguǎn hěn piányi.	这家旅馆很便宜。	此2.寝銭処.極.小銭		
+This hotel is very cheap.	ka1 hok1 su1 hue kit ni1 su1.	此寝銭処極小銭。	Zhè jiā lǚguǎn hěn piányi.	这家旅馆很便宜。	此2.寝銭処.極.小銭		
 She's drawing a picture.	zap2 aim2 kua2 et2 lek1.	彼在筆一絵。	Tā zài huà yī fú huà.	她在画一幅画。	彼.在.筆2.一.絵		
 He knows how to earn money.	zap2 can2 sep su1 a sit1.	彼識享銭之術。	Tā hěn huì zhuànqián.	他很会赚钱。	彼.識.享#銭.享!銭.之2.術		
 It really stinks!	kit cai1 non1 a!	極嗅悪噫！	Zhēn chòu ya.	真臭呀。	極.嗅悪.噫		
@@ -1041,7 +1041,7 @@ Please sign your name!	hia1 kua2 ut2 sin1 a.	心筆下名噫。	Qǐng qiānmíng
 My son can walk!	pai2 ki1 kat1 py xi1 mok1 a.	我男子力足行噫。	Érzi néng zǒulù le!	儿子能走路了！			
 Which country's currency is this?	ka1 nan2 sip1 a su1?	此何国之銭？	Zhè shì nǎ gè guójiā de huòbì?	这是哪个国家的货币？	此.∅.何2.国.之.銭		
 How much does one fish cost?	et2 mui1 nan2 su1?	一魚何銭？	Yī wěi yú duōshaoqián?	一尾鱼多少钱？			
-Children should drink milk every day.	be1 kia1 kat1 ly iam1 io2 sik2.	全日子須口牛蜜。	Háizimen yīnggāi měi tiān hē niúnǎi.	孩子们应该每天喝牛奶。			
+Children should drink milk every day.	be1 kia1 kat1 ly iam1 io2 sik2.	全日子須口牛蜜。	Háizimen yīnggāi měi tiān hē niúnǎi.	孩子们应该每天喝牛奶。			
 The Ai'ren Republic is not big, but our heart is big.	ai2 sip1 mun1 ma1 ua pai2 ge a hia1 ka1 ma1.	冠国無大而我等之心此大。	Guānguó bìng bù dà, dàn wǒmen de xīn hěn dà.	冠国并不大，但我们的心很大。			
 These two doors are very similar.	ka1 ik2 giau1 kit em huat1 bap.	此二門極如互同。	Zhè liǎng shān mén hěn lèisì.	这两扇门很类似。			
 One million people lost their live during the war.	ie kaik kit1 ue1 cuk2 co1 ta.	於戦百万人散終。	Yībǎi wàn rén zài zhànzhēng zhōng shīqùle shēngmìng.	一百万人在战争中失去了生命。	於dur.戦2.百万.人.散3.終		
@@ -1074,7 +1074,7 @@ This little girl is very smart.	ze1 ni1 sa1 kat1 kit can2 kait.	其小女子極�
 The little girl gets on the bus first.	et2 pui1 kak ni1 sa1 kat1 lit1 mok1 ie tei1 kaun1.	一位時小女子入行於叮車。	Xiǎo nǚhái xiān shàngchē.	小女孩先上车。			
 There is too much salt in this food.	taun1 u1 giau kuo1 aim2 ie ka1 iam1 ku.	多訴門塩在於此口物。	Zhè zhǒng shíwù zhòng de yán tài duō.	这种食物中的盐太多。			
 The water is boiling.	nua2 aim2 puat2.	水在奮。	Shuǐ gǔn le.	水滚了。			
-Let me introduce my good friend.	tui2 pai2 zep1 zep1 cei2 pai2 a kait hi1.	与我言言周我之善友。	Ràng wǒ jièshào yīxià wǒ de hǎopéngyou.	让我介绍一下我的好朋友。			
+Let me introduce my good friend.	tui2 pai2 zep1 zep1 cei2 pai2 a kait hi1.	与我言言周我之善友。	Ràng wǒ jièshào yīxià wǒ de hǎopéngyou.	让我介绍一下我的好朋友。			
 Please pass me that document.	hia1 tui2 ut2 ie pai2 zap2 ak1.	心与下於我彼書。	Qǐng bǎ nà fèn wénjiàn dì gěi wǒ.	请把那份文件递给我。			
 We would highly appreciate your purchase.	tui2 su1 ua am guk2 ua kit hia1 kait a.	与銭而御受而極心善噫。	Rúguǒ nín mǎile, wǒmen huì fēicháng gāoxìng.	如果您买了，我们会非常高兴。			
 She saw a big, tall man yesterday.	et2 sau2 kia1 zap2 ta1 ta et2 ma1 ua auk2 ki1.	一上日彼目終一大而長男。	Tā zuótiān kànjiàn yī ge gāodà de nánrén.	她昨天看见一个高大的男人。			
@@ -1085,7 +1085,7 @@ The baby can't walk yet.	ka1 kak ni1 kat1 mun1 py xi1 mok1.	此時小子無力�
 The little dog is lying on the ground.	ni1 pa2 aim2 o1 ie huep2.	小犬在平於地。	Xiǎo gǒu pā zài dìshang.	小狗趴在地上。			
 This house is beautiful.	ka1 mut2 kit hem1.	此家極美。	Zhè dòng fángzi hěn piàoliang.	这栋房子很漂亮。	此2.家.極.美		
 How many stories are there in this building?	nan2 mak2 gy1 aim2 ie ka1 mut2?	何値層在於此家？	Zhè dòng lóu yǒu jǐ céng?	这栋楼有几层？			
-Who taught her how to speak Linepāine?	nan2 cuk2 tui2 ta zep1 lip zep1 a nui2 ie zap2?	何人与終言哩言之学於彼？	Shì shéi jiāo tā zěnme shuō Lǐyǔ de?	是谁教她怎么说哩语的？			
+Who taught her how to speak Linepāine?	nan2 cuk2 tui2 ta zep1 lip zep1 a nui2 ie zap2?	何人与終言哩言之学於彼？	Shì shéi jiāo tā zěnme shuō Lǐyǔ de?	是谁教她怎么说哩语的？			
 I don't know the rules.	pai2 mun1 can2 io1.	我無識直。	Wǒ bù zhīdào guīzé.	我不知道规则。			
 One must observe the rules.	cuk2 ly mok1 io1 a po1.	人須行直之道。	Wǒmen bìxū zūnshǒu guīzé.	我们必须遵守规则。	人.須.行#道.直2.之.行!道		
 We must obey the law.	pai2 ge ly mok1 iak1 a po1.	我等須行律之道。	Wǒmen bìxū zūnshǒu fǎlǜ.	我们必须遵守法律。	我等.須.行#道.律2.之.行!道		
@@ -1114,10 +1114,10 @@ You need to learn some commonly used words.	mua2 ly nui2 huai2 sui1 a man1 dat2.
 There are many stars in the sky.	taun1 pet2 aim2 syt2.	多星在天。	Tiānshàng yǒu hěn duō xīngxīng.	天上有很多星星。	多.星star.在5.天		
 He broke the law.	zap2 mun1 tia1 ta ie iak1.	彼無従終於律。	Tā wéifǎn le fǎlǜ.	他违反了法律。			
 He broke the rule.	zap2 mun1 tia1 ta ie io1.	彼無従終於直。	Tā wéifǎn le guīdìng.	他违反了规定。			
-He had another glass of alcohol.	zap2 at ta et2 niep1 no1.	彼加終一杯酒。	Tā yòu tiānle yī bēi jiǔ.	他又添了一杯酒。	彼.加3.終.一.杯.酒		
+He had another glass of alcohol.	zap2 at ta et2 niep1 no1.	彼加終一杯酒。	Tā yòu tiānle yī bēi jiǔ.	他又添了一杯酒。	彼.加3.終.一.杯.酒		
 They've cut down a tree.	zap2 ge gau2 ta hup1.	彼等刀終木。	Tāmen kǎnle yī kē shù.	他们砍了一棵树。	彼等.刀.終.木		
-She can drive a car.	zap2 can2 mok1 kaun1 a sit1.	彼識行車之術。	Tā huì jiàshǐ qìchē.	她会驾驶汽车。			
-When will you go to Keettwa?	nan2 kak mua2 mok1 mok1 kit1 tua1?	何時汝行行百果？	Nǐ shénme shíhòu yào qù Bǎiguǒ?	你什么时候要去百果？	何時.汝.行2.行.百果		
+She can drive a car.	zap2 can2 mok1 kaun1 a sit1.	彼識行車之術。	Tā huì jiàshǐ qìchē.	她会驾驶汽车。			
+When will you go to Keettwa?	nan2 kak mua2 mok1 mok1 kit1 tua1?	何時汝行行百果？	Nǐ shénme shíhòu yào qù Bǎiguǒ?	你什么时候要去百果？	何時.汝.行2.行.百果		
 I haven't been to Keettwa.	pai2 mun1 hop1 mok1 kit1 tua1.	我無手行百果。	Wǒ méi qùguò Bǎiguǒ.	我没去过百果。	我.無手2.行.百果		
 How's Keettwa?	kit1 tua1 em nan2?	百果如何？	Bǎiguǒ zěnmeyàng?	百果怎么样？	百果.如.何		
 The box fell.	bu1 ut2 mok1 ta.	箱下行終。	Xiāngzi dǎo le.	箱子倒了。	箱.下行.終		
@@ -1139,13 +1139,13 @@ I go by foot to school every day.	pai2 kia1 kia1 xi1 mok1 ie nui2 hue.	我日日
 There's a car ahead.	kaun1 aim2 ie son1.	車在於前。	Qiánfāng yǒu chē.	前方有车。			
 My classmate doesn't have a textbook.	pai2 a nui2 hi1 mun1 hop1 tui2 nui2 ak1.	我之学友無手与学書。	Wǒ de tóngxué méi yǒu kèběn.	我的同学没有课本。	我.之.学友.無手.与学書		
 I believe this textbook is not good.	pai2 hia1 ka1 tui2 nui2 ak1 mun1 kait.	我心此与学書無善。	Běnrén rènwéi, zhè gè kèběn bù hǎo.	本人认为，这个课本不好。			
-Does he have a textbook?	zap2 aim2 hop1 tui2 nui2 ak1 yn2? 	彼在手与学書乎？	Tā yǒu kèběn ma?	他有课本吗？	彼.在手.与学書.乎		
-I don't have a textbook.	tui2 nui2 ak1 mun1 aim2 ie pai2.	与学書無在於我？	Wǒ méi yǒu kèběn.	我没有课本。			
+Does he have a textbook?	zap2 aim2 hop1 tui2 nui2 ak1 yn2? 	彼在手与学書乎？	Tā yǒu kèběn ma?	他有课本吗？	彼.在手.与学書.乎		
+I don't have a textbook.	tui2 nui2 ak1 mun1 aim2 ie pai2.	与学書無在於我？	Wǒ méi yǒu kèběn.	我没有课本。			
 This is my textbook.	ka1 pai2 a tui2 nui2 ak1.	此我之与学書。	Zhè shì wǒ de kèběn.	这是我的课本。	此.∅.我.之.与学書		
-Do you have a textbook?	mua2 aim2 hop1 tui2 nui2 ak1 yn2? 	汝在手与学書乎？	Nǐ yǒu kèběn ma?	你有课本吗？	汝.在手.与学書.乎		
-Ms. Show would like to buy a textbook.	xo1 xizi hia1 ian1 su1 ie tui2 nui2 ak1.	夏xizi心生銭於与学書。	Xià xiǎojiě xiǎng mǎi kèběn.	夏小姐想买课本。			
+Do you have a textbook?	mua2 aim2 hop1 tui2 nui2 ak1 yn2? 	汝在手与学書乎？	Nǐ yǒu kèběn ma?	你有课本吗？	汝.在手.与学書.乎		
+Ms. Show would like to buy a textbook.	xo1 xizi hia1 ian1 su1 ie tui2 nui2 ak1.	夏xizi心生銭於与学書。	Xià xiǎojiě xiǎng mǎi kèběn.	夏小姐想买课本。			
 I will buy a textbook.	pai2 mok1 ian1 su1 ie tui2 nui2 ak1.	我行生銭於与学書。	Wǒ yào mǎi kèběn.	我要买课本。			
-Where can I buy a Pekzep textbook?	ie nan2 pai2 py ian1 su1 ie pek2 zep1 a tui2 nui2 ak1?	於何我力生銭於牌言之与学書？	Nǎli kěyǐ mǎi Páiyǔ kèběn?	哪里可以买牌语课本？			
+Where can I buy a Pekzep textbook?	ie nan2 pai2 py ian1 su1 ie pek2 zep1 a tui2 nui2 ak1?	於何我力生銭於牌言之与学書？	Nǎli kěyǐ mǎi Páiyǔ kèběn?	哪里可以买牌语课本？			
 She will buy a Pekzep textbook.	zap2 mok1 ian1 su1 ie pek2 zep1 a tui2 nui2 ak1.	彼行生銭於牌言之与学書。	Tā yào mǎi Páiyǔ kèběn.	她要买牌语课本。			
 I would like to buy a textbook.	pai2 hia1 ian1 su1 ie tui2 nui2 ak1.	我心生銭於与学書。	Wǒ xiǎng mǎi kèběn.	我想买课本。			
 How's this textbook?	ka1 tui2 nui2 ak1 em nan2?	此与学書如何？	Zhè běn kèběn zěnmeyàng?	这本课本怎么样？	此2.与学書.如.何		
@@ -1159,7 +1159,7 @@ She would like to come to Makati.	zap2 hia1 sak2 syt2 tun2.	彼心来天神。	T
 There is writing on the wall.	man1 aim2 ie co1.	字在於壁。	Qiángbì shàng yǒu zì.	墙壁上有字。	字.在3.於1.壁		
 The map of the Ai'ren Republic is on the wall.	ai2 sip1 a huep2 lek1 aim2 ie co1.	冠国之地絵在於壁。	Guānguó dìtú jiù zài qiáng shàng.	冠国地图就在墙上。			
 There is a white rabbit here.	liok1 hup1 saup1 aim2 ie ka1 hue.	白木獣在於此処。	Zhèli yǒu yī zhǐ bái tù.	这里有一只白兔。	白2.木獣.在3.於1.此処		
-What do you call this bird in Linepāine?	ka1 lup1 sui1 lip zep1 zep1 nan2?	此鳥使哩言言何？	Zhè niǎo nǐmen yòng Lǐyǔ zěnme chēnghu?	这鸟你们用哩语怎么称呼？			
+What do you call this bird in Linepāine?	ka1 lup1 sui1 lip zep1 zep1 nan2?	此鳥使哩言言何？	Zhè niǎo nǐmen yòng Lǐyǔ zěnme chēnghu?	这鸟你们用哩语怎么称呼？			
 The children are playing on the grass.	kat1 ge aim2 tu2 ie kot hue.	子等在遊於草処。	Háizimen zài cǎodì shàng wánr.	孩子们在草地上玩儿。			
 The sheep are grazing in the meadow.	po1 saup1 iam1 kot ie kot hue.	羊獣口草於草処。	Yáng zài cǎodì shàng chī cǎo.	羊在草地上吃草。			
 There are two horses in the meadow.	ik2 maun1 aim2 kot hue.	二馬在草処。	Cǎodì shàng yǒu liǎng pǐ mǎ.	草地上有两匹马。	二2.馬.在6.草処		
@@ -1171,7 +1171,7 @@ There is a forest here.	hup1 hue aim2 ka1 hue.	木処在此処。	Zhèlǐ yǒu y
 I used to play in the woods.	sau2 kak hup1 hue pai2 tu2.	上時木処我遊。	Wǒ céngjīng zài shùlín lǐ wánshuǎ.	我曾经在树林里玩耍。			
 He is holding a knife in his right hand.	zap2 ie ky1 hop1 aim2 hop1 et2 gau2.	彼於右手在手一刀。	Tā de yòushǒu názhe yī bǎ dāozi.	他的右手拿着一把刀子。			
 The bird stopped on a branch.	lup1 cy2 ie hup1 hop1.	鳥席於木手。	Yī zhī niǎo tíng zài shùyā shàng.	一只鸟停在树丫上。	鳥.席2.於.木手		
-Could I use your pencil/chalk?	pai2 py sui1 mua2 a sy2 kua2?	我力使汝之石筆？	Wǒ néng yòng yīxià nǐ de qiānbǐ/fěnbǐ ma?	我能用一下你的铅笔/粉笔吗？	我.力.使.汝.之.石筆		
+Could I use your pencil/chalk?	pai2 py sui1 mua2 a sy2 kua2?	我力使汝之石筆？	Wǒ néng yòng yīxià nǐ de qiānbǐ/fěnbǐ ma?	我能用一下你的铅笔/粉笔吗？	我.力.使.汝.之.石筆		
 How do you make a pencil?	em nan2 mua2 zau sy2 kua2?	如何汝為石筆？	Nǐ rúhé zhìzuò qiānbǐ?	你如何制作铅笔？			
 What do you use to make a pencil?	sui1 nan2 mua2 zau sy2 kua2?	使何汝為石筆？	Nǐ yòng shénme lái zhìzuò qiānbǐ?	你用什么来制作铅笔？	使2.何.汝.為make.石筆		
 By what method do you make a pencil?	nan2 sit1 mua2 zau sy2 kua2?	何術汝為石筆？	Nǐ shì yòng shénme fāngfǎ zhìzuò qiānbǐ de?	你是用什么方法制作铅笔的？			
@@ -1258,15 +1258,15 @@ Learning a foreign language well isn't easy.	nui2 pau1 zep1 kait ka1 mun1 ho.	�
 The sun is shining on the tree leaves.	kia1 aik2 ut2 mok1 ie hup1 kot hop1.	日光下行於木草手。	Yángguāng zhào zài shùyè shàng.	阳光照在树叶上。	日光.下行.於.木草手		
 Can I use your dictionary?	pai2 py sui1 mua2 a zep1 ak1 yn2?	我力使汝之言書乎？	Wǒ néngyòng yīxià nǐ de zìdiǎn ma?	我能用一下你的字典吗？			
 This is my dictionary.	ka1 pai2 a zep1 li1.	此我之言倉。	Zhè shì wǒ de zìdiǎn.	这是我的字典。	此.∅.我.之.言倉		
-Let me introduce my old friend.	tui2 pai2 zep1 zep1 cei2 pai2 a sia1 hi1.	与我言言周我之古友。	Ràng wǒ jièshào yī xià wǒ de lǎo péngyou.	让我介绍一下我的老朋友。			
+Let me introduce my old friend.	tui2 pai2 zep1 zep1 cei2 pai2 a sia1 hi1.	与我言言周我之古友。	Ràng wǒ jièshào yī xià wǒ de lǎo péngyou.	让我介绍一下我的老朋友。			
 He holds a passport of the Ai'ren Republic.	zap2 aim2 hop1 ai2 sip1 a lit1 sip1 ak1.	彼在手冠国之入国書。	Tā chíyǒu Guānguó hùzhào.	他持有冠国护照。	彼.在手.冠国.之.入国書		
 There are many dictionaries on the bookshelf.	taun1 zep1 li1 aim2 ie ak1 hy2.	多言倉在於書棚。	Shūjià shàng yǒu hěn duō běn zìdiǎn.	书架上有很多本字典。			
 He takes a book off the shelf.	zap2 hop1 sak2 et2 ak1 ie hy2.	彼手来一書於棚。	Tā cóng shūjià shàng chōuchū yī běn shū.	他从书架上抽出一本书。			
 The strings of a good stringed instrument are expensive.	kait lia1 a bai2 kit ma1 su1.	善琴之糸極大銭。	Yī bǎ hǎo de xiányuèqì de qín xián shì ángguì de.	一把好的弦乐器的琴弦是昂贵的。			
 The color of the puppy's fur is as white as snow.	ni1 pa2 a im1 ka1 liok1 em let1.	小犬之毛此白如雪。	Xiǎogǒu de máosè xuěbái.	小狗的毛色雪白。			
-What time does she go to work?	ie nan2 kak zap2 mok1 naip2 hue?	於何時彼行労処？	Tā jǐdiǎn shàngbān?	她几点上班？			
-What time does Ms. Show go to work?	ie nan2 kak xo1 xizi mok1 naip2 hue?	於何時夏xizi行労処？	Xià xiǎojiě jǐdiǎn shàngbān?	夏小姐几点上班？			
-What time does your little sister go to school?	ie nan2 kak mua2 a ut2 sa1 huok1 mok1 nui2 hue?	於何時汝之下女輩行学処？	Nǐ mèimèi jǐdiǎn shàngxué?	你妹妹几点上学？			
+What time does she go to work?	ie nan2 kak zap2 mok1 naip2 hue?	於何時彼行労処？	Tā jǐdiǎn shàngbān?	她几点上班？			
+What time does Ms. Show go to work?	ie nan2 kak xo1 xizi mok1 naip2 hue?	於何時夏xizi行労処？	Xià xiǎojiě jǐdiǎn shàngbān?	夏小姐几点上班？			
+What time does your little sister go to school?	ie nan2 kak mua2 a ut2 sa1 huok1 mok1 nui2 hue?	於何時汝之下女輩行学処？	Nǐ mèimèi jǐdiǎn shàngxué?	你妹妹几点上学？			
 What time do the students go to school?	ie nan2 kak nui2 cuk2 mok1 nui2 hue?	於何時学人行学処？	Xuéshengmen jǐdiǎn shàngxué?	学生们几点上学？			
 What time does the school start?	ie nan2 kak nui2 hue hut2?	於何時学処始？	Xuéxiào jǐ diǎn kāishǐ?	学校几点开始？			
 What time do you go to school?	ie nan2 kak mua2 mok1 nui2 hue?	於何時汝行学処？	Nǐ jǐdiǎn shàngxué?	你几点上学？			
@@ -1287,7 +1287,7 @@ This diamond is real.	ka1 liok1 aik2 sy2 ka1 put.	此白光石此真。	Zhè kē
 This diamond is not real.	ka1 liok1 aik2 sy2 mun1 put.	此白光石無真。	Zhè kē zuànshí bù shì zhēnde.	这颗钻石不是真的。			
 The soldiers are defending their country.	kauk2 aim2 num1 tin1 sip1.	兵在守己国。	Shìbīng bǎowèi guójiā.	士兵保卫国家。			
 Soldiers protect our nation.	kauk2 ge num1 pai2 ge a sip1.	兵等守我等之国。	Jūnrén bǎowèi zhe wǒmen de guójiā.	军人保卫着我们的国家。			
-Where can I buy a notebook?	ie nan2 hue pai2 py ian1 su1 ie kun2 ak1?	於何処我力生銭於付書？	Nǎli kěyǐ mǎi běnzi?	哪里可以买本子？			
+Where can I buy a notebook?	ie nan2 hue pai2 py ian1 su1 ie kun2 ak1?	於何処我力生銭於付書？	Nǎli kěyǐ mǎi běnzi?	哪里可以买本子？			
 This is a notebook.	ka1 kun2 ak1.	此付書。	Zhè shì běnzi.	这是本子。	此.∅.付書		
 Do you have a notebook?	mua2 aim2 hop1 kun2 ak1 yn2?	汝在手付書乎？	Nǐ yǒu běnzi ma?	你有本子吗？			
 If the river becomes polluted, the fish will die.	nut2 mok1 mun1 lin hem mui1 mok1 mot2.	川行無清即魚行壊。	Héshuǐ yīdàn wūrǎn, yú'er jiù huì sǐ.	河水一旦污染，鱼儿就会死。			
@@ -1366,7 +1366,7 @@ You are lying.	mua2 aim2 zep1 mun1 put.	汝在言無真。	Nǐ zài sāhuǎng.	�
 He lied to me. That is why I am angry with him.	zap2 zep1 ta mun1 put. ka1 xit2 pai2 kan1 puat2 ie zap2.	彼言終無真。此故我火奮於彼。	Tā duì wǒ shuō le huǎng, zhè jiùshì wèishénme wǒ shēng tā de qì le.	他对我说了谎，这就是为什么我生他的气了。			
 This airplane can carry 40 people.	ie ka1 lup1 kaun1 ap1 nun1 a cuk2 py cy2.	於此鳥車四十之人力席。	Zhè jià fēijī kěyǐ dāzài sìshí rén.	这架飞机可以搭载四十人。			
 This airplane is capable of carrying 40 passengers at one time.	ie ka1 lup1 kaun1 et2 mok1 hem ap1 nun1 a cuk2 py mok1.	於此鳥車一行即四十之人力行。	Zhè jià fēijī yīcì kěyǐ xiédài sìshí míng chéngkè.	这架飞机一次可以携带四十名乘客。			
-He joined the army.	zap2 lit1 mok1 ta ie kaik dat2.	彼入行終於戦集。	Tā dāngbīng le.	他当兵了。			
+He joined the army.	zap2 lit1 mok1 ta ie kaik dat2.	彼入行終於戦集。	Tā dāngbīng le.	他当兵了。			
 I see a woman wearing black.	pai2 ta1 huok2 tak1 a sa1.	我目黒衣之女。	Wǒ kànjiàn yī ge chuān hēi yīfu de nǚrén.	我看见一个穿黑衣服的女人。	我.目.黒.衣.之.女2		
 I like eating canned foods.	pai2 hia1 kait iam1 kin2 to2 a iam1 ku.	我心善口金樽之口物。	Wǒ xǐhuan chī guàntou shípǐn.	我喜欢吃罐头食品。			
 Recently, the price of fruit has risen.	cei2 ka1 kia1 tua1 su1 sau2 mok1.	周此日果銭上行。	Zuìjìn, shuǐguǒ yòu zhǎngjià le.	最近，水果又涨价了。	周.此日.果.銭price.上行		
@@ -1381,7 +1381,7 @@ He works for a company in Makati.	zap2 naip2 ie syt2 tun2 a naip2 hue.	彼労於
 He owns a company in Numama.	zap2 aim2 hop1 ma1 num1 hue a naip2 hue.	彼在手大守処之労処。	Tā zài Dàshǒuchù yōngyǒu yījiā gōngsī.	他在大守处拥有一家公司。	彼.在手.大守処.之.労処		
 This house is too old.	ka1 mut2 sia1 u1 giau.	此家古訴門。	Zhè dòng fángzi tài chénjiù le.	这栋房子太陈旧了。	此2.家.古.訴門		
 Why will you buy a Linepāine textbook?	mua2 nan2 xit2 ian1 su1 ie lip zep1 a tui2 nui2 ak1?	汝何故生銭於哩言之与学書？	Nǐ wèishénme yào mǎi Lǐyǔ kèběn?	你为什么要买哩语课本？	汝.何故.生銭.於1.哩言.之.与学書		
-Where can I buy a Linepāine textbook?	ie nan2 hue pai2 py ian1 su1 ie lip zep1 a tui2 nui2 ak1?	於何処我力生銭於哩言之与学書？	Nǎli kěyǐ mǎi Lǐyǔ kèběn?	哪里可以买哩语课本？	於.何処.我.力.生銭.於1.哩言.之.与学書		
+Where can I buy a Linepāine textbook?	ie nan2 hue pai2 py ian1 su1 ie lip zep1 a tui2 nui2 ak1?	於何処我力生銭於哩言之与学書？	Nǎli kěyǐ mǎi Lǐyǔ kèběn?	哪里可以买哩语课本？	於.何処.我.力.生銭.於1.哩言.之.与学書		
 He does not drink alcohol while eating.	iam1 ku a kak zap2 mun1 iam1 no1.	口物之時彼無口酒。	Tā zài chīfàn shí bù hējiǔ.	他在吃饭时不喝酒。	口物.之2.時.彼.無.口.酒		
 They hate each other.	zap2 ge huat1 hia1 non1.	彼等互心悪。	Tāmen hùxiāng yuànhèn duìfāng.	他们互相怨恨对方。	彼等.互.心悪		
 There are a hundred flowers in this bouquet.	kit1 xuo1 aim2 ie ka1 xuo1 dat2.	百花在於此花集。	Zhè shù huā li yǒu yībǎi duǒ huā.	这束花里有一百朵花。			
@@ -1392,7 +1392,7 @@ Where do you guys play Cetkaik? We play Cetkaik at my house.	"mua2 ge nan2 hue t
 They're lost.	zap2 ge zip1 ta po1.	彼等失終道。	Tāmen mílù le.	她们迷路了。	彼等.失#道.終.失!道		
 I'm lost.	pai2 zip1 ta po1.	我失終道。	Wǒ mílù le.	我迷路了。	我.失#道.終.失!道		
 Her boat got lost in the big river.	zap2 a muak1 zip1 po1 ie ma1 nut2 ta.	彼之船失道於大川終。	Tā de chuán zài dàhé lǐ mílùle.	她的船在大河里迷路了。 	彼.之.船.失#道.失!道.於.大2.川.終		
-The tiger walked over quietly.	dau2 na1 a xi1 mok1 ta.	虎静之足行終。	Lǎohǔ qiāoqiāo de zǒu guòlái.	老虎悄悄地走过来。	虎.静之.足行.終		
+The tiger walked over quietly.	dau2 na1 a xi1 mok1 ta.	虎静之足行終。	Lǎohǔ qiāoqiāo de zǒu guòlái.	老虎悄悄地走过来。	虎.静之.足行.終		
 Our army won.	pai2 ge a kaik dat2 sau2 mok1 ta.	我等之戦集上行終。	Wǒ jūn shènglì le.	我军胜利了。	我等.之.戦集.上行2.終		
 Pass me the ball!	tui2 kut2 cuet ie pai2 a!	与撃球於我噫！	Bǎ qiú chuán gěi wǒ!	把球传给我！			
 The food at school isn't bad.	nui2 hue a iam1 ku mun1 non1.	学処之口物無悪。	Xuéxiào de huǒshi bùcuò.	学校的伙食不错。	学処.之.口物2.無.悪		
@@ -1401,7 +1401,7 @@ Mix the rice flour with water and salt.	ten1 ten1 mo1 hua1 at nua2 at kuo1.	混�
 Who added a lot of salt into the alcohol?	nan2 cuk2 at lit1 ta taun1 kuo1 ie no1?	何人加入終多塩於酒？	Shéi zài jiǔ lǐ jiāle hěnduō yán?	谁在酒里加了很多盐？			
 Don't stop mixing. 	nau muo1 ten1 ten1.	勿止混混。	Bùyào tíngzhǐ hùnhé.	不要停止混合。	勿.止.混混		
 He gathered his toys together.	zap2 dat2 sak2 tu2 gau2.	彼集来遊刀。	Tā shōuqǐ le tā de wánjù.	他收起了他的玩具。	彼.集3.来5.遊刀		
-The passport is counterfeit.	lit1 sip1 ak1 mun1 put.	入国書無真。	Hùzhào shì wěizào de.	护照是伪造的。	入国書.無.真		
+The passport is counterfeit.	lit1 sip1 ak1 mun1 put.	入国書無真。	Hùzhào shì wěizào de.	护照是伪造的。	入国書.無.真		
 She knocked on the door with her right hand.	zap2 sui1 ky1 hop1 kut2 ta giau1.	彼使右手撃終門。	Tā yòng yòushǒu qiāole qiāo mén.	她用右手敲了敲门。			
 He hurt his left hand with a knife.	zap2 sui1 gau2 guk2 ta tyn1 hop1 a gui2.	彼使刀受終左手之傷。	Tā de zuǒshǒu bèi dāo gēshāng le.	他的左手被刀割伤了。	彼.使2.刀.受.終.左手.之.傷		
 Luckily, nobody got hurt.	kait tun2 aim2 ua mun1 cuk2 guk2 gui2.	善神在而無人受傷。	Hěn jiǎoxìng méi yǒu rén shòushāng.	很侥幸没有人受伤。	善2.神.在5.而.無人.受.傷		
@@ -1421,7 +1421,7 @@ The size of this airplane is massive.	ka1 lup1 kaun1 kit ma1.	此鳥車極大。
 The song reminds me of my home.	lua1 can2 ka1 xau1 hem pai2 ian1 hia1 pai2 mut2.	耳識此歌即我生心我家。	Zhè shǒu gē ràng wǒ xiǎngjiā le.	这首歌让我想家了。			
 He is as tall as his dad.	zap2 auk2 bap zap2 kuak1.	彼長同彼父。	Tā gēn tā bàba yīyàng gāo.	他跟他爸爸一样高。	彼2.長2.同3.彼2.父		
 Many people are afraid of thunder.	zat1 syt2 pit1 a cuk2 taun1.	怖天震之人多。	Xǔduō rén hàipà dǎléi.	许多人害怕打雷。			
-They've bought this house.	zap2 ge ian1 ta su1 ie ka1 mut2.	彼等生終銭於此家。	Tāmen mǎile zhè tào fángzi.	他们买了这套房子。			
+They've bought this house.	zap2 ge ian1 ta su1 ie ka1 mut2.	彼等生終銭於此家。	Tāmen mǎile zhè tào fángzi.	他们买了这套房子。			
 The wind is cold today.	ka1 kia1 pua2 lok1.	此日風寒。	Jīntiān guā lěng fēng.	今天刮冷风。	此日.風.寒		
 The tree fell down due to the wind.	hup1 aip1 ta ie pua2.	木倒終於風。	Shù bèi fēng chuī dàole.	树被风吹倒了。	木.倒.終.於4.風		
 We went for a walk in the forest.	pai2 ge tu2 xi1 mok1 ta ie hup1 hue.	我等遊足行終於木処。	Wǒmen qù le lín zhōng sànbù.	我们去了林中散步。			
@@ -1462,7 +1462,7 @@ He's painting the wall.	zap2 tui2 pok ie co1.	彼与色於壁。	Tā gěi qiáng
 He's painting the wall red.	zap2 kun2 kok1 pok ie co1.	彼付赤色於壁。	Tā bǎ qiáng shuā chéngle hóngsè.	他把墙刷成了红色。			
 I like lemon juice.	pai2 hia1 kait siet1 nua2.	我心善檸水。	Wǒ xǐhuān níngméng zhī.	我喜欢柠檬汁。	我.心善.檸水		
 The grasslands are vast.	kot hue kit ma1.	草処極大。	Zhè piàn cǎoyuán hěn liáokuò.	这片草原很辽阔。	草処.極.大		
-My work is very boring.	pai2 a naip2 hue kit pua2 mun1.	我之労処極風無。	Wǒ de gōngzuò bǎibān wúliáo.	我的工作百般无聊。	我.之.労処.極.風無		
+My work is very boring.	pai2 a naip2 hue kit pua2 mun1.	我之労処極風無。	Wǒ de gōngzuò bǎibān wúliáo.	我的工作百般无聊。	我.之.労処.極.風無		
 The house is on fire.	mut2 aim2 kan1.	家在火。	Fángwū zháohuǒ le.	房屋着火了。	家.在.火3		
 During the rainy season, we are always at home.	syt2 nua2 a xot1 pai2 ge ket aim2 ie mut2.	天水之季我等常在於家。	Zài yǔjì, wǒmen zǒng shì zài jiālǐ.	在雨季，我们总是在家里。			
 The coal is burning.	huo2 sy2 aim2 kan1.	墨石在火。	Méitàn zài ránshāozhe.	煤炭在燃烧着。	墨石.在.火3		
@@ -1474,11 +1474,11 @@ My dad and I are going to hunt together.	pai2 kuak1 at pai2 mok1 sep saup1.	我�
 He likes hunting. He likes to hunt.	zap2 hia1 kait sep saup1.	彼心善享獣。	Tā xǐhuān dǎliè.	他喜欢打猎。	彼.心善.享#獣.享!獣		
 My daughter's room is a mess.	pai2 sa1 kat1 a pia2 co1.	我女子之囲散。	Nǚ'ér de fángjiān hěn záluàn.	女儿的房间很杂乱。	我2.女子.之.囲.散2		
 Mr. Ark is at the tea house.	ak1 xizi aim2 tia2 su1 hue.	書xizi在茶銭処。	Shū xiānsheng zài cháguǎn.	书先生在茶馆。	書2.xizi.在6.茶銭処		
-How does Mr. Ark study Linepāine?	ak1 xizi ie nan2 nui2 pek2 zep1?	書xizi於何学牌言？	Shū xiānshēng zěnme xuéxí Lǐyǔ?	书先生怎么学习哩语？	書2.xizi.於3.何.学.牌言		
-Do you know Mr. Ark?	mua2 can2 ak1 xizi yn2?	汝識書xizi乎？	Nǐ rènshi Shū xiānsheng ma?	你认识书先生吗？	汝.識.書2.xizi.乎		
-Mr. Ark knows how to speak many languages.	ak1 xizi py zep1 taun1 nim2 a zep1.	書xizi力言多族之言。	Shū xiānsheng huì jiǎng hěn duō zhǒng yǔyán.	书先生会讲很多种语言。	書2.xizi.力.言.多.族.之.言6		
-Is Mr. Ark's work difficult?	ak1 xizi a naip2 uo1 pek1 yn2?	書xizi之労件硬乎？	Shū xiānsheng de gōngzuò nán ma?	书先生的工作难吗？	書2.xizi.之.労件.硬.乎		
-Mr. Ark does not like his work.	ak1 xizi mun1 hia1 kait tin1 a naip2.	書xizi無心善己之労。	Shū xiānsheng bù xǐhuan tā de gōngzuò.	书先生不喜欢他的工作。	書2.xizi.無.心善.己.之.労2		
+How does Mr. Ark study Linepāine?	ak1 xizi ie nan2 nui2 pek2 zep1?	書xizi於何学牌言？	Shū xiānshēng zěnme xuéxí Lǐyǔ?	书先生怎么学习哩语？	書2.xizi.於3.何.学.牌言		
+Do you know Mr. Ark?	mua2 can2 ak1 xizi yn2?	汝識書xizi乎？	Nǐ rènshi Shū xiānsheng ma?	你认识书先生吗？	汝.識.書2.xizi.乎		
+Mr. Ark knows how to speak many languages.	ak1 xizi py zep1 taun1 nim2 a zep1.	書xizi力言多族之言。	Shū xiānsheng huì jiǎng hěn duō zhǒng yǔyán.	书先生会讲很多种语言。	書2.xizi.力.言.多.族.之.言6		
+Is Mr. Ark's work difficult?	ak1 xizi a naip2 uo1 pek1 yn2?	書xizi之労件硬乎？	Shū xiānsheng de gōngzuò nán ma?	书先生的工作难吗？	書2.xizi.之.労件.硬.乎		
+Mr. Ark does not like his work.	ak1 xizi mun1 hia1 kait tin1 a naip2.	書xizi無心善己之労。	Shū xiānsheng bù xǐhuan tā de gōngzuò.	书先生不喜欢他的工作。	書2.xizi.無.心善.己.之.労2		
 There are a lot of tall buildings in Quahua.	taun1 sue1 mut2 aim2 ie kua2 hue.	多高家在於筆処。	Bǐchǔ yǒu hěn duō gāolóu dàshà.	笔处有很多高楼大厦。	多.高3.家.在3.於1.筆処		
 Use this box to carry the clothes.	ly sui1 ka1 bu1 ua tui2 mok1 tak1.	須使此箱而与行衣。	Yòng zhège xiāngzi lái bānyùn yīfú.	用这个箱子来搬运衣服。	須.使.此2.箱.而.与行.衣		
 If you use that box, then you have to carry the clothes.	sui1 ka1 bu1 ua ly tui2 mok1 tak1.	使此箱而須与行衣。	Rúguǒ nǐ shǐyòng nàgè xiāngzi, nàme nǐ jiù bìxū bānyùn yīfú.	如果你使用那个箱子，那么你就必须搬运衣服。	使.此2.箱.而.須.与行.衣		
@@ -1520,7 +1520,7 @@ The fruit can be made into alcohol.	tua1 py ian1 no1.	果力生酒。	Shuǐguǒ 
 What is your family name?	mua2 a mut2 sin1 ka1 nan2?	汝之家名此何？	Nǐ de xìngshì shì shénme?	你的姓氏是什么？	汝.之.家名.此3.∅.何		
 Mist fills the forest.	nua2 co1 bo1 hup1 hue.	水散満木処。	Shùlín lǐ yānwù mímàn.	树林里烟雾弥漫。	水散.満2.木処		
 Add some sugar to the coffee.	at lit1 tum1 hua1 ie det tia2.	加入甘挽於種茶。	Wǎng kāfēi lǐ jiā diǎn táng.	往咖啡里加点糖。	加入.甘挽.於1.種茶		
-This is mine.	ka1 pai2 a (a).	此我之(噫)。	Zhè shì wǒ de.	这是我的。	此.∅.我.之.(噫)		
+This is mine.	ka1 pai2 a (a).	此我之(噫)。	Zhè shì wǒ de.	这是我的。	此.∅.我.之.(噫)		
 They're playing the neen-cetkaik cards.	zap2 ge aim2 tu2 nin1 cet2 kaik.	彼等在遊紙机戦。	Tāmen zài wánr zhǐjīzhàn.	她们在玩儿纸机战。	彼等.在.遊.紙机戦		
 He ran down the slope.	zap2 sam1 ut2 mok1 aum2 po1.	彼急下行傾道。	Tā pǎo xià xiépō.	他跑下斜坡。			
 I'm cutting paper.	pai2 aim2 gau2 nin1.	我在刀紙。	Wǒ zài jiǎnzhǐ.	我在剪纸。	我.在.刀.紙		
@@ -1534,11 +1534,11 @@ I'm out of luck.	non1 tun2 aim2 pai2 a.	悪神在我噫。	Wǒ bù zǒuyùnle.	�
 Let me introduce Mr. Lin to you.	ie mua2 tui2 pai2 zep1 zep1 cei2 lin xizi.	於汝与我言言周清xizi。	Wǒ lái jièshào Qīng xiānsheng gěi nǐmen rènshi.	我来介绍清先生给你们认识。			
 Mr. Lin is wearing blue clothes.	lin xizi aim2 kun2 nuok2 tak1.	清xizi在付青衣。	Qīng xiānshēng chuānzhuó lán sè de yīfú.	清先生穿着蓝色的衣服。			
 The smell is very bad.	cai1 ku kit non1.	嗅物極悪。	Qìwèi fēicháng nán wén.	气味非常难闻。	嗅物.極.悪		
-He's got a big dog.	ma1 pa2 aim2 zap2.	大犬在彼。	Tā yǒu yī zhī dà gǒu.	他有一只大狗。	大2.犬.在7.彼		
+He's got a big dog.	ma1 pa2 aim2 zap2.	大犬在彼。	Tā yǒu yī zhī dà gǒu.	他有一只大狗。	大2.犬.在7.彼		
 There are big cultural differences between the two nations.	ik2 sip1 a huep2 hia1 kit huat1 pau1.	二国之地心極互別。	Liǎng guó wénhuà chāyì hěn dà.	两国文化差异很大。	二2.国.之.地心.極.互別		
 The eastern and the western culture are very different.	yk2 kiak1 a huep2 hia1 kit huat1 pau1.	西東之地心極互別。	Dōngxī fāng de wénhuà yǒu hěn dà de chāyì.	东西方的文化有很大的差异。	西東.之.地心.極.互別		
 It differs from person to person.	ie cuk2 huat1 pau1.	於人互別。	Yīn rén ér yì.	因人而异。			
-The leaves have turned yellow.	kot hop1 mok1 ta ie xem1 pok.	草手行終於月色。	Yèzi biànhuáng le.	叶子变黄了。	草手.行4.終.於.月色		
+The leaves have turned yellow.	kot hop1 mok1 ta ie xem1 pok.	草手行終於月色。	Yèzi biànhuáng le.	叶子变黄了。	草手.行4.終.於.月色		
 I'm grinding coffee beans.	pai2 aim2 hua1 det tia2 a det.	我在挽種茶之種。	Wǒ zài mó kāfēidòu.	我在磨咖啡豆。	我.在.挽.種茶.之.種		
 Different countries have different cultures.	sip1 huat1 pau1 hem huep2 hia1 bap huat1 pau1.	国互別即地心同互別。	Guójiā bùtóng, wénhuà gè yì.	国家不同，文化各异。	国.互別.即.地心.同.互別		
 Different places have different cultures.	huep2 huat1 pau1 hem huep2 hia1 bap huat1 pau1.	地互別即地心同互別。	Dìfāng bùtóng, wénhuà gè yì.	地方不同，文化各异。	地.互別.即.地心.同.互別		
@@ -1560,11 +1560,11 @@ He wants to cut this branch off.	zap2 hia1 gau2 ka1 hup1 hop1.	彼心刀此木�
 All the apple trees were cut down.	be1 a kan1 tua1 hup1 guk2 gau2 ta.	全之火果木受刀終。	Suǒyǒu píngguǒ shù dōu bèi kǎn dǎo le.	所有苹果树都被砍倒了。	全.之.火果木.受2.刀.終		
 Two multiplied by three equals six.	ik2 gy1 om2 ka1 net2.	二層三此六。	Èr chéng yǐ sān děngyú liù.	二乘以三等于六。			
 Music is the universal language.	lok1 lia1 ka1 be1 huep2 a zep1.	笛琴此全地之言。	Yīnyuè shì rénlèi gòng tōng de yǔyán.	音乐是人类共通的语言。	笛琴.此3.∅.全地.之.言6		
-She's listening to music.	zap2 aim2 lua1 can2 lok1 lia1.	彼在耳識笛琴。	Tā zhèngzài tīng yīnyuè.	她正在听音乐。	彼.在.耳識.笛琴		
+She's listening to music.	zap2 aim2 lua1 can2 lok1 lia1.	彼在耳識笛琴。	Tā zhèngzài tīng yīnyuè.	她正在听音乐。	彼.在.耳識.笛琴		
 A big fire has destroyed the house.	ma1 kan1 mot2 ta mut2.	大火壊終家。	Dàhuǒ fénshāole fángwū.	大火焚烧了房屋。	大2.火2.壊2.終.家		
 Poor kids don't have money to go to school.	hei2 kat1 mun1 hop1 mok1 nui2 hue a su1.	貧子無手行学処之銭。	Pínqióng de háizi méiyǒu qián shàngxué.	贫穷的孩子没有钱上学。	貧.子.無手.行.学処.之2.銭		
 You are the best person to help the poor in this place. 	mua2 ka1 hue uaip2 hei2 a et2 pui1 kait cuk2	汝此処助貧之一位善人。	Nǐ shì zhège dìfāng bāngzhù qióngrén de zuì jiā rénxuǎn.	你是这个地方帮助穷人的最佳人选。	汝.此処.助貧.之2.一.位.善2.人		
-The bees are collecting honey from the flowers.	tum1 sik2 li2 aim2 dat2 sak2 tum1 sik2 ie xuo1.	甘蜜虫在集来甘蜜於花。	Mìfēng zhèngzài cǎi huāmì.	蜜蜂正在采花蜜。	甘蜜虫.在.集3.来5.甘蜜.於.花		
+The bees are collecting honey from the flowers.	tum1 sik2 li2 aim2 dat2 sak2 tum1 sik2 ie xuo1.	甘蜜虫在集来甘蜜於花。	Mìfēng zhèngzài cǎi huāmì.	蜜蜂正在采花蜜。	甘蜜虫.在.集3.来5.甘蜜.於.花		
 The paper money is scattered.	nin1 su1 co1 ta.	紙銭散終。	Zhǐbì sànkāi le.	纸币散开了。	紙銭.散.終		
 We're colleagues.	pai2 ge naip2 hi1.	我等労友。	Wǒmen shì tóngliáo.	我们是同僚。	我等.∅.労友		
 I will wait for your reply.	pai2 tim1 mua2 a i2 zep1.	我待汝之反言。	Wǒ děng nín de dáfù.	我等您的答覆。	我.待2.汝.之.反言2		

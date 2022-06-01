@@ -42,7 +42,7 @@ How do I get to Makati?	pai2 em nan2 mok1 syt2 tun2?	我如何行天神？	Wǒ z
 She will go to Makati.	zap2 mok1 mok1 syt2 tun2.	彼行行天神。	Tā yào qù Tiānshén.	她要去天神。	彼.行2.行.天神	wav_r, oga	falira.lyjotafis		あの人はマカティに行くつもりです	Kas teggengan di Makati.
 Are you of the Ai'ren Republic?	mua2 ai2 cuk2 yn2?	汝冠人乎？	Nín shì Guānguórén ma?	您是冠国人吗？	汝.∅.冠人.乎	wav_r, oga	falira.lyjotafis		あなたはアイル共和国の国民ですか？	Aam narro fo Toktanaara fo Air je?
 I'm going to Makati.	pai2 mok1 mok1 syt2 tun2.	我行行天神。	Wǒ yào qù Tiānshén.	我要去天神。	我.行2.行.天神	wav_r, oga	falira.lyjotafis		マカティに行きます	Am ikaphupdis di Makati.
-Would you like to go to Makati?	mua2 hia1 mok1 syt2 tun2.	汝心行天神。	Nǐ xiǎng qù Tiānshén ma?	你想去天神吗？	汝.心.行.天神	wav_r, oga	falira.lyjotafis		マカティに行かれるおつもりですか？	Aam di Makati wana ikaphupgan?
+Would you like to go to Makati?	mua2 hia1 mok1 syt2 tun2?	汝心行天神？	Nǐ xiǎng qù Tiānshén ma?	你想去天神吗？	汝.心.行.天神	wav_r, oga	falira.lyjotafis		マカティに行かれるおつもりですか？	Aam di Makati wana ikaphupgan?
 This is the Vefisait Republic.	ka1 hue uep1 sip1.	此処淮国。	zhèlǐ shì Huáiguó.	这里是淮国。	此処.∅.淮国	wav_r, oga	falira.lyjotafis		これはヴェフィス共和国です	Dim je Toktanaara fo Waiphis.
 Where am I? (literally "Where is here?")	ka1 hue nan2 hue?	此処何処？	zhèlǐ shì nǎli a?	这里是哪里啊？	此処.∅.何処	wav_r, oga	falira.lyjotafis		ここはどこですか？	Dii je wee?
 This is my home.	ka1 pai2 mut2.	此我家。	Zhè shì wǒ jiā.	这是我家。	此.∅.我2.家	wav_r, oga	falira.lyjotafis		これは私の家です	Dim je amn friitaa.
@@ -1090,11 +1090,11 @@ Do you still need tea?			nǐ hái xūyào chá ma?	你还需要茶吗？
 Can you give me a little more tea?			nǐ néng zài gěi wǒ diǎn chá ma?	你能再给我点茶吗？						
 Would you like some more tea?			nín xiǎng zài lái diǎn chá ma?	您想再来点茶吗？						
 He's our new coworker, Mr. Yay.	zap2 pai2 ge a lu2 naip2 hi1 iei2 xizi.	彼我等之新労友春xizi。	Tā shì xīn tóngshì Chūn xiānsheng.	他是新同事春先生。	彼.∅.我等.之.新.労友.春.xizi					
-Do you like your coworkers?	mua2 hia1 kait mua2 a naip2 hi1 yn2?	汝心善汝之労友乎？	Nǐ xǐhuan nǐ tóngshì ma?	你喜欢你同事吗？	汝.心善.汝.之.労友.乎					
+Do you like your coworkers?	mua2 hia1 kait mua2 a naip2 hi1 yn2?	汝心善汝之労友乎？	Nǐ xǐhuan nǐ tóngshì ma?	你喜欢你同事吗？	汝.心善.汝.之.労友.乎					
 I very much like my coworkers.			Wǒ hěn xǐhuan wǒ tóngshì.	我很喜欢我同事。						
 My coworker doesn't have a computer.			Wǒ de tóngshì méi yǒu diànnǎo.	我的同事没有电脑。						
 My coworkers are very interesting.			Wǒ de tóngshì hěn yǒu yìsi.	我的同事很有意思。						
-When will your coworker come to the Ai'ren Republic?	mua2 a naip2 hi1 nan2 kak sak2 ai2 sip1?	汝之労友何時来冠国？	nǐ de tóngshì shénme shíhòu lái Guānguó?	你的同事什么时候来冠国？	汝.之.労友.何時.来3.冠国					
+When will your coworker come to the Ai'ren Republic?	mua2 a naip2 hi1 nan2 kak sak2 ai2 sip1?	汝之労友何時来冠国？	nǐ de tóngshì shénme shíhòu lái Guānguó?	你的同事什么时候来冠国？	汝.之.労友.何時.来3.冠国					
 My coworker has a cell phone.			Wǒ de tóngshì yǒu shǒujī.	我的同事有手机。						
 My coworker knows how to write Chinese characters.			Wǒ de tóngshì huì xiě hànzì.	我的同事会写磷字。				1		
 I have known him a long time.			Wǒ rènshí tā hěn jiǔ le.	我认识他很久了。						
@@ -1287,7 +1287,7 @@ I like coffee more.			wǒ gèng xǐhuān kāfēi.	我更喜欢咖啡。
 He always drinks black coffee.			tā zǒng hē tā de hēi kāfēi. 	他总喝他的黑咖啡。						
 I want a cup of coffee.	pai2 hia1 guk2 et2 niep1 det tia2.	我心受一杯種茶。	Wǒ yào yī bēi kāfēi.	我要一杯咖啡。	我.心受.一.杯.種茶					
 She likes to drink coffee.	zap2 hia1 kait iam1 det tia2.	彼心善口種茶。	Tā xǐhuan hē kāfēi.	她喜欢喝咖啡。	彼.心善2.口.種茶					
-I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終一杯種茶。	Wǒ mǎile yī bēi kāfēi.	我买了一杯咖啡。	我.使銭.終.一.杯.種茶					
+I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終一杯種茶。	Wǒ mǎile yī bēi kāfēi.	我买了一杯咖啡。	我.使銭.終.一.杯.種茶					
 The coffee is a little bitter.			Kāfēi yǒudiǎn kǔ.	咖啡有点苦。						
 Will you have some more coffee? No, thanks. I've had enough.			nǐ xiǎng zài lái diǎn kāfēi ma? bù, xièxie. wǒ gòu le.	“你想再来点咖啡吗？”“不，谢谢。我够了。”						
 I can make a choice between tea or coffee.			wǒ kěyǐ zài chá hé kāfēi zhījiān zuò ge xuǎnzé.	我可以在茶和咖啡之间做个选择。						
@@ -1806,7 +1806,7 @@ Trying your best is a good use of your time.			jǐnliàng shìzhe yòng hǎo nǐ
 She's memorizing words.			Tā zài jìyì dāncí.	她在记忆单词。						
 She's writing down words.	zap2 aim2 kua2 man1 dat2.	彼在筆字集。	Tā zài xiě xià dāncí.	她在写下单词。	彼.在.筆2.字集					
 The teacher is teaching us some new words.	tui2 nui2 cuk2 tui2 ie pai2 ge lu2 man1 dat2.	与学人与於我等新字集。	Lǎoshī jiāo wǒmen xīn dāncí.	老师教我们新单词。						
-He remembered my name.	zap2 ty can2 sak2 ta pai2 a sin1.	彼再識来終我之名。	Tā jìzhu le wǒ de míngzi.	他记住了我的名字。	彼.再識来.終.我.之.名					
+He remembered my name.	zap2 ty can2 sak2 ta pai2 a sin1.	彼再識来終我之名。	Tā jìzhu le wǒ de míngzi.	他记住了我的名字。	彼.再識来.終.我.之.名					
 The city roads are very wide.			Chéngshì de dàolù hěn kuān.	城市的道路很宽。						
 They're playing in the garden.			Tāmen zài huāyuán lǐ wánr.	她们在花园里玩。						
 She helped her dad with the work in the garden.			tā bāng tā bàba gàn le huāyuán lǐ de huó.	她帮她爸爸干了花园里的活。						
@@ -2119,7 +2119,7 @@ The bookstore is not big.	ak1 su1 hue mun1 ma1.	書銭処無大。	Shūdiàn bù
 The teacher is at the bookstore.	tui2 nui2 cuk2 aim2 ak1 su1 hue.	与学人在書銭処。	Lǎoshī zài shūdiàn.	老师在书店。	与学人.在6.書銭処					
 Is the bookstore big?	ak1 su1 hue ma1 yn2?	書銭処大乎？	Shūdiàn dà ma?	书店大吗？	書銭処.大.乎					
 The bookstore is very small.	ak1 su1 hue kit ni1.	書銭処極小。	Shūdiàn hěn xiǎo.	书店很小。	書銭処.極.小2					
-Excuse me, where is the bookstore?	xizi xizi. ak1 su1 hue aim2 nan2 hue a?	xizi xizi。書銭処在何処噫？	Qǐngwèn, shūdiàn zài nǎli?	请问,书店在哪里？						
+Excuse me, where is the bookstore?	xizi xizi. ak1 su1 hue aim2 nan2 hue a?	xizi xizi。書銭処在何処噫？	Qǐngwèn, shūdiàn zài nǎli?	请问,书店在哪里？						
 Ms. Wang wants to go to the bookstore today.			Wáng xiǎojiě jīntiān yào qù shūdiàn.	王小姐今天要去书店。				1		
 Excuse me, are you going to the bookstore?	xizi xizi. mua2 mok1 ie ak1 su1 hue yn2?	xizi xizi。汝行於書銭処乎？	Qǐngwèn, nǐ yào qù shūdiàn ma?	请问,你要去书店吗？						
 My classmate is going to the bookstore.	pai2 a nui2 hi1 mok1 ie ak1 su1 hue.	我之学友行於書銭処。	Wǒ tóngxué yào qù shūdiàn.	我同学要去书店。						
@@ -2183,7 +2183,7 @@ She showed the visitor her baby.			tā gěi kèren kàn le tā de bǎobao.	她�
 That couple lives a happy/blessed life.			Nà duì fūqī hěn xìngfú.	那对夫妻很幸福。						
 They married and are husband and wife.			Tāmen jiéhūn le, shì fūqī le.	他们结婚了，是夫妻了。						
 The couple are taking a walk in the park.			Yī duì fūqī zài gōngyuán lǐ sànbù.	一对夫妻在公园里散步。						
-This hotel is very cheap.	ka1 hok1 su1 hue kit ni1 su1.	此寝銭処極小銭。	Zhè jiā lǚguǎn hěn piányi.	这家旅馆很便宜。	此2.寝銭処.極.小銭					
+This hotel is very cheap.	ka1 hok1 su1 hue kit ni1 su1.	此寝銭処極小銭。	Zhè jiā lǚguǎn hěn piányi.	这家旅馆很便宜。	此2.寝銭処.極.小銭					
 It's strange that he would say this.			tā zhème shuō hěn qíguài.	他这么说很奇怪。						
 Tibet belongs to the Ai'ren Republic.			Xīzàng shǔyú Guānguó.	西藏属于冠国。				1		
 The semester is over.			Xuéqī jiéshù le.	学期结束了。						
@@ -2480,7 +2480,7 @@ I've run three miles.			Wǒ pǎole sān lǐlù.	我跑了三里路。				1
 There's still ten miles until the next exit.			Lí xià yī gè chūkǒu hái yǒu shí yīnglǐ.	离下一个出口还有十英哩。				1		
 There's a rotten apple on the ground.			Dìshang yǒu yī gè làn píngguǒ.	地上有一个烂苹果。						
 The machine is running stably.			Jīqì yùnxíng wěndìng.	机器运行稳定。						
-Children should drink milk every day.	be1 kia1 kat1 ly iam1 io2 sik2.	全日子須口牛蜜。	háizimen yīnggāi měi tiān hē niúnǎi.	孩子们应该每天喝牛奶。						
+Children should drink milk every day.	be1 kia1 kat1 ly iam1 io2 sik2.	全日子須口牛蜜。	háizimen yīnggāi měi tiān hē niúnǎi.	孩子们应该每天喝牛奶。						
 Ms. Show comes from the northern part of the Ai'ren Republic.			Xià xiǎojiě láizì Guānguó běifāng.	夏小姐来自冠国北方。				1		
 The common people in the Ai'ren Republic are all kind-hearted.			Guānguó de lǎobǎixìng dōu hěn shànliáng.	冠国的老百姓都很善良。						
 The Ai'ren Republic is not big, but our heart is big.	ai2 sip1 mun1 ma1 ua pai2 ge a hia1 ka1 ma1.	冠国無大而我等之心此大。	Guānguó bìng bù dà, dàn wǒmen de xīn hěn dà.	冠国并不大，但我们的心很大。						
@@ -2571,7 +2571,7 @@ What's that small child doing?	ze1 ni1 kat1 aim2 zau nan2?	其小子在為何？
 He's the king.	zap2 sip1 io.	彼国王。	Tā shì guówáng.	他是国王。	彼.∅.国王					
 You're really an angel!			nǐ zhēn shì ge tiānshǐ!	你真是个天使！						
 Do you have any relatives in the mainland?			Nǐ zài dàlù yǒu qīnrén ma?	你在大陆有亲人吗？				1		
-All his relatives are in Vefisait Republic.			Tā de qīnrén dōu zài Huáiguó.	他的亲人都在淮国。						
+All his relatives are in Vefisait Republic.			Tā de qīnrén dōu zài Huáiguó.	他的亲人都在淮国。						
 The meat wasn't stored well, and it smells bad.			Ròu méi bǎocún hǎo, yǐjing chòu le.	肉没保存好，已经臭了。						
 How soon do you need it?			nǐ duōjiǔ hòu xūyào tā?	你多久后需要它？						
 How long can I borrow this book?			zhè běn shū wǒ néng jiè duōjiǔ?	这本书我能借多久？						
@@ -2726,7 +2726,7 @@ The students of this school are kind.			zhè gè xuéxiào de xuésheng hěn yǒ
 She feels very troubled.			Tā hěn fánnǎo.	她很烦恼。						
 I am afraid of snakes.			Wǒ pà shé.	我怕蛇。						
 She admires/envies her good friend's happy/blessed marriage.			Tā hěn xiànmù hǎo péngyou de xìngfú hūnyīn.	她很羡慕好朋友的幸福婚姻。						
-Let me introduce my good friend.	tui2 pai2 zep1 zep1 cei2 pai2 a kait hi1.	与我言言周我之善友。	Ràng wǒ jièshào yīxià wǒ de hǎopéngyou.	让我介绍一下我的好朋友。						
+Let me introduce my good friend.	tui2 pai2 zep1 zep1 cei2 pai2 a kait hi1.	与我言言周我之善友。	Ràng wǒ jièshào yīxià wǒ de hǎopéngyou.	让我介绍一下我的好朋友。						
 There will sometimes be contradictions even between good friends.			Hǎo péngyou yǒu shí yě huì yǒu máodùn.	好朋友有时也会有矛盾。						
 There is contradiction between his wording.			Tā de shuōfǎ zhījiān hěn máodùn.	他的说法之间很矛盾。						
 She treats me as her good friend.			Tā bǎ wǒ dàngzuò hǎo péngyou.	她把我当作好朋友。						
@@ -2833,7 +2833,7 @@ Xiao Qiang is a brave child.			Xiǎo Qiáng shì ge yǒnggǎn de háizi.	小强�
 He is really brave.			Tā hěn yǒnggǎn.	他很勇敢。						
 He is a genius.			Tā shì ge tiāncái.	他是个天才。						
 He's too smart! Really, a genius.			Tā tài cōngmíng le, zhēn shì ge tiāncái.	他太聪明了,真是个天才。						
-Who taught her how to speak Linepāine?	nan2 cuk2 tui2 ta zep1 lip zep1 a nui2 ie zap2?	何人与終言哩言之学於彼？	shì shéi jiāo tā zěnme shuō Lǐyǔ de?	是谁教她怎么说哩语的？						
+Who taught her how to speak Linepāine?	nan2 cuk2 tui2 ta zep1 lip zep1 a nui2 ie zap2?	何人与終言哩言之学於彼？	shì shéi jiāo tā zěnme shuō Lǐyǔ de?	是谁教她怎么说哩语的？						
 The police are maintaining order.			Jǐngchá zài wéichí zhìxù.	警察在维持秩序。						
 When it rains, traffic is chaotic.			Xià yǔ de shíhou, jiāotōng zhìxù hěn luàn.	下雨的时候，交通秩序很乱。						
 The traffic is in good order.			Jiāotōng hěn yǒu zhìxù.	交通很有秩序。						
@@ -3022,7 +3022,7 @@ Her dance movements are quite correct.			Tā de wǔdǎo dòngzuò hěn biāozhǔ
 I shouldn't have logged off.			wǒ bù gāi tuìchū de.	我不该退出的。						
 A beautiful love is worth treasuring.			Měihǎo de àiqíng shì lìngrén zhēnxī de.	美好的爱情是令人珍惜的。						
 Money has the power to seduce people.			Jīnqián néng yòuhuò rén.	金钱能诱惑人。						
-He had another glass of alcohol.	zap2 at ta et2 niep1 no1.	彼加終一杯酒。	Tā yòu tiānle yī bēi jiǔ.	他又添了一杯酒。	彼.加3.終.一.杯.酒					
+He had another glass of alcohol.	zap2 at ta et2 niep1 no1.	彼加終一杯酒。	Tā yòu tiānle yī bēi jiǔ.	他又添了一杯酒。	彼.加3.終.一.杯.酒					
 She feels very wronged.			Tā juéde hěn wěiqu.	她觉得很委屈。						
 Strong is the opposite of weak.			Yǔ qiáng xiāngduì de shì ruò.	与强相对的是弱。						
 His whole family took a walk in the park.			Tāmen quánjiā qù gōngyuán sànbù.	他们全家去公园散步。						
@@ -3058,7 +3058,7 @@ My grandma and I are lying in bed reading.			Wǒ hé nǎinai wò zài chuáng sh
 An uncle of mine gave me some useful advice.			wǒ de yī gè shūshu gěi wǒ le yīxiē yǒuyòng de jiànyì.	我的一个叔叔给我了一些有用的建议。						
 The only useful answers are those that raise new questions.			zhǐyǒu néng tíchū xīn wèntí de huídá cái shì yǒuyòng de huídá.	只有能提出新问题的回答才是有用的回答。						
 He was injured, so I took his place to participate in the competition.			Tā shòushāng le, wǒ dàitì tā cānjiā bǐsài.	他受伤了，我代替他参加比赛。						
-She can drive a car.	zap2 can2 mok1 kaun1 a sit1.	彼識行車之術。	Tā huì jiàshǐ qìchē.	她会驾驶汽车。						
+She can drive a car.	zap2 can2 mok1 kaun1 a sit1.	彼識行車之術。	Tā huì jiàshǐ qìchē.	她会驾驶汽车。						
 The biggest religion in the Ai'ren Republic is Buddhism.			Guānguó zuì dà de zōngjiào shì Fójiào.	冠国最大的宗教是佛教。				1		
 I will investigate this matter from three perspectives.			Wǒ cóng sān ge fāngmiàn lái tàntǎo.	我从三个方面来探讨。						
 We discussed the answer to the question together.			Wǒmen yīqǐ tàntǎo le wèntí de dá'àn.	我们一起探讨了问题的答案。						
@@ -3071,7 +3071,7 @@ The boss apologized to the employees.			Lǎobǎn xiàng yuángōng dàoqiàn.	�
 The husband apologizes to his wife.			Zhàngfu xiàng qīzi dàoqiàn.	丈夫向妻子道歉。						
 I don't see any reason why I have to apologize.			wǒ méi fāxiàn rènhé wǒ gāi dàoqiàn de lǐyóu.	我没发现任何我该道歉的理由。						
 I will live in Keettwa.			Wǒ yào zhù zài Bǎiguǒ.	我要住在百果。						
-When will you go to Keettwa?	nan2 kak mua2 mok1 mok1 kit1 tua1?	何時汝行行百果？	Nǐ shénme shíhòu yào qù Bǎiguǒ?	你什么时候要去百果？	何時.汝.行2.行.百果					
+When will you go to Keettwa?	nan2 kak mua2 mok1 mok1 kit1 tua1?	何時汝行行百果？	Nǐ shénme shíhòu yào qù Bǎiguǒ?	你什么时候要去百果？	何時.汝.行2.行.百果					
 He's not going back to Keettwa today.			Tā jīntiān bù huí Bǎiguǒ.	他今天不回百果。						
 I consider Keettwa as a very clean city.			Wǒ rènwéi Bǎiguǒ shì gè gānjìng de chéngshì.	我认为百果是个很干净的城市。						
 I haven't been to Keettwa.	pai2 mun1 hop1 mok1 kit1 tua1.	我無手行百果。	Wǒ méi qùguò Bǎiguǒ.	我没去过百果。	我.無手2.行.百果					
@@ -3350,13 +3350,13 @@ Be careful of the construction ahead.			Qiánfāng shīgōng, qǐng zhùyì!	前
 My classmate doesn't have a textbook.	pai2 a nui2 hi1 mun1 hop1 tui2 nui2 ak1.	我之学友無手与学書。	Wǒ de tóngxué méi yǒu kèběn.	我的同学没有课本。	我.之.学友.無手.与学書					
 The students sometimes forget to bring their textbook.			Xuéshengmen yǒu shí wàng dài kèběn.	学生们有时忘带课本。						
 I believe this textbook is not good.	pai2 hia1 ka1 tui2 nui2 ak1 mun1 kait.	我心此与学書無善。	Běnrén rènwéi, zhè gè kèběn bù hǎo.	本人认为,这个课本不好。						
-Does he have a textbook?	zap2 aim2 hop1 tui2 nui2 ak1 yn2? 	彼在手与学書乎？	Tā yǒu kèběn ma?	他有课本吗？	彼.在手.与学書.乎					
-I don't have a textbook.	tui2 nui2 ak1 mun1 aim2 ie pai2.	与学書無在於我？	Wǒ méi yǒu kèběn.	我没有课本。						
+Does he have a textbook?	zap2 aim2 hop1 tui2 nui2 ak1 yn2? 	彼在手与学書乎？	Tā yǒu kèběn ma?	他有课本吗？	彼.在手.与学書.乎					
+I don't have a textbook.	tui2 nui2 ak1 mun1 aim2 ie pai2.	与学書無在於我？	Wǒ méi yǒu kèběn.	我没有课本。						
 This is my textbook.	ka1 pai2 a tui2 nui2 ak1.	此我之与学書。	Zhè shì wǒ de kèběn.	这是我的课本。	此.∅.我.之.与学書					
-Do you have a textbook?	mua2 aim2 hop1 tui2 nui2 ak1 yn2? 	汝在手与学書乎？	Nǐ yǒu kèběn ma?	你有课本吗？	汝.在手.与学書.乎					
-Ms. Show would like to buy a textbook.	xo1 xizi hia1 ian1 su1 ie tui2 nui2 ak1.	夏xizi心生銭於与学書。	Xià xiǎojiě xiǎng mǎi kèběn.	夏小姐想买课本。						
+Do you have a textbook?	mua2 aim2 hop1 tui2 nui2 ak1 yn2? 	汝在手与学書乎？	Nǐ yǒu kèběn ma?	你有课本吗？	汝.在手.与学書.乎					
+Ms. Show would like to buy a textbook.	xo1 xizi hia1 ian1 su1 ie tui2 nui2 ak1.	夏xizi心生銭於与学書。	Xià xiǎojiě xiǎng mǎi kèběn.	夏小姐想买课本。						
 I will buy a textbook.	pai2 mok1 ian1 su1 ie tui2 nui2 ak1.	我行生銭於与学書。	Wǒ yào mǎi kèběn.	我要买课本。						
-Where can I buy a Pekzep textbook?	ie nan2 pai2 py ian1 su1 ie pek2 zep1 a tui2 nui2 ak1?	於何我力生銭於牌言之与学書？	Nǎli kěyǐ mǎi Páiyǔ kèběn?	哪里可以买牌语课本？						
+Where can I buy a Pekzep textbook?	ie nan2 pai2 py ian1 su1 ie pek2 zep1 a tui2 nui2 ak1?	於何我力生銭於牌言之与学書？	Nǎli kěyǐ mǎi Páiyǔ kèběn?	哪里可以买牌语课本？						
 She will buy a Pekzep textbook.	zap2 mok1 ian1 su1 ie pek2 zep1 a tui2 nui2 ak1.	彼行生銭於牌言之与学書。	Tā yào mǎi Páiyǔ kèběn.	她要买牌语课本。						
 I would like to buy a textbook.	pai2 hia1 ian1 su1 ie tui2 nui2 ak1.	我心生銭於与学書。	Wǒ xiǎng mǎi kèběn.	我想买课本。					教科書を買いたいです	
 How's this textbook?	ka1 tui2 nui2 ak1 em nan2?	此与学書如何？	Zhè běn kèběn zěnmeyàng?	这本课本怎么样？	此2.与学書.如.何					
@@ -3429,7 +3429,7 @@ He attempted to kill the President.			Tā qǐtú shā zǒngtǒng.	他企图杀�
 A boat capsized.			yī sōu chuán diào le tóu.	一艘船掉了头。						
 I want a boat that will take me far away from here.			wǒ xiǎng yào yī sōu chuán dài wǒ yuǎnlí zhèlǐ.	我想要一艘船带我远离这里。						
 There are a few buckets of oil here.			Zhè yǒu jǐ tǒng yóu.	这有几桶油。						
-What do you call this bird in Linepāine?	ka1 lup1 sui1 lip zep1 zep1 nan2?	此鳥使哩言言何？	zhè niǎo nǐmen yòng Lǐyǔ zěnme chēnghu?	这鸟你们用哩语怎么称呼？						
+What do you call this bird in Linepāine?	ka1 lup1 sui1 lip zep1 zep1 nan2?	此鳥使哩言言何？	zhè niǎo nǐmen yòng Lǐyǔ zěnme chēnghu?	这鸟你们用哩语怎么称呼？						
 She's weighing herself.			Tā zài chēng tǐzhòng.	她在称体重。						
 Her attire is very neat.			Tā de chuānzhuó hěn zhěngqí.	她的穿着很整齐。						
 The trees here are neatly trimmed.			zhèlǐ de shù jiǎn de hěn zhěngqí.	这里的树剪得很整齐。						
@@ -3505,7 +3505,7 @@ He's set a new record.			Tā chuàngzàole xīn jìlù.	他创造了新纪录。
 He broke the record.			Tā dǎpò le jìlù.	他打破了纪录。						
 The bird stopped on a branch.	lup1 cy2 ie hup1 hop1.	鳥席於木手。	Yī zhī niǎo tíng zài shùyā shàng.	一只鸟停在树丫上。	鳥.席2.於.木手					
 I do my homework in pencil.			Wǒ yòng qiānbǐ xiě zuòyè.	我用铅笔写作业。						
-Could I use your pencil/chalk?	pai2 py sui1 mua2 a sy2 kua2?	我力使汝之石筆？	Wǒ néng yòng yīxià nǐ de qiānbǐ/fěnbǐ ma?	我能用一下你的铅笔/粉笔吗？	我.力.使.汝.之.石筆					
+Could I use your pencil/chalk?	pai2 py sui1 mua2 a sy2 kua2?	我力使汝之石筆？	Wǒ néng yòng yīxià nǐ de qiānbǐ/fěnbǐ ma?	我能用一下你的铅笔/粉笔吗？	我.力.使.汝.之.石筆					
 How do you make a pencil?	em nan2 mua2 zau sy2 kua2?	如何汝為石筆？	Nǐ rúhé zhìzuò qiānbǐ?	你如何制作铅笔？						
 What do you use to make a pencil?	sui1 nan2 mua2 zau sy2 kua2?	使何汝為石筆？	Nǐ yòng shénme lái zhìzuò qiānbǐ?	你用什么来制作铅笔？	使2.何.汝.為make.石筆					
 By what method do you make a pencil?	nan2 sit1 mua2 zau sy2 kua2?	何術汝為石筆？	Nǐ shì yòng shénme fāngfǎ zhìzuò qiānbǐ de?	你是用什么方法制作铅笔的？						
@@ -4126,7 +4126,7 @@ I'm already full, thank you. I've had enough, thank you.			wǒ yǐjīng chībǎo
 He ran into an old friend.			Tā yùdàole lǎopéngyou.	他遇到了老朋友。						
 Quite by chance, I ran into my old friend in the airport.			hěn xìngyùn dì, wǒ zài jīchǎng yù dào le wǒ de lǎo péngyou.	很幸运地，我在机场遇到了我的老朋友。						
 The old friends haven't met for a long time.			Lǎo péngyou hěn jiǔ méi yǒu jiànmiàn le.	老朋友很久没有见面了。						
-Let me introduce my old friend.	tui2 pai2 zep1 zep1 cei2 pai2 a sia1 hi1.	与我言言周我之古友。	Ràng wǒ jièshào yī xià wǒ de lǎo péngyou.	让我介绍一下我的老朋友。						
+Let me introduce my old friend.	tui2 pai2 zep1 zep1 cei2 pai2 a sia1 hi1.	与我言言周我之古友。	Ràng wǒ jièshào yī xià wǒ de lǎo péngyou.	让我介绍一下我的老朋友。						
 Allow me to introduce you, this is my old friend.			Ràng wǒ lái jièshào yíxià, zhè shì wǒ de lǎopéngyou.	让我来介绍一下,这是我的老朋友。						
 They've been to many places in their lifetime.			Tāmen zhèbèizi qùguò hěn duō dìfang.	他们这辈子去过很多地方。						
 I'm going to visit my teacher.			Wǒ qù bàifǎng lǎoshī.	我去拜访老师。						
@@ -4191,9 +4191,9 @@ Did you like it? I liked it a lot. Guilin is very pretty.			Nǐ xǐhuan ma? Hěn
 Have you ever been to Guilin? Yes, I have.			Nǐ qùguò guìlín ma? Shì, wǒ qùguò.	A你去过桂林吗? B是,我去过。				1		
 There are a lot of people on the beach.			Hǎitān shàng yǒu hěn duō rén.	海滩上有很多人。						
 The color of the puppy's fur is as white as snow.	ni1 pa2 a im1 ka1 liok1 em let1.	小犬之毛此白如雪。	Xiǎogǒu de máosè xuěbái.	小狗的毛色雪白。						
-What time does she go to work?	ie nan2 kak zap2 mok1 naip2 hue?	於何時彼行労処？	Tā jǐdiǎn shàngbān?	她几点上班？						
-What time does Ms. Show go to work?	ie nan2 kak xo1 xizi mok1 naip2 hue?	於何時夏xizi行労処？	Xià xiǎojiě jǐdiǎn shàngbān?	夏小姐几点上班？						
-What time does your little sister go to school?	ie nan2 kak mua2 a ut2 sa1 huok1 mok1 nui2 hue?	於何時汝之下女輩行学処？	Nǐ mèimèi jǐdiǎn shàngxué?	你妹妹几点上学？						
+What time does she go to work?	ie nan2 kak zap2 mok1 naip2 hue?	於何時彼行労処？	Tā jǐdiǎn shàngbān?	她几点上班？						
+What time does Ms. Show go to work?	ie nan2 kak xo1 xizi mok1 naip2 hue?	於何時夏xizi行労処？	Xià xiǎojiě jǐdiǎn shàngbān?	夏小姐几点上班？						
+What time does your little sister go to school?	ie nan2 kak mua2 a ut2 sa1 huok1 mok1 nui2 hue?	於何時汝之下女輩行学処？	Nǐ mèimèi jǐdiǎn shàngxué?	你妹妹几点上学？						
 What time do the students go to school?	ie nan2 kak nui2 cuk2 mok1 nui2 hue?	於何時学人行学処？	Xuéshengmen jǐdiǎn shàngxué?	学生们几点上学？						
 What time does the school start?	ie nan2 kak nui2 hue hut2?	於何時学処始？	Xuéxiào jǐ diǎn kāishǐ?	学校几点开始？						
 What time do you go to school?	ie nan2 kak mua2 mok1 nui2 hue?	於何時汝行学処？	Nǐ jǐdiǎn shàngxué?	你几点上学？						
@@ -4304,7 +4304,7 @@ This diamond is not real.	ka1 liok1 aik2 sy2 mun1 put.	此白光石無真。	zh�
 This diamond is very high in value.			Zhè kē zuànshí jiàzhí hěn gāo.	这颗钻石价值很高。						
 The soldiers are defending their country.	kauk2 aim2 num1 tin1 sip1.	兵在守己国。	Shìbīng bǎowèi guójiā.	士兵保卫国家。						
 Soldiers protect our nation.	kauk2 ge num1 pai2 ge a sip1.	兵等守我等之国。	Jūnrén bǎowèi zhe wǒmen de guójiā.	军人保卫着我们的国家。						
-Where can I buy a notebook?	ie nan2 hue pai2 py ian1 su1 ie kun2 ak1?	於何処我力生銭於付書？	Nǎli kěyǐ mǎi běnzi?	哪里可以买本子？						
+Where can I buy a notebook?	ie nan2 hue pai2 py ian1 su1 ie kun2 ak1?	於何処我力生銭於付書？	Nǎli kěyǐ mǎi běnzi?	哪里可以买本子？						
 This is a notebook.	ka1 kun2 ak1.	此付書。	Zhè shì běnzi.	这是本子。	此.∅.付書					
 Do you have a notebook?	mua2 aim2 hop1 kun2 ak1 yn2?	汝在手付書乎？	Nǐ yǒu běnzi ma?	你有本子吗？						
 I want some cake.			wǒ xiǎng yàodiǎn dàngāo.	我想要点蛋糕。						
@@ -5124,7 +5124,7 @@ She always carries her mobile phone with her.			Tā zǒngshì suíshēn xiédài
 He passed out due to his injury.			Tā shòushāng yūndǎo le.	他受伤晕倒了。						
 Human beings have never stopped exploring the universe.			Rénlèi duì yǔzhòu cóngwèi tíngzhǐ tànsuǒ.	人类对宇宙从未停止探索。						
 She has a wonderful facial complexion.			Tā de miànbù pífū hěn hǎo.	她的面部皮肤很好。						
-He joined the army.	zap2 lit1 mok1 ta ie kaik dat2.	彼入行終於戦集。	Tā dāngbīng le.	他当兵了。						
+He joined the army.	zap2 lit1 mok1 ta ie kaik dat2.	彼入行終於戦集。	Tā dāngbīng le.	他当兵了。						
 My elder brother went to Heilongjiang to serve in the army.			Gēge qù hēilóngjiāng dāngbīng le.	哥哥去黑龙江当兵了。				1		
 There are many fallen leaves on the ground.			Dìshang yǒu hěn duō luòyè.	地上有很多落叶。						
 The ground is completely covered by fallen leaves.			zhèlǐ biàndì dōu shì luòyè.	这里遍地都是落叶。						
@@ -5300,7 +5300,7 @@ This house is too old.	ka1 mut2 sia1 u1 giau.	此家古訴門。	Zhè dòng fán
 The student expressed her heartfelt thanks to the teacher.			Xuésheng duì lǎoshī biǎoshì yóuzhōng de gǎnxiè.	学生对老师表示由衷的感谢。						
 He is so happy that he shouted out loud.			Tā gāoxìng de dàshēng nàhǎn.	他高兴得大声呐喊。						
 Why will you buy a Linepāine textbook?	mua2 nan2 xit2 ian1 su1 ie lip zep1 a tui2 nui2 ak1?	汝何故生銭於哩言之与学書？	Nǐ wèishénme yào mǎi Lǐyǔ kèběn?	你为什么要买哩语课本？	汝.何故.生銭.於1.哩言.之.与学書				あなたはなぜリパライン語教科書を買うのですか？	
-Where can I buy a Linepāine textbook?	ie nan2 hue pai2 py ian1 su1 ie lip zep1 a tui2 nui2 ak1?	於何処我力生銭於哩言之与学書？	Nǎli kěyǐ mǎi Lǐyǔ kèběn?	哪里可以买哩语课本？	於.何処.我.力.生銭.於1.哩言.之.与学書				リパライン語教科書はどこで買えますか？	
+Where can I buy a Linepāine textbook?	ie nan2 hue pai2 py ian1 su1 ie lip zep1 a tui2 nui2 ak1?	於何処我力生銭於哩言之与学書？	Nǎli kěyǐ mǎi Lǐyǔ kèběn?	哪里可以买哩语课本？	於.何処.我.力.生銭.於1.哩言.之.与学書				リパライン語教科書はどこで買えますか？	
 He is wearing a checkered shirt.			Tā chuānle jiàn gézi chènshān.	他穿了件格子衬衫。						
 She's my granddaughter.			Tā shì wǒ de sūnnǚ.	她是我的孙女。						
 The grandfather is playing with his granddaughter.			Yéye zài péi sūnnǚ wánr.	爷爷在陪孙女玩儿。						
@@ -5398,7 +5398,7 @@ The waterfall is spectacular.			Pùbù hěn zhuàngguān.	瀑布很壮观。
 She agreed to our proposal.			Tā tóngyì le wǒmen de tí'àn.	她同意了我们的提案。						
 This is where they met each other.			Tāmen zàicǐ xiāngféng.	他们在此相逢。						
 I've never felt that good.			wǒ cónglái méi gǎnjué nàme hǎo guò.	我从来没感觉那么好过。						
-The tiger walked over quietly.	dau2 na1 a xi1 mok1 ta.	虎静之足行終。	Lǎohǔ qiāoqiāo de zǒu guòlái.	老虎悄悄地走过来。	虎.静之.足行.終					
+The tiger walked over quietly.	dau2 na1 a xi1 mok1 ta.	虎静之足行終。	Lǎohǔ qiāoqiāo de zǒu guòlái.	老虎悄悄地走过来。	虎.静之.足行.終					
 There is a tiger in the zoo.			Dòngwùyuán lǐ yǒu yī zhī lǎohǔ.	动物园里有一只老虎。						
 No wild tigers are to be found in Africa.			zài Fēizhōu zhǎo bù dào yěshēng de lǎohǔ.	在非洲找不到野生的老虎。				1		
 The wolf is a wild animal.			Láng shì yěshēng dòngwù.	狼是野生动物。						
@@ -5513,7 +5513,7 @@ The teacher attested that he is a good student.			Lǎoshī zhèngmíng tā shì 
 Good students receive praise from their teacher.			Hǎo xuésheng shòudào lǎoshī de chēngzàn.	好学生受到老师的称赞。						
 The palace is very luxurious.			Gōngtíng hěn háohuá.	宫廷很豪华。						
 Their contract is to ran out at the end of this month.			tāmen de hétong zài zhè gè yuè dǐ dàoqī.	他们的合同在这个月底到期。						
-The passport is counterfeit.	lit1 sip1 ak1 mun1 put.	入国書無真。	Hùzhào shì wěizào de.	护照是伪造的。	入国書.無.真				パスポートが偽物です	
+The passport is counterfeit.	lit1 sip1 ak1 mun1 put.	入国書無真。	Hùzhào shì wěizào de.	护照是伪造的。	入国書.無.真				パスポートが偽物です	
 He almost choked.			Tā qiàngdào le.	他呛到了。						
 Computer hardware is mostly made overseas.			Jìsuànjī yìngjiàn, dà bùfen shì zài hǎiwài zhìzào de.	计算机硬件，大部份是在海外制造的。						
 Being modest will help you make more friends.			Qiānxū huì jiāodào gèng duō de péngyou.	谦虚会交到更多的朋友。						
@@ -5709,7 +5709,7 @@ They can't break loose of the rope.			Tāmen zhèngtuō bù kāi shéngzi.	他�
 Don't stall for time.			Bùyào tuōyán shíjiān!	不要拖延时间！						
 Many people are afraid of thunder.	zat1 syt2 pit1 a cuk2 taun1.	怖天震之人多。	Xǔduō rén hàipà dǎléi.	许多人害怕打雷。						
 Many people are afraid of lightning.			Hěn duō rén jùpà shǎndiàn.	很多人惧怕闪电。						
-They've bought this house.	zap2 ge ian1 ta su1 ie ka1 mut2.	彼等生終銭於此家。	Tāmen mǎile zhè tào fángzi.	他们买了这套房子。					あの人たちはこの家を買いました	
+They've bought this house.	zap2 ge ian1 ta su1 ie ka1 mut2.	彼等生終銭於此家。	Tāmen mǎile zhè tào fángzi.	他们买了这套房子。					あの人たちはこの家を買いました	
 He wants to earn some money to buy a house.			Tā xiǎng zhuànqián mǎi yītào fángzi.	他想赚钱买一套房子。						
 The Mainland Ai'ren Republic considers the South Sea as Chinese territory.			Guānguó dàlù rènwéi, nánhǎi shǔyú Guānguó de lǐngyù.	冠国大陆认为，南海属于冠国的领域。				1		
 Please turn up the air conditioner.			qǐng nǐ bǎ lěng qì diào gāo diǎn.	请你把冷气调高点。						
@@ -6060,7 +6060,7 @@ Our nation's economy declined.			Wǒ guó jīngjì shuāituì le.	我国经济�
 Political problems will lead to a decline in the economy.			Zhèngzhì wèntí huì dǎozhì jīngjì shuāituì.	政治问题会导致经济衰退。						
 Drug use leads to moral degeneration.			Xīdú huì dǎozhì duòluò.	吸毒会导致堕落。						
 His son died from taking drugs. So he resolved to fight against drugs.			Tā érzi xīdú ér sǐ, tā juéxīn fǎndú.	他儿子吸毒而死，他决心反毒。						
-My work is very boring.	pai2 a naip2 hue kit pua2 mun1.	我之労処極風無。	Wǒ de gōngzuò bǎibān wúliáo.	我的工作百般无聊。	我.之.労処.極.風無				私の仕事はとてもつまらないです	
+My work is very boring.	pai2 a naip2 hue kit pua2 mun1.	我之労処極風無。	Wǒ de gōngzuò bǎibān wúliáo.	我的工作百般无聊。	我.之.労処.極.風無				私の仕事はとてもつまらないです	
 The smoke went upward through the chimney.			yān cóng yāncong lǐ mào le chūlái.	烟从烟囱里冒了出来。						
 They spread the map out on the table.			Tāmen zài zhuōzi shàng tānkāi dìtú.	他们在桌子上摊开地图。						
 The train/bus has arrived at the station.			Chē dào zhàn le.	车到站了。						
@@ -6222,16 +6222,16 @@ Mr. Ark will go to the dormitory.			Shū xiānshēng yào qù sùshè.	书先生
 Last weekend Mr. Ark went to Changchun.			Shànggè zhōumò Shū xiānsheng qù le Chángchūn.	上个周末书先生去了长春。				1		
 This is Mr. Ark's umbrella.			Zhè shì Shū xiānsheng de yǔsǎn.	这是书先生的雨伞。						
 Mr. Ark does not speak Japanese very well.			Shū xiānshengde Rìyǔ shuōde bù tài hǎo.	书先生的日语说得不太好。				1		
-How does Mr. Ark study Linepāine?	ak1 xizi ie nan2 nui2 pek2 zep1?	書xizi於何学牌言？	Shū xiānshēng zěnme xuéxí Lǐyǔ?	书先生怎么学习哩语？	書2.xizi.於3.何.学.牌言					
+How does Mr. Ark study Linepāine?	ak1 xizi ie nan2 nui2 pek2 zep1?	書xizi於何学牌言？	Shū xiānshēng zěnme xuéxí Lǐyǔ?	书先生怎么学习哩语？	書2.xizi.於3.何.学.牌言					
 Mr. Ark should take a rest.			Shū xiānsheng yīnggāi xiūxi.	书先生应该休息。						
 Last weekend Mr. Ark was very busy.			Shàng gè zhōumò Shū xiānsheng hěn máng.	上个周末书先生很忙。				1		
 Is Mr. Ark single?			Shū xiānsheng shì dānshēn ma?	书先生是单身吗？						
-Do you know Mr. Ark?	mua2 can2 ak1 xizi yn2?	汝識書xizi乎？	Nǐ rènshi Shū xiānsheng ma?	你认识书先生吗？	汝.識.書2.xizi.乎					
-Mr. Ark knows how to speak many languages.	ak1 xizi py zep1 taun1 nim2 a zep1.	書xizi力言多族之言。	Shū xiānsheng huì jiǎng hěn duō zhǒng yǔyán.	书先生会讲很多种语言。	書2.xizi.力.言.多.族.之.言6					
+Do you know Mr. Ark?	mua2 can2 ak1 xizi yn2?	汝識書xizi乎？	Nǐ rènshi Shū xiānsheng ma?	你认识书先生吗？	汝.識.書2.xizi.乎					
+Mr. Ark knows how to speak many languages.	ak1 xizi py zep1 taun1 nim2 a zep1.	書xizi力言多族之言。	Shū xiānsheng huì jiǎng hěn duō zhǒng yǔyán.	书先生会讲很多种语言。	書2.xizi.力.言.多.族.之.言6					
 Mr. Ark does not like to drink beer.			Shū xiānshēng bù xǐhuan hē píjiǔ.	书先生不喜欢喝啤酒。				1		
-Is Mr. Ark's work difficult?	ak1 xizi a naip2 uo1 pek1 yn2?	書xizi之労件硬乎？	Shū xiānsheng de gōngzuò nán ma?	书先生的工作难吗？	書2.xizi.之.労件.硬.乎					
+Is Mr. Ark's work difficult?	ak1 xizi a naip2 uo1 pek1 yn2?	書xizi之労件硬乎？	Shū xiānsheng de gōngzuò nán ma?	书先生的工作难吗？	書2.xizi.之.労件.硬.乎					
 I've heard that Mr. Ark is a shy person.			Wǒ tīngshuō Shū xiānshēng shì gè hàixiūde rén.	我听说书先生是个害羞的人。						
-Mr. Ark does not like his work.	ak1 xizi mun1 hia1 kait tin1 a naip2.	書xizi無心善己之労。	Shū xiānsheng bù xǐhuan tā de gōngzuò.	书先生不喜欢他的工作。	書2.xizi.無.心善.己.之.労2					
+Mr. Ark does not like his work.	ak1 xizi mun1 hia1 kait tin1 a naip2.	書xizi無心善己之労。	Shū xiānsheng bù xǐhuan tā de gōngzuò.	书先生不喜欢他的工作。	書2.xizi.無.心善.己.之.労2					
 Mr. Ark went to Qingdao last week.			Shū xiānshēng shànggè xīngqī qù Qīngdǎo le.	书先生上个星期去青岛了。				1		
 Mr Ark is going to go home.			Shū xiānsheng yào huí jiā.	书先生要回家。						
 Mr. Ark is with his wife.			Shū xiānsheng gēn qīzi zài yīqǐ.	书先生跟妻子在一起。						
@@ -6885,7 +6885,7 @@ He's full of energy.			Tā jīng lì chōngpèi.	他精力充沛。
 But he did not often smile.			dànshì tā bù cháng wēixiào.	但是他不常微笑。						
 She does not usually wear high heels.			Tā bù cháng chuān gāogēnxié.	她不常穿高跟鞋。						
 Gunshots are common in Iraq.			Yīlākè jīngcháng chūxiàn qiāngjī shìjiàn.	伊拉克经常出现枪击事件。						
-This is mine.	ka1 pai2 a (a).	此我之(噫)。	Zhè shì wǒ de.	这是我的。	此.∅.我.之.(噫)				これは私のです	
+This is mine.	ka1 pai2 a (a).	此我之(噫)。	Zhè shì wǒ de.	这是我的。	此.∅.我.之.(噫)				これは私のです	
 This is a mine.			Zhè shì yī zuò kuàngshān.	这是一座矿山。						
 They're playing the neen-cetkaik cards.	zap2 ge aim2 tu2 nin1 cet2 kaik.	彼等在遊紙机戦。	Tāmen zài wánr zhǐjīzhàn.	她们在玩儿纸机战。	彼等.在.遊.紙机戦				あの人たちはニーンセッカイクで遊んでいます	
 He is always making excuses for being late so often.			Tā jīngcháng chídào, zǒngshì zhǎo jièkǒu.	他经常迟到，总是找借口。						
@@ -7028,7 +7028,7 @@ She indulged herself by eating some sweets.			Tā zòngróng zìjǐ chī tiánsh
 My mom is cooking with a frying pan.			Māma yòng jiānguō zuòcài.	妈妈用煎锅做菜。						
 Our house was robbed while we were away.			wǒmen zǒukāi de shíhou, fángzi bèi dàoqiè le.	我们走开的时候，房子被盗窃了。						
 The smell is very bad.	cai1 ku kit non1.	嗅物極悪。	Qìwèi fēicháng nán wén.	气味非常难闻。	嗅物.極.悪					
-He's got a big dog.	ma1 pa2 aim2 zap2.	大犬在彼。	Tā yǒu yī zhī dà gǒu.	他有一只大狗。	大2.犬.在7.彼					
+He's got a big dog.	ma1 pa2 aim2 zap2.	大犬在彼。	Tā yǒu yī zhī dà gǒu.	他有一只大狗。	大2.犬.在7.彼					
 His article was published in a newspaper.			Tā de wénzhāng zài bàozhǐ shàng kānchū le.	他的文章在报纸上刊出了。						
 I go to withdraw money from an ATM.			Wǒ qù ATM qǔkuǎn.	我去ATM取款。						
 The Vefisait Republic gave foreign aid to lots of nations.			Huáiguó gěi xǔduō guójiā wàiyuán.	淮国给许多国家外援。						
@@ -7085,7 +7085,7 @@ My grandmother likes sewing.			Nǎinai xǐhuan zuò zhēnxiànhuó.	奶奶喜欢
 She put aside the sewing and stood up.			tā fàngxià shǒu zhōng de zhēn xiàn huó, bìng zhàn le qǐlai.	她放下手中的针线活，并站了起来。						
 There are two pagodas by the river bank.			Hébiān yǒu liǎng zuò bǎotǎ.	河边有两座宝塔。						
 My clothes got damp from the rain.			Wǒ de yīfu bèi yǔ lín shī le.	我的衣服被雨淋湿了。						
-The leaves have turned yellow.	kot hop1 mok1 ta ie xem1 pok.	草手行終於月色。	Yèzi biànhuáng le.	叶子变黄了。	草手.行4.終.於.月色				葉っぱが黄色になりました	
+The leaves have turned yellow.	kot hop1 mok1 ta ie xem1 pok.	草手行終於月色。	Yèzi biànhuáng le.	叶子变黄了。	草手.行4.終.於.月色				葉っぱが黄色になりました	
 Can you turn off the light?			Nǐ kěyǐ guān dēng ma?	你可以关灯吗？						
 I love almonds.			Wǒ ài chī xìngrén.	我爱吃杏仁。						
 He's pleading with his boss for mercy.			Tā zài xiàng shàngsi qiúráo.	他在向上司求饶。						
@@ -7595,7 +7595,7 @@ The little girl has dimples in her cheeks.			Xiǎo nǚhái de liǎnshàng yǒu j
 The coral in the sea is very beautiful.			Hǎi lǐ de shānhú hěn měi.	海里的珊瑚很美。						
 She's a voracious eater.			Tā hěn tānchī.	她很贪吃。						
 She's scratching an itch.			Tā zài náo yǎngyang.	她在挠痒痒。						
-She's listening to music.	zap2 aim2 lua1 can2 lok1 lia1.	彼在耳識笛琴。	Tā zhèngzài tīng yīnyuè.	她正在听音乐。	彼.在.耳識.笛琴					
+She's listening to music.	zap2 aim2 lua1 can2 lok1 lia1.	彼在耳識笛琴。	Tā zhèngzài tīng yīnyuè.	她正在听音乐。	彼.在.耳識.笛琴					
 She loves listening to music.			Tā ài tīng yīnyuè.	她爱听音乐。						
 He likes to listen to music.			Tā xǐhuan tīng yīnyuè.	他喜欢听音乐。						
 My hobby is listening to music.			Wǒ de àihào shì tīng yīnyuè.	我的爱好是听音乐。						
@@ -7731,7 +7731,7 @@ The problem of our aging society is getting increasingly serious.			Shèhuì lǎ
 Let's discuss the problem of the aging population.			Wǒmen lái tǎolùn lǎolínghuà wèntí.	我们来讨论老龄化问题。						
 He's saying goodbye to his girlfriend.			Tā gēn nǚpéngyǒu cíbié.	他跟女朋友辞别。						
 I will expose his lies.			Wǒ yào chuōchuān tā de huǎngyán.	我要戳穿他的谎言。						
-The bees are collecting honey from the flowers.	tum1 sik2 li2 aim2 dat2 sak2 tum1 sik2 ie xuo1.	甘蜜虫在集来甘蜜於花。	Mìfēng zhèngzài cǎi huāmì.	蜜蜂正在采花蜜。	甘蜜虫.在.集3.来5.甘蜜.於.花					
+The bees are collecting honey from the flowers.	tum1 sik2 li2 aim2 dat2 sak2 tum1 sik2 ie xuo1.	甘蜜虫在集来甘蜜於花。	Mìfēng zhèngzài cǎi huāmì.	蜜蜂正在采花蜜。	甘蜜虫.在.集3.来5.甘蜜.於.花					
 The gorilla is eating tree leaves.			Dàxīngxing zài chī shùyè.	大猩猩在吃树叶。						
 I bought my dad life insurance.			Wǒ gěi bàba mǎi le yīfèn rénshòu bǎoxiǎn.	我给爸爸买了一份人寿保险。						
 Have you ever been to Kobe?			nǐ qù guò shénhù ma?	你去过神户吗？				1		
