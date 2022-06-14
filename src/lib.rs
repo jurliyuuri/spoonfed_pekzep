@@ -253,9 +253,12 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     if row.filetype.contains(&read::phrase::FilePathType::Wav)
         || row.filetype.contains(&read::phrase::FilePathType::WavR)
     {
-        let filename = if row.filetype.contains(&read::phrase::FilePathType::WavR) {
-            read::phrase::syllables_to_rerrliratixka_no_space(syllables)
-        } else {
+        /*if row.filetype.contains(&read::phrase::FilePathType::WavR) {
+            let old = read::phrase::syllables_to_rerrliratixka_no_space(syllables);
+            let new = read::phrase::syllables_to_str_underscore(syllables);
+            std::fs::rename(format!("docs/spoonfed_pekzep_sounds/{}.wav", old), format!("docs/spoonfed_pekzep_sounds/{}.wav", new)).unwrap();
+        }*/
+        let filename = {
             read::phrase::syllables_to_str_underscore(syllables)
         };
 
