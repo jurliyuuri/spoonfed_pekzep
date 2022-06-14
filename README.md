@@ -1,6 +1,6 @@
 # Spoonfed Pekzep / <span lang="zh-CN">轻松牌语</span>
 
-[Learn Pekzep in English and Chinese! / <span lang="zh-CN">用英语和汉语学习牌语!</span>](https://jurliyuuri.github.io/spoonfed_pekzep/index.html)
+[Learn Pekzep in English, Chinese and Japanese! / <span lang="zh-CN">用英语、汉语和日语学习牌语!</span>](https://jurliyuuri.github.io/spoonfed_pekzep/index.html)
 
 ## Other Resources (mostly in Japanese) / <span lang="zh-CN">其他资源（大部分是日语）</span>
 
