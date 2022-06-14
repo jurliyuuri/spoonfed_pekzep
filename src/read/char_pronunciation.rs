@@ -41,7 +41,7 @@ impl std::fmt::Display for LinzklarString {
     }
 }
 
-#[derive(Clone, Hash, PartialEq, Eq)]
+#[derive(Clone, Hash, PartialEq, Eq, Ord, PartialOrd)]
 pub struct Linzklar(char);
 impl Linzklar {
     /// # Errors

@@ -508,7 +508,7 @@ pub fn generate_char_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dy
     let rel_path = ".";
 
     let mut count_vec: Vec<_> = data_bundle.char_count.iter().collect();
-    count_vec.sort_by(|a, b| b.1.cmp(a.1));
+    count_vec.sort_by(|a, b| (b.1, b.0).cmp(&(a.1, a.0)));
     for (linzklar, size) in count_vec {
         html.push(format!(
             "{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}",
@@ -693,6 +693,9 @@ pub fn write_char_count_js<S: ::std::hash::BuildHasher>(
     char_count: &HashMap<Linzklar, usize, S>,
 ) -> Result<(), Box<dyn Error>> {
     let mut js = String::from("const CHAR_COUNT = {\n");
+
+    let mut char_count: Vec<_> = char_count.iter().collect();
+    char_count.sort_by(|a, b| (b.1, b.0).cmp(&(a.1, a.0)));
 
     for (k, v) in char_count {
         js += &format!("    \"{}\": {},\n", k, v);
