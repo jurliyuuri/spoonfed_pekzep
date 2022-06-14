@@ -46,6 +46,7 @@ pub struct Record {
     pub filetype: String,
     pub recording_author: String,
     pub requires_substitution: String,
+    pub japanese: String,
 }
 
 #[readonly::make]
@@ -59,6 +60,7 @@ pub struct Item {
     pub decomposed: Vec<InternalKeyGloss>,
     pub filetype: HashSet<FilePathType>,
     pub recording_author: Option<Author>,
+    pub japanese: String,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -148,6 +150,7 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
             chinese_hanzi: rec.chinese_hanzi,
             chinese_pinyin: rec.chinese_pinyin,
             english: rec.english,
+            japanese: rec.japanese,
             filetype: if rec.filetype.is_empty() {
                 HashSet::new()
             } else {

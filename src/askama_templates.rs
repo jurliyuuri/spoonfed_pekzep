@@ -9,6 +9,7 @@ pub struct PhraseTemplate<'a> {
     pub chinese_pinyin: &'a str,
     pub pekzep_latin: &'a str,
     pub pekzep_hanzi: &'a str,
+    pub japanese: &'a str,
     pub prev_link: &'a str,
     pub next_link: &'a str,
     pub wav_tag: &'a str,
@@ -18,6 +19,7 @@ pub struct PhraseTemplate<'a> {
     pub author_color: &'a str,
     pub author_name: &'a str,
     pub has_audio: bool,
+    pub has_japanese: bool,
 }
 
 #[derive(Template)]

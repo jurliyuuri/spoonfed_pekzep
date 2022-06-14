@@ -350,6 +350,8 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
         let (oga_tag, is_reviewed) = generate_oga_tag(row, syllables);
         let content = PhraseTemplate {
             english: &row.english,
+            japanese: &row.japanese,
+            has_japanese: row.japanese.trim() != "",
             chinese_pinyin: &row.chinese_pinyin,
             chinese_hanzi: &row.chinese_hanzi,
             pekzep_latin: &row.pekzep_latin,

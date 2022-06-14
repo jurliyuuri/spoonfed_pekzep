@@ -11,7 +11,8 @@
         <hr>
         English: <span lang="en">{{ english }}</span><br>
         Chinese: <span lang="zh">{{ chinese_hanzi|normalize_chinese_punctuation|normalize_a_b_dialogue }}</span><br>
-        Chinese (pinyin): <span lang="zh-Latn">{{ chinese_pinyin|capitalize_first_char }}</span><br>
+        Chinese (pinyin): <span lang="zh-Latn">{{ chinese_pinyin|capitalize_first_char }}</span><br>{% if has_japanese %}
+        Japanese: <span lang="ja">{{ japanese }}</span><br>{% endif %}
         <hr>
         Pekzep (latin transcription): {{ pekzep_latin }}<br>
         Pekzep (hanzi transcription): <span lang="ja">{{ pekzep_hanzi }}</span><br>
