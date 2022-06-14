@@ -251,11 +251,11 @@ fn generate_oga_tag(
 
 fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyllable]) -> String {
     use log::warn;
+    let filename = read::phrase::syllables_to_str_underscore(syllables);
+    let wav_file_exists =
+        std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists();
     if row.filetype.contains(&read::phrase::FilePathType::Wav) {
-        let filename = read::phrase::syllables_to_str_underscore(syllables);
-
-        if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists()
-        {
+        if !wav_file_exists {
             warn!("wav file not found: {}.wav", filename);
         }
         format!(
@@ -263,13 +263,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
             filename
         )
     } else {
-        let filename = read::phrase::syllables_to_rerrliratixka_no_space(syllables);
-        if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
-            warn!("wav file IS found, but is not linked: {}.wav", filename);
-        }
-
-        let filename = read::phrase::syllables_to_str_underscore(syllables);
-        if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists() {
+        if wav_file_exists {
             warn!("wav file IS found, but is not linked: {}.wav", filename);
         }
         "".to_owned()

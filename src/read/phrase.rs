@@ -25,24 +25,6 @@ impl std::fmt::Display for ExtSyllable {
     }
 }
 
-impl ExtSyllable {
-    fn to_rerrliratixka(self) -> String {
-        match &self {
-            Self::Syllable(s) => (*s).to_rerrliratixka(),
-            Self::Xizi => "xizi".to_string(),
-        }
-    }
-}
-
-#[must_use]
-pub fn syllables_to_rerrliratixka_no_space(syllables: &[ExtSyllable]) -> String {
-    syllables
-        .iter()
-        .map(|a| a.to_rerrliratixka())
-        .collect::<Vec<_>>()
-        .join("")
-}
-
 #[must_use]
 pub fn syllables_to_str_underscore(syllables: &[ExtSyllable]) -> String {
     syllables
