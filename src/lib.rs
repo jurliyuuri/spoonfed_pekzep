@@ -616,7 +616,7 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
 
         if rec.requires_substitution.is_empty() {
             condensed_csv += &format!(
-                "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n",
+                "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n",
                 rec.english,
                 rec.pekzep_latin,
                 rec.pekzep_hanzi,
@@ -625,6 +625,7 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
                 rec.decomposed,
                 rec.filetype,
                 rec.recording_author,
+                rec.japanese,
             );
         }
     }
@@ -664,7 +665,7 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
         if rec.requires_substitution.is_empty() {
             // This is inherently insecure, but who cares?
             js += &format!(
-                "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`, pekzep_images: `{}`}},\n",
+                "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`, pekzep_images: `{}`, japanese: `{}`}},\n",
                 rec.english,
                 rec.pekzep_latin,
                 remove_guillemets(&rec.pekzep_hanzi),
@@ -673,7 +674,8 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
                 rec.decomposed,
                 rec.filetype,
                 rec.recording_author,
-                convert_hanzi_to_images(&remove_guillemets(&rec.pekzep_hanzi), "() ", ".")
+                convert_hanzi_to_images(&remove_guillemets(&rec.pekzep_hanzi), "() ", "."),
+                rec.japanese
             );
         }
     }
