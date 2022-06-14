@@ -82,7 +82,6 @@ pub struct Item {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum FilePathType {
     Wav,
-    WavR,
     Oga,
 }
 
@@ -131,7 +130,7 @@ fn encode_to_pekzep_syllables(i: &str) -> anyhow::Result<Vec<ExtSyllable>> {
 /// Parses "raw/Spoonfed Pekzep - SpoonfedPekzep.tsv" to obtain a table converting a string of characters to a contracted syllable.
 /// The tsv used for the input should be of the following form:
 /// ```text
-///Hello / how are you	kait kia1!	善日！	Nǐ hǎo!	你好！	善日	wav_r	falira.lyjotafis		Jeemusn!
+///Hello / how are you	kait kia1!	善日！	Nǐ hǎo!	你好！	善日	wav	falira.lyjotafis		Jeemusn!
 ///I'm hurrying to work.	pai2 sam1 mok1 ie naip2 hue.	我急行於労処。	Wǒ cōngmáng de qù shàngbān.	我匆忙地去上班。	我.急行2.於1.労処
 /// ```
 /// # Errors
@@ -174,7 +173,6 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
                 let mut ans = HashSet::new();
                 for x in filetypes {
                     ans.insert(match x.trim() {
-                        "wav_r" => FilePathType::WavR,
                         "wav" => FilePathType::Wav,
                         "oga" => FilePathType::Oga,
                         a => return Err(anyhow!("Invalid file type `{}`. Run with RUST_LOG environment variable set to `info` to see the details.", a)),
