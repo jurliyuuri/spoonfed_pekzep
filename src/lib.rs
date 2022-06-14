@@ -119,6 +119,7 @@ const fn to_check(a: bool) -> &'static str {
     }
 }
 
+#[derive(Copy, Clone, Debug)]
 enum R {
     Ready,
     NonReviewed,
@@ -250,14 +251,8 @@ fn generate_oga_tag(
 
 fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyllable]) -> String {
     use log::warn;
-    if row.filetype.contains(&read::phrase::FilePathType::Wav)
-        || row.filetype.contains(&read::phrase::FilePathType::WavR)
-    {
-        let filename = if row.filetype.contains(&read::phrase::FilePathType::WavR) {
-            read::phrase::syllables_to_rerrliratixka_no_space(syllables)
-        } else {
-            read::phrase::syllables_to_str_underscore(syllables)
-        };
+    if row.filetype.contains(&read::phrase::FilePathType::Wav) {
+        let filename = read::phrase::syllables_to_str_underscore(syllables);
 
         if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists()
         {
@@ -555,7 +550,6 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
         }
 
         let wav_or_oga_is_ready = if row.filetype.contains(&read::phrase::FilePathType::Wav)
-            || row.filetype.contains(&read::phrase::FilePathType::WavR)
             || row.filetype.contains(&read::phrase::FilePathType::Oga)
         {
             R::Ready
@@ -571,10 +565,7 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
         index.push(format!(
             "{}\t{}\t{}\t<a href=\"phrase/{}.html\">{}</a>",
             to_check_or_parencheck(wav_or_oga_is_ready),
-            to_check(
-                row.filetype.contains(&read::phrase::FilePathType::Wav)
-                    || row.filetype.contains(&read::phrase::FilePathType::WavR)
-            ),
+            to_check(row.filetype.contains(&read::phrase::FilePathType::Wav)),
             to_check(!decomposition.is_empty()),
             read::phrase::syllables_to_str_underscore(syllables),
             row.pekzep_latin
