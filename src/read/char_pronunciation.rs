@@ -114,7 +114,10 @@ pub fn parse() -> anyhow::Result<(CharSoundTable, NonRecommendedCharTable)> {
     for r in ans {
         if r.variant_of.is_empty() {
         } else {
-            b.insert(Linzklar::from_str(&r.character)?, Linzklar::from_str(&r.variant_of)?);
+            b.insert(
+                Linzklar::from_str(&r.character)?,
+                Linzklar::from_str(&r.variant_of)?,
+            );
         }
     }
 

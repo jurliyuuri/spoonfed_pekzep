@@ -83,7 +83,7 @@ impl InternalKeyGloss {
     pub fn to_internal_key(&self) -> InternalKey {
         InternalKey {
             postfix: self.postfix.clone(),
-            main: self.main.replace('!', " // ").replace('#', " // "),
+            main: self.main.replace(['!', '#'], " // "),
         }
     }
 
@@ -239,7 +239,7 @@ fn split_into_main_and_postfix(input: &str) -> anyhow::Result<(String, String)> 
             // The postfix is `:[0-9a-zA-Z]*` if the main *does* begin with an ASCII character.
             let v: Vec<&str> = input.splitn(2, ':').collect();
             match v[..] {
-                [main, postfix] => (main.to_owned(), format!(":{}", postfix)),
+                [main, postfix] => (main.to_owned(), format!(":{postfix}")),
                 [main] => (main.to_owned(), String::new()),
                 _ => panic!("cannot happen"),
             }

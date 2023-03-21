@@ -53,6 +53,5 @@ fn main() -> Result<(), Box<dyn Error>> {
     eprintln!("Writing docs/char_count.js");
     write_char_count_js(&data_bundle.char_count)?;
 
-
     Ok(())
 }

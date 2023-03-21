@@ -19,7 +19,7 @@ pub enum ExtSyllable {
 impl std::fmt::Display for ExtSyllable {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Syllable(s) => write!(f, "{}", s),
+            Self::Syllable(s) => write!(f, "{s}"),
             Self::Xizi => write!(f, "xizi"),
         }
     }
@@ -81,7 +81,7 @@ impl std::fmt::Display for Author {
         match self {
             Self::JektoVatimeliju => write!(f, "jekto.vatimeliju"),
             Self::FaliraLyjotafis => write!(f, "falira.lyjotafis"),
-            Self::Other(a) => write!(f, "{}", a),
+            Self::Other(a) => write!(f, "{a}"),
         }
     }
 }
@@ -93,16 +93,16 @@ fn encode_to_pekzep_syllables(i: &str) -> anyhow::Result<Vec<ExtSyllable>> {
                 if k.is_empty() {
                     None
                 } else {
-                    Some(match PekZepSyllable::parse(k) {
-                        Some(s) => Ok(ExtSyllable::Syllable(s)),
-                        None => {
+                    Some(PekZepSyllable::parse(k).map_or_else(
+                        || {
                             if k == "xizi" {
                                 Ok(ExtSyllable::Xizi)
                             } else {
-                                Err(format!("Failed to parse a pekzep syllable {}", k))
+                                Err(format!("Failed to parse a pekzep syllable {k}"))
                             }
-                        }
-                    })
+                        },
+                        |s| Ok(ExtSyllable::Syllable(s)),
+                    ))
                 }
             })
             .collect::<Vec<_>>(),

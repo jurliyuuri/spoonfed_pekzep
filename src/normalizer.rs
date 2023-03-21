@@ -6,7 +6,9 @@
 /// ```
 pub fn capitalize_first_char(text: &str) -> String {
     let mut iter = text.chars();
-    iter.next().map_or_else(String::new, |init| format!("{}{}", init.to_uppercase(), iter.collect::<String>()))
+    iter.next().map_or_else(String::new, |init| {
+        format!("{}{}", init.to_uppercase(), iter.collect::<String>())
+    })
 }
 
 #[must_use]

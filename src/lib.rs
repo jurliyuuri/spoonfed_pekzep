@@ -42,9 +42,7 @@ mod tests {
 /// # Panic
 /// Panics if the string does not have a `//`.
 fn split_at_slashslash(in_string: &str) -> (String, String) {
-    let mut splitter = in_string.splitn(2, "//");
-    let first = splitter.next().unwrap();
-    let second = splitter.next().unwrap();
+    let (first, second) = in_string.split_once("//").unwrap();
     (first.to_owned(), second.to_owned())
 }
 
@@ -62,7 +60,7 @@ impl verify::DecompositionItem {
         &self,
         rel_path: &'static str,
     ) -> String {
-        let link_path = format!("{}/vocab/{}.html", rel_path, self.key.to_path_safe_string());
+        let link_path = format!("{rel_path}/vocab/{}.html", self.key.to_path_safe_string());
         self.splittable_compound_info.map_or_else(|| format!(
                 "<a href=\"{}\">{}</a>\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
                 link_path,
@@ -136,36 +134,36 @@ const fn to_check_or_parencheck(a: R) -> &'static str {
 
 fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String {
     use log::info;
-    if std::path::Path::new(&format!("raw/char_img/{}.png", name)).exists() {
+    if std::path::Path::new(&format!("raw/char_img/{name}.png")).exists() {
         // only copy the files that are actually used
         match std::fs::copy(
-            format!("raw/char_img/{}.png", name),
-            format!("docs/char_img/{}.png", name),
+            format!("raw/char_img/{name}.png"),
+            format!("docs/char_img/{name}.png"),
         ) {
             Ok(_) => {}
             Err(e) => {
-                eprintln!("Copying raw/char_img/{}.png failed: {}", name, e);
+                eprintln!("Copying raw/char_img/{name}.png failed: {e}");
             }
         }
-    } else if std::path::Path::new(&format!("raw/char_img_fallback/{}.png", name)).exists() {
+    } else if std::path::Path::new(&format!("raw/char_img_fallback/{name}.png")).exists() {
         match std::fs::copy(
-            format!("raw/char_img_fallback/{}.png", name),
-            format!("docs/char_img/{}.png", name),
+            format!("raw/char_img_fallback/{name}.png"),
+            format!("docs/char_img/{name}.png"),
         ) {
             Ok(_) => {
                 info!(
                     "char_img not found, but found in char_img_fallback: {}.png",
                     name
                 );
-                File::create(&format!("docs/char_img/fallback_{}.txt", name)).unwrap();
+                File::create(format!("docs/char_img/fallback_{name}.txt")).unwrap();
             }
             Err(e) => {
-                eprintln!("Copying raw/char_img_fallback/{}.png failed: {}", name, e);
+                eprintln!("Copying raw/char_img_fallback/{name}.png failed: {e}");
             }
         }
     } else {
         info!("char_img not found: {}.png", name);
-        File::create(&format!("docs/char_img/dummy_{}.txt", name)).unwrap();
+        File::create(format!("docs/char_img/dummy_{name}.txt")).unwrap();
     }
 
     format!(
@@ -220,9 +218,8 @@ fn generate_oga_tag(
     use log::warn;
     let filename = read::phrase::syllables_to_str_underscore(syllables);
     if row.filetype.contains(&read::phrase::FilePathType::Oga) {
-        if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename)).exists()
-        {
-            warn!("oga file not found: {}.oga", filename);
+        if !std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{filename}.oga")).exists() {
+            warn!("oga file not found: {filename}.oga");
         }
         (
             format!(
@@ -231,12 +228,11 @@ fn generate_oga_tag(
             ),
             Some(true),
         )
-    } else if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.oga", filename))
-        .exists()
+    } else if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{filename}.oga")).exists()
     {
-        warn!("oga file IS found, but is not linked: {}.oga", filename);
-        ("".to_owned(), None)
-    } else if std::path::Path::new(&format!("docs/nonreviewed_sounds/{}.oga", filename)).exists() {
+        warn!("oga file IS found, but is not linked: {filename}.oga");
+        (String::new(), None)
+    } else if std::path::Path::new(&format!("docs/nonreviewed_sounds/{filename}.oga")).exists() {
         (
             format!(
                 r#"<source src="../nonreviewed_sounds/{}.oga" type="audio/ogg">"#,
@@ -245,7 +241,7 @@ fn generate_oga_tag(
             Some(false),
         )
     } else {
-        ("".to_owned(), None)
+        (String::new(), None)
     }
 }
 
@@ -253,7 +249,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     use log::warn;
     let filename = read::phrase::syllables_to_str_underscore(syllables);
     let wav_file_exists =
-        std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{}.wav", filename)).exists();
+        std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{filename}.wav")).exists();
     if row.filetype.contains(&read::phrase::FilePathType::Wav) {
         if !wav_file_exists {
             warn!("wav file not found: {}.wav", filename);
@@ -266,7 +262,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
         if wav_file_exists {
             warn!("wav file IS found, but is not linked: {}.wav", filename);
         }
-        "".to_owned()
+        String::new()
     }
 }
 
@@ -314,7 +310,7 @@ fn decomposition_to_analysis_merging_unsplitted_compounds(
 }
 
 fn remove_guillemets(a: &str) -> String {
-    a.replace('«', "").replace('»', "")
+    a.replace(['«', '»'], "")
 }
 
 /// Generates `phrase/`
@@ -385,10 +381,9 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             author_name: &if is_reviewed == Some(false) {
                 "jekto.vatimeliju (not reviewed)".to_string()
             } else {
-                match &row.recording_author {
-                    Some(author) => format!("{}", author),
-                    None => "".to_string(),
-                }
+                row.recording_author
+                    .as_ref()
+                    .map_or_else(String::new, |author| format!("{author}"))
             },
             has_audio: row.recording_author.is_some() || is_reviewed == Some(false),
         };
@@ -408,7 +403,7 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
     for (key, v) in &data_bundle.vocab_ordered {
         let mut file = File::create(format!("docs/vocab/{}.html", key.to_path_safe_string()))?;
 
-        let mut usages = String::from("");
+        let mut usages = String::new();
 
         for verify::Rows3Item {
             syllables,
@@ -456,7 +451,7 @@ pub fn generate_vocab_list_internal(
     let mut html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
         let rel_path = ".";
-        let link_path = format!("{}/vocab/{}.html", rel_path, key.to_path_safe_string());
+        let link_path = format!("{rel_path}/vocab/{}.html", key.to_path_safe_string());
         html.push(format!(
             "<a href=\"{}\">{}</a>\t{}\t{}",
             link_path,
@@ -513,7 +508,7 @@ pub fn generate_char_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dy
         html.push(format!(
             "{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}",
             linzklar,
-            convert_hanzi_to_images(&format!("{}", linzklar), "/{} N()SL«»", rel_path),
+            convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
             size
         ));
     }
@@ -551,7 +546,7 @@ pub fn generate_index(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             R::Ready
         } else {
             let filename = read::phrase::syllables_to_str_underscore(syllables);
-            if std::path::Path::new(&format!("docs/nonreviewed_sounds/{}.oga", filename)).exists() {
+            if std::path::Path::new(&format!("docs/nonreviewed_sounds/{filename}.oga")).exists() {
                 R::NonReviewed
             } else {
                 R::Missing
@@ -698,7 +693,7 @@ pub fn write_char_count_js<S: ::std::hash::BuildHasher>(
     char_count.sort_by(|a, b| (b.1, b.0).cmp(&(a.1, a.0)));
 
     for (k, v) in char_count {
-        js += &format!("    \"{}\": {},\n", k, v);
+        js += &format!("    \"{k}\": {v},\n");
     }
 
     js += "}\n";

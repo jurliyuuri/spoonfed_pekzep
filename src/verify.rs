@@ -279,8 +279,8 @@ impl DataBundle {
                                     Some(' ') => continue,
                                     Some('{') => break,
                                     None => continue 'a,
-                                    Some(_) => panic!("Trying to match {} with {}: Unexpected char {:?} found while dealing with braces", 
-                                    v.pekzep_hanzi, v.pekzep_latin, s)
+                                    Some(_) => panic!("Trying to match {} with {}: Unexpected char {s:?} found while dealing with braces", 
+                                    v.pekzep_hanzi, v.pekzep_latin)
                                 }
                             }
                             loop {
@@ -488,7 +488,7 @@ fn parse_decomposed(
                 let a = gloss.to_string();
                 let init_char = a.chars().next().unwrap();
                 if init_char == '∅' {
-                    return "".to_string();
+                    return String::new();
                 }
                 if a.contains('#') {
                     return a.chars().take_while(|c| *c != '#').collect::<String>();
@@ -530,11 +530,7 @@ fn parse_decomposed(
         let expectation = row
             .pekzep_hanzi
             .to_string()
-            .replace('！', "")
-            .replace('？', "")
-            .replace('。', "")
-            .replace('「', "")
-            .replace('」', "");
+            .replace(['！', '？', '。', '「', '」'], "");
         if rejoined != expectation {
             return Err(anyhow!(
                 "mismatch: the original row gives {} but the decomposition is {}",
