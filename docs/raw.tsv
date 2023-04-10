@@ -1,6 +1,7 @@
 Hello / how are you	kait kia1!	善日！	Nǐ hǎo!	你好！	善日	wav	falira.lyjotafis	こんにちは
 What are you saying?	mua2 zep1 nan2?	汝言何？	Nǐ shuō shénme?	你说什么？	汝.言.何	wav	falira.lyjotafis	何を言ってるんです？
 What are they talking about?	zap2 ge aim2 zep1 nan2?	彼等在言何？	Tāmen zài shuō shénme?	他们在说什么？	彼等.在.言.何	wav	falira.lyjotafis	あの人たちは何のことを話してるんですか？
+What are you guys saying?	mua2 ge zep1 ta nan2?	汝等言終何？	Nǐmen shuō shénme?	你们说什么？				
 What did you do?	mua2 zau nan2 ta?	汝為何終？	Nǐ zuò le shénme?	你做了什么？	汝.為.何.終	wav	falira.lyjotafis	何をされてたんですか？
 They can do it.	zap2 ge py zau.	彼等力為。	Tāmen huì zuò.	他们会做。	彼等.力.為	wav	falira.lyjotafis	あの人たちはそれができます
 I can do it.	pai2 py zau.	我力為。	Wǒ huì zuò.	我会做。	我.力.為	wav	falira.lyjotafis	私はそれができます
@@ -9,6 +10,7 @@ What do you do for work?	mua2 mok1 nan2 naip2?	汝行何労？	Nǐ zuò shénme 
 What does she do for work?	zap2 mok1 nan2 naip2?	彼行何労？	Tā zuò shénme gōngzuò?	她做什么工作？	彼.行#労.何2.行!労	wav	falira.lyjotafis	あの人はどんな仕事をされているんですか？
 Where do you work?	mua2 ie nan2 hue naip2?	汝於何処労？	Nǐ zài nǎli gōngzuò?	你在哪里工作？	汝.於.何処.労	wav	falira.lyjotafis	どちらで働かれてるんですか？
 Where are you going?	mua2 mok1 nan2 hue?	汝行何処？	Nǐ qù nǎli?	你去哪里？	汝.行.何処	wav	falira.lyjotafis	どちらに行かれるんですか？
+Where are you guys going?	mua2 ge mok1 nan2 hue?	汝等行何処？	Nǐmen qù nǎlǐ?	你们去哪里？				あなた方はどちらに行かれるんですか？
 Where would you like to go?	mua2 hia1 mok1 nan2 hue?	汝心行何処？	Nǐ xiǎng qù nǎli?	你想去哪里？	汝.心.行.何処	wav	falira.lyjotafis	どちらに行かれたいのですか？
 Where are you from?	mua2 nan2 hue cuk2?	汝何処人？	Nǐ shì nǎli rén?	你是哪里人？	汝.何処2.人	wav	falira.lyjotafis	あなたはどこの出身ですか？
 Where is she from?	zap2 nan2 hue a cuk2?	彼何処之人？	Tā shì nǎli de rén?	她是哪里的人？	彼.何処.之.人	wav	falira.lyjotafis	あの人はどこの出身ですか？
@@ -54,6 +56,7 @@ The student has not come.	nui2 cuk2 mun1 sak2 ta.	学人無来終。	Xuésheng m
 What do you want to do today?	ka1 kia1 mua2 hia1 zau nan2?	此日汝心為何？	Nǐ jīntiān xiǎng zuò shénme?	你今天想做什么？	此日.汝.心.為.何	oga, wav	jekto.vatimeliju	今日は何をなさるおつもりですか？
 Are you going to come today?	ka1 kia1 mua2 sak2 yn2?	此日汝来乎？	Nǐ jīntiān huì lái ma?	你今天会来吗？	此日.汝.来2.乎	oga, wav	jekto.vatimeliju	今日いらっしゃいますか？
 What would he like to do today?	ka1 kia1 zap2 hia1 zau nan2?	此日彼心為何？	Tā jīntiān xiǎng zuò shénme?	他今天想做什么？	此日.彼.心.為.何	oga, wav	jekto.vatimeliju	あの人は今日何をするつもりなのですか？
+What did you guys do today?	ka1 kia1 mua2 ge zau ta nan2?	此日汝等為終何？	Nǐmen jīntiān zuòle shénme?	你们今天做了什么？				
 Did you understand?	mua2 can2 sak2 yn2?	汝識来乎？	Nǐ tīng dǒng le ma?	你听懂了吗？	汝.識来.乎	oga, wav	jekto.vatimeliju	わかりましたか？
 I understand.	pai2 can2 sak2.	我識来。	Wǒ dǒng le.	我懂了。	我.識来	oga, wav	jekto.vatimeliju	わかりました
 I heard and understood.	pai2 lua1 ua can2 sak2.	我耳而識来。	Wǒ tīng dǒng le.	我听懂了。	我.耳.而.識来	oga, wav	jekto.vatimeliju	私は聞いて理解しました
@@ -128,10 +131,12 @@ Are you busy today?	ka1 kia1 mua2 ly taun1 yn2?	此日汝須多乎？	Nǐ jīnti
 I'm very busy.	ie pai2 ly taun1 kit taun1.	於我須多極多。	Wǒ hěn máng. 	我很忙。	於0.我.須多2.極.多	oga, wav	jekto.vatimeliju	私はとても忙しいです
 Who is Mr. Yay?	iei2 xizi nan2 cuk2?	春xizi何人？	Shéi shì Chūn xiānsheng?	谁是春先生？	春.xizi.何2.人	oga, wav	falira.lyjotafis	春（イェイ）さんは誰ですか？
 Why did Mr. Yay do that?	iei2 xizi nan2 xit2 zau ka1?	春xizi何故為此？	Chūn xiānsheng wèishénme nàme zuò?	春先生为什么那么做？	春.xizi.何故.為.此	oga, wav	jekto.vatimeliju	どうして春（イェイ）さんはあんなことをしたんですか？
+Why are you guys doing this?	mua2 ge nan2 xit2 aim2 zau ka1?	汝等何故在為此？	Nǐmen wèishénme zhème zuò?	你们为什么这么做？				
 I worked for ten days.	ie nun1 kia1 pai2 lit1 py ie naip2.	於十日我入力於労。	Wǒ gōngzuòle shí tiān.	我工作了十天。	於dur.十.日.我.入力.於.労2	oga, wav	jekto.vatimeliju	私は十日間働きました
 I think what you say is true.	pai2 hia1 mua2 zep1 put.	我心汝言真。	Wǒ juéde nǐ shuō de shì zhēn de.	我觉得你说的是真的。	我.心4.汝.言.真	oga, wav	jekto.vatimeliju	あなたの言っていることは正しいと思います
 Where does she live?	zap2 mut2 aim2 nan2 hue?	彼家在何処？	Tā zhùzài​ nǎli?	她住在哪里？	彼2.家.在6.何処	oga, wav	falira.lyjotafis	あの人はどこに住んでいますか
 Where does your friend live?	mua2 hi1 a mut2 aim2 nan2 hue?	汝友之家在何処？	Nǐ de péngyou zhù nǎli?	你的朋友住哪里？	汝2.友.之.家.在6.何処	oga, wav	jekto.vatimeliju	あなたのお友達はどこに住んでいますか
+You guys do not know how to do this.	mua2 ge mun1 can2 zau ka1 a sit1.	汝等無識為此之術。	Nǐmen bù zhīdào zěnme zuò.	你们不知道怎么做。				
 I don't understand Pekzep.	pai2 mun1 can2 pek2 zep1.	我無識牌言。	Wǒ bù dǒng Páiyǔ.	我不懂牌语。	我.無.識.牌言	oga, wav	jekto.vatimeliju	私はパイグ語がわかりません
 I do not know how to write Pekzep.	pai2 mun1 can2 kua2 pek2 zep1 a sit1.	我無識筆牌言之術。	Wǒ bù huì xiě Páiyǔ.	我不会写牌语。	我.無.識.筆2.牌言.之2.術	oga, wav	jekto.vatimeliju	私はパイグ語の書き方がわかりません
 She teaches Pekzep.	zap2 tui2 pek2 zep1 a nui2.	彼与牌言之学。	Tā jiāo Páiyǔ.	她教牌语。	彼.与#学.牌言.之.与!学	oga, wav	falira.lyjotafis	あの人はパイグ語を教えています
@@ -403,6 +408,7 @@ Ms. Yark speaks Linepāine very well.	iak1 xizi zep1 lip zep1 kit kait.	律xizi�
 The products of that company are very good.	zap2 su1 la1 a ku kit kait.	彼銭軸之物極善。	Nàge gōngsī de chǎnpǐn hěn hǎo.	那个公司的产品很好。	彼3.銭軸.之.物.極.善7	oga	falira.lyjotafis	
 He and I are the same height.	zap2 at pai2 bap auk2.	彼加我同長。	Tā hé wǒ yīyàng gāo.	他和我一样高。	彼.加2.我.∅.同2.長2	oga	falira.lyjotafis	
 Are they all the same?	zap2 ge bap yn2?	彼等同乎？	Tāmen dōu shì yīyàng de ma?	他们都是一样的吗？	彼等.同3.乎	oga	falira.lyjotafis	
+How old are you guys?	mua2 ge nan2 pet2?	汝等何星？	Nǐmen jǐ suìle?	你们几岁了？				
 How old is she this year?	ka1 pet2 zap2 nan2 pet2?	此星彼何星？	Tā jīnnián jǐ suì le?	她今年几岁了？	此2.星.彼.∅.何星	oga	falira.lyjotafis	
 She only has ten zooh.	ie zap2 tet nun1 su1 aim2.	於彼唯十銭在。	Tā cái yǒu shí kuài qián.	她才有十块钱。	於0.彼.唯.十.銭3.在5	oga	falira.lyjotafis	
 She only has five zooh.	ie zap2 tet un1 su1 aim2.	於彼唯五銭在。	Tā cái yǒu wǔ kuài qián.	她才有五块钱。	於0.彼.唯.五.銭3.在5			
@@ -583,6 +589,7 @@ The Ai'ren Republic is a multi-ethnic country.	ai2 sip1 ho1 nim2 sip1.	冠国豊
 She graduated from Zyuttoon University.	zap2 hut2 syt2 tun2 sau2 nui2 hue ian1 ta.	彼始天神上学処生終。	Tā shì Tiānshén dàxué bìyè de.	她是天神大学毕业的。	彼.始.天神上学処.生.終			
 Is it your house?	ka1 mua2 a mut2 yn2?	此汝之家乎？	Zhè shì nǐ de fángzi ma?	这是你的房子吗？				
 This is the house where I used to live when I was young.	ka1 pai2 hue1 kak aim2 a mut2.	此我少時在之家。	Zhè shì wǒ niánqīng shíhou zhù de fángzi.	这是我年轻时候住的房子。	此.∅.我.少4.∅2.時.在3.之2.家			
+You guys will see this house.	mua2 ge mok1 ta1 ka1 mut2.	汝等行目此家。	Nǐmen huì kàn dào zhège fángzi.	你们会看到这个房子。				
 I have ten Yuesleone Ledge.	ie pai2 nun1 let1 su1 aim2.	於我十雪銭在。	Wǒ yǒu shí Lǐyuán. 	我有十哩元。	於0.我.十.雪銭.在5			
 If you had a million Yuesleone Ledge, what would you do?	ie mua2 kit1 ue1 let1 su1 aim2 hem zau nan2?	於汝百万雪銭在即為何？	Nǐ yǒu yībǎi wàn Lǐyuán dehuà, nǐ huì zuò shénme?	你有一百万哩元的话，你会做什么？	於0.汝.百万.雪銭.在5.即.為.何			
 He's very rich.	zap2 kit ho1.	彼極豊。	Tā hěn fùyǒu.	他很富有。	彼.極.豊			
@@ -608,6 +615,7 @@ He will be back very soon.	zap2 kit gak1 a ty sak2.	彼極激之再来。	Tā h�
 It's almost morning. (Literally "Soon sun will rise.")	kia1 ka1 kak mok1 sau2.	日此時行上。	Hěn kuài tàiyáng jiù huì shēng qǐ.	很快太阳就会升起。				
 It's almost dawn. (Literally "Soon sky will be bright.")	syt2 aik2 gak1 a bo1. 	天光激之満。	Tiān kuài liàng le.	天快亮了。	天光.激之.満			
 Her eyes are pretty.	zap2 a ta1 ka1 tum1.	彼之目此甘。	Tā de yǎnjing hěn piàoliang.	她的眼睛很漂亮。	彼.之.目.此3.甘			
+What does this word mean?	ka1 man1 dat2 a xa2 nan2?	此字集之意何？	Zhè gè cí shì shénme yìsi?	这个词是什么意思？				
 Whose passport is this?	ka1 nan2 cuk2 a lit1 sip1 ak1.	此何人之入国書。	Zhè shì shéi de hùzhào?	这是谁的护照？	此.∅.何2.人.之.入国書			これは誰のパスポートですか？
 Where is your passport? At home.	mua2 a lit1 sip1 ak1 aim2 nan2 hue? aim2 mut2.	汝之入国書在何処？在家。	Nǐ de hùzhào zài nǎlǐ? Zài jiā.	你的护照在哪里？在家。	汝.之.入国書.在6.何処.在6.家			
 Is this your passport? No, it's his.	ka1 mua2 a lit1 sip1 ak1 yn2? mun1. ka1 zap2 a (a).	此汝之入国書乎？無。此彼之(噫)。	Zhè shì nǐ de hùzhào ma? Bùshì, shì tā de.	「这是你的护照吗？」「不是，是他的。」	此.∅.汝.之.入国書.乎.無2.此.∅.彼.之.(噫)			
@@ -647,6 +655,7 @@ He doesn't feel anything.	zap2 mun1 hia1 sak2.	彼無心来。	Tā bù juédé s
 He plans to study Pekzep.	zap2 nui2 pek2 zep1 a hia1 aim2.	彼学牌言之心在。	Tā jìhuà xuéxí Páiyǔ.	他计划学习牌语。				
 You worked too hard.	mua2 naip2 ta taun1 u1 giau.	汝労終多訴門。	Nǐ gōngzuò tài nǔlì le.	你工作太努力了。				
 It's too hot.	syt2 pua2 kan1 u1 giau.	天風火訴門。	Tài rè le.	太热了。	天風.火.訴門			暑すぎます
+Don't speak too fast.	nau zep1 gak1 u1 giau.	勿言激訴門。	Bùyào shuō dé tài kuài.	不要说得太快。				
 She's my older sister.	zap2 pai2 a sa1 sau2 huok1.	彼我之女上輩。	Tā shì wǒ de jiějie.	她是我的姐姐。	彼.∅.我.之.女上輩			あの人は私の姉です
 When will your older sister come to the Ai'ren Republic?	mua2 a sa1 sau2 huok1 nan2 kak sak2 ai2 sip1?	汝之女上輩何時来冠国？	Nǐ jiějie shénme shíhòu lái Guānguó?	你姐姐什么时候来冠国？	汝.之.女上輩.何時.来3.冠国			
 Let me introduce my older sister.	tui2 pai2 zep1 zep1 cei2 pai2 a sa1 sau2 huok1.	与我言言周我之女上輩。	Ràng wǒ jièshào yī xià wǒ jiějie.	让我介绍一下我姐姐。				
@@ -676,7 +685,10 @@ We should go to bed.	pai2 ge ly hok1.	我等須寝。	Wǒmen gāi shuìjiào le.
 She is tired and wants to go to bed.	zap2 hia1 huet ua zap2 hia1 hok1.	彼心闇而彼心寝。	Tā lèi le, xiǎng qù shuìjiào le.	她累了，想去睡觉了。	彼.心#闇.心!闇.而.彼.心.寝			
 I need more sleep.	pai2 ly at hok1.	我須加寝。	Wǒ xūyào duō shuìjiào.	我需要多睡觉。	我.須.加3.寝2			
 What time do the students go to bed?	nan2 kak nui2 cuk2 ge hok1?	何時学人等寝？	Xuéshengmen jǐdiǎn shuìjiào?	学生们几点睡觉？	何時.学人.等.寝			
+You guys are too young to work.	mua2 ge pet2 hue1 u1 giau hem mun1 py naip2.	汝等星少訴門即無力労。	Nǐmen tài niánqīngle, bùnéng gōngzuò.	你们太年轻了，不能工作。				
+She's young and beautiful.	zap2 pet2 hue1 ua hem1.	彼星少而美。	Tā niánqīng yòu měilì.	她年轻又美丽。				
 She is as beautiful as a flower.	zap2 em xuo1 hem1.	彼如花美。	Tā xiàng huā yībān měilì.	她像花一般美丽。	彼.如4.花.美			あの人は花のように美しいです
+"Why is he homeless and still have a phone?" "Well, a home costs more than a phone."	"nan2 xit2 zap2 mun1 hop1 mut2 pau1 ua aim2 hop1 zep1 kik1?" "a. mut2 ie zep1 kik1 ma1 su1 tai!"	「何故彼無手家別而在手言機？」「噫。家於言機大銭咍！」	"Wèishénme tā wú jiā kě guī hái néng yǒu diànhuà?" "Ń, yīgè jiā bǐ yī bù diànhuà yào guì."	"为什么他无家可归还能有电话？" "嗯，一个家比一部电话要贵。"				
 I can translate from Linepāine to Pekzep.	pai2 py cei2 lip zep1 ie pek2 zep1.	我力周哩言於牌言。	Wǒ kěyǐ bǎ lī yǔ fānyì chéng pái yǔ.	我可以把哩语翻译成牌语。				
 Please translate this passage into Linepāine.	hia1 cei2 zep1 ut2 ka1 zep1 zep1 ie lip zep1.	心周言下此言言於哩言。	Qǐng bǎ zhè jù huà fānyì chéng Lǐyǔ.	请把这句话翻译成哩语。				
 He has translated a good many books.	zap2 cei2 zep1 ta kit taun1 ak1.	彼周言終極多書。	Tā fānyì le hǎoduō běn shū.	他翻译了好多本书。	彼.周言.終.極.多.書			
@@ -704,6 +716,7 @@ The sky is very blue.	syt2 kit nuok2.	天極青。	Tiān hěn lán.	天很蓝。
 His dad is a driver.	zap2 kuak1 mok1 kaun1 a cuk2.	彼父行車之人。	Tā de bàba shì yī ge sījī.	他的爸爸是一个司机。	彼2.父.∅.行9.車.之2.人			彼の父は運転手です
 His dad is a rickshaw driver.	zap2 kuak1 mi2 kaun1 a cuk2.	彼父引車之人。	Tā de bàba shì yī míng rénlìchē sījī.	他的爸爸是一名人力车司机。	彼2.父.∅.引.車.之2.人			
 I do not want to drive through a bad road.	pai2 ie non1 po1 mun1 hia1 mok1 kaun1.	我於悪道無心行車。	Wǒ bùxiǎng kāichē jīngguò yītiáo huài lù.	我不想开车经过一条坏路。	我.於.悪2.道2.無.心.行9.車			
+You guys speak Pekzep very well.	mua2 ge zep1 pek2 zep1 kit kait.	汝等言牌言極善。	Nǐmen Páiyǔ shuō dé hěn hǎo.	你们牌语说得很好。				
 "Mr. Putt speaks Vefisaitē really well." "Yes, he lived in Pokyut Island for three years."	"pet2 xizi zep1 uep1 zep1 kit kait." "aim2. om2 pet2 zap2 mut2 aim2 ie huok1 dop1." 	「星xizi言淮言極善。」「在。三星彼家在於輩島。」	"Xīng xiānsheng Huáiyǔ shuōde hěn hǎo." "Shì, tā zài Bèidǎo (Pōjiǔdǎo) zhùguò sān nián."	「星先生淮语说得很好。」「是，他在辈岛(坡久岛)住过三年。」				
 This is a very good school.	ka1 kit kait a nui2 hue.	此極善之学処。	Zhè shì yīge fēicháng hǎo de xuéxiào.	这是一个非常好的学校。	此.∅.極.善7.之2.学処			これはとてもよい学校です
 I'm reading.	pai2 aim2 ta1 ak1.	我在目書。	Wǒ zài dúshū.	我在读书。	我.在.目#書.目!書			
@@ -713,6 +726,7 @@ I know your older brother.	pai2 can2 mua2 a ki1 sau2 huok1.	我識汝之男上�
 My older brother has a computer.	pai2 a ki1 sau2 huok1 aim2 hop1 li1.	我之男上輩在手倉。	Wǒ gēge yǒu diànnǎo.	我哥哥有电脑。	我.之.男上輩.在手.倉			
 My older brother knows how to write Pekzep.	pai2 a ki1 sau2 huok1 can2 kua2 pek2 zep1 a sit1.	我之男上輩識筆牌言之術。	Wǒ gēge huì xiě Páiyǔ.	我哥哥会写牌语。	我.之.男上輩.識.筆2.牌言.之2.術			
 This is a bank.	ka1 su1 li1.	此銭倉。	Zhè shì yī jiā yínháng.	这是一家银行。	此.∅.銭倉			これは銀行です
+He has some money in the bank.	zap2 aim2 hop1 su1 ie su1 li1.	彼在手銭於銭倉。	Tā yínháng lǐ yǒu diǎn qián.	他银行里有点钱。				
 I live near the bank.	pai2 mut2 aim2 cei2 su1 li1.	我家在周銭倉。	Wǒ zhù zài yínháng fù jìn.	我住在银行附近。	我2.家.在5.周.銭倉			私は銀行の近くに住んでいます
 Excuse me, where is the bank?	xizi xizi. su1 li1 aim2 ie nan2 hue a?	xizi xizi。銭倉在於何処噫？	Qǐngwèn, yínháng zài nǎli?	请问，银行在哪里？	xizi xizi.銭倉.在3.於1.何処.噫			すみません、銀行はどこにありますか？
 What time can you go with me to the bank?	ie nan2 kak mua2 at pai2 py mok1 ie su1 li1?	於何時汝加我力行於銭倉？	Nǐ jǐdiǎn kěyǐ gēn wǒ yīqǐ qù yínháng?	你几点可以跟我一起去银行？				
@@ -735,6 +749,7 @@ I feel very very thankful!	kit kit hia1 kait!	極極心善！	Fēicháng gǎnxi�
 This piece of clothing is very cheap.	ka1 tak1 kit ni1 su1.	此衣極小銭。	Zhè jiàn yīfu hěn piányi.	这件衣服很便宜。	此2.衣.極.小銭			この服はとても安いです
 That thing is very cheap.	ze1 kit ni1 su1.	其極小銭。	Nà ge dōngxi hěn piányi.	那个东西很便宜。	其.極.小銭			それはとても安いです
 The Ai'ren Republic advertised me using little money.	ai2 sip1 am zie1 pai2 ie ni1 su1.	冠国御広我於小銭。	Guānguó yòng hěn shǎo de qián lái xuānchuán wǒ.	冠国用很少的钱来宣传我。	冠国.御広.我.於q.小銭	oga	jekto.vatimeliju	
+What's the reason for your coming here?	mua2 sak2 ka1 hue a xit2 ka1 nan2?	汝来此処之故此何？		你来这里的原因是什么？				
 This book is very old.	ka1 ak1 kit sia1.	此書極古。	Zhè běn shū hěn jiù.	这本书很旧。	此2.書.極.古			この本はとても古いです
 His house was small and old.	zap2 mut2 ni1 ua sia1.	彼家小而古。	Tā de fángzi yòu xiǎo yòu jiù.	他的房子又小又旧。	彼2.家.小2.而.古			彼の家は小さくて古いです
 They are siblings.	zap2 ge huok1.	彼等輩。	Tāmen shì xiōngdì jiěmèi.	他们是兄弟姐妹。	彼等.∅.輩			
@@ -784,6 +799,7 @@ I like to drink hot water.	pai2 hia1 kait iam1 kan1 nua2.	我心善口火水。	
 I'm afraid.	pai2 zat1.	我怖。	Wǒ hàipà.	我害怕。	我.怖			
 What's she afraid of? (now)	zap2 zat1 nan2?	彼怖何？	Tā zài hàipà shénme?	她在害怕什么？	彼.怖.何			彼は何を恐れていますか？
 Everyone is afraid of death.	be1 cuk2 zat1 hia1 co1.	全人怖心散。	Dàjiā hàipà sǐwáng.	大家害怕死亡。	全人.怖.心散	oga	jekto.vatimeliju	誰もが死を恐れています
+He is afraid to speak because of his bad pronunciation.	zap2 a zep1 cuop2 mun1 kait hem zap2 zat1 zep1.	彼之言声無善即彼怖言。	Tā hàipà shuōhuà, yīnwèi tā de fāyīn bù hǎo.	他害怕说话，因为他的发音不好。				
 What color pen do you like?	mua2 hia1 kait nan2 pok a kua2?	汝心善何色之筆？	Nǐ xǐhuan shénme yánsè de bǐ?	你喜欢什么颜色的笔？	汝.心善.何2.色.之.筆3			
 I like the color yellow.	pai2 hia1 kait xem1 pok.	我心善月色。	Wǒ xǐhuan huáng yánsè.	我喜欢黄颜色。	我.心善.月色			私は黄色が好きです
 He is of Pokyut Island.	zap2 huok1 dop1 a cuk2.	彼輩島之人。	Tā shì Bèidǎo (Pōjiǔdǎo) rén.	他是辈岛(坡久岛)人。	彼.∅.輩島.之.人			
@@ -805,6 +821,7 @@ I've bought a cup of coffee.	pai2 sui1 su1 ta et2 niep1 det tia2.	我使銭終�
 I am drinking a lot of tea.	pai2 aim2 iam1 taun1 tia2.	我在口多茶。	Wǒ zhèngzài hē hěnduō chá.	我正在喝很多茶。	我.在.口.多.茶			
 He drank too much coffee.	zap2 iam1 ta taun1 u1 giau det tia2.	彼口終多訴門種茶。	Tā kāfēi hē de tài duō le.	他咖啡喝得太多了。	彼.口.終.多.訴門.種茶			
 The coffee machine is always broken.	det tia2 kik1 ket mun1 mok1.	種茶機常無行。	Kāfēijī zǒngshì huài.	咖啡机总是坏。				
+He said he drank too much alcohol yesterday.	zap2 zep1 et2 ut2 kia1 zap2 iam1 ta taun1 u1 giau no1.	彼言一下日彼口終多訴門酒。	Tā shuō tā zuótiān hēle tài duō de jiǔ.	他说他昨天喝了太多的酒。				
 This little dog has very long fur.	ka1 ni1 pa2 a im1 kit auk2.	此小犬之毛極長。	Zhè zhī xiǎo gǒu de máo hěn cháng.	这只小狗的毛很长。	此2.小.犬.之.毛.極.長			
 The bristles of this brush are very good.	ka1 kua2 a im1 kit kait.	此筆之毛極善。	Zhè bǎ máobǐ de máo hěn hǎo.	这把毛笔的毛很好。	此2.筆3.之.毛.極.善			
 Kids are not allowed to watch this movie.	kat1 ly mun1 ta1 ka1 mok1 lek1.	子須無目此行絵。	Zhè gè diànyǐng, értóng bù néng kàn.	这个电影，儿童不能看。	子.須.無.目.此2.行絵			
@@ -843,6 +860,9 @@ There is a cup of coffee on the table/desk.	et2 niep1 det tia2 aim2 ie cet2.	一
 Everyone's sitting at the table/desk.	be1 cuk2 aim2 cy2 cei2 cet2.	全人在席周机。	Dàjiā zuò zài zhuōzi pángbiān.	大家坐在桌子旁边。	全人.在.席2.周.机			
 This island is very beautiful.	ka1 dop1 kit hem1.	此島極美。	Zhè gè xiǎodǎo hěn měi.	这个小岛很美。	此2.島.極.美			
 She is very angry today.	ka1 kia1 zap2 kit kan1 puat2.	此日彼極火奮。	Tā jīntiān hěn shēngqì.	她今天很生气。	此日.彼.極.火奮			
+Why are you guys angry?	nan2 xit2 mua2 ge kan1 puat2?	何故汝等火奮？	Nǐmen wèishénme shēngqì?	你们为什么生气？				
+Why are you guys so angry?	nan2 xit2 mua2 ge em ka1 kit a kan1 puat2?	何故汝等如此極之火奮？	Nǐmen wèishénme zhème shēngqì?	你们为什么这么生气？				
+His colleagues are angry.	zap2 a naip2 hi1 kan1 puat2.	彼之労友火奮。	Tā de tóngshì hěn shēngqì.	他的同事很生气。				
 The boy I love doesn't love me.	pai2 hia1 a ki1 kat1 mun1 hia1 pai2.	我心之男子無心我。	Wǒ ài de nà ge nánhái bù ài wǒ.	我爱的那个男孩不爱我。	我.心3.之2.男子.無.心3.我			
 Why doesn't my wife love me?	nan2 xit2 pai2 a sa1 mun1 hia1 pai2?	何故我之女無心我？	Wèishénme wǒ de qīzi bù ài wǒ?	为什么我的妻子不爱我？	何故.我.之.女.無.心3.我			
 I hate you.	pai2 hia1 non1 mua2.	我心悪汝。	Wǒ hèn nǐ.	我恨你。	我.心悪.汝			
@@ -884,6 +904,7 @@ This fish is really big.	ka1 mui1 kit ma1.	此魚極大。	Zhè tiáo yú zhēn 
 This is a very long river.	ka1 kit auk2 a nut2.	此極長之川。	Zhè tiáo hé hěn cháng.	这条河很长。	此.∅.極.長.之2.川			
 There is a river here.	nut2 aim2 ka1 hue.	川在此処。	Zhèlǐ yǒu tiáo hé.	这里有条河。	川.在6.此処			
 Do not drink from the river.	nau iam1 nut2 nua2.	勿口川水。	Bùyào hē hé lǐ de shuǐ.	不要喝河里的水。	勿.口.川水			
+Where does the river begin?	nut2 hut2 ie nan2 hue?	川始於何処？	Héliú zài nǎlǐ kāishǐ?	河流在哪里开始？				
 The shellfish in this river is delicious.	ka1 nut2 a dit1 tuik1 kait.	此川之貝味善。	Zhè tiáo hé lǐ de bèi lèi hěn hàochī.	这条河里的贝类很好吃。	此2.川.之.貝.味善			
 That child does not like to eat fish.	ze1 kat1 mun1 hia1 kait iam1 mui1.	其子無心善口魚。	Nàge háizi bù xǐhuān chī yú.	那个孩子不喜欢吃鱼。	其2.子.無.心善.口.魚			
 That child does not like to eat bad fish.	ze1 kat1 mun1 hia1 kait iam1 non1 mui1.	其子無心善口悪魚。	Nàge háizi bù xǐhuān chī huài yú.	那个孩子不喜欢吃坏鱼。				
@@ -902,6 +923,7 @@ The ship has sunk.	muak1 lit1 nua2 ut2.	船入水下。	Chuán chén le.	船沉�
 She's writing down words.	zap2 aim2 kua2 man1 dat2.	彼在筆字集。	Tā zài xiě xià dāncí.	她在写下单词。	彼.在.筆2.字集			
 The teacher is teaching us some new words.	tui2 nui2 cuk2 tui2 ie pai2 ge lu2 man1 dat2.	与学人与於我等新字集。	Lǎoshī jiāo wǒmen xīn dāncí.	老师教我们新单词。				
 He remembered my name.	zap2 ty can2 sak2 ta pai2 a sin1.	彼再識来終我之名。	Tā jìzhu le wǒ de míngzi.	他记住了我的名字。	彼.再識来.終.我.之.名			
+Do you guys remember him?	mua2 ge ty can2 sak2 zap2 yn2?	汝等再識来彼乎？	Nǐmen jìde tā ma?	你们记得他吗？				
 He threw a piece of meat to a dog.	zap2 kut2 tui2 et2 gek ie pa2.	彼撃与一肉於犬。	Tā diū le kuài ròu gěi yī tiáo gǒu.	他丢了块肉给一条狗。	彼.撃.与.一.肉.於1.犬			
 His words hurt her.	zap2 zep1 ua tui2 gui2 ie zap2.	彼言而与傷於彼。	Tā de huà shānghài le tā.	他的话伤害了她。				
 What is the difference between a dog and a cat?	pa2 ne2 a pau1 ka1 nan2?	犬猫之別此何？	Gǒu hé māo yǒu shénme qūbié?	狗和猫有什么区别？ 				
@@ -923,6 +945,7 @@ Today, he is wearing green clothes.	ka1 kia1 zap2 aim2 kun2 tam2 pok a tak1.	此
 Looking at the color green is good for the eyes.	ta1 tam2 pok ka1 kait ie ta1.	目皇色此善於目。	Duō kàn lǜsè duì yǎnjing hǎo.	多看绿色对眼睛好。				
 I'm looking at him.	pai2 aim2 ta1 ie zap2.	我在目於彼。	Wǒ zài kànzhe tā.	我在看着他。	我.在.目.於.彼			
 I'm looking at you.	pai2 aim2 ta1 mua2.	我在目汝。	Wǒ zài kànzhe nǐ.	我在看着你。	我.在.目.汝			
+What are you guys looking at?	mua2 ge aim2 ta1 nan2?	汝等在目何？	Nǐmen zài kàn shénme?	你们在看什么？				
 Why did he return to his country?	nan2 xit2 zap2 ty sak2 ie tin1 sip1?	何故彼再来於己国？	Tā wèishénme huí guó le?	他为什么回国了？	何故.彼.再来2.於.己2.国			
 I'm going to return to my country.	pai2 mok1 ty sak2 ie pai2 a sip1.	我行再来於我之国。	Wǒ yào huí guó.	我要回国。	我.行2.再来2.於.我.之.国			
 She's going to return to her country.	zap2 mok1 ty sak2 ie tin1 sip1.	彼行再来於己国。	Tā yào huí guó.	她要回国。	彼.行2.再来2.於.己2.国			
@@ -934,6 +957,7 @@ He considers Gowner weather to be really hot in summer.	zap2 hia1 can2 gau2 nua2
 He considers Gowner weather to be too hot in summer.	zap2 hia1 can2 gau2 nua2 xo1 pua2 kan1 u1 giau.	彼心識刀水夏風火訴門。	Tā rènwéi dāo shuǐ de tiānqì zài xiàtiān tài rèle.	他认为刀水的天气在夏天太热了。				
 I will go back to Gowner the day after tomorrow.	ik2 ut2 kia1 pai2 mok1 ty sak2 ie gau2 nua2.	二下日我行再来於刀水。	Wǒ jiàng zài hòutiān huí dào dāo shuǐ.	我将在后天回到刀水。	二下日.我.行2.再来2.於.刀水			
 I will be there the day after tomorrow.	ik2 ut2 kia1 pai2 aim2 ze1 hue.	二下日我在其処。	Wǒ hòutiān huì qù nàlǐ.	我后天会去那里。				
+You guys must come again.	mua2 ge ly ty sak2.	汝等須再来。	Nǐmen bìxū zàilái.	你们必须再来。				
 Granulated sugar is sweet.	tum1 hua1 ka1 tum1.	甘挽此甘。	Shātáng shì tián de.	砂糖是甜的。	甘挽.此3.甘2			
 Note that this box is very heavy.	mua2 ly can2 can2. ka1 bu1 kit xo2.	汝須識識。此箱極錘。	Qǐng zhùyì, zhège hézi fēicháng zhòng.	请注意，这个盒子非常重。				
 Don't try to force me!	nau bet2 pai2 a hia1 a!	勿圧我之心噫！	Bié bī wǒ!	别逼我！	勿.圧#心.我.之.圧!心.噫			
@@ -1041,6 +1065,7 @@ Please sign your name!	hia1 kua2 ut2 sin1 a.	心筆下名噫。	Qǐng qiānmíng
 My son can walk!	pai2 ki1 kat1 py xi1 mok1 a.	我男子力足行噫。	Érzi néng zǒulù le!	儿子能走路了！				
 Which country's currency is this?	ka1 nan2 sip1 a su1?	此何国之銭？	Zhè shì nǎ gè guójiā de huòbì?	这是哪个国家的货币？	此.∅.何2.国.之.銭			
 How much does one fish cost?	et2 mui1 nan2 su1?	一魚何銭？	Yī wěi yú duōshaoqián?	一尾鱼多少钱？				
+I like to drink hot milk.	pai2 hia1 kait iam1 kan1 a io2 sik2.	我心善口火之牛蜜。	Wǒ xǐhuān hē rè niúnǎi.	我喜欢喝热牛奶。				
 Children should drink milk every day.	be1 kia1 kat1 ly iam1 io2 sik2.	全日子須口牛蜜。	Háizimen yīnggāi měi tiān hē niúnǎi.	孩子们应该每天喝牛奶。				
 The Ai'ren Republic is not big, but our heart is big.	ai2 sip1 mun1 ma1 ua pai2 ge a hia1 ka1 ma1.	冠国無大而我等之心此大。	Guānguó bìng bù dà, dàn wǒmen de xīn hěn dà.	冠国并不大，但我们的心很大。				
 These two doors are very similar.	ka1 ik2 giau1 kit em huat1 bap.	此二門極如互同。	Zhè liǎng shān mén hěn lèisì.	这两扇门很类似。				
@@ -1052,6 +1077,7 @@ This house does not have a dining room.	ka1 mut2 iam1 uo1 a pia2 mun1.	此家口
 Why couldn't you sleep last night?	et2 sau2 huet mua2 ie nan2 mun1 py hok1?	一上闇汝於何無力寝？	Wèishénme nǐ zuówǎn shuìbuzháo?	为什么你昨晚睡不着？	一上闇.汝.於4.何.無.力.寝			
 Up to now, I haven't been to Makati.	ie ka1 kak pai2 mun1 hop1 mok1 syt2 tun2.	於此時我無手行天神。	Dào mùqián wéizhǐ, wǒ hái méi qùguò Tiānshén.	到目前为止，我还没去过天神。	於此時.我.無手2.行.天神			
 She is lucky today.	ka1 kia1 kait tun2 aim2 zap2.	此日善神在彼。	Tā jīntiān hěn xìngyùn.	她今天很幸运。	此日.善2.神.在7.彼			
+You guys are lucky.	kait tun2 aim2 mua2 ge.	善神在汝等。	Nǐmen hěn xìngyùn.	你们很幸运。				
 What's that small child doing?	ze1 ni1 kat1 aim2 zau nan2?	其小子在為何？	Nàge xiǎopéngyou zài nòng shénme?	那个小朋友在弄什么？				
 He's the king.	zap2 sip1 io.	彼国王。	Tā shì guówáng.	他是国王。	彼.∅.国王			
 How long do you plan to stay in this country?	mua2 aim2 ka1 sip1 a hia1 ka1 nan2 auk2 kak?	汝在此国之心此何長時？	Nǐ dǎsuan zài zhè gè guójiā dāi duōjiǔ?	你打算在这个国家待多久？				
@@ -1231,6 +1257,7 @@ Please turn off the printer.	hia1 muo1 bet2 man1 kik1.	心止圧字機。	Qǐng 
 The printer is always broken.	bet2 man1 kik1 ket mun1 mok1.	圧字機常無行。	Dǎyìnjī zǒngshì huài.	打印机总是坏。	圧字機.常.無.行8	oga	jekto.vatimeliju	プリンターがいつも壊れています
 The printer broke the day before yesterday.	ik2 sau2 kia1 bet2 man1 kik1 muo1 mok1 ta.	二上日圧字機止行終。	Dǎyìnjī qiántiān huài le.	打印机前天坏了。				おとといプリンターが壊れました
 The day before yesterday, I saw you.	ik2 sau2 kia1 pai2 ta1 ta mua2.	二上日我目終汝。	Qiántiān, wǒ kàn dàole nǐ.	前天，我看到了你。				私はおとといあなたを見ました
+This food is so salty that I drank six glasses of water.	ka1 iam1 ku kuo1 taun1 u1 giau hem iam1 ta net2 niep1 nua2.	此口物塩多訴門即口終六杯水。	Zhè zhǒng shíwù tài xiánle, wǒ hēle liù bēi shuǐ.	这种食物太咸了，我喝了六杯水。				
 People are waiting for the bus.	cuk2 ge tim1 tei1 kaun1.	人等待叮車。	Dàjiā zài děng gōngchē.	大家在等公车。		oga	jekto.vatimeliju	人々がバスを待っています
 We went to the river bank and saw the sunrise.	pai2 ge mok1 ta nut2 tau2 ua ta1 ta kia1 sau2 mok1.	我等行終川端而目終日上行。	Wǒmen qùle hébiān kàn rìchū.	我们去了河边看日出。				
 They are extremely poor.	zap2 ge kit kit hei2.	彼等極極貧。	Tāmen shífēn pínqióng.	他们十分贫穷。				あの人たちは本当に貧しいです
@@ -1312,6 +1339,7 @@ There's a war on the border.	kaik aim2 ie sip1 tau2.	戦在於国端。	Biānjì
 People don't like wars.	cuk2 ge mun1 hia1 kait kaik.	人等無心善戦。	Rénmín dōu bù xǐhuan dǎzhàng.	人民都不喜欢打仗。		oga	jekto.vatimeliju	
 People hate wars.	cuk2 ge non1 kaik.	人等悪戦。	Rénmen tǎoyàn zhànzhēng.	人们讨厌战争。		oga	jekto.vatimeliju	
 That is a high building, isn't it?	ze1 sue1 mut2. yn2?	其高家。乎？	Nà shì chuáng gāolóu, bù shì ma?	那是幢高楼，不是吗？	其.∅.高3.家.乎2			
+Fishing is forbidden here.	ka1 hue mun1 py sep mui1.	此処無力享魚。	Zhèlǐ bù kěyǐ bǔyú.	这里不可以捕鱼。				
 I went fishing in the river yesterday.	et2 sau2 kia1 pai2 ie nut2 mok1 ua mi2 sep mui1 ta.	一上日我於川行而引享魚終。	Zuótiān wǒ qù hébiān diàoyú le.	昨天我去河边钓鱼了。				
 Do you want to go fishing tomorrow?	et2 ut2 kia1 mua2 hia1 mok1 sep mui1 yn2?	一下日汝心行享魚乎？	Nǐ míngtiān xiǎng qù diàoyú ma?	你明天想去钓鱼吗？				
 He is sitting on a rock.	zap2 aim2 cy2 ie ma1 sy2.	彼在席於大石。	Zài yánshí shàng tā zuòzhe.	在岩石上他坐着。	彼.在.席2.於.大2.石			
@@ -1329,9 +1357,11 @@ I see a flower on the desk.	pai2 ta1 ie cet2 xuo1.	我目於机花。	Wǒ kànji
 There are some books on the desk.	ak1 ge aim2 ie cet2.	書等在於机。	Shūzhuō shàng yǒu jǐ běn shū.	书桌上有几本书。		oga	jekto.vatimeliju	
 He is wearing a black clothes.	zap2 aim2 kun2 et2 huok2 tak1.	彼在付一黒衣。	Tā chuānzhe yī jiàn hēisè de yīfú.	他穿着一件黑色的衣服。	彼.在.付.一.黒.衣			
 One year has four seasons.	ap1 xot1 aim2 ie et2 pet2.	四季在於一星。	Yī nián yǒu sìjì.	一年有四季。	四.季.在5.於.一.星	oga	jekto.vatimeliju	
+During this season, we hear a lot of bird sounds.	ie ka1 xot1 pai2 ge lua1 can2 taun1 lup1 a cuop2.	於此季我等耳識多鳥之声。	Zài zhège jìjié, wǒmen tīng dào hěnduō niǎo de shēngyīn.	在这个季节，我们听到很多鸟的声音。				
 Tam can speak Phētāsvīle as well as Linepāine.	tam2 py zep1 huet zep1 at lip zep1.	皇力言闇言加哩言。	Xiǎo Huáng néng shuō Pèitǎyǔ, yě néng shuō Līyǔ.	小皇能说佩塔语，也能说哩语。				
 Tam can speak Phētāsvīle as well as he does Linepāine.	tam2 a huet zep1 bap kait ie lip zep1.	皇之闇言同善於哩言。	Xiǎo Huáng de pèitǎ yǔ shuō dé hé Līyǔ yīyàng hǎo.	小皇的佩塔语说得和哩语一样好。				
 There is a hotel at the south end.	hok1 su1 hue aim2 tan1 tau2. 	寝銭処在南端。	Nánbiān yǒu fàndiàn.	南边有饭店。				
+You guys can't go to the south.	mua2 ge mun1 py mok1 ie tan1.	汝等無力行於南。	Nǐmen bùnéng qù nánfāng.	你们不能去南方。				
 No entry	nau lit1 ka1 hue	勿入此処	Jìnzhǐ jìnrù	禁止进入				
 Smoking is prohibited here.	ka1 hue nau lo1.	此処勿煙。	Jìnzhǐ xīyān.	禁止吸烟。				
 Smoking is not permitted here.	ka1 hue mun1 py iam1 lo1.	此処無力口煙。	Zhèlǐ bùxǔ xīyān.	这里不许吸烟。				
@@ -1590,6 +1620,7 @@ There are a lot of holes in the old clothes.	taun1 uep aim2 ie sia1 tak1.	多穴
 They're serving in the army.	zap2 ge aim2 naip2 ie kaik dat2.	彼等在労於戦集。	Tāmen zài fú bīngyì.	他们在服兵役。	彼等.在.労.於.戦集			
 They are going to serve in the army.	zap2 ge mok1 naip2 ie kaik dat2.	彼等行労於戦集。	Tāmen yào qù fú bīngyì.	他们要去服兵役。	彼等.行2.労.於.戦集			
 She's washing the rice.	zap2 mo1 lin mok1.	彼米清行。	Tā zài táomǐ.	她在淘米。				
+This is how we wash clothes in my country.	ie pai2 sip1 em ka1 pai2 ge lin mok1 tak1.	於我国如此我等清行衣。	Zài wǒ de guójiā, wǒmen jiùshì zhèyàng xǐ yīfú de.	在我的国家，我们就是这样洗衣服的。				
 Mix one egg with 1 cubic tswoh (170 ml; 5.75 fl. oz.) of milk and an adequate amount of honey and heat through.	et2 uet at et2 zuo1 bu1 io2 sik2 at mok1 hia1 po1 tum1 sik2 ten1 kan1.	一卵加一片箱牛蜜加行心道甘蜜混火。	Jiāng yīgè jīdàn yǔ bǎi qīshí háoshēng niúnǎi hé shìliàng fēngmì hùnhé hòu jiārè.	将一个鸡蛋与百七十毫升牛奶和适量蜂蜜混合后加热。	一.卵.加2.一.片箱.牛蜜.加2.行心道.甘蜜.混火			卵1つと1立方ツウォ(≒170cm^3)の牛乳と適量の蜂蜜を混ぜて加熱する
 Only ruined walls remained after the fire.	kan1 ian1 ta ua mot2 co1 tet aim2.	火生終而壊壁唯在。	Huǒzāi guòhòu, zhǐ shèngxia tuíyuánduànbì.	火灾过后，只剩下颓垣断壁。	火2.生happen.終.而.壊broken.壁.唯.在5			
 At night, we walked around the campfire.	huet kak pai2 ge xi1 mok1 ta cei2 gat2 kan1.	闇時我等足行終周祭火。	Wǎnshàng, wǒmen wéizhe gōuhuǒ sànbù.	晚上，我们围着篝火散步。	闇時.我等.足行.終.周2.祭火			
