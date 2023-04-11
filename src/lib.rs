@@ -341,7 +341,6 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             read::phrase::syllables_to_str_underscore(syllables)
         ))?;
 
-        let analysis = decomposition.iter().map(|sentence| sentence_decomposition_to_analysis_merging_unsplitted_compounds(sentence)).collect::<Vec<_>>();
         let pekzep_hanzi_guillemet_removed = remove_guillemets(&row.pekzep_hanzi);
         let (oga_tag, is_reviewed) = generate_oga_tag(row, syllables);
         let content = PhraseTemplate {
@@ -366,7 +365,14 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             },
             wav_tag: &generate_wav_tag(row, syllables),
             oga_tag: &oga_tag,
-            analysis: &analysis.into_iter().flatten().collect::<Vec<_>>().join("\n"), // FIXME: multiple sentences
+            analysis: &decomposition
+                .iter()
+                .map(|sentence| {
+                    sentence_decomposition_to_analysis_merging_unsplitted_compounds(sentence)
+                        .join("\n")
+                })
+                .collect::<Vec<_>>()
+                .join("\n\n"),
             pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", ".."),
             author_color: match (&row.recording_author, is_reviewed) {
                 (_, Some(false)) => "#ff00ff",

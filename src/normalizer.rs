@@ -22,6 +22,14 @@ pub fn convert_line_breaks_and_tabs_into_single_table(s: &str) -> String {
 }
 
 #[must_use]
+pub fn convert_into_multiple_tables(s: &str) -> String {
+    s.split("\n\n")
+        .map(convert_line_breaks_and_tabs_into_single_table)
+        .collect::<Vec<_>>()
+        .join("<br>")
+}
+
+#[must_use]
 pub fn normalize_chinese_punctuation(s: &str) -> String {
     let s = s.to_string();
     s.replace(',', "，").replace('?', "？").replace('!', "！")
