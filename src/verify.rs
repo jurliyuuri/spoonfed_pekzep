@@ -8,7 +8,7 @@ use std::collections::HashMap;
 
 pub struct Rows3Item {
     pub syllables: Vec<read::phrase::ExtSyllable>,
-    pub decomposition: Vec<DecompositionItem>,
+    pub decomposition: Vec<Vec<DecompositionItem>>,
     pub row: read::phrase::Item,
 }
 
@@ -422,13 +422,13 @@ impl DataBundle {
 
         let rows3 = spoonfed_rows
             .iter()
-            .map(|(syllables, row)| match parse_decomposed(&vocab, row) {
+            .map(|(syllables, row)| match verify_decomposed(&vocab, row) {
                 Ok(decomposition) => {
                     for DecompositionItem {
                         key,
                         voc,
                         splittable_compound_info: _,
-                    } in &decomposition
+                    } in decomposition.iter().flatten()
                     {
                         if !vocab_ordered.contains_key(key) {
                             vocab_ordered.insert((*key).clone(), voc.clone());
@@ -474,58 +474,17 @@ pub struct DecompositionItem {
 /// Checks if:
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
-fn parse_decomposed(
+fn verify_decomposed(
     vocab: &HashMap<InternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
-) -> anyhow::Result<Vec<DecompositionItem>> {
+) -> anyhow::Result<Vec<Vec<DecompositionItem>>> {
     if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
         let rejoined = row
             .decomposed
             .iter()
-            .map(|gloss| {
-                let a = gloss.to_string();
-                let init_char = a.chars().next().unwrap();
-                if init_char == '∅' {
-                    return String::new();
-                }
-                if a.contains('#') {
-                    return a.chars().take_while(|c| *c != '#').collect::<String>();
-                }
-                if a.contains('!') {
-                    let mut iter = a.chars().skip_while(|c| *c != '!');
-                    iter.next();
-
-                    let latter_half = iter.collect::<String>(); // have to drop alphanumeric from the end of the string
-
-                    let rev = latter_half
-                        .chars()
-                        .rev()
-                        .skip_while(char::is_ascii_alphanumeric)
-                        .collect::<String>();
-                    return rev.chars().rev().collect::<String>();
-                }
-
-                // handle xizi
-                if init_char.is_ascii_alphabetic() {
-                    // drop only numeric characters from the end of the string
-                    let rev = a
-                        .chars()
-                        .rev()
-                        .skip_while(|c| c.is_numeric())
-                        .collect::<String>();
-                    rev.chars().rev().collect::<String>()
-                } else {
-                    // drop only alphanumeric characters from the end of the string
-                    let rev = a
-                        .chars()
-                        .rev()
-                        .skip_while(char::is_ascii_alphanumeric)
-                        .collect::<String>();
-                    rev.chars().rev().collect::<String>()
-                }
-            })
+            .map(read::phrase::SentenceGloss::to_plaintext)
             .collect::<String>();
         let expectation = row
             .pekzep_hanzi
@@ -538,25 +497,37 @@ fn parse_decomposed(
                 rejoined
             ));
         }
-        row.decomposed
+        let debug_string = row
+            .decomposed
             .iter()
-            .map(|key_gloss| {
-                let key = key_gloss.to_internal_key();
-                let splittable_compound_info = key_gloss.to_splittable_compound_info();
-                let res = vocab.get(&key).ok_or(anyhow! {
-                    format!(
-                        "Cannot find key {} in the vocab list, found while analyzing {}",
-                        &key,
-                        row.decomposed.iter().map(std::string::ToString::to_string).collect::<Vec<_>>().join(".")
-                    )
-                });
+            .map(read::phrase::SentenceGloss::to_debugtext)
+            .collect::<Vec<_>>()
+            .join("..");
 
-                Ok(DecompositionItem {
-                    key,
-                    voc: res?.clone(),
-                    splittable_compound_info,
-                })
-            })
-            .collect::<anyhow::Result<_>>()
+        let mut ans = vec![];
+        for s in &row.decomposed {
+            ans.push(
+                s.0.iter()
+                    .map(|key_gloss| {
+                        let key = key_gloss.to_internal_key();
+                        let splittable_compound_info = key_gloss.to_splittable_compound_info();
+                        let res = vocab.get(&key).ok_or(anyhow! {
+                            format!(
+                                "Cannot find key {} in the vocab list, found while analyzing {}",
+                                &key,
+                                debug_string
+                            )
+                        });
+
+                        Ok(DecompositionItem {
+                            key,
+                            voc: res?.clone(),
+                            splittable_compound_info,
+                        })
+                    })
+                    .collect::<anyhow::Result<_>>()?,
+            );
+        }
+        Ok(ans)
     }
 }

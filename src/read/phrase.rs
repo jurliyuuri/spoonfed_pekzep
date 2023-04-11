@@ -49,6 +49,25 @@ pub struct Record {
     pub japanese: String,
 }
 
+#[derive(Debug, Clone)]
+pub struct SentenceGloss(pub Vec<InternalKeyGloss>);
+
+impl SentenceGloss {
+    pub fn to_plaintext(&self) -> String {
+        self.0
+            .iter()
+            .map(InternalKeyGloss::to_plaintext)
+            .collect::<String>()
+    }
+    pub fn to_debugtext(&self) -> String {
+        self.0
+            .iter()
+            .map(std::string::ToString::to_string)
+            .collect::<Vec<_>>()
+            .join(".")
+    }
+}
+
 #[readonly::make]
 #[derive(Debug, Clone)]
 pub struct Item {
@@ -57,7 +76,7 @@ pub struct Item {
     pub pekzep_hanzi: String,
     pub chinese_pinyin: String,
     pub chinese_hanzi: String,
-    pub decomposed: Vec<InternalKeyGloss>,
+    pub decomposed: Vec<SentenceGloss>,
     pub filetype: HashSet<FilePathType>,
     pub recording_author: Option<Author>,
     pub japanese: String,
@@ -139,10 +158,16 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
         let decomposed = if rec.decomposed.is_empty() {
             vec![]
         } else {
-            rec.decomposed
-                .split('.')
-                .map(InternalKeyGloss::new)
-                .collect::<anyhow::Result<_>>()?
+            let sentences = rec.decomposed.split("..");
+            let mut ans = vec![];
+            for s in sentences {
+                ans.push(SentenceGloss(
+                    s.split('.')
+                        .map(InternalKeyGloss::new)
+                        .collect::<anyhow::Result<_>>()?,
+                ));
+            }
+            ans
         };
         let row = Item {
             pekzep_latin: rec.pekzep_latin,

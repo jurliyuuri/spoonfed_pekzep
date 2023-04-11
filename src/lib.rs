@@ -266,8 +266,8 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
     }
 }
 
-fn decomposition_to_analysis_merging_unsplitted_compounds(
-    decomposition: &[verify::DecompositionItem],
+fn sentence_decomposition_to_analysis_merging_unsplitted_compounds(
+    sentence_decomposition: &[verify::DecompositionItem],
 ) -> Vec<String> {
     // When splittable compounds appear unsplitted, it is better to display them merged.
     /*
@@ -281,11 +281,11 @@ fn decomposition_to_analysis_merging_unsplitted_compounds(
     let mut ans = vec![];
 
     let mut skip_flag = false;
-    for (i, decomposition_item) in decomposition.iter().enumerate() {
+    for (i, decomposition_item) in sentence_decomposition.iter().enumerate() {
         if Some(SplittableCompoundInfo::FormerHalfHash)
             == decomposition_item.splittable_compound_info
             && Some(SplittableCompoundInfo::LatterHalfExclamation)
-                == decomposition[i + 1].splittable_compound_info
+                == sentence_decomposition[i + 1].splittable_compound_info
         {
             // Splittable compounds appear unsplitted; it is better to display them merged.
             ans.push(
@@ -341,7 +341,6 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             read::phrase::syllables_to_str_underscore(syllables)
         ))?;
 
-        let analysis = decomposition_to_analysis_merging_unsplitted_compounds(decomposition);
         let pekzep_hanzi_guillemet_removed = remove_guillemets(&row.pekzep_hanzi);
         let (oga_tag, is_reviewed) = generate_oga_tag(row, syllables);
         let content = PhraseTemplate {
@@ -366,7 +365,14 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             },
             wav_tag: &generate_wav_tag(row, syllables),
             oga_tag: &oga_tag,
-            analysis: &analysis.join("\n"),
+            analysis: &decomposition
+                .iter()
+                .map(|sentence| {
+                    sentence_decomposition_to_analysis_merging_unsplitted_compounds(sentence)
+                        .join("\n")
+                })
+                .collect::<Vec<_>>()
+                .join("\n\n"),
             pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", ".."),
             author_color: match (&row.recording_author, is_reviewed) {
                 (_, Some(false)) => "#ff00ff",
@@ -411,7 +417,7 @@ pub fn generate_vocabs(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn E
             row,
         } in &data_bundle.rows3
         {
-            if decomposition.iter().any(|item| item.key == *key) {
+            if decomposition.iter().flatten().any(|item| item.key == *key) {
                 usages += &format!(
                     r#"
             <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
