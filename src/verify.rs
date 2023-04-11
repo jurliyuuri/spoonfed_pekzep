@@ -485,46 +485,7 @@ fn parse_decomposed(
             .decomposed
             .iter()
             .map(|gloss| {
-                let a = gloss.to_string();
-                let init_char = a.chars().next().unwrap();
-                if init_char == '∅' {
-                    return String::new();
-                }
-                if a.contains('#') {
-                    return a.chars().take_while(|c| *c != '#').collect::<String>();
-                }
-                if a.contains('!') {
-                    let mut iter = a.chars().skip_while(|c| *c != '!');
-                    iter.next();
-
-                    let latter_half = iter.collect::<String>(); // have to drop alphanumeric from the end of the string
-
-                    let rev = latter_half
-                        .chars()
-                        .rev()
-                        .skip_while(char::is_ascii_alphanumeric)
-                        .collect::<String>();
-                    return rev.chars().rev().collect::<String>();
-                }
-
-                // handle xizi
-                if init_char.is_ascii_alphabetic() {
-                    // drop only numeric characters from the end of the string
-                    let rev = a
-                        .chars()
-                        .rev()
-                        .skip_while(|c| c.is_numeric())
-                        .collect::<String>();
-                    rev.chars().rev().collect::<String>()
-                } else {
-                    // drop only alphanumeric characters from the end of the string
-                    let rev = a
-                        .chars()
-                        .rev()
-                        .skip_while(char::is_ascii_alphanumeric)
-                        .collect::<String>();
-                    rev.chars().rev().collect::<String>()
-                }
+                gloss.to_plaintext()
             })
             .collect::<String>();
         let expectation = row
