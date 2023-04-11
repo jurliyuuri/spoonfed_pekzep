@@ -8,7 +8,7 @@ use std::collections::HashMap;
 
 pub struct Rows3Item {
     pub syllables: Vec<read::phrase::ExtSyllable>,
-    pub decomposition: Vec<DecompositionItem>,
+    pub decomposition: Vec<Vec<DecompositionItem>>,
     pub row: read::phrase::Item,
 }
 
@@ -428,7 +428,7 @@ impl DataBundle {
                         key,
                         voc,
                         splittable_compound_info: _,
-                    } in &decomposition
+                    } in decomposition.iter().flatten()
                     {
                         if !vocab_ordered.contains_key(key) {
                             vocab_ordered.insert((*key).clone(), voc.clone());
@@ -477,7 +477,7 @@ pub struct DecompositionItem {
 fn verify_decomposed(
     vocab: &HashMap<InternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
-) -> anyhow::Result<Vec<DecompositionItem>> {
+) -> anyhow::Result<Vec<Vec<DecompositionItem>>> {
     if row.decomposed.is_none() {
         Ok(vec![])
     } else {
@@ -494,7 +494,8 @@ fn verify_decomposed(
             ));
         }
         let debug_string = row.decomposed.as_ref().unwrap().to_debugtext();
-        row.decomposed
+        Ok(vec![row
+            .decomposed
             .as_ref()
             .unwrap()
             .0
@@ -516,6 +517,6 @@ fn verify_decomposed(
                     splittable_compound_info,
                 })
             })
-            .collect::<anyhow::Result<_>>()
+            .collect::<anyhow::Result<_>>()?])
     }
 }
