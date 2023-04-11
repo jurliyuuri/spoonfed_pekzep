@@ -49,6 +49,9 @@ pub struct Record {
     pub japanese: String,
 }
 
+#[derive(Debug, Clone)]
+pub struct SentenceGloss(pub Vec<InternalKeyGloss>);
+
 #[readonly::make]
 #[derive(Debug, Clone)]
 pub struct Item {
@@ -57,7 +60,7 @@ pub struct Item {
     pub pekzep_hanzi: String,
     pub chinese_pinyin: String,
     pub chinese_hanzi: String,
-    pub decomposed: Vec<InternalKeyGloss>,
+    pub decomposed: Option<SentenceGloss>,
     pub filetype: HashSet<FilePathType>,
     pub recording_author: Option<Author>,
     pub japanese: String,
@@ -137,12 +140,14 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
 
         info!("Parsing `{}`, `{}`:", rec.english, rec.pekzep_latin);
         let decomposed = if rec.decomposed.is_empty() {
-            vec![]
+            None
         } else {
-            rec.decomposed
-                .split('.')
-                .map(InternalKeyGloss::new)
-                .collect::<anyhow::Result<_>>()?
+            Some(SentenceGloss(
+                rec.decomposed
+                    .split('.')
+                    .map(InternalKeyGloss::new)
+                    .collect::<anyhow::Result<_>>()?,
+            ))
         };
         let row = Item {
             pekzep_latin: rec.pekzep_latin,

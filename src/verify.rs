@@ -478,15 +478,16 @@ fn parse_decomposed(
     vocab: &HashMap<InternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
 ) -> anyhow::Result<Vec<DecompositionItem>> {
-    if row.decomposed.is_empty() {
+    if row.decomposed.is_none() {
         Ok(vec![])
     } else {
         let rejoined = row
             .decomposed
+            .as_ref()
+            .unwrap()
+            .0
             .iter()
-            .map(|gloss| {
-                gloss.to_plaintext()
-            })
+            .map(read::vocab::InternalKeyGloss::to_plaintext)
             .collect::<String>();
         let expectation = row
             .pekzep_hanzi
@@ -500,6 +501,9 @@ fn parse_decomposed(
             ));
         }
         row.decomposed
+            .as_ref()
+            .unwrap()
+            .0
             .iter()
             .map(|key_gloss| {
                 let key = key_gloss.to_internal_key();
@@ -508,7 +512,7 @@ fn parse_decomposed(
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         &key,
-                        row.decomposed.iter().map(std::string::ToString::to_string).collect::<Vec<_>>().join(".")
+                        row.decomposed.as_ref().unwrap().0.iter().map(std::string::ToString::to_string).collect::<Vec<_>>().join(".")
                     )
                 });
 
