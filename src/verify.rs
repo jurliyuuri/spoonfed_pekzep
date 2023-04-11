@@ -478,10 +478,14 @@ fn verify_decomposed(
     vocab: &HashMap<InternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
 ) -> anyhow::Result<Vec<Vec<DecompositionItem>>> {
-    if row.decomposed.is_none() {
+    if row.decomposed.is_empty() {
         Ok(vec![])
     } else {
-        let rejoined = row.decomposed.as_ref().unwrap().to_plaintext();
+        let rejoined = row
+            .decomposed
+            .iter()
+            .map(read::phrase::SentenceGloss::to_plaintext)
+            .collect::<String>();
         let expectation = row
             .pekzep_hanzi
             .to_string()
@@ -493,30 +497,37 @@ fn verify_decomposed(
                 rejoined
             ));
         }
-        let debug_string = row.decomposed.as_ref().unwrap().to_debugtext();
-        Ok(vec![row
+        let debug_string = row
             .decomposed
-            .as_ref()
-            .unwrap()
-            .0
             .iter()
-            .map(|key_gloss| {
-                let key = key_gloss.to_internal_key();
-                let splittable_compound_info = key_gloss.to_splittable_compound_info();
-                let res = vocab.get(&key).ok_or(anyhow! {
-                    format!(
-                        "Cannot find key {} in the vocab list, found while analyzing {}",
-                        &key,
-                        debug_string
-                    )
-                });
+            .map(read::phrase::SentenceGloss::to_debugtext)
+            .collect::<Vec<_>>()
+            .join("..");
 
-                Ok(DecompositionItem {
-                    key,
-                    voc: res?.clone(),
-                    splittable_compound_info,
-                })
-            })
-            .collect::<anyhow::Result<_>>()?])
+        let mut ans = vec![];
+        for s in &row.decomposed {
+            ans.push(
+                s.0.iter()
+                    .map(|key_gloss| {
+                        let key = key_gloss.to_internal_key();
+                        let splittable_compound_info = key_gloss.to_splittable_compound_info();
+                        let res = vocab.get(&key).ok_or(anyhow! {
+                            format!(
+                                "Cannot find key {} in the vocab list, found while analyzing {}",
+                                &key,
+                                debug_string
+                            )
+                        });
+
+                        Ok(DecompositionItem {
+                            key,
+                            voc: res?.clone(),
+                            splittable_compound_info,
+                        })
+                    })
+                    .collect::<anyhow::Result<_>>()?,
+            );
+        }
+        Ok(ans)
     }
 }

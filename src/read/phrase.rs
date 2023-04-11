@@ -76,7 +76,7 @@ pub struct Item {
     pub pekzep_hanzi: String,
     pub chinese_pinyin: String,
     pub chinese_hanzi: String,
-    pub decomposed: Option<SentenceGloss>,
+    pub decomposed: Vec<SentenceGloss>,
     pub filetype: HashSet<FilePathType>,
     pub recording_author: Option<Author>,
     pub japanese: String,
@@ -156,14 +156,18 @@ pub fn parse() -> anyhow::Result<LinkedHashMap<Vec<ExtSyllable>, Item>> {
 
         info!("Parsing `{}`, `{}`:", rec.english, rec.pekzep_latin);
         let decomposed = if rec.decomposed.is_empty() {
-            None
+            vec![]
         } else {
-            Some(SentenceGloss(
-                rec.decomposed
-                    .split('.')
-                    .map(InternalKeyGloss::new)
-                    .collect::<anyhow::Result<_>>()?,
-            ))
+            let sentences = rec.decomposed.split("..");
+            let mut ans = vec![];
+            for s in sentences {
+                ans.push(SentenceGloss(
+                    s.split('.')
+                        .map(InternalKeyGloss::new)
+                        .collect::<anyhow::Result<_>>()?,
+                ));
+            }
+            ans
         };
         let row = Item {
             pekzep_latin: rec.pekzep_latin,
