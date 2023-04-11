@@ -422,7 +422,7 @@ impl DataBundle {
 
         let rows3 = spoonfed_rows
             .iter()
-            .map(|(syllables, row)| match parse_decomposed(&vocab, row) {
+            .map(|(syllables, row)| match verify_decomposed(&vocab, row) {
                 Ok(decomposition) => {
                     for DecompositionItem {
                         key,
@@ -474,21 +474,14 @@ pub struct DecompositionItem {
 /// Checks if:
 /// * all the morphemes listed in `row.decomposed` are in the vocab list
 /// * the `row.decomposed` really is a decomposition of `row.pekzep_hanzi`.
-fn parse_decomposed(
+fn verify_decomposed(
     vocab: &HashMap<InternalKey, read::vocab::Item>,
     row: &read::phrase::Item,
 ) -> anyhow::Result<Vec<DecompositionItem>> {
     if row.decomposed.is_none() {
         Ok(vec![])
     } else {
-        let rejoined = row
-            .decomposed
-            .as_ref()
-            .unwrap()
-            .0
-            .iter()
-            .map(read::vocab::InternalKeyGloss::to_plaintext)
-            .collect::<String>();
+        let rejoined = row.decomposed.as_ref().unwrap().to_plaintext();
         let expectation = row
             .pekzep_hanzi
             .to_string()
@@ -500,6 +493,7 @@ fn parse_decomposed(
                 rejoined
             ));
         }
+        let debug_string = row.decomposed.as_ref().unwrap().to_debugtext();
         row.decomposed
             .as_ref()
             .unwrap()
@@ -512,7 +506,7 @@ fn parse_decomposed(
                     format!(
                         "Cannot find key {} in the vocab list, found while analyzing {}",
                         &key,
-                        row.decomposed.as_ref().unwrap().0.iter().map(std::string::ToString::to_string).collect::<Vec<_>>().join(".")
+                        debug_string
                     )
                 });
 

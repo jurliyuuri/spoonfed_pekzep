@@ -52,6 +52,22 @@ pub struct Record {
 #[derive(Debug, Clone)]
 pub struct SentenceGloss(pub Vec<InternalKeyGloss>);
 
+impl SentenceGloss {
+    pub fn to_plaintext(&self) -> String {
+        self.0
+            .iter()
+            .map(InternalKeyGloss::to_plaintext)
+            .collect::<String>()
+    }
+    pub fn to_debugtext(&self) -> String {
+        self.0
+            .iter()
+            .map(std::string::ToString::to_string)
+            .collect::<Vec<_>>()
+            .join(".")
+    }
+}
+
 #[readonly::make]
 #[derive(Debug, Clone)]
 pub struct Item {
