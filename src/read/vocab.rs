@@ -82,6 +82,15 @@ impl InternalKeyGloss {
     /// Strips off the postfix and also resolves the `#` and `!` notation of a verb-object compound.
     /// # Panics
     /// Panics if both `self.main` and `self.postfix` are empty.
+    /// ```
+    /// use spoonfed_pekzep::read::vocab::InternalKeyGloss;
+    /// assert_eq!(InternalKeyGloss::new("∅").unwrap().to_plaintext(), "");
+    /// assert_eq!(InternalKeyGloss::new("於dur").unwrap().to_plaintext(), "於");
+    /// assert_eq!(InternalKeyGloss::new("xizi").unwrap().to_plaintext(), "xizi");
+    /// assert_eq!(InternalKeyGloss::new("xizi噫").unwrap().to_plaintext(), "xizi噫");
+    /// assert_eq!(InternalKeyGloss::new("目#書").unwrap().to_plaintext(), "目");
+    /// assert_eq!(InternalKeyGloss::new("目!書").unwrap().to_plaintext(), "書");
+    /// ```
     #[must_use]
     pub fn to_plaintext(&self) -> String {
         let a = self.to_string();
@@ -126,6 +135,15 @@ impl InternalKeyGloss {
         }
     }
 
+    /// ```
+    /// use spoonfed_pekzep::read::vocab::{InternalKey, InternalKeyGloss};
+    /// assert_eq!(InternalKeyGloss::new("∅").unwrap().to_internal_key(), InternalKey::new("∅").unwrap());
+    /// assert_eq!(InternalKeyGloss::new("於dur").unwrap().to_internal_key(), InternalKey::new("於dur").unwrap());
+    /// assert_eq!(InternalKeyGloss::new("xizi").unwrap().to_internal_key(), InternalKey::new("xizi").unwrap());
+    /// assert_eq!(InternalKeyGloss::new("xizi噫").unwrap().to_internal_key(), InternalKey::new("xizi噫").unwrap());
+    /// assert_eq!(InternalKeyGloss::new("目#書").unwrap().to_internal_key(), InternalKey::new("目 // 書").unwrap());
+    /// assert_eq!(InternalKeyGloss::new("目!書").unwrap().to_internal_key(), InternalKey::new("目 // 書").unwrap());
+    /// ```
     #[must_use]
     pub fn to_internal_key(&self) -> InternalKey {
         InternalKey {
@@ -333,7 +351,14 @@ impl InternalKey {
             .replace(':', "_colon_")
     }
 
-    fn new(input: &str) -> anyhow::Result<Self> {
+    /// # Errors
+    /// Throws errors if the input is empty or does not begin with one of the following:
+    /// - an ASCII character
+    /// - `∅`
+    /// - `«`
+    /// - a character in the Unicode block "CJK Unified Ideographs"
+    /// - a character in the Unicode block "CJK Unified Ideographs Extension A"
+    pub fn new(input: &str) -> anyhow::Result<Self> {
         let (main, postfix) = split_into_main_and_postfix(input)?;
         Ok(Self { main, postfix })
     }
