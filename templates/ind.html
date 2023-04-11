@@ -246,7 +246,7 @@
         </div>
     </div>
     
-    {{ index|line_breaks_and_tabs|safe }}
+    {{ index|convert_line_breaks_and_tabs_into_single_table|safe }}
 
     <!-- To allow scrolling to the end -->
     <div style="width: 100%; height: 110px;"></div>

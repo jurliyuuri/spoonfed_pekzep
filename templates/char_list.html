@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    {{ char_list_html|line_breaks_and_tabs|safe }}
+    {{ char_list_html|convert_line_breaks_and_tabs_into_single_table|safe }}
 </body>
 
 </html>

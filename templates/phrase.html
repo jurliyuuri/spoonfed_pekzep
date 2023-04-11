@@ -28,6 +28,6 @@
             {{ oga_tag|safe }}
             Your browser does not support the audio element.
             </audio><br>
-        {% endif %}Analysis: {{ analysis|line_breaks_and_tabs|safe }}
+        {% endif %}Analysis: {{ analysis|convert_line_breaks_and_tabs_into_single_table|safe }}
     </body>
 </html>

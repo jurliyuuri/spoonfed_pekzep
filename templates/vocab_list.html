@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    {{ vocab_html|line_breaks_and_tabs|safe }}
+    {{ vocab_html|convert_line_breaks_and_tabs_into_single_table|safe }}
 </body>
 
 </html>
