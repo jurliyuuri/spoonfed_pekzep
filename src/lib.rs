@@ -473,7 +473,8 @@ pub fn generate_vocab_list_internal(
         file,
         "{}",
         VocabListInternalTemplate {
-            vocab_html: &html.join("\n")
+            vocab_html: &html.join("\n"),
+            header_row: &"internal word id\toccurrence\tPekzep (alphabet)\tPekzep (Chinese characters)\tPekzep (Linzklā)\tparts of speech\tsubdivision\tEnglish translation"
         }
         .render()?
     )?;

@@ -7,8 +7,15 @@
 </head>
 
 <body>
+    <a href="./index.html"><span lang="en">Back to the main page</span> / <span lang="zh-CN">回到主页面</span> / <span lang="ja">トップページに戻る</span></a>
     <table border="1" cellpadding="5" cellspacing="0">
-{{ vocab_html|convert_line_breaks_and_tabs_into_trs_and_tds|safe }}</table>
+        <thead>
+{{ header_row|convert_line_breaks_and_tabs_into_trs_and_tds|safe }}
+        </thead>
+        <tbody>
+{{ vocab_html|convert_line_breaks_and_tabs_into_trs_and_tds|safe }}
+        </tbody>
+    </table>
 </body>
 
 </html>
