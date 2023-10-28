@@ -43,6 +43,14 @@ pub struct VocabListTemplate<'a> {
     pub vocab_html: &'a str,
 }
 
+
+#[derive(Template)]
+#[template(path = "vocab_list_internal.html")]
+pub struct VocabListInternalTemplate<'a> {
+    pub vocab_html: &'a str,
+    // pub header_row: &'a str,
+}
+
 #[derive(Template)]
 #[template(path = "char_list.html")]
 pub struct CharListTemplate<'a> {

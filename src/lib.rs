@@ -6,7 +6,7 @@ use askama::Template;
 use read::char_pronunciation::Linzklar;
 
 use crate::askama_templates::{
-    CharListTemplate, IndTemplate, PhraseTemplate, VocabListTemplate, VocabTemplate,
+    CharListTemplate, IndTemplate, PhraseTemplate, VocabListTemplate, VocabListInternalTemplate, VocabTemplate,
 };
 use crate::read::vocab::SplittableCompoundInfo;
 use std::collections::HashMap;
@@ -472,7 +472,7 @@ pub fn generate_vocab_list_internal(
     write!(
         file,
         "{}",
-        VocabListTemplate {
+        VocabListInternalTemplate {
             vocab_html: &html.join("\n")
         }
         .render()?

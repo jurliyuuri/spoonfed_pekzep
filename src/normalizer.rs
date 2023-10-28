@@ -13,9 +13,17 @@ pub fn capitalize_first_char(text: &str) -> String {
 
 #[must_use]
 pub fn convert_line_breaks_and_tabs_into_single_table(s: &str) -> String {
+    format!(
+        "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\">\n{}</table>",
+        convert_line_breaks_and_tabs_into_trs_and_tds(s)
+    )
+}
+
+#[must_use]
+pub fn convert_line_breaks_and_tabs_into_trs_and_tds(s: &str) -> String {
     let s = s.to_string();
     format!(
-        "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\">\n\t<tr><td>{}</td></tr>\n</table>",
+        "\t<tr><td>{}</td></tr>\n",
         s.replace('\t', "</td><td>")
             .replace('\n', "</td></tr>\n\t<tr><td>")
     )
