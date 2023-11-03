@@ -410,16 +410,23 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
     let rel_path = "..";
     for (linzklar, count) in &data_bundle.char_count {
         let mut file = File::create(format!("docs/char/{}.html", linzklar))?;
+
+        let mut html = vec![];
+        for (_, vocab) in &data_bundle.vocab_ordered {
+            if vocab.pekzep_hanzi.contains(linzklar.as_char()) {
+                html.push(vocab.to_tab_separated(".."));
+            }
+        }
         write!(
             file,
             "{}",
             CharTemplate {
-                char_html: &format!(
-                    "<h1><span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】</h1><p>occurrences / <span lang=\"zh-CN\">出现次数</span> / <span lang=\"ja\">出現回数</span> : {}</p>",
-                    convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
-                    linzklar,
-                    count
-                )
+                title: &format!("<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】",
+                convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
+                linzklar,
+            ),
+                occurrences: &format!("{}", count),
+                word_table: &html.join("\n")
             }.render()?
         )?;
     }
@@ -548,7 +555,7 @@ pub fn generate_char_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dy
         file,
         "{}",
         CharListTemplate {
-            char_list_html: &html.join("\n")
+            char_list_table: &html.join("\n")
         }
         .render()?
     )?;

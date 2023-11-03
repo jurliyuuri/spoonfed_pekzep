@@ -68,6 +68,9 @@ impl Linzklar {
         }
         Self::from_char(c)
     }
+    pub fn as_char(&self) -> char {
+        self.0
+    }
 }
 pub type CharSoundTable = Vec<(Linzklar, PekZepSyllable)>;
 pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
