@@ -56,3 +56,9 @@ pub struct VocabListInternalTemplate<'a> {
 pub struct CharListTemplate<'a> {
     pub char_list_html: &'a str,
 }
+
+#[derive(Template)]
+#[template(path = "char.html")]
+pub struct CharTemplate<'a> {
+pub char_html: &'a str,
+}

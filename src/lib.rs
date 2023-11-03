@@ -6,7 +6,8 @@ use askama::Template;
 use read::char_pronunciation::Linzklar;
 
 use crate::askama_templates::{
-    CharListTemplate, IndTemplate, PhraseTemplate, VocabListTemplate, VocabListInternalTemplate, VocabTemplate,
+    CharListTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate, VocabListTemplate,
+    VocabTemplate, CharTemplate
 };
 use crate::read::vocab::SplittableCompoundInfo;
 use std::collections::HashMap;
@@ -399,6 +400,30 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
             warn!("A-B style dialogue detected: {}, matched with {}. Replace this with 「」-style while also making sure the Hanzi and the Pinyin matches.", row.chinese_hanzi, row.chinese_pinyin);
         }
     }
+    Ok(())
+}
+
+/// Generates `char/`
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
+pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+    let rel_path = "..";
+    for (linzklar, count) in &data_bundle.char_count {
+        let mut file = File::create(format!("docs/char/{}.html", linzklar))?;
+        write!(
+            file,
+            "{}",
+            CharTemplate {
+                char_html: &format!(
+                    "<h1><span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】</h1><p>occurrences / <span lang=\"zh-CN\">出现次数</span> / <span lang=\"ja\">出現回数</span> : {}</p>",
+                    convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
+                    linzklar,
+                    count
+                )
+            }.render()?
+        )?;
+    }
+
     Ok(())
 }
 
