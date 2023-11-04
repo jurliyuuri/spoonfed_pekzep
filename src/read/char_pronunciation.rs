@@ -44,15 +44,23 @@ impl std::fmt::Display for LinzklarString {
 #[derive(Clone, Hash, PartialEq, Eq, Ord, PartialOrd)]
 pub struct Linzklar(char);
 impl Linzklar {
+    pub fn is_suitable_charcode_for_linzklar(c: char) -> bool {
+        match c {
+            '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => true,
+            _ => false,
+        }
+    }
+    
     /// # Errors
     /// Fails if the input is outside the Unicode range `U+3400` - `U+4DBF` or `U+4E00` - `U+9FFF`.
     pub fn from_char(c: char) -> anyhow::Result<Self> {
-        match c {
-            '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => Ok(Self(c)),
-            _ => Err(anyhow!(
+        if Self::is_suitable_charcode_for_linzklar(c) {
+            Ok(Self(c))
+        } else {
+            Err(anyhow!(
                 "`{}` is not a character in the Unicode block \"CJK Unified Ideographs\" nor a character in the Unicode block \"CJK Unified Ideographs Extension A\"",
                 c
-            )),
+            ))
         }
     }
     fn from_str(a: &str) -> anyhow::Result<Self> {

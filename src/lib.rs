@@ -133,7 +133,7 @@ const fn to_check_or_parencheck(a: R) -> &'static str {
     }
 }
 
-fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String {
+fn char_img_with_size(name: &str, rel_path: &'static str, size: usize, gen_link: bool) -> String {
     use log::info;
     if std::path::Path::new(&format!("raw/char_img/{name}.png")).exists() {
         // only copy the files that are actually used
@@ -166,11 +166,15 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String
         info!("char_img not found: {}.png", name);
         File::create(format!("docs/char_img/dummy_{name}.txt")).unwrap();
     }
-
-    format!(
-        r#"<img src="{}/char_img/{}.png" height="{}">"#,
-        rel_path, name, size
-    )
+    if !gen_link {
+        format!(
+            r#"<img src="{rel_path}/char_img/{name}.png" height="{size}">"#,
+        )
+    } else {
+        format!(
+            r#"<a href="{rel_path}/char/{name}.html"><img src="{rel_path}/char_img/{name}.png" height="{size}"></a>"#,
+        )
+    }
 }
 
 fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) -> String {
@@ -188,11 +192,11 @@ fn convert_hanzi_to_images_with_size(
     let mut remove_following_space = false;
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(&char_img_with_size("blank", rel_path, size));
+            ans.push_str(&char_img_with_size("blank", rel_path, size, false));
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
-                ans.push_str(&char_img_with_size("xi", rel_path, size));
-                ans.push_str(&char_img_with_size("zi", rel_path, size));
+                ans.push_str(&char_img_with_size("xi", rel_path, size, false));
+                ans.push_str(&char_img_with_size("zi", rel_path, size, false));
                 remove_following_space = true; // this deletes the redundant space after "xizi"
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.");
@@ -205,7 +209,7 @@ fn convert_hanzi_to_images_with_size(
             if c.is_ascii() {
                 log::warn!("Unexpected ASCII character `{}` in {}", c, s);
             }
-            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size));
+            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size, Linzklar::is_suitable_charcode_for_linzklar(c)));
         }
     }
 
@@ -693,8 +697,6 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
         if rec.pekzep_latin.is_empty() {
             continue;
         }
-
-        // pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", "..")
 
         if rec.requires_substitution.is_empty() {
             // This is inherently insecure, but who cares?
