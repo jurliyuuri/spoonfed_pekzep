@@ -2,13 +2,13 @@
 #![allow(clippy::non_ascii_literal)]
 #[macro_use]
 extern crate lazy_static;
-use askama::Template;
 use anyhow::anyhow;
+use askama::Template;
 use read::char_pronunciation::Linzklar;
 
 use crate::askama_templates::{
-    CharListTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate, VocabListTemplate,
-    VocabTemplate, CharTemplate
+    CharListTemplate, CharTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate,
+    VocabListTemplate, VocabTemplate,
 };
 use crate::read::vocab::SplittableCompoundInfo;
 use std::collections::HashMap;
@@ -27,7 +27,6 @@ pub mod normalizer;
 
 /// used by [askama](https://djc.github.io/askama/) to generate HTML
 pub mod askama_templates;
-
 
 /// Splits the string at the first occurrence of `//`.
 /// # Panic
@@ -161,9 +160,7 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize, gen_link:
             r#"<a href="{rel_path}/char/{name}.html"><img src="{rel_path}/char_img/{name}.png" height="{size}"></a>"#,
         )
     } else {
-        format!(
-            r#"<img src="{rel_path}/char_img/{name}.png" height="{size}">"#,
-        )
+        format!(r#"<img src="{rel_path}/char_img/{name}.png" height="{size}">"#,)
     }
 }
 
@@ -199,7 +196,12 @@ fn convert_hanzi_to_images_with_size(
             if c.is_ascii() {
                 log::warn!("Unexpected ASCII character `{}` in {}", c, s);
             }
-            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size, Linzklar::is_suitable_charcode_for_linzklar(c)));
+            ans.push_str(&char_img_with_size(
+                &c.to_string(),
+                rel_path,
+                size,
+                Linzklar::is_suitable_charcode_for_linzklar(c),
+            ));
         }
     }
 
@@ -217,9 +219,7 @@ fn generate_oga_tag(
             warn!("oga file not found: {filename}.oga");
         }
         (
-            format!(
-                r#"<source src="../spoonfed_pekzep_sounds/{filename}.oga" type="audio/ogg">"#
-            ),
+            format!(r#"<source src="../spoonfed_pekzep_sounds/{filename}.oga" type="audio/ogg">"#),
             Some(true),
         )
     } else if std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{filename}.oga")).exists()
@@ -228,9 +228,7 @@ fn generate_oga_tag(
         (String::new(), None)
     } else if std::path::Path::new(&format!("docs/nonreviewed_sounds/{filename}.oga")).exists() {
         (
-            format!(
-                r#"<source src="../nonreviewed_sounds/{filename}.oga" type="audio/ogg">"#
-            ),
+            format!(r#"<source src="../nonreviewed_sounds/{filename}.oga" type="audio/ogg">"#),
             Some(false),
         )
     } else {
@@ -247,9 +245,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
         if !wav_file_exists {
             warn!("wav file not found: {}.wav", filename);
         }
-        format!(
-            r#"<source src="../spoonfed_pekzep_sounds/{filename}.wav" type="audio/wav">"#
-        )
+        format!(r#"<source src="../spoonfed_pekzep_sounds/{filename}.wav" type="audio/wav">"#)
     } else {
         if wav_file_exists {
             warn!("wav file IS found, but is not linked: {}.wav", filename);
@@ -399,6 +395,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let rel_path = "..";
+    let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
     for (linzklar, count) in &data_bundle.char_count {
         let mut file = File::create(format!("docs/char/{linzklar}.html"))?;
 
@@ -422,13 +419,20 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             file,
             "{}",
             CharTemplate {
-                title: &format!("<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】",
-                convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
-                linzklar,
-            ),
+                title: &format!(
+                    "<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】{}",
+                    convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
+                    linzklar,
+                    char_pronunciation
+                        .iter()
+                        .filter_map(|(lin, syl)| if lin == linzklar { Some(syl.to_string()) } else { None })
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                ),
                 occurrences: &format!("{count}"),
                 word_table: &html.join("\n")
-            }.render()?
+            }
+            .render()?
         )?;
     }
 
@@ -497,7 +501,8 @@ pub fn generate_vocab_list_internal(
             key,
             data_bundle
                 .vocab_count
-                .get(key).ok_or_else(|| anyhow!("vocab_count should be consistent with vocab_ordered"))?,
+                .get(key)
+                .ok_or_else(|| anyhow!("vocab_count should be consistent with vocab_ordered"))?,
             vocab.to_tab_separated(rel_path)
         ));
     }
