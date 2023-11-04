@@ -416,9 +416,19 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
         let mut file = File::create(format!("docs/char/{}.html", linzklar))?;
 
         let mut html = vec![];
-        for (_, vocab) in &data_bundle.vocab_ordered {
+        for (key, vocab) in &data_bundle.vocab_ordered {
             if vocab.pekzep_hanzi.contains(linzklar.as_char()) {
-                html.push(vocab.to_tab_separated(".."));
+                let link_path = format!("{rel_path}/vocab/{}.html", key.to_path_safe_string());
+                let rel_path = "..";
+                html.push(format!(
+                    "<a href=\"{link_path}\">{}</a>\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                    vocab.pekzep_latin,
+                    vocab.pekzep_hanzi,
+                    convert_hanzi_to_images(&vocab.pekzep_hanzi, "/{} N()SL«»", rel_path) ,
+                    vocab.parts_of_speech,
+                    vocab.parts_of_speech_supplement,
+                    vocab.english_gloss
+                ));
             }
         }
         write!(
