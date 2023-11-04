@@ -44,11 +44,9 @@ impl std::fmt::Display for LinzklarString {
 #[derive(Clone, Hash, PartialEq, Eq, Ord, PartialOrd)]
 pub struct Linzklar(char);
 impl Linzklar {
-    pub fn is_suitable_charcode_for_linzklar(c: char) -> bool {
-        match c {
-            '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}' => true,
-            _ => false,
-        }
+    #[must_use] 
+    pub const fn is_suitable_charcode_for_linzklar(c: char) -> bool {
+        matches!(c, '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}')
     }
     
     /// # Errors
@@ -76,7 +74,8 @@ impl Linzklar {
         }
         Self::from_char(c)
     }
-    pub fn as_char(&self) -> char {
+    #[must_use] 
+    pub const fn as_char(&self) -> char {
         self.0
     }
 }

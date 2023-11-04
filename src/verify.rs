@@ -28,7 +28,7 @@ impl DataBundle {
     ) -> anyhow::Result<()> {
         use log::info;
         eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
-        for (k, v) in spoonfed_rows.iter() {
+        for (k, v) in spoonfed_rows {
             let mut iter = v.pekzep_hanzi.chars();
             let mut key_iter = k.iter();
             while let Some(c) = iter.next() {
@@ -121,7 +121,7 @@ impl DataBundle {
     ) -> anyhow::Result<HashMap<Linzklar, usize>> {
         use log::info;
         let mut ans = HashMap::new();
-        for (_, v) in spoonfed_rows.iter() {
+        for (_, v) in spoonfed_rows {
             let mut iter = v.pekzep_hanzi.chars();
             while let Some(c) = iter.next() {
                 if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
@@ -195,7 +195,7 @@ impl DataBundle {
         use log::info;
         eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
         // let mut pronunciation_errors_in_vocab = vec![];
-        for (_, v) in vocab.iter() {
+        for v in vocab.values() {
             if v.pekzep_hanzi == "∅" && v.pekzep_latin.is_empty() {
                 info!("matched `∅` with an empty string");
             }
@@ -511,7 +511,7 @@ fn verify_decomposed(
                     .map(|key_gloss| {
                         let key = key_gloss.to_internal_key();
                         let splittable_compound_info = key_gloss.to_splittable_compound_info();
-                        let res = vocab.get(&key).ok_or(anyhow! {
+                        let res = vocab.get(&key).ok_or_else(|| anyhow! {
                             format!(
                                 "Cannot find key {} in the vocab list, found while analyzing {}",
                                 &key,

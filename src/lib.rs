@@ -3,6 +3,7 @@
 #[macro_use]
 extern crate lazy_static;
 use askama::Template;
+use anyhow::anyhow;
 use read::char_pronunciation::Linzklar;
 
 use crate::askama_templates::{
@@ -27,17 +28,6 @@ pub mod normalizer;
 /// used by [askama](https://djc.github.io/askama/) to generate HTML
 pub mod askama_templates;
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_split_at_slashslash() {
-        use crate::split_at_slashslash;
-        assert_eq!(
-            split_at_slashslash("行 // 道"),
-            (String::from("行 "), String::from(" 道"))
-        );
-    }
-}
 
 /// Splits the string at the first occurrence of `//`.
 /// # Panic
@@ -166,13 +156,13 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize, gen_link:
         info!("char_img not found: {}.png", name);
         File::create(format!("docs/char_img/dummy_{name}.txt")).unwrap();
     }
-    if !gen_link {
+    if gen_link {
         format!(
-            r#"<img src="{rel_path}/char_img/{name}.png" height="{size}">"#,
+            r#"<a href="{rel_path}/char/{name}.html"><img src="{rel_path}/char_img/{name}.png" height="{size}"></a>"#,
         )
     } else {
         format!(
-            r#"<a href="{rel_path}/char/{name}.html"><img src="{rel_path}/char_img/{name}.png" height="{size}"></a>"#,
+            r#"<img src="{rel_path}/char_img/{name}.png" height="{size}">"#,
         )
     }
 }
@@ -228,8 +218,7 @@ fn generate_oga_tag(
         }
         (
             format!(
-                r#"<source src="../spoonfed_pekzep_sounds/{}.oga" type="audio/ogg">"#,
-                filename
+                r#"<source src="../spoonfed_pekzep_sounds/{filename}.oga" type="audio/ogg">"#
             ),
             Some(true),
         )
@@ -240,8 +229,7 @@ fn generate_oga_tag(
     } else if std::path::Path::new(&format!("docs/nonreviewed_sounds/{filename}.oga")).exists() {
         (
             format!(
-                r#"<source src="../nonreviewed_sounds/{}.oga" type="audio/ogg">"#,
-                filename
+                r#"<source src="../nonreviewed_sounds/{filename}.oga" type="audio/ogg">"#
             ),
             Some(false),
         )
@@ -260,8 +248,7 @@ fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyll
             warn!("wav file not found: {}.wav", filename);
         }
         format!(
-            r#"<source src="../spoonfed_pekzep_sounds/{}.wav" type="audio/wav">"#,
-            filename
+            r#"<source src="../spoonfed_pekzep_sounds/{filename}.wav" type="audio/wav">"#
         )
     } else {
         if wav_file_exists {
@@ -413,7 +400,7 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
 pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let rel_path = "..";
     for (linzklar, count) in &data_bundle.char_count {
-        let mut file = File::create(format!("docs/char/{}.html", linzklar))?;
+        let mut file = File::create(format!("docs/char/{linzklar}.html"))?;
 
         let mut html = vec![];
         for (key, vocab) in &data_bundle.vocab_ordered {
@@ -439,7 +426,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                 convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
                 linzklar,
             ),
-                occurrences: &format!("{}", count),
+                occurrences: &format!("{count}"),
                 word_table: &html.join("\n")
             }.render()?
         )?;
@@ -510,8 +497,7 @@ pub fn generate_vocab_list_internal(
             key,
             data_bundle
                 .vocab_count
-                .get(key)
-                .expect("vocab_count should be consistent with vocab_ordered"),
+                .get(key).ok_or_else(|| anyhow!("vocab_count should be consistent with vocab_ordered"))?,
             vocab.to_tab_separated(rel_path)
         ));
     }
@@ -520,7 +506,7 @@ pub fn generate_vocab_list_internal(
         "{}",
         VocabListInternalTemplate {
             vocab_html: &html.join("\n"),
-            header_row: &"internal word id\toccurrence\tPekzep (alphabet)\tPekzep (Chinese characters)\tPekzep (Linzklā)\tparts of speech\tsubdivision\tEnglish translation"
+            header_row: "internal word id\toccurrence\tPekzep (alphabet)\tPekzep (Chinese characters)\tPekzep (Linzklā)\tparts of speech\tsubdivision\tEnglish translation"
         }
         .render()?
     )?;
@@ -751,4 +737,16 @@ pub fn write_char_count_js<S: ::std::hash::BuildHasher>(
 
     std::fs::write("docs/char_count.js", js)?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_split_at_slashslash() {
+        use crate::split_at_slashslash;
+        assert_eq!(
+            split_at_slashslash("行 // 道"),
+            (String::from("行 "), String::from(" 道"))
+        );
+    }
 }
