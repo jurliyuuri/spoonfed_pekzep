@@ -19,9 +19,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     // by the images required to render the page.
     reset_folder("docs/char_img")?;
 
-    // At each run, reset the content of docs/phrase and docs/vocab
+    // At each run, reset the content of docs/phrase, docs/vocab and docs/char
     // because they will be filled later in the script.
     reset_folder("docs/phrase")?;
+    reset_folder("docs/char")?;
     reset_folder("docs/vocab")?;
 
     let data_bundle = verify::DataBundle::new()?;
@@ -37,6 +38,9 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     eprintln!("Generating docs/vocab_list.html");
     generate_vocab_list(&data_bundle)?;
+
+    eprintln!("Generating docs/char/");
+    generate_chars(&data_bundle)?;
 
     eprintln!("Generating docs/char_list.html");
     generate_char_list(&data_bundle)?;

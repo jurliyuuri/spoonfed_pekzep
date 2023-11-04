@@ -6,7 +6,8 @@ use askama::Template;
 use read::char_pronunciation::Linzklar;
 
 use crate::askama_templates::{
-    CharListTemplate, IndTemplate, PhraseTemplate, VocabListTemplate, VocabListInternalTemplate, VocabTemplate,
+    CharListTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate, VocabListTemplate,
+    VocabTemplate, CharTemplate
 };
 use crate::read::vocab::SplittableCompoundInfo;
 use std::collections::HashMap;
@@ -132,7 +133,7 @@ const fn to_check_or_parencheck(a: R) -> &'static str {
     }
 }
 
-fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String {
+fn char_img_with_size(name: &str, rel_path: &'static str, size: usize, gen_link: bool) -> String {
     use log::info;
     if std::path::Path::new(&format!("raw/char_img/{name}.png")).exists() {
         // only copy the files that are actually used
@@ -165,11 +166,15 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize) -> String
         info!("char_img not found: {}.png", name);
         File::create(format!("docs/char_img/dummy_{name}.txt")).unwrap();
     }
-
-    format!(
-        r#"<img src="{}/char_img/{}.png" height="{}">"#,
-        rel_path, name, size
-    )
+    if !gen_link {
+        format!(
+            r#"<img src="{rel_path}/char_img/{name}.png" height="{size}">"#,
+        )
+    } else {
+        format!(
+            r#"<a href="{rel_path}/char/{name}.html"><img src="{rel_path}/char_img/{name}.png" height="{size}"></a>"#,
+        )
+    }
 }
 
 fn convert_hanzi_to_images(s: &str, exclude_list: &str, rel_path: &'static str) -> String {
@@ -187,11 +192,11 @@ fn convert_hanzi_to_images_with_size(
     let mut remove_following_space = false;
     while let Some(c) = iter.next() {
         if c == '∅' {
-            ans.push_str(&char_img_with_size("blank", rel_path, size));
+            ans.push_str(&char_img_with_size("blank", rel_path, size, false));
         } else if c == 'x' {
             if Some('i') == iter.next() && Some('z') == iter.next() && Some('i') == iter.next() {
-                ans.push_str(&char_img_with_size("xi", rel_path, size));
-                ans.push_str(&char_img_with_size("zi", rel_path, size));
+                ans.push_str(&char_img_with_size("xi", rel_path, size, false));
+                ans.push_str(&char_img_with_size("zi", rel_path, size, false));
                 remove_following_space = true; // this deletes the redundant space after "xizi"
             } else {
                 panic!("Expected `xizi` because `x` was encountered, but did not find it.");
@@ -204,7 +209,7 @@ fn convert_hanzi_to_images_with_size(
             if c.is_ascii() {
                 log::warn!("Unexpected ASCII character `{}` in {}", c, s);
             }
-            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size));
+            ans.push_str(&char_img_with_size(&c.to_string(), rel_path, size, Linzklar::is_suitable_charcode_for_linzklar(c)));
         }
     }
 
@@ -402,6 +407,47 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
     Ok(())
 }
 
+/// Generates `char/`
+/// # Errors
+/// Will return `Err` if the file I/O fails or the render panics.
+pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+    let rel_path = "..";
+    for (linzklar, count) in &data_bundle.char_count {
+        let mut file = File::create(format!("docs/char/{}.html", linzklar))?;
+
+        let mut html = vec![];
+        for (key, vocab) in &data_bundle.vocab_ordered {
+            if vocab.pekzep_hanzi.contains(linzklar.as_char()) {
+                let link_path = format!("{rel_path}/vocab/{}.html", key.to_path_safe_string());
+                let rel_path = "..";
+                html.push(format!(
+                    "<a href=\"{link_path}\">{}</a>\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                    vocab.pekzep_latin,
+                    vocab.pekzep_hanzi,
+                    convert_hanzi_to_images(&vocab.pekzep_hanzi, "/{} N()SL«»", rel_path) ,
+                    vocab.parts_of_speech,
+                    vocab.parts_of_speech_supplement,
+                    vocab.english_gloss
+                ));
+            }
+        }
+        write!(
+            file,
+            "{}",
+            CharTemplate {
+                title: &format!("<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】",
+                convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
+                linzklar,
+            ),
+                occurrences: &format!("{}", count),
+                word_table: &html.join("\n")
+            }.render()?
+        )?;
+    }
+
+    Ok(())
+}
+
 /// Generates `vocab/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
@@ -523,7 +569,7 @@ pub fn generate_char_list(data_bundle: &verify::DataBundle) -> Result<(), Box<dy
         file,
         "{}",
         CharListTemplate {
-            char_list_html: &html.join("\n")
+            char_list_table: &html.join("\n")
         }
         .render()?
     )?;
@@ -661,8 +707,6 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
         if rec.pekzep_latin.is_empty() {
             continue;
         }
-
-        // pekzep_images: &convert_hanzi_to_images(&pekzep_hanzi_guillemet_removed, "() ", "..")
 
         if rec.requires_substitution.is_empty() {
             // This is inherently insecure, but who cares?

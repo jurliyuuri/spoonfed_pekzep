@@ -1,0 +1,16 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spoonfed Pekzep / 轻松牌语</title>
+</head>
+
+<body>
+    <h1>{{ title|safe }}</h1>
+    <p><span lang="en">occurrences</span> / <span lang="zh-CN">出现次数</span> / <span lang="ja">出現回数</span> : {{ occurrences }}</p>
+    <p><span lang="en">Words containing this character</span> / <span lang="zh-CN">包含这个磷字的词语</span> / <span lang="ja">この燐字を含む語</span> :</p>
+    {{ word_table|convert_line_breaks_and_tabs_into_single_table|safe }}
+</body>
+
+</html>
