@@ -32,8 +32,7 @@ pub fn foo() -> String {
                     <div style="flex: 50%">
                         <a href="./水.html" style="text-decoration: none;">
                             <div class="dismantling-bar">
-                                <span style="font-size: 16px;"><span style="font-family: LinzklarRounded;">水</span><span
-                                        lang="ja">【水】</span></span>
+                                <span style="font-family: LinzklarRounded;">水</span><span lang="ja">【水】</span>
                             </div>
                         </a>
                     </div>
@@ -69,32 +68,22 @@ pub fn foo2() -> String {
 {}
         <div class="dismantling-frame">
             <div style="flex: 50%">
-                <a href="./心.html" style="text-decoration: none;">
-                    <div class="dismantling-bar">
-                        <span style="font-family: LinzklarRounded;">心</span><span lang="ja">【心】</span>
-                    </div>
-                </a>
+{}
             </div>
             <div style="flex: 50%">
-                <a href="./火.html" style="text-decoration: none;">
-                    <div class="dismantling-bar">
-                        <span style="font-family: LinzklarRounded;">火</span><span lang="ja">【火】</span>
-                    </div>
-                </a>
+{}
             </div>
         </div>
     </div>
     <div style="flex: 50%">
-        <a href="./水.html" style="text-decoration: none;">
-            <div class="dismantling-bar">
-                <span style="font-size: 16px;"><span style="font-family: LinzklarRounded;">水</span><span
-                        lang="ja">【水】</span></span>
-            </div>
-        </a>
+{}
     </div>
 </div>"#,
             a('酒'),
-            indent(2, &a('奮'))
+            indent(2, &a('奮')),
+            indent(4, &a('心')),
+            indent(4, &a('火')),
+            indent(2, &a('水')),
         ),
     )
 }
