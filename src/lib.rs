@@ -4,9 +4,9 @@
 extern crate lazy_static;
 use anyhow::anyhow;
 use askama::Template;
-use recurse::foo;
 use read::char_pronunciation::Linzklar;
 use read::linzklar_dismantling::{self, DismantlingTree};
+use recurse::foo2;
 
 use crate::askama_templates::{
     CharListTemplate, CharTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate,
@@ -448,7 +448,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 
         let dismantle = parsed_dismantle.get(linzklar);
 
-        let dismantling = foo();
+        let dismantling = foo2();
 
         write!(
             file,

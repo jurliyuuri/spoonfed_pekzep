@@ -1,6 +1,9 @@
-pub fn foo() -> String {
-    String::from(
-        r#"                <a href="./酒.html" style="text-decoration: none;">
+#[test]
+fn test_foo() {
+    assert_eq!(
+        foo2(),
+        String::from(
+            r#"                <a href="./酒.html" style="text-decoration: none;">
                     <div class="dismantling-bar">
                         <span style="font-family: LinzklarRounded;">酒</span><span lang="ja">【酒】</span>
                     </div>
@@ -37,7 +40,8 @@ pub fn foo() -> String {
                         </a>
                     </div>
                 </div>"#,
-    )
+        )
+    );
 }
 
 pub fn indent(depth: usize, input: &str) -> String {
@@ -73,13 +77,49 @@ pub fn binary(s1: &str, s2: &str) -> String {
     )
 }
 
-pub fn foo2() -> String {
-    let bar = format!("{}\n{}", &a('奮'), binary(&a('心'), &a('火')),);
-
-    indent(4, &format!("{}\n{}", a('酒'), binary(&bar, &a('水')),))
+pub enum Tree<T> {
+    Leaf {
+        label: T,
+    },
+    MaybeLabelledSubTree {
+        label: Option<T>,
+        subtree: Subtree<T>,
+    },
 }
 
-#[test]
-fn test_foo() {
-    assert_eq!(foo(), foo2());
+pub enum Subtree<T> {
+    Binary(Box<Tree<T>>, Box<Tree<T>>),
+}
+
+pub fn foo3(t: Tree<char>) -> String {
+    match t {
+        Tree::Leaf { label } => a(label),
+        Tree::MaybeLabelledSubTree { label, subtree } => {
+            format!(
+                "{}\n{}",
+                label.map_or(String::new(), a),
+                match subtree {
+                    Subtree::Binary(t1, t2) => binary(&foo3(*t1), &foo3(*t2)),
+                }
+            )
+        }
+    }
+}
+
+pub fn foo2() -> String {
+    let tree = Tree::MaybeLabelledSubTree {
+        label: Some('酒'),
+        subtree: Subtree::Binary(
+            Box::new(Tree::MaybeLabelledSubTree {
+                label: Some('奮'),
+                subtree: Subtree::Binary(
+                    Box::new(Tree::Leaf { label: '心' }),
+                    Box::new(Tree::Leaf { label: '火' }),
+                ),
+            }),
+            Box::new(Tree::Leaf { label: '水' }),
+        ),
+    };
+
+    indent(4, &foo3(tree))
 }
