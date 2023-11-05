@@ -6,7 +6,7 @@ use anyhow::anyhow;
 use askama::Template;
 use read::char_pronunciation::Linzklar;
 use read::linzklar_dismantling::{self, DismantlingTree};
-use recurse::foo2;
+use recurse::{foo3, indent, Subtree, Tree};
 
 use crate::askama_templates::{
     CharListTemplate, CharTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate,
@@ -448,7 +448,21 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 
         let dismantle = parsed_dismantle.get(linzklar);
 
-        let dismantling = foo2();
+        let tree = Tree::MaybeLabelledSubTree {
+            label: Some('酒'),
+            subtree: Subtree::Binary(
+                Box::new(Tree::MaybeLabelledSubTree {
+                    label: Some('奮'),
+                    subtree: Subtree::Binary(
+                        Box::new(Tree::Leaf { label: '心' }),
+                        Box::new(Tree::Leaf { label: '火' }),
+                    ),
+                }),
+                Box::new(Tree::Leaf { label: '水' }),
+            ),
+        };
+
+        let dismantling = indent(4, &foo3(tree));
 
         write!(
             file,

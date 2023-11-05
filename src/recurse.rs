@@ -1,5 +1,22 @@
 #[test]
 fn test_foo() {
+    fn foo2() -> String {
+        let tree = Tree::MaybeLabelledSubTree {
+            label: Some('酒'),
+            subtree: Subtree::Binary(
+                Box::new(Tree::MaybeLabelledSubTree {
+                    label: Some('奮'),
+                    subtree: Subtree::Binary(
+                        Box::new(Tree::Leaf { label: '心' }),
+                        Box::new(Tree::Leaf { label: '火' }),
+                    ),
+                }),
+                Box::new(Tree::Leaf { label: '水' }),
+            ),
+        };
+    
+        indent(4, &foo3(tree))
+    }
     assert_eq!(
         foo2(),
         String::from(
@@ -106,20 +123,4 @@ pub fn foo3(t: Tree<char>) -> String {
     }
 }
 
-pub fn foo2() -> String {
-    let tree = Tree::MaybeLabelledSubTree {
-        label: Some('酒'),
-        subtree: Subtree::Binary(
-            Box::new(Tree::MaybeLabelledSubTree {
-                label: Some('奮'),
-                subtree: Subtree::Binary(
-                    Box::new(Tree::Leaf { label: '心' }),
-                    Box::new(Tree::Leaf { label: '火' }),
-                ),
-            }),
-            Box::new(Tree::Leaf { label: '水' }),
-        ),
-    };
 
-    indent(4, &foo3(tree))
-}
