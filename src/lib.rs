@@ -434,7 +434,16 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                     .collect::<Vec<_>>()
                     .join(", "),
                 occurrences: &format!("{count}"),
-                word_table: &html.join("\n")
+                word_table: &html.join("\n"),
+                variants: r#"<hr>
+        <p><span lang="en">variants</span> / <span lang="zh-CN">异体字</span> / <span lang="ja">異体字</span>
+        <ul>
+            <li><span style="filter:brightness(65%) contrast(500%);"><a href="../char/吁.html"><img
+                            style="vertical-align:middle" src="../char_img/吁.png" height="30"></a></span>【吁】</li>
+            <li><span style="filter:brightness(65%) contrast(500%);"><a href="../char/嗚.html"><img
+                            style="vertical-align:middle" src="../char_img/嗚.png" height="30"></a></span>【嗚】</li>
+        </ul>
+        </p>"#
             }
             .render()?
         )?;

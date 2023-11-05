@@ -63,5 +63,6 @@ pub struct CharTemplate<'a> {
     pub transcription_char: &'a str,
     pub pronunciations: &'a str,
     pub occurrences: &'a str,
+    pub variants: &'a str,
     pub word_table: &'a str,
 }
