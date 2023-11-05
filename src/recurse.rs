@@ -74,38 +74,9 @@ pub fn binary(s1: &str, s2: &str) -> String {
 }
 
 pub fn foo2() -> String {
-    let bar = format!(
-        r#"{}
-        <div class="dismantling-frame">
-            <div style="flex: 50%">
-{}
-            </div>
-            <div style="flex: 50%">
-{}
-            </div>"#,
-        indent(2, &a('奮')),
-        indent(4, &a('心')),
-        indent(4, &a('火')),
-    );
+    let bar = format!("{}\n{}", &a('奮'), binary(&a('心'), &a('火')),);
 
-    indent(
-        4,
-        &format!(
-            r#"{}
-<div class="dismantling-frame">
-    <div style="flex: 50%">
-{}
-        </div>
-    </div>
-    <div style="flex: 50%">
-{}
-    </div>
-</div>"#,
-            a('酒'),
-            bar,
-            indent(2, &a('水')),
-        ),
-    )
+    indent(4, &format!("{}\n{}", a('酒'), binary(&bar, &a('水')),))
 }
 
 #[test]
