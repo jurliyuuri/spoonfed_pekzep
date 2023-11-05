@@ -395,9 +395,14 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let rel_path = "..";
-    let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
+    let (char_pronunciation, variants_to_standard) = read::char_pronunciation::parse()?;
     for (linzklar, count) in &data_bundle.char_count {
         let mut file = File::create(format!("docs/char/{linzklar}.html"))?;
+
+        let variants = variants_to_standard
+            .iter()
+            .filter_map(|(key, value)| if value == linzklar { Some(key) } else { None })
+            .collect::<Vec<_>>();
 
         let mut html = vec![];
         for (key, vocab) in &data_bundle.vocab_ordered {
@@ -415,15 +420,37 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                 ));
             }
         }
+
+        let variant_html = if variants.is_empty() {
+            String::new()
+        } else {
+            format!(
+                r#"<hr>
+<p><span lang="en">variants</span> / <span lang="zh-CN">异体字</span> / <span lang="ja">異体字</span>
+<ul>
+{}
+</ul>
+</p>"#, variants
+            .iter()
+            .map(|variant| format!(r#"            <li><span style="filter:brightness(65%) contrast(500%);"><a href="../char/{variant}.html"><img
+                    style="vertical-align:middle" src="../char_img/{variant}.png" height="30"></a></span>【{variant}】</li>"#))
+            .collect::<Vec<_>>()
+            .join("\n"))
+        };
         write!(
             file,
             "{}",
             CharTemplate {
                 title_img: &format!(
                     "<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>",
-                    convert_hanzi_to_images_with_size(&format!("{linzklar}"), "/{} N()SL«»", rel_path, 130),
+                    convert_hanzi_to_images_with_size(
+                        &format!("{linzklar}"),
+                        "/{} N()SL«»",
+                        rel_path,
+                        130
+                    ),
                 ),
-                transcription_char: &format!("{}", linzklar),
+                transcription_char: &format!("{linzklar}"),
                 pronunciations: &char_pronunciation
                     .iter()
                     .filter_map(|(lin, syl)| if lin == linzklar {
@@ -435,15 +462,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                     .join(", "),
                 occurrences: &format!("{count}"),
                 word_table: &html.join("\n"),
-                variants: r#"<hr>
-        <p><span lang="en">variants</span> / <span lang="zh-CN">异体字</span> / <span lang="ja">異体字</span>
-        <ul>
-            <li><span style="filter:brightness(65%) contrast(500%);"><a href="../char/吁.html"><img
-                            style="vertical-align:middle" src="../char_img/吁.png" height="30"></a></span>【吁】</li>
-            <li><span style="filter:brightness(65%) contrast(500%);"><a href="../char/嗚.html"><img
-                            style="vertical-align:middle" src="../char_img/嗚.png" height="30"></a></span>【嗚】</li>
-        </ul>
-        </p>"#
+                variants: &variant_html,
             }
             .render()?
         )?;
