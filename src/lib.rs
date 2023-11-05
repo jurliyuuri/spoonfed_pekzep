@@ -419,16 +419,20 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             file,
             "{}",
             CharTemplate {
-                title: &format!(
-                    "<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】{}",
-                    convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
-                    linzklar,
-                    char_pronunciation
-                        .iter()
-                        .filter_map(|(lin, syl)| if lin == linzklar { Some(syl.to_string()) } else { None })
-                        .collect::<Vec<_>>()
-                        .join(", ")
+                title_img: &format!(
+                    "<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>",
+                    convert_hanzi_to_images_with_size(&format!("{linzklar}"), "/{} N()SL«»", rel_path, 130),
                 ),
+                transcription_char: &format!("{}", linzklar),
+                pronunciations: &char_pronunciation
+                    .iter()
+                    .filter_map(|(lin, syl)| if lin == linzklar {
+                        Some(syl.to_string())
+                    } else {
+                        None
+                    })
+                    .collect::<Vec<_>>()
+                    .join(", "),
                 occurrences: &format!("{count}"),
                 word_table: &html.join("\n")
             }

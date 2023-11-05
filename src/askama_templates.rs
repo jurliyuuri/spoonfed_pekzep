@@ -59,7 +59,9 @@ pub struct CharListTemplate<'a> {
 #[derive(Template)]
 #[template(path = "char.html")]
 pub struct CharTemplate<'a> {
-    pub title: &'a str,
+    pub title_img: &'a str,
+    pub transcription_char: &'a str,
+    pub pronunciations: &'a str,
     pub occurrences: &'a str,
     pub word_table: &'a str,
 }
