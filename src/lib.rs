@@ -432,8 +432,10 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 </ul>
 </p>"#, variants
             .iter()
-            .map(|variant| format!(r#"            <li><span style="filter:brightness(65%) contrast(500%);"><a href="../char/{variant}.html"><img
-                    style="vertical-align:middle" src="../char_img/{variant}.png" height="30"></a></span>【{variant}】</li>"#))
+            .map(|variant| format!(
+                r#"            <li><span style="filter:brightness(65%) contrast(500%);">{}</span>【{variant}】</li>"#,
+                convert_hanzi_to_images(&format!("{variant}"), "/{} N()SL«»", rel_path)
+            ))
             .collect::<Vec<_>>()
             .join("\n"))
         };
