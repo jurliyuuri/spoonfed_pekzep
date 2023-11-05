@@ -58,7 +58,36 @@ pub fn a(c: char) -> String {
     )
 }
 
+pub fn binary(s1: &str, s2: &str) -> String {
+    format!(
+        r#"<div class="dismantling-frame">
+    <div style="flex: 50%">
+{}
+    </div>
+    <div style="flex: 50%">
+{}
+    </div>
+</div>"#,
+        indent(2, s1),
+        indent(2, s2)
+    )
+}
+
 pub fn foo2() -> String {
+    let bar = format!(
+        r#"{}
+        <div class="dismantling-frame">
+            <div style="flex: 50%">
+{}
+            </div>
+            <div style="flex: 50%">
+{}
+            </div>"#,
+        indent(2, &a('奮')),
+        indent(4, &a('心')),
+        indent(4, &a('火')),
+    );
+
     indent(
         4,
         &format!(
@@ -66,13 +95,6 @@ pub fn foo2() -> String {
 <div class="dismantling-frame">
     <div style="flex: 50%">
 {}
-        <div class="dismantling-frame">
-            <div style="flex: 50%">
-{}
-            </div>
-            <div style="flex: 50%">
-{}
-            </div>
         </div>
     </div>
     <div style="flex: 50%">
@@ -80,9 +102,7 @@ pub fn foo2() -> String {
     </div>
 </div>"#,
             a('酒'),
-            indent(2, &a('奮')),
-            indent(4, &a('心')),
-            indent(4, &a('火')),
+            bar,
             indent(2, &a('水')),
         ),
     )
