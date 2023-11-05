@@ -140,9 +140,13 @@ pub enum IdsTrinaryOperator {
 /// 此	⿱己口
 /// 其	⿱物口
 /// 彼	💥⿱物己
+/// 何	⿵心無
+/// 或	FALSE
+/// 全	⿴周物
+/// 無	FALSE
 /// ```
 /// Each of the first column must be a linzklar.
-/// Each of the second column must be an IDS sequence, with two additional unary operators 💥 and ↺.
+/// Each of the second column must be either "FALSE" or an IDS sequence, with two additional unary operators 💥 and ↺.
 /// # Errors
 /// Gives errors if:
 /// - IO fails
@@ -151,13 +155,18 @@ pub enum IdsTrinaryOperator {
 ///
 pub fn parse() -> anyhow::Result<DismantlingTable> {
     fn convert(record: &Record) -> anyhow::Result<(Linzklar, DismantlingTree)> {
-        match DismantlingTree::parse(&record.dismantling) {
-            Err(e) => Err(e),
-            Ok(a) => Ok((Linzklar::from_str(&record.linzklar)?, a)),
+        let linzklar = Linzklar::from_str(&record.linzklar)?;
+        if record.dismantling == "FALSE" {
+            Ok((linzklar, DismantlingTree::Leaf(linzklar)))
+        } else {
+            match DismantlingTree::parse(&record.dismantling) {
+                Err(e) => Err(e),
+                Ok(a) => Ok((linzklar, a)),
+            }
         }
     }
 
-    let f = File::open("raw/linzklar_dismantling.tsv")?;
+    let f = File::open("raw/linzklar-dismantling.tsv")?;
     let mut rdr = csv::ReaderBuilder::new().delimiter(b'\t').from_reader(f);
     let mut ans = vec![];
     for result in rdr.deserialize() {

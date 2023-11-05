@@ -1,5 +1,6 @@
 use spoonfed_pekzep::*;
 use std::error::Error;
+use read::linzklar_dismantling;
 
 fn reset_folder(path: &str) -> Result<(), Box<dyn Error>> {
     eprintln!("Resetting {}", path);
@@ -24,6 +25,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     reset_folder("docs/phrase")?;
     reset_folder("docs/char")?;
     reset_folder("docs/vocab")?;
+
+    let parsed_dismantle = linzklar_dismantling::parse()?;
 
     let data_bundle = verify::DataBundle::new()?;
 
