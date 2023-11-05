@@ -4,6 +4,7 @@
 extern crate lazy_static;
 use anyhow::anyhow;
 use askama::Template;
+use recurse::foo;
 use read::char_pronunciation::Linzklar;
 use read::linzklar_dismantling::{self, DismantlingTree};
 
@@ -28,6 +29,8 @@ pub mod normalizer;
 
 /// used by [askama](https://djc.github.io/askama/) to generate HTML
 pub mod askama_templates;
+
+mod recurse;
 
 /// Splits the string at the first occurrence of `//`.
 /// # Panic
@@ -445,44 +448,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 
         let dismantle = parsed_dismantle.get(linzklar);
 
-        let dismantling = r#"                <a href="./酒.html" style="text-decoration: none;">
-                    <div class="dismantling-bar">
-                        <span style="font-family: LinzklarRounded;">酒</span><span lang="ja">【酒】</span>
-                    </div>
-                </a>
-                <div class="dismantling-frame">
-                    <div style="flex: 50%">
-                        <a href="./奮.html" style="text-decoration: none;">
-                            <div class="dismantling-bar">
-                                <span style="font-family: LinzklarRounded;">奮</span><span lang="ja">【奮】</span>
-                            </div>
-                        </a>
-                        <div class="dismantling-frame">
-                            <div style="flex: 50%">
-                                <a href="./心.html" style="text-decoration: none;">
-                                    <div class="dismantling-bar">
-                                        <span style="font-family: LinzklarRounded;">心</span><span lang="ja">【心】</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div style="flex: 50%">
-                                <a href="./火.html" style="text-decoration: none;">
-                                    <div class="dismantling-bar">
-                                        <span style="font-family: LinzklarRounded;">火</span><span lang="ja">【火】</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="flex: 50%">
-                        <a href="./水.html" style="text-decoration: none;">
-                            <div class="dismantling-bar">
-                                <span style="font-size: 16px;"><span style="font-family: LinzklarRounded;">水</span><span
-                                        lang="ja">【水】</span></span>
-                            </div>
-                        </a>
-                    </div>
-                </div>"#;
+        let dismantling = foo();
 
         write!(
             file,
