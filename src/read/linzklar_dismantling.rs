@@ -51,7 +51,7 @@ impl DismantlingTree {
                             "In {input}:\n  Encountered a unary operator '↺' but there is nothing to apply the operator onto."
                         )));
                     };
-                    stack.push(Self::Unary(CustomUnaryOperator::Explosion, Box::new(t)));
+                    stack.push(Self::Unary(CustomUnaryOperator::Rotation, Box::new(t)));
                 }
                 '⿲' | '⿳' => {
                     let t1 = stack.pop();

@@ -94,6 +94,25 @@ pub fn binary(s1: &str, s2: &str) -> String {
     )
 }
 
+pub fn trinary(s1: &str, s2: &str, s3: &str) -> String {
+    format!(
+        r#"<div class="dismantling-frame">
+    <div style="flex: 33.3333333%">
+{}
+    </div>
+    <div style="flex: 33.3333333%">
+{}
+    </div>
+    <div style="flex: 33.3333333%">
+{}
+    </div>
+</div>"#,
+        indent(2, s1),
+        indent(2, s2),
+        indent(2, s3)
+    )
+}
+
 pub enum Tree<T> {
     Leaf {
         label: T,
@@ -106,6 +125,7 @@ pub enum Tree<T> {
 
 pub enum Subtree<T> {
     Binary(Box<Tree<T>>, Box<Tree<T>>),
+    Trinary(Box<Tree<T>>, Box<Tree<T>>, Box<Tree<T>>),
 }
 
 pub fn foo3(t: Tree<char>) -> String {
@@ -117,6 +137,7 @@ pub fn foo3(t: Tree<char>) -> String {
                 label.map_or(String::new(), a),
                 match subtree {
                     Subtree::Binary(t1, t2) => binary(&foo3(*t1), &foo3(*t2)),
+                    Subtree::Trinary(t1, t2, t3) => trinary(&foo3(*t1), &foo3(*t2), &foo3(*t3)),
                 }
             )
         }

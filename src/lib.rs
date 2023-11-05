@@ -5,7 +5,9 @@ extern crate lazy_static;
 use anyhow::anyhow;
 use askama::Template;
 use read::char_pronunciation::Linzklar;
-use read::linzklar_dismantling::{self, DismantlingTree};
+use read::linzklar_dismantling::{
+    self, CustomUnaryOperator, DismantlingTree, IdsBinaryOperator, IdsTrinaryOperator,
+};
 use recurse::{foo3, indent, Subtree, Tree};
 
 use crate::askama_templates::{
@@ -394,6 +396,93 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
     Ok(())
 }
 
+fn construct_tree_from_dismantlingtree(
+    parsed_dismantle: &HashMap<Linzklar, DismantlingTree>,
+    dismantling_tree: &DismantlingTree,
+) -> Tree<char> {
+    match dismantling_tree {
+        DismantlingTree::Leaf(c) => construct_tree_from_linzklar(parsed_dismantle, *c), /* do another lookup */
+        DismantlingTree::Binary(IdsBinaryOperator::Unit, d1, d2) => Tree::MaybeLabelledSubTree {
+            label: None,
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+            ),
+        },
+        DismantlingTree::Trinary(IdsTrinaryOperator::Unit, d1, d2, d3) => {
+            Tree::MaybeLabelledSubTree {
+                label: None,
+                subtree: Subtree::Trinary(
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d3)),
+                ),
+            }
+        }
+        DismantlingTree::Unary(CustomUnaryOperator::Explosion, d1) => Tree::MaybeLabelledSubTree {
+            label: None,
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '💥' }),
+            ),
+        },
+        DismantlingTree::Unary(CustomUnaryOperator::Rotation, d1) => Tree::MaybeLabelledSubTree {
+            label: None,
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '↺' }),
+            ),
+        },
+    }
+}
+
+fn construct_tree_from_linzklar(
+    parsed_dismantle: &HashMap<Linzklar, DismantlingTree>,
+    linzklar: Linzklar,
+) -> Tree<char> {
+    let Some(dismantling_tree) = parsed_dismantle.get(&linzklar) else {
+        return Tree::Leaf {
+            label: linzklar.as_char(),
+        };
+    };
+    match dismantling_tree {
+        DismantlingTree::Leaf(_) => Tree::Leaf {
+            label: linzklar.as_char(),
+        },
+        DismantlingTree::Binary(IdsBinaryOperator::Unit, d1, d2) => Tree::MaybeLabelledSubTree {
+            label: Some(linzklar.as_char()),
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+            ),
+        },
+        DismantlingTree::Trinary(IdsTrinaryOperator::Unit, d1, d2, d3) => {
+            Tree::MaybeLabelledSubTree {
+                label: Some(linzklar.as_char()),
+                subtree: Subtree::Trinary(
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d3)),
+                ),
+            }
+        }
+        DismantlingTree::Unary(CustomUnaryOperator::Explosion, d1) => Tree::MaybeLabelledSubTree {
+            label: Some(linzklar.as_char()),
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '💥' }),
+            ),
+        },
+        DismantlingTree::Unary(CustomUnaryOperator::Rotation, d1) => Tree::MaybeLabelledSubTree {
+            label: Some(linzklar.as_char()),
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '↺' }),
+            ),
+        },
+    }
+}
+
 /// Generates `char/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
@@ -446,23 +535,10 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             .join("\n"))
         };
 
-        let dismantle = parsed_dismantle.get(linzklar);
-
-        let tree = Tree::MaybeLabelledSubTree {
-            label: Some('酒'),
-            subtree: Subtree::Binary(
-                Box::new(Tree::MaybeLabelledSubTree {
-                    label: Some('奮'),
-                    subtree: Subtree::Binary(
-                        Box::new(Tree::Leaf { label: '心' }),
-                        Box::new(Tree::Leaf { label: '火' }),
-                    ),
-                }),
-                Box::new(Tree::Leaf { label: '水' }),
-            ),
-        };
-
-        let dismantling = indent(4, &foo3(tree));
+        let dismantling = indent(
+            4,
+            &foo3(construct_tree_from_linzklar(&parsed_dismantle, *linzklar)),
+        );
 
         write!(
             file,
