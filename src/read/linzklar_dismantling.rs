@@ -1,6 +1,6 @@
 use anyhow::anyhow;
 use serde_derive::Deserialize as De;
-use std::fs::File;
+use std::{fs::File, collections::HashMap};
 
 use super::char_pronunciation::Linzklar;
 
@@ -11,7 +11,7 @@ struct Record {
 }
 
 /// a lookup table from a linzklar to a dismantling
-pub type DismantlingTable = Vec<(Linzklar, DismantlingTree)>;
+pub type DismantlingTable = HashMap<Linzklar, DismantlingTree>;
 
 #[derive(Clone, Eq, PartialEq)]
 pub enum DismantlingTree {

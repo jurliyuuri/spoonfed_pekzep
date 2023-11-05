@@ -5,6 +5,7 @@ extern crate lazy_static;
 use anyhow::anyhow;
 use askama::Template;
 use read::char_pronunciation::Linzklar;
+use read::linzklar_dismantling;
 
 use crate::askama_templates::{
     CharListTemplate, CharTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate,
@@ -394,6 +395,8 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+    let parsed_dismantle = linzklar_dismantling::parse()?;
+
     let rel_path = "..";
     let (char_pronunciation, variants_to_standard) = read::char_pronunciation::parse()?;
     for (linzklar, count) in &data_bundle.char_count {
@@ -439,6 +442,9 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             .collect::<Vec<_>>()
             .join("\n"))
         };
+
+        let dismantle = parsed_dismantle.get(linzklar);
+
         write!(
             file,
             "{}",
