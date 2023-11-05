@@ -65,4 +65,5 @@ pub struct CharTemplate<'a> {
     pub occurrences: &'a str,
     pub variants: &'a str,
     pub word_table: &'a str,
+    pub dismantling: &'a str,
 }
