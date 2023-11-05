@@ -9,3 +9,6 @@ pub mod phrase;
 
 /// Reads "raw/Spoonfed Pekzep - 語彙整理（超草案）.tsv"
 pub mod vocab;
+
+/// Reads "raw/linzklar-dismantling.tsv"
+pub mod linzklar_dismantling;
