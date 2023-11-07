@@ -491,7 +491,13 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 
     let rel_path = "..";
     let (char_pronunciation, variants_to_standard) = read::char_pronunciation::parse()?;
-    for (linzklar, count) in &data_bundle.char_count {
+
+    let extended_char_count = char_pronunciation
+        .iter()
+        .map(|(lin, _)| (*lin, *data_bundle.char_count.get(lin).unwrap_or(&0)))
+        .collect::<HashMap<_, _>>();
+
+    for (linzklar, count) in &extended_char_count {
         let mut file = File::create(format!("docs/char/{linzklar}.html"))?;
 
         let variants = variants_to_standard
