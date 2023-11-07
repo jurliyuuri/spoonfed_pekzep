@@ -14,7 +14,7 @@ fn test_foo() {
                 Box::new(Tree::Leaf { label: '水' }),
             ),
         };
-    
+
         indent(4, &foo3(tree))
     }
     assert_eq!(
@@ -70,13 +70,21 @@ pub fn indent(depth: usize, input: &str) -> String {
 }
 
 pub fn a(c: char) -> String {
-    format!(
-        r#"<a href="./{c}.html" style="text-decoration: none;">
+    if c == '💥' || c == '↺' {
+        format!(r#"
     <div class="dismantling-bar">
-        <span style="font-family: LinzklarRounded;">{c}</span><span lang="ja">【{c}】</span>
+        <span lang="ja">{c}</span>
+    </div>
+"#)
+    } else {
+        format!(
+            r#"<a href="./{c}.html" style="text-decoration: none;">
+    <div class="dismantling-bar">
+        <img src="../char_bitmap_img/{c}.png" height="16" /><span lang="ja">【{c}】</span>
     </div>
 </a>"#
-    )
+        )
+    }
 }
 
 pub fn binary(s1: &str, s2: &str) -> String {
@@ -143,5 +151,3 @@ pub fn foo3(t: Tree<char>) -> String {
         }
     }
 }
-
-
