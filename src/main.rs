@@ -25,6 +25,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     reset_folder("docs/char")?;
     reset_folder("docs/vocab")?;
 
+
     let data_bundle = verify::DataBundle::new()?;
 
     eprintln!("Generating docs/phrase/");

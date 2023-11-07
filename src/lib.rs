@@ -5,6 +5,10 @@ extern crate lazy_static;
 use anyhow::anyhow;
 use askama::Template;
 use read::char_pronunciation::Linzklar;
+use read::linzklar_dismantling::{
+    self, CustomUnaryOperator, DismantlingTree, IdsBinaryOperator, IdsTrinaryOperator,
+};
+use recurse::{foo3, indent, Subtree, Tree};
 
 use crate::askama_templates::{
     CharListTemplate, CharTemplate, IndTemplate, PhraseTemplate, VocabListInternalTemplate,
@@ -27,6 +31,8 @@ pub mod normalizer;
 
 /// used by [askama](https://djc.github.io/askama/) to generate HTML
 pub mod askama_templates;
+
+mod recurse;
 
 /// Splits the string at the first occurrence of `//`.
 /// # Panic
@@ -390,14 +396,114 @@ pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn 
     Ok(())
 }
 
+fn construct_tree_from_dismantlingtree(
+    parsed_dismantle: &HashMap<Linzklar, DismantlingTree>,
+    dismantling_tree: &DismantlingTree,
+) -> Tree<char> {
+    match dismantling_tree {
+        DismantlingTree::Leaf(c) => construct_tree_from_linzklar(parsed_dismantle, *c), /* do another lookup */
+        DismantlingTree::Binary(IdsBinaryOperator::Unit, d1, d2) => Tree::MaybeLabelledSubTree {
+            label: None,
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+            ),
+        },
+        DismantlingTree::Trinary(IdsTrinaryOperator::Unit, d1, d2, d3) => {
+            Tree::MaybeLabelledSubTree {
+                label: None,
+                subtree: Subtree::Trinary(
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d3)),
+                ),
+            }
+        }
+        DismantlingTree::Unary(CustomUnaryOperator::Explosion, d1) => Tree::MaybeLabelledSubTree {
+            label: None,
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '💥' }),
+            ),
+        },
+        DismantlingTree::Unary(CustomUnaryOperator::Rotation, d1) => Tree::MaybeLabelledSubTree {
+            label: None,
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '↺' }),
+            ),
+        },
+    }
+}
+
+fn construct_tree_from_linzklar(
+    parsed_dismantle: &HashMap<Linzklar, DismantlingTree>,
+    linzklar: Linzklar,
+) -> Tree<char> {
+    let Some(dismantling_tree) = parsed_dismantle.get(&linzklar) else {
+        return Tree::Leaf {
+            label: linzklar.as_char(),
+        };
+    };
+    match dismantling_tree {
+        DismantlingTree::Leaf(_) => Tree::Leaf {
+            label: linzklar.as_char(),
+        },
+        DismantlingTree::Binary(IdsBinaryOperator::Unit, d1, d2) => Tree::MaybeLabelledSubTree {
+            label: Some(linzklar.as_char()),
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+            ),
+        },
+        DismantlingTree::Trinary(IdsTrinaryOperator::Unit, d1, d2, d3) => {
+            Tree::MaybeLabelledSubTree {
+                label: Some(linzklar.as_char()),
+                subtree: Subtree::Trinary(
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d2)),
+                    Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d3)),
+                ),
+            }
+        }
+        DismantlingTree::Unary(CustomUnaryOperator::Explosion, d1) => Tree::MaybeLabelledSubTree {
+            label: Some(linzklar.as_char()),
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '💥' }),
+            ),
+        },
+        DismantlingTree::Unary(CustomUnaryOperator::Rotation, d1) => Tree::MaybeLabelledSubTree {
+            label: Some(linzklar.as_char()),
+            subtree: Subtree::Binary(
+                Box::new(construct_tree_from_dismantlingtree(parsed_dismantle, d1)),
+                Box::new(Tree::Leaf { label: '↺' }),
+            ),
+        },
+    }
+}
+
 /// Generates `char/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
 pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+    let parsed_dismantle = linzklar_dismantling::parse()?;
+
     let rel_path = "..";
-    let (char_pronunciation, variants) = read::char_pronunciation::parse()?;
-    for (linzklar, count) in &data_bundle.char_count {
+    let (char_pronunciation, variants_to_standard) = read::char_pronunciation::parse()?;
+
+    let extended_char_count = char_pronunciation
+        .iter()
+        .map(|(lin, _)| (*lin, *data_bundle.char_count.get(lin).unwrap_or(&0)))
+        .collect::<HashMap<_, _>>();
+
+    for (linzklar, count) in &extended_char_count {
         let mut file = File::create(format!("docs/char/{linzklar}.html"))?;
+
+        let variants = variants_to_standard
+            .iter()
+            .filter_map(|(key, value)| if value == linzklar { Some(key) } else { None })
+            .collect::<Vec<_>>();
 
         let mut html = vec![];
         for (key, vocab) in &data_bundle.vocab_ordered {
@@ -415,22 +521,58 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                 ));
             }
         }
+
+        let variant_html = if variants.is_empty() {
+            String::new()
+        } else {
+            format!(
+                r#"<hr>
+<p><span lang="en">variants</span> / <span lang="zh-CN">异体字</span> / <span lang="ja">異体字</span>
+<ul>
+{}
+</ul>
+</p>"#, variants
+            .iter()
+            .map(|variant| format!(
+                r#"            <li><span style="filter:brightness(65%) contrast(500%);">{}</span>【{variant}】</li>"#,
+                convert_hanzi_to_images(&format!("{variant}"), "/{} N()SL«»", rel_path)
+            ))
+            .collect::<Vec<_>>()
+            .join("\n"))
+        };
+
+        let dismantling = indent(
+            4,
+            &foo3(construct_tree_from_linzklar(&parsed_dismantle, *linzklar)),
+        );
+
         write!(
             file,
             "{}",
             CharTemplate {
-                title: &format!(
-                    "<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>【{}】{}",
-                    convert_hanzi_to_images(&format!("{linzklar}"), "/{} N()SL«»", rel_path),
-                    linzklar,
-                    char_pronunciation
-                        .iter()
-                        .filter_map(|(lin, syl)| if lin == linzklar { Some(syl.to_string()) } else { None })
-                        .collect::<Vec<_>>()
-                        .join(", ")
+                title_img: &format!(
+                    "<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>",
+                    convert_hanzi_to_images_with_size(
+                        &format!("{linzklar}"),
+                        "/{} N()SL«»",
+                        rel_path,
+                        130
+                    ),
                 ),
+                transcription_char: &format!("{linzklar}"),
+                pronunciations: &char_pronunciation
+                    .iter()
+                    .filter_map(|(lin, syl)| if lin == linzklar {
+                        Some(syl.to_string())
+                    } else {
+                        None
+                    })
+                    .collect::<Vec<_>>()
+                    .join(", "),
                 occurrences: &format!("{count}"),
-                word_table: &html.join("\n")
+                word_table: &html.join("\n"),
+                variants: &variant_html,
+                dismantling: &dismantling,
             }
             .render()?
         )?;

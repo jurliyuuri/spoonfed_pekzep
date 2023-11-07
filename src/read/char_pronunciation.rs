@@ -41,7 +41,7 @@ impl std::fmt::Display for LinzklarString {
     }
 }
 
-#[derive(Clone, Hash, PartialEq, Eq, Ord, PartialOrd)]
+#[derive(Clone, Hash, PartialEq, Eq, Ord, PartialOrd, Copy)]
 pub struct Linzklar(char);
 impl Linzklar {
     #[must_use] 
@@ -61,7 +61,10 @@ impl Linzklar {
             ))
         }
     }
-    fn from_str(a: &str) -> anyhow::Result<Self> {
+
+    /// # Errors
+    /// Fails if the input is outside the Unicode range `U+3400` - `U+4DBF` or `U+4E00` - `U+9FFF`, or contains multiple characters.
+    pub fn from_str(a: &str) -> anyhow::Result<Self> {
         let c = a
             .chars()
             .next()
@@ -74,6 +77,7 @@ impl Linzklar {
         }
         Self::from_char(c)
     }
+
     #[must_use] 
     pub const fn as_char(&self) -> char {
         self.0
