@@ -542,6 +542,22 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             .collect::<Vec<_>>()
             .join("\n"))
         };
+        let variants_of = variants_to_standard.get(linzklar);
+
+        let variants_of_html = if variants_of.is_none() {     String::new() } else {     format!(
+                r#"<hr>
+<p><span lang="en">A variant of</span> / <span lang="zh-CN">的异体字</span> / <span lang="ja">の異体字</span>
+<ul>
+{}
+</ul>
+</p>"#, variants_of.iter()
+            .map(|variant| format!(
+                r#"            <li><span style="filter:brightness(65%) contrast(500%);">{}</span>【{variant}】</li>"#,
+                convert_hanzi_to_images(&format!("{variant}"), "/{} N()SL«»", rel_path)
+            ))
+            .collect::<Vec<_>>()
+            .join("\n"))
+        };
 
         let dismantling = indent(
             4,
@@ -574,6 +590,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                 occurrences: &format!("{count}"),
                 word_table: &html.join("\n"),
                 variants: &variant_html,
+                variants_of: &variants_of_html,
                 dismantling: &dismantling,
             }
             .render()?
