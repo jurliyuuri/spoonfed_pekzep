@@ -507,12 +507,12 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
 
         variants.sort(); // ソートしておくことで、毎ビルドごとに HTML の差分が出るのを避ける
 
-        let mut html = vec![];
+        let mut word_table = vec![];
         for (key, vocab) in &data_bundle.vocab_ordered {
             if vocab.pekzep_hanzi.contains(linzklar.as_char()) {
                 let link_path = format!("{rel_path}/vocab/{}.html", key.to_path_safe_string());
                 let rel_path = "..";
-                html.push(format!(
+                word_table.push(format!(
                     "<a href=\"{link_path}\">{}</a>\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
                     vocab.pekzep_latin,
                     vocab.pekzep_hanzi,
@@ -524,7 +524,43 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             }
         }
 
-        let variant_html = if variants.is_empty() {
+        let mut occurrence_list = vec![];
+        for verify::Rows3Item {
+            syllables,
+            decomposition: _,
+            row,
+        } in &data_bundle.rows3
+        {
+            if row.pekzep_hanzi.contains(&format!("{linzklar}")) {
+                occurrence_list.push(format!(
+                    r#"
+            <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
+                <p><span lang="ja">{}</span></p>
+                <p><a href="../phrase/{}.html">{}</a></p>
+                <p><span lang="en">{}</span> / <span lang="zh-CN">{}</span></p>
+            </div>"#,
+                    row.pekzep_hanzi,
+                    read::phrase::syllables_to_str_underscore(syllables),
+                    row.pekzep_latin,
+                    row.english,
+                    row.chinese_hanzi
+                ));
+            }
+        }
+
+        let summary_occurrence_list = if occurrence_list.is_empty() {
+            String::new()
+        } else {
+            format!(
+                r##"<details>
+            <summary style="font-size: 80%; font-weight: bold; margin: -0.5em -0.5em 0; padding: 0.5em;"><span lang="en">Show all occurrences</span> / <span lang="zh-CN">显示所有出现</span> / <span lang="ja">全ての出現例を表示</span></summary>
+        {}
+    </details>"##,
+                occurrence_list.join("\n")
+            )
+        };
+
+        let variants = if variants.is_empty() {
             String::new()
         } else {
             format!(
@@ -543,7 +579,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             .join("\n"))
         };
 
-        let variants_of_html = variants_to_standard.get(linzklar).map_or_else(String::new, |v| {
+        let variant_of = variants_to_standard.get(linzklar).map_or_else(String::new, |v| {
                 let base_char = format!(
                     r#"<span style="filter:brightness(65%) contrast(500%);">{}</span>【{v}】"#,
                     convert_hanzi_to_images(&format!("{v}"), "/{} N()SL«»", rel_path)
@@ -582,10 +618,11 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                     })
                     .collect::<Vec<_>>()
                     .join(", "),
-                occurrences: &format!("{count}"),
-                word_table: &html.join("\n"),
-                variants: &variant_html,
-                variants_of: &variants_of_html,
+                occurrence_count: &format!("{count}"),
+                word_table: &word_table.join("\n"),
+                summary_occurrence_list: &summary_occurrence_list,
+                variants: &variants,
+                variant_of: &variant_of,
                 dismantling: &dismantling,
             }
             .render()?

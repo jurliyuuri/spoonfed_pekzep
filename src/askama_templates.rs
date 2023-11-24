@@ -62,9 +62,10 @@ pub struct CharTemplate<'a> {
     pub title_img: &'a str,
     pub transcription_char: &'a str,
     pub pronunciations: &'a str,
-    pub occurrences: &'a str,
+    pub occurrence_count: &'a str,
     pub variants: &'a str,
-    pub variants_of: &'a str,
+    pub variant_of: &'a str,
+    pub summary_occurrence_list: &'a str,
     pub word_table: &'a str,
     pub dismantling: &'a str,
 }
