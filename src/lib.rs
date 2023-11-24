@@ -500,10 +500,12 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
     for (linzklar, count) in &extended_char_count {
         let mut file = File::create(format!("docs/char/{linzklar}.html"))?;
 
-        let variants = variants_to_standard
+        let mut variants = variants_to_standard
             .iter()
             .filter_map(|(key, value)| if value == linzklar { Some(key) } else { None })
             .collect::<Vec<_>>();
+
+        variants.sort(); // ソートしておくことで、毎ビルドごとに HTML の差分が出るのを避ける
 
         let mut html = vec![];
         for (key, vocab) in &data_bundle.vocab_ordered {
