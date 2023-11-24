@@ -543,6 +543,17 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
             .join("\n"))
         };
 
+        let variants_of_html = variants_to_standard.get(linzklar).map_or_else(String::new, |v| {
+                let base_char = format!(
+                    r#"<span style="filter:brightness(65%) contrast(500%);">{}</span>【{v}】"#,
+                    convert_hanzi_to_images(&format!("{v}"), "/{} N()SL«»", rel_path)
+                );
+                format!(
+                    r#"<hr>
+    <p><span lang="en">A variant of {base_char}</span> / <span lang="zh-CN">{base_char}的异体字</span> / <span lang="ja">{base_char}の異体字</span></p>"#,
+                )
+            });
+
         let dismantling = indent(
             4,
             &foo3(construct_tree_from_linzklar(&parsed_dismantle, *linzklar)),
@@ -574,6 +585,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
                 occurrences: &format!("{count}"),
                 word_table: &html.join("\n"),
                 variants: &variant_html,
+                variants_of: &variants_of_html,
                 dismantling: &dismantling,
             }
             .render()?
