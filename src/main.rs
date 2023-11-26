@@ -1,3 +1,8 @@
+use spoonfed_pekzep::generate::chars::generate_chars;
+use spoonfed_pekzep::generate::{
+    phrases::generate_phrases, vocab_list_internal::generate_vocab_list_internal,
+    vocabs::generate_vocabs,
+};
 use spoonfed_pekzep::*;
 use std::error::Error;
 
@@ -24,7 +29,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     reset_folder("docs/phrase")?;
     reset_folder("docs/char")?;
     reset_folder("docs/vocab")?;
-
 
     let data_bundle = verify::DataBundle::new()?;
 
