@@ -103,7 +103,7 @@ fn construct_tree_from_linzklar(
 /// Generates `char/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
-pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+pub fn gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let parsed_dismantle = linzklar_dismantling::parse()?;
 
     let rel_path = "..";

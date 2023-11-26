@@ -10,7 +10,7 @@ use std::io::prelude::*;
 /// Generates `vocab_list_internal.html`
 /// # Errors
 /// Will return `Err` if the file I/O or the rendering fails.
-pub fn generate_vocab_list_internal(
+pub fn gen(
     data_bundle: &verify::DataBundle,
 ) -> Result<(), Box<dyn Error>> {
     let mut file = File::create("docs/vocab_list_internal.html")?;

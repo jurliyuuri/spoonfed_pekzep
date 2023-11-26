@@ -14,7 +14,7 @@ use std::io::prelude::*;
 /// Generates `phrase/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
-pub fn generate_phrases(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+pub fn gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     use log::warn;
     for (
         i,

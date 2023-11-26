@@ -1,8 +1,3 @@
-use spoonfed_pekzep::generate::chars::generate_chars;
-use spoonfed_pekzep::generate::{
-    phrases::generate_phrases, vocab_list_internal::generate_vocab_list_internal,
-    vocabs::generate_vocabs,
-};
 use spoonfed_pekzep::*;
 use std::error::Error;
 
@@ -33,19 +28,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     let data_bundle = verify::DataBundle::new()?;
 
     eprintln!("Generating docs/phrase/");
-    generate_phrases(&data_bundle)?;
+    generate::phrases::gen(&data_bundle)?;
 
     eprintln!("Generating docs/vocab/");
-    generate_vocabs(&data_bundle)?;
+    generate::vocabs::gen(&data_bundle)?;
 
     eprintln!("Generating docs/vocab_list_internal.html");
-    generate_vocab_list_internal(&data_bundle)?;
+    generate::vocab_list_internal::gen(&data_bundle)?;
 
     eprintln!("Generating docs/vocab_list.html");
     generate_vocab_list(&data_bundle)?;
 
     eprintln!("Generating docs/char/");
-    generate_chars(&data_bundle)?;
+    generate::chars::gen(&data_bundle)?;
 
     eprintln!("Generating docs/char_list.html");
     generate_char_list(&data_bundle)?;
