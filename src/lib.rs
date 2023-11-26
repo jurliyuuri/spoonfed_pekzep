@@ -553,7 +553,7 @@ pub fn generate_chars(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Er
         } else {
             format!(
                 r##"<details>
-            <summary style="font-size: 80%; font-weight: bold; margin: -0.5em -0.5em 0; padding: 0.5em;"><span lang="en">Show all occurrences</span> / <span lang="zh-CN">显示所有出现</span> / <span lang="ja">全ての出現例を表示</span></summary>
+            <summary style="font-size: 80%; font-weight: bold; margin: -0.5em -0.5em 0; padding: 0.5em;"><span lang="en">Show all occurrences</span> / <span lang="zh-CN">显示所有例句</span> / <span lang="ja">全ての出現例を表示</span></summary>
         {}
     </details>"##,
                 occurrence_list.join("\n")
