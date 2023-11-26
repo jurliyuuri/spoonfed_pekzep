@@ -111,11 +111,11 @@ fn get_occurrence_list(data_bundle: &verify::DataBundle, linzklar: Linzklar) -> 
         if row.pekzep_hanzi.contains(&format!("{linzklar}")) {
             occurrence_list.push(format!(
                 r#"
-        <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
-            <p><span lang="ja">{}</span></p>
-            <p><a href="../phrase/{}.html">{}</a></p>
-            <p><span lang="en">{}</span> / <span lang="zh-CN">{}</span></p>
-        </div>"#,
+            <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
+                <p><span lang="ja">{}</span></p>
+                <p><a href="../phrase/{}.html">{}</a></p>
+                <p><span lang="en">{}</span> / <span lang="zh-CN">{}</span></p>
+            </div>"#,
                 row.pekzep_hanzi,
                 read::phrase::syllables_to_str_underscore(syllables),
                 row.pekzep_latin,
