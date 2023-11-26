@@ -100,6 +100,53 @@ fn construct_tree_from_linzklar(
     }
 }
 
+fn get_occurrence_list(data_bundle: &verify::DataBundle, linzklar: Linzklar) -> Vec<String> {
+    let mut occurrence_list = vec![];
+    for verify::Rows3Item {
+        syllables,
+        decomposition: _,
+        row,
+    } in &data_bundle.rows3
+    {
+        if row.pekzep_hanzi.contains(&format!("{linzklar}")) {
+            occurrence_list.push(format!(
+                r#"
+        <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
+            <p><span lang="ja">{}</span></p>
+            <p><a href="../phrase/{}.html">{}</a></p>
+            <p><span lang="en">{}</span> / <span lang="zh-CN">{}</span></p>
+        </div>"#,
+                row.pekzep_hanzi,
+                read::phrase::syllables_to_str_underscore(syllables),
+                row.pekzep_latin,
+                row.english,
+                row.chinese_hanzi
+            ));
+        }
+    }
+    occurrence_list
+}
+
+fn get_word_table(data_bundle: &verify::DataBundle, linzklar: Linzklar, rel_path: &str) -> Vec<String> {
+    let mut word_table = vec![];
+    for (key, vocab) in &data_bundle.vocab_ordered {
+        if vocab.pekzep_hanzi.contains(linzklar.as_char()) {
+            let link_path = format!("{rel_path}/vocab/{}.html", key.to_path_safe_string());
+            let rel_path = "..";
+            word_table.push(format!(
+                "<a href=\"{link_path}\">{}</a>\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
+                vocab.pekzep_latin,
+                vocab.pekzep_hanzi,
+                convert_hanzi_to_images(&vocab.pekzep_hanzi, "/{} N()SL«»", rel_path) ,
+                vocab.parts_of_speech,
+                vocab.parts_of_speech_supplement,
+                vocab.english_gloss
+            ));
+        }
+    }
+    word_table
+}
+
 /// Generates `char/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
@@ -121,49 +168,10 @@ pub fn gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
             .iter()
             .filter_map(|(key, value)| if value == linzklar { Some(key) } else { None })
             .collect::<Vec<_>>();
-
         variants.sort(); // ソートしておくことで、毎ビルドごとに HTML の差分が出るのを避ける
 
-        let mut word_table = vec![];
-        for (key, vocab) in &data_bundle.vocab_ordered {
-            if vocab.pekzep_hanzi.contains(linzklar.as_char()) {
-                let link_path = format!("{rel_path}/vocab/{}.html", key.to_path_safe_string());
-                let rel_path = "..";
-                word_table.push(format!(
-                    "<a href=\"{link_path}\">{}</a>\t{}\t<span style=\"filter:brightness(65%) contrast(500%);\">{}</span>\t{}\t{}\t{}",
-                    vocab.pekzep_latin,
-                    vocab.pekzep_hanzi,
-                    convert_hanzi_to_images(&vocab.pekzep_hanzi, "/{} N()SL«»", rel_path) ,
-                    vocab.parts_of_speech,
-                    vocab.parts_of_speech_supplement,
-                    vocab.english_gloss
-                ));
-            }
-        }
-
-        let mut occurrence_list = vec![];
-        for verify::Rows3Item {
-            syllables,
-            decomposition: _,
-            row,
-        } in &data_bundle.rows3
-        {
-            if row.pekzep_hanzi.contains(&format!("{linzklar}")) {
-                occurrence_list.push(format!(
-                    r#"
-            <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
-                <p><span lang="ja">{}</span></p>
-                <p><a href="../phrase/{}.html">{}</a></p>
-                <p><span lang="en">{}</span> / <span lang="zh-CN">{}</span></p>
-            </div>"#,
-                    row.pekzep_hanzi,
-                    read::phrase::syllables_to_str_underscore(syllables),
-                    row.pekzep_latin,
-                    row.english,
-                    row.chinese_hanzi
-                ));
-            }
-        }
+        let word_table = get_word_table(data_bundle, *linzklar, rel_path);
+        let occurrence_list = get_occurrence_list(data_bundle, *linzklar);
 
         let summary_occurrence_list = if occurrence_list.is_empty() {
             String::new()
@@ -245,6 +253,5 @@ pub fn gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
             .render()?
         )?;
     }
-
     Ok(())
 }
