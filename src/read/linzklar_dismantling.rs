@@ -1,6 +1,6 @@
 use anyhow::anyhow;
 use serde_derive::Deserialize as De;
-use std::{fs::File, collections::HashMap};
+use std::{fs::File, collections::HashMap, str::FromStr};
 
 use super::char_pronunciation::Linzklar;
 

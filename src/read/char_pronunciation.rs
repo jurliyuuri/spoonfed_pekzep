@@ -3,6 +3,7 @@ use pekzep_syllable::PekZepSyllable;
 use serde_derive::Deserialize as De;
 use std::collections::HashMap;
 use std::fs::File;
+use std::str::FromStr;
 
 #[derive(Debug, De)]
 struct Record {
@@ -44,11 +45,11 @@ impl std::fmt::Display for LinzklarString {
 #[derive(Clone, Hash, PartialEq, Eq, Ord, PartialOrd, Copy)]
 pub struct Linzklar(char);
 impl Linzklar {
-    #[must_use] 
+    #[must_use]
     pub const fn is_suitable_charcode_for_linzklar(c: char) -> bool {
         matches!(c, '\u{3400}'..='\u{4DBF}' | '\u{4E00}'..='\u{9FFF}')
     }
-    
+
     /// # Errors
     /// Fails if the input is outside the Unicode range `U+3400` - `U+4DBF` or `U+4E00` - `U+9FFF`.
     pub fn from_char(c: char) -> anyhow::Result<Self> {
@@ -62,9 +63,18 @@ impl Linzklar {
         }
     }
 
+    #[must_use]
+    pub const fn as_char(&self) -> char {
+        self.0
+    }
+}
+
+impl std::str::FromStr for Linzklar {
+    type Err = anyhow::Error;
+
     /// # Errors
     /// Fails if the input is outside the Unicode range `U+3400` - `U+4DBF` or `U+4E00` - `U+9FFF`, or contains multiple characters.
-    pub fn from_str(a: &str) -> anyhow::Result<Self> {
+    fn from_str(a: &str) -> anyhow::Result<Self> {
         let c = a
             .chars()
             .next()
@@ -77,12 +87,8 @@ impl Linzklar {
         }
         Self::from_char(c)
     }
-
-    #[must_use] 
-    pub const fn as_char(&self) -> char {
-        self.0
-    }
 }
+
 pub type CharSoundTable = Vec<(Linzklar, PekZepSyllable)>;
 pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
 
