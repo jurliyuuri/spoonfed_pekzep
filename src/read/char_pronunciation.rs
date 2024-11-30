@@ -95,6 +95,7 @@ pub type NonRecommendedCharTable = HashMap<Linzklar, Linzklar>;
 #[allow(clippy::tabs_in_doc_comments)]
 /// Parses "raw/字音.tsv" to obtain a table converting a character to a syllable,
 /// as well as a table converting a non-recommended character into a recommended alternative.
+/// 
 /// The tsv used for the input should be of the following form:
 /// ```text
 ///character	sound	variant_of
