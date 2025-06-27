@@ -1,6 +1,6 @@
 use anyhow::anyhow;
 use serde_derive::Deserialize as De;
-use std::{fs::File, collections::HashMap, str::FromStr};
+use std::{collections::HashMap, fs::File, str::FromStr};
 
 use super::char_pronunciation::Linzklar;
 
@@ -95,7 +95,8 @@ impl DismantlingTree {
 
         if stack.len() != 1 {
             return Err(anyhow!(format!(
-                "In {input}:\n  The stack should only have a single element at the end of the operation, but the stack has length {}", stack.len()
+                "In {input}:\n  The stack should only have a single element at the end of the operation, but the stack has length {}",
+                stack.len()
             )));
         }
 

@@ -2,7 +2,7 @@ use spoonfed_pekzep::*;
 use std::error::Error;
 
 fn reset_folder(path: &str) -> Result<(), Box<dyn Error>> {
-    eprintln!("Resetting {}", path);
+    eprintln!("Resetting {path}");
     std::fs::remove_dir_all(path)?;
     std::fs::create_dir(path)?;
     Ok(())

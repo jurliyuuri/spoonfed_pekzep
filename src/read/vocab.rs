@@ -3,8 +3,8 @@ use csv::StringRecord;
 use serde_derive::{Deserialize as De, Serialize as Ser};
 use std::collections::HashMap;
 use std::fs::File;
-use std::io::prelude::*;
 use std::io::BufReader;
+use std::io::prelude::*;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 
@@ -336,7 +336,7 @@ fn split_into_main_and_postfix(input: &str) -> anyhow::Result<(String, String)> 
 - a character in the Unicode block \"CJK Unified Ideographs\"
 - a character in the Unicode block \"CJK Unified Ideographs Extension A\"",
             input
-        ))
+        ));
         }
     };
     Ok((main, postfix))

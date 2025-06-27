@@ -71,11 +71,13 @@ pub fn indent(depth: usize, input: &str) -> String {
 
 pub fn a(c: char) -> String {
     if c == '💥' || c == '↺' {
-        format!(r#"
+        format!(
+            r#"
     <div class="dismantling-bar">
         <span lang="ja">{c}</span>
     </div>
-"#)
+"#
+        )
     } else {
         format!(
             r#"<a href="./{c}.html" style="text-decoration: none;">

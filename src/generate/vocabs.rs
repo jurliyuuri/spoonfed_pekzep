@@ -4,6 +4,7 @@ use crate::askama_templates::VocabTemplate;
 use crate::read;
 use crate::verify;
 use std::error::Error;
+use std::fmt::Write as _;
 use std::fs::File;
 use std::io::prelude::*;
 
@@ -23,7 +24,8 @@ pub fn r#gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
         } in &data_bundle.rows3
         {
             if decomposition.iter().flatten().any(|item| item.key == *key) {
-                usages += &format!(
+                let _ = write!(
+                    usages,
                     r#"
             <div style="margin-left: 10px; border-left: 3px solid rgb(34,126,188); padding-left: 5px">
                 <p><span lang="ja">{}</span></p>

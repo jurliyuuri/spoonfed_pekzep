@@ -1,7 +1,5 @@
 #![warn(clippy::pedantic, clippy::nursery)]
-#![allow(clippy::non_ascii_literal)]
-#[macro_use]
-extern crate lazy_static;
+#![allow(clippy::non_ascii_literal, clippy::too_many_lines)]
 use askama::Template;
 use read::char_pronunciation::Linzklar;
 
@@ -9,6 +7,7 @@ use crate::askama_templates::{CharListTemplate, IndTemplate, VocabListTemplate};
 use crate::read::vocab::SplittableCompoundInfo;
 use std::collections::HashMap;
 use std::error::Error;
+use std::fmt::Write as _;
 use std::fs::File;
 use std::io::prelude::*;
 
@@ -100,11 +99,7 @@ impl verify::DecompositionItem {
 }
 
 const fn to_check(a: bool) -> &'static str {
-    if a {
-        "&#x2713;"
-    } else {
-        ""
-    }
+    if a { "&#x2713;" } else { "" }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -240,7 +235,6 @@ fn sentence_decomposition_to_analysis_merging_unsplitted_compounds(
             skip_flag = true;
         } else if skip_flag {
             skip_flag = false;
-            continue;
         } else {
             ans.push(
                 decomposition_item
@@ -391,8 +385,9 @@ pub fn write_condensed_csv() -> Result<(), Box<dyn Error>> {
         }
 
         if rec.requires_substitution.is_empty() {
-            condensed_csv += &format!(
-                "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n",
+            let _ = writeln!(
+                condensed_csv,
+                "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
                 rec.english,
                 rec.pekzep_latin,
                 rec.pekzep_hanzi,
@@ -438,8 +433,9 @@ pub fn write_condensed_js() -> Result<(), Box<dyn Error>> {
 
         if rec.requires_substitution.is_empty() {
             // This is inherently insecure, but who cares?
-            js += &format!(
-                "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`, pekzep_images: `{}`, japanese: `{}`}},\n",
+            let _ = writeln!(
+                js,
+                "\t{{english: `{}`, pekzep_latin: `{}`, pekzep_hanzi: `{}`, chinese_pinyin: `{}`, chinese_hanzi: `{}`, decomposed: `{}`, filetype: `{}`, recording_author: `{}`, pekzep_images: `{}`, japanese: `{}`}},",
                 rec.english,
                 rec.pekzep_latin,
                 remove_guillemets(&rec.pekzep_hanzi),
@@ -472,7 +468,7 @@ pub fn write_char_count_js<S: ::std::hash::BuildHasher>(
     char_count.sort_by(|a, b| (b.1, b.0).cmp(&(a.1, a.0)));
 
     for (k, v) in char_count {
-        js += &format!("    \"{k}\": {v},\n");
+        let _ = writeln!(js, "    \"{k}\": {v},");
     }
 
     js += "}\n";

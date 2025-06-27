@@ -7,8 +7,8 @@ use pekzep_syllable::PekZepSyllable;
 use serde_derive::{Deserialize as De, Serialize as Ser};
 use std::collections::HashSet;
 use std::fs::File;
-use std::io::prelude::*;
 use std::io::BufReader;
+use std::io::prelude::*;
 
 #[derive(Debug, Clone, Eq, PartialEq, Hash, Copy)]
 pub enum ExtSyllable {

@@ -10,9 +10,7 @@ use std::io::prelude::*;
 /// Generates `vocab_list_internal.html`
 /// # Errors
 /// Will return `Err` if the file I/O or the rendering fails.
-pub fn r#gen(
-    data_bundle: &verify::DataBundle,
-) -> Result<(), Box<dyn Error>> {
+pub fn r#gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let mut file = File::create("docs/vocab_list_internal.html")?;
     let mut html = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {

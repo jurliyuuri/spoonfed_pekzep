@@ -30,7 +30,10 @@ pub fn generate_oga_tag(
 }
 
 #[must_use]
-pub fn generate_wav_tag(row: &read::phrase::Item, syllables: &[read::phrase::ExtSyllable]) -> String {
+pub fn generate_wav_tag(
+    row: &read::phrase::Item,
+    syllables: &[read::phrase::ExtSyllable],
+) -> String {
     use log::warn;
     let filename = read::phrase::syllables_to_str_underscore(syllables);
     let wav_file_exists =

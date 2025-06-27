@@ -2,7 +2,7 @@ use crate::read::char_pronunciation::Linzklar;
 use crate::read::linzklar_dismantling::{
     self, CustomUnaryOperator, DismantlingTree, IdsBinaryOperator, IdsTrinaryOperator,
 };
-use crate::recurse::{foo3, indent, Subtree, Tree};
+use crate::recurse::{Subtree, Tree, foo3, indent};
 use askama::Template;
 
 use crate::askama_templates::CharTemplate;
@@ -127,7 +127,11 @@ fn get_occurrence_list(data_bundle: &verify::DataBundle, linzklar: Linzklar) -> 
     occurrence_list
 }
 
-fn get_word_table(data_bundle: &verify::DataBundle, linzklar: Linzklar, rel_path: &str) -> Vec<String> {
+fn get_word_table(
+    data_bundle: &verify::DataBundle,
+    linzklar: Linzklar,
+    rel_path: &str,
+) -> Vec<String> {
     let mut word_table = vec![];
     for (key, vocab) in &data_bundle.vocab_ordered {
         if vocab.pekzep_hanzi.contains(linzklar.as_char()) {
@@ -177,10 +181,10 @@ pub fn r#gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
             String::new()
         } else {
             format!(
-                r##"<details>
+                r#"<details>
             <summary style="font-size: 80%; font-weight: bold; margin: -0.5em -0.5em 0; padding: 0.5em;"><span lang="en">Show all occurrences</span> / <span lang="zh-CN">显示所有例句</span> / <span lang="ja">全ての出現例を表示</span></summary>
         {}
-    </details>"##,
+    </details>"#,
                 occurrence_list.join("\n")
             )
         };

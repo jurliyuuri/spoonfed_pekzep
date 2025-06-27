@@ -27,7 +27,9 @@ impl DataBundle {
         contraction_pronunciation: &[(LinzklarString, pekzep_syllable::PekZepSyllable)],
     ) -> anyhow::Result<()> {
         use log::info;
-        eprintln!("Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
+        eprintln!(
+            "Checking if the pronunciations of the sentences are correct. Run with RUST_LOG environment variable set to `info` to see the details."
+        );
         for (k, v) in spoonfed_rows {
             let mut iter = v.pekzep_hanzi.chars();
             let mut key_iter = k.iter();
@@ -65,8 +67,11 @@ impl DataBundle {
                         info!("matched {} with {}", a.0, a.1);
                     } else {
                         return Err(anyhow!(
-                            "While trying to match {:?} with {}, cannot find the contracted pronunciation `{}` for the character sequence `{}`", k, v.pekzep_hanzi,
-                            expected_syllable, contraction
+                            "While trying to match {:?} with {}, cannot find the contracted pronunciation `{}` for the character sequence `{}`",
+                            k,
+                            v.pekzep_hanzi,
+                            expected_syllable,
+                            contraction
                         ));
                     }
                 } else if c == 'x' {
@@ -77,10 +82,18 @@ impl DataBundle {
                         if key_iter.next() == Some(&read::phrase::ExtSyllable::Xizi) {
                             info!("matched `xizi`.");
                         } else {
-                            return Err(anyhow!("While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else", k, v.pekzep_hanzi));
+                            return Err(anyhow!(
+                                "While trying to match {:?} with {}, mismatch found: pekzep_hanzi gave `xizi` but the key was something else",
+                                k,
+                                v.pekzep_hanzi
+                            ));
                         }
                     } else {
-                        return Err(anyhow!("While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.", k, v.pekzep_hanzi));
+                        return Err(anyhow!(
+                            "While trying to match {:?} with {}, expected `xizi` because `x` was encountered, but did not find it.",
+                            k,
+                            v.pekzep_hanzi
+                        ));
                     }
                 } else {
                     let expected_syllable = if let Some(s) = key_iter.next() {
@@ -99,8 +112,11 @@ impl DataBundle {
                         info!("matched {} with {}", a.0, a.1);
                     } else {
                         return Err(anyhow!(
-                            "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`", k, v.pekzep_hanzi,
-                            expected_syllable, c
+                            "While trying to match {:?} with {}, cannot find the pronunciation `{}` for character `{}`",
+                            k,
+                            v.pekzep_hanzi,
+                            expected_syllable,
+                            c
                         ));
                     }
                 }
@@ -109,7 +125,10 @@ impl DataBundle {
             if let Some(a) = key_iter.next() {
                 return Err(anyhow!(
                     "Encountered {} but `{}` ended earlier.\n\nThis occurred while trying to match {:?} with {}, ",
-                    a, v.pekzep_hanzi, k, v.pekzep_hanzi,
+                    a,
+                    v.pekzep_hanzi,
+                    k,
+                    v.pekzep_hanzi,
                 ));
             }
         }
@@ -181,7 +200,7 @@ impl DataBundle {
                     "While trying to match {:?} with {}, cannot find matching xizi.",
                     v.pekzep_hanzi,
                     v.pekzep_latin
-                ))
+                ));
             }
         }
         Ok(())
@@ -193,7 +212,9 @@ impl DataBundle {
         contraction_pronunciation: &[(LinzklarString, pekzep_syllable::PekZepSyllable)],
     ) -> anyhow::Result<()> {
         use log::info;
-        eprintln!("Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details.");
+        eprintln!(
+            "Checking if the pronunciations of the glosses are correct. Run with RUST_LOG environment variable set to `info` to see the details."
+        );
         // let mut pronunciation_errors_in_vocab = vec![];
         for v in vocab.values() {
             if v.pekzep_hanzi == "∅" && v.pekzep_latin.is_empty() {
@@ -234,9 +255,12 @@ impl DataBundle {
                             info!("matched {} with {}", a.0, a.1);
                         } else {
                             return Err(anyhow!(
-                            "While trying to match {} with {}, cannot find the contracted pronunciation `{}` for `«{}»`", syllable, contraction,
-                            syllable, c
-                        ));
+                                "While trying to match {} with {}, cannot find the contracted pronunciation `{}` for `«{}»`",
+                                syllable,
+                                contraction,
+                                syllable,
+                                c
+                            ));
                         }
                     } else if let Some(a) = char_pronunciation
                         .iter()
@@ -245,8 +269,11 @@ impl DataBundle {
                         info!("matched {} with {}", a.0, a.1);
                     } else {
                         return Err(anyhow!(
-                            "While trying to match {} with {}, cannot find the pronunciation `{}` for character `{}`", v.pekzep_hanzi, v.pekzep_latin,
-                            syllable, c
+                            "While trying to match {} with {}, cannot find the pronunciation `{}` for character `{}`",
+                            v.pekzep_hanzi,
+                            v.pekzep_latin,
+                            syllable,
+                            c
                         ));
                     }
                 } else if s == "//" {
@@ -276,22 +303,24 @@ impl DataBundle {
                             // for the hanzi side, skip
                             loop {
                                 match hanzi_iter.next() {
-                                    Some(' ') => continue,
+                                    Some(' ') => { /* continue */ },
                                     Some('{') => break,
                                     None => continue 'a,
-                                    Some(_) => panic!("Trying to match {} with {}: Unexpected char {s:?} found while dealing with braces", 
-                                    v.pekzep_hanzi, v.pekzep_latin)
+                                    Some(_) => panic!(
+                                        "Trying to match {} with {}: Unexpected char {s:?} found while dealing with braces",
+                                        v.pekzep_hanzi, v.pekzep_latin
+                                    ),
                                 }
                             }
                             loop {
                                 match hanzi_iter.next() {
                                     Some('}') => break,
                                     None => panic!("Unexpected end of the input"),
-                                    Some(_) => continue,
+                                    Some(_) => { /* continue */ },
                                 }
                             }
                         }
-                        Some(_) => continue,
+                        Some(_) => { /* continue */ },
                         None => break,
                     }
                 }
@@ -318,9 +347,8 @@ impl DataBundle {
                 return;
             }
             warn!(
-                "{} contains 躍, but the English translation did not contain the word 'jump' or 'dance'. Please check if the sentence `{}` should contains the notion of 'jump'.", 
-                pekzep_hanzi,
-                english
+                "{} contains 躍, but the English translation did not contain the word 'jump' or 'dance'. Please check if the sentence `{}` should contains the notion of 'jump'.",
+                pekzep_hanzi, english
             );
         }
     }
@@ -331,15 +359,16 @@ impl DataBundle {
                 return;
             }
             warn!(
-                "{} contains 壁, but the English translation did not contain the word 'wall'. Please check if the sentence `{}` should contains the notion of 'jump'.", 
-                pekzep_hanzi,
-                english
+                "{} contains 壁, but the English translation did not contain the word 'wall'. Please check if the sentence `{}` should contains the notion of 'jump'.",
+                pekzep_hanzi, english
             );
         }
     }
     fn check_a(s: &str) {
         use log::warn;
         use regex::Regex;
+        use std::sync::LazyLock;
+        static RE_NO_PUNCTUATION_AFTER_噫: LazyLock<Regex> = LazyLock::new(|| Regex::new("噫[^)。！？」]").unwrap());
 
         // 【之】の後に句読点あるなら警告
         if s.contains("之。") || s.contains("之！") || s.contains("之？") || s.contains("之」")
@@ -351,10 +380,7 @@ impl DataBundle {
         }
 
         // 【噫】の後に句読点も)もないなら警告
-        lazy_static! {
-            static ref RE: Regex = Regex::new("噫[^)。！？」]").unwrap();
-        }
-        if RE.is_match(s) {
+        if RE_NO_PUNCTUATION_AFTER_噫.is_match(s) {
             warn!(
                 "no punctuation found after `噫` in `{}`. Maybe replace it with `之`.",
                 s

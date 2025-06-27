@@ -94,7 +94,10 @@ pub fn r#gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
         write!(file, "{}", content.render()?)?;
 
         if row.chinese_hanzi.starts_with('A') && row.chinese_hanzi.contains('B') {
-            warn!("A-B style dialogue detected: {}, matched with {}. Replace this with 「」-style while also making sure the Hanzi and the Pinyin matches.", row.chinese_hanzi, row.chinese_pinyin);
+            warn!(
+                "A-B style dialogue detected: {}, matched with {}. Replace this with 「」-style while also making sure the Hanzi and the Pinyin matches.",
+                row.chinese_hanzi, row.chinese_pinyin
+            );
         }
     }
     Ok(())
