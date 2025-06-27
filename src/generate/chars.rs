@@ -150,7 +150,7 @@ fn get_word_table(data_bundle: &verify::DataBundle, linzklar: Linzklar, rel_path
 /// Generates `char/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
-pub fn gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+pub fn r#gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     let parsed_dismantle = linzklar_dismantling::parse()?;
 
     let rel_path = "..";

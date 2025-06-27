@@ -10,7 +10,7 @@ use std::io::prelude::*;
 /// Generates `vocab/`
 /// # Errors
 /// Will return `Err` if the file I/O fails or the render panics.
-pub fn gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
+pub fn r#gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
     for (key, v) in &data_bundle.vocab_ordered {
         let mut file = File::create(format!("docs/vocab/{}.html", key.to_path_safe_string()))?;
 

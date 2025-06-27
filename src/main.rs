@@ -10,7 +10,8 @@ fn reset_folder(path: &str) -> Result<(), Box<dyn Error>> {
 fn main() -> Result<(), Box<dyn Error>> {
     use std::env;
     if env::var("RUST_LOG").is_err() {
-        env::set_var("RUST_LOG", "warn");
+        // TODO: Audit that the environment access only happens in single-threaded code.
+        unsafe { env::set_var("RUST_LOG", "warn") };
     }
     env_logger::init();
 
@@ -28,19 +29,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     let data_bundle = verify::DataBundle::new()?;
 
     eprintln!("Generating docs/phrase/");
-    generate::phrases::gen(&data_bundle)?;
+    generate::phrases::r#gen(&data_bundle)?;
 
     eprintln!("Generating docs/vocab/");
-    generate::vocabs::gen(&data_bundle)?;
+    generate::vocabs::r#gen(&data_bundle)?;
 
     eprintln!("Generating docs/vocab_list_internal.html");
-    generate::vocab_list_internal::gen(&data_bundle)?;
+    generate::vocab_list_internal::r#gen(&data_bundle)?;
 
     eprintln!("Generating docs/vocab_list.html");
     generate_vocab_list(&data_bundle)?;
 
     eprintln!("Generating docs/char/");
-    generate::chars::gen(&data_bundle)?;
+    generate::chars::r#gen(&data_bundle)?;
 
     eprintln!("Generating docs/char_list.html");
     generate_char_list(&data_bundle)?;
