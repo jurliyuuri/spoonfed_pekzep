@@ -77,7 +77,7 @@ pub fn r#gen(data_bundle: &verify::DataBundle) -> Result<(), Box<dyn Error>> {
                 (Some(read::phrase::Author::JektoVatimeliju), _) => "#754eab",
                 (Some(read::phrase::Author::FaliraLyjotafis), _) => "#e33102",
                 (Some(s), _) => {
-                    warn!("Unrecognized author `{:?}`", s);
+                    warn!("Unrecognized author `{s:?}`");
                     "#000000"
                 }
                 (None, _) => "#000000",

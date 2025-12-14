@@ -35,7 +35,7 @@ impl DataBundle {
             let mut key_iter = k.iter();
             while let Some(c) = iter.next() {
                 if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
-                    info!("Skipped: {}", c);
+                    info!("Skipped: {c}");
                 } else if c == '«' {
                     // Handle exceptional contractions such as «足手» xiop1
                     let mut contraction = String::new();
@@ -144,7 +144,7 @@ impl DataBundle {
             let mut iter = v.pekzep_hanzi.chars();
             while let Some(c) = iter.next() {
                 if c.is_whitespace() || c.is_ascii_punctuation() || "！？「」。".contains(c) {
-                    info!("Skipped: {}", c);
+                    info!("Skipped: {c}");
                 } else if c == '«' {
                     // Handle exceptional contractions such as «足手» xiop1
                     let mut c = iter.next().expect("Unmatched guillemet");
@@ -333,8 +333,7 @@ impl DataBundle {
         for (key, value) in variants {
             if s.contains(&key.to_string()) {
                 warn!(
-                    "{} contains {}, which should be replaced with {}",
-                    s, key, value
+                    "{s} contains {key}, which should be replaced with {value}"
                 );
             }
         }
@@ -347,8 +346,7 @@ impl DataBundle {
                 return;
             }
             warn!(
-                "{} contains 躍, but the English translation did not contain the word 'jump' or 'dance'. Please check if the sentence `{}` should contains the notion of 'jump'.",
-                pekzep_hanzi, english
+                "{pekzep_hanzi} contains 躍, but the English translation did not contain the word 'jump' or 'dance'. Please check if the sentence `{english}` should contains the notion of 'jump'."
             );
         }
     }
@@ -359,8 +357,7 @@ impl DataBundle {
                 return;
             }
             warn!(
-                "{} contains 壁, but the English translation did not contain the word 'wall'. Please check if the sentence `{}` should contains the notion of 'jump'.",
-                pekzep_hanzi, english
+                "{pekzep_hanzi} contains 壁, but the English translation did not contain the word 'wall'. Please check if the sentence `{english}` should contains the notion of 'jump'."
             );
         }
     }
@@ -374,16 +371,14 @@ impl DataBundle {
         if s.contains("之。") || s.contains("之！") || s.contains("之？") || s.contains("之」")
         {
             warn!(
-                "punctuation after `之` is detected in `{}`. Maybe replace it with `噫`?",
-                s
+                "punctuation after `之` is detected in `{s}`. Maybe replace it with `噫`?"
             );
         }
 
         // 【噫】の後に句読点も)もないなら警告
         if RE_NO_PUNCTUATION_AFTER_噫.is_match(s) {
             warn!(
-                "no punctuation found after `噫` in `{}`. Maybe replace it with `之`.",
-                s
+                "no punctuation found after `噫` in `{s}`. Maybe replace it with `之`."
             );
         }
     }
@@ -392,15 +387,13 @@ impl DataBundle {
         use log::warn;
         if s.contains(" .") {
             warn!(
-                "a space before a period is detected in `{}`. Remove the space.",
-                s
+                "a space before a period is detected in `{s}`. Remove the space."
             );
         }
 
         if s.contains(" ,") {
             warn!(
-                "a space before a comma is detected in `{}`. Remove the space.",
-                s
+                "a space before a comma is detected in `{s}`. Remove the space."
             );
         }
     }
@@ -432,7 +425,7 @@ impl DataBundle {
 
             info!("parsing pinyin {:?}:", &item.chinese_pinyin);
             if let Err(err) = match_pinyin_with_hanzi(&item.chinese_pinyin, &item.chinese_hanzi) {
-                warn!("{}", err);
+                warn!("{err}");
             }
         }
 
@@ -475,7 +468,7 @@ impl DataBundle {
 
         for key in vocab.keys() {
             if !vocab_ordered.contains_key(key) {
-                warn!("Item with internal key `{}` is never used", key);
+                warn!("Item with internal key `{key}` is never used");
             }
         }
 

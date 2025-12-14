@@ -40,12 +40,12 @@ pub fn generate_wav_tag(
         std::path::Path::new(&format!("docs/spoonfed_pekzep_sounds/{filename}.wav")).exists();
     if row.filetype.contains(&read::phrase::FilePathType::Wav) {
         if !wav_file_exists {
-            warn!("wav file not found: {}.wav", filename);
+            warn!("wav file not found: {filename}.wav");
         }
         format!(r#"<source src="../spoonfed_pekzep_sounds/{filename}.wav" type="audio/wav">"#)
     } else {
         if wav_file_exists {
-            warn!("wav file IS found, but is not linked: {}.wav", filename);
+            warn!("wav file IS found, but is not linked: {filename}.wav");
         }
         String::new()
     }

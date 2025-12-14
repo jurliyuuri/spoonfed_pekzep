@@ -137,8 +137,7 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize, gen_link:
         ) {
             Ok(_) => {
                 info!(
-                    "char_img not found, but found in char_img_fallback: {}.png",
-                    name
+                    "char_img not found, but found in char_img_fallback: {name}.png"
                 );
                 File::create(format!("docs/char_img/fallback_{name}.txt")).unwrap();
             }
@@ -147,7 +146,7 @@ fn char_img_with_size(name: &str, rel_path: &'static str, size: usize, gen_link:
             }
         }
     } else {
-        info!("char_img not found: {}.png", name);
+        info!("char_img not found: {name}.png");
         File::create(format!("docs/char_img/dummy_{name}.txt")).unwrap();
     }
     if gen_link {
@@ -189,7 +188,7 @@ fn convert_hanzi_to_images_with_size(
             }
         } else {
             if c.is_ascii() {
-                log::warn!("Unexpected ASCII character `{}` in {}", c, s);
+                log::warn!("Unexpected ASCII character `{c}` in {s}");
             }
             ans.push_str(&char_img_with_size(
                 &c.to_string(),
